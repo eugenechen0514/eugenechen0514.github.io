@@ -3,16 +3,11 @@ $.fn.hasAttr = function(name) { var attr = $(this).attr(name); return typeof att
 
 
 $(document).ready(function() {
-r=function(){dpi=window.devicePixelRatio;$('.js5').attr('src', (dpi>1) ? 'images/2018feb_180917_0270-620.jpg' : 'images/2018feb_180917_0270-310.jpg');
-$('.js').attr('src', (dpi>1) ? 'images/2018feb_180917_0253-824.jpg' : 'images/2018feb_180917_0253-412.jpg');
-$('.js4').attr('src', (dpi>1) ? 'images/2018march_180917_0151-826.jpg' : 'images/2018march_180917_0151-413.jpg');};
+r=function(){dpi=window.devicePixelRatio;$('.js26').attr('src', (dpi>1) ? 'images/2018feb_180917_0296-574.jpg' : 'images/2018feb_180917_0296-287.jpg');
+$('.js27').attr('src', (dpi>1) ? 'images/20171228-1230-hua-lian_180917_0389-686.jpg' : 'images/20171228-1230-hua-lian_180917_0389-343.jpg');
+$('.js28').attr('src', (dpi>1) ? 'images/2018march_180917_0151-694.jpg' : 'images/2018march_180917_0151-347.jpg');
+$('.js25').attr('src', (dpi>1) ? 'images/2018feb_180917_0270-762.jpg' : 'images/2018feb_180917_0270-381.jpg');};
 if(!window.HTMLPictureElement){r();}
 (function(){$('a[href^="#"]:not(.allowConsent,.noConsent,.denyConsent,.removeConsent)').each(function(){$(this).click(function(){var t=this.hash.length>1?$('[name="'+this.hash.slice(1)+'"]').offset().top:0;return $("html, body").animate({scrollTop:t},400),!1})})})();
-var consent = new ConsentBanner('privacy-policy.html', 1);var wl = new woolite();
-wl.init();
-wl.addAnimation($('.js2')[0], "0.60s", "0.00s", 1, 100);
-wl.addAnimation($('.js3')[0], "0.60s", "0.00s", 1, 100);
-wl.addAnimation($('.js6')[0], "0.70s", "0.00s", 1, 100);
-wl.start();
-
+var consent = new ConsentBanner('privacy-policy.html', 1);
 });

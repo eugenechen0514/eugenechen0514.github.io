@@ -3,6 +3,16 @@ $.fn.hasAttr = function(name) { var attr = $(this).attr(name); return typeof att
 
 
 $(document).ready(function() {
+r=function(){dpi=window.devicePixelRatio;$('.js3').attr('src', (dpi>1) ? 'images/2018feb_180917_0253-824.jpg' : 'images/2018feb_180917_0253-412.jpg');
+$('.js6').attr('src', (dpi>1) ? 'images/2018march_180917_0151-826.jpg' : 'images/2018march_180917_0151-413.jpg');};
+if(!window.HTMLPictureElement){r();}
 (function(){$('a[href^="#"]:not(.allowConsent,.noConsent,.denyConsent,.removeConsent)').each(function(){$(this).click(function(){var t=this.hash.length>1?$('[name="'+this.hash.slice(1)+'"]').offset().top:0;return $("html, body").animate({scrollTop:t},400),!1})})})();
-var consent = new ConsentBanner('privacy-policy.html', 1);
+var consent = new ConsentBanner('privacy-policy.html', 1);var wl = new woolite();
+wl.init();
+wl.addAnimation($('.js2')[0], "1.00s", "0.00s", 1, 100);
+wl.addAnimation($('.js4')[0], "0.60s", "0.00s", 1, 100);
+wl.addAnimation($('.js5')[0], "0.60s", "0.00s", 1, 100);
+wl.addAnimation($('.js7')[0], "2.00s", "0.00s", 1, 100);
+wl.start();
+
 });
