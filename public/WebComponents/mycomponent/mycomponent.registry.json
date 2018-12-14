@@ -1,0 +1,15 @@
+{
+  "namespace": "mycomponent",
+  "fsNamespace": "mycomponent",
+  "loader": "../mycomponent.js",
+  "core": "mycomponent.k8pumf0i.js",
+  "corePolyfilled": "mycomponent.2mjp8uwj.js",
+  "components": {
+    "my-component": {
+      "bundleIds": {
+        "$": "zrk6ysz1"
+      },
+      "encapsulation": "shadow"
+    }
+  }
+}
