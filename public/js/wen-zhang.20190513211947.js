@@ -8,7 +8,6 @@ var consent = new ConsentBanner('privacy-policy.html', 1);var wl = new woolite()
 wl.init();
 wl.addAnimation($('.js22')[0], "1.00s", "0.00s", 1, 100);
 wl.addAnimation($('.js23')[0], "2.00s", "0.00s", 1, 100);
-wl.addAnimation($('.js24')[0], "2.00s", "0.00s", 1, 100);
 wl.start();
 
 });
