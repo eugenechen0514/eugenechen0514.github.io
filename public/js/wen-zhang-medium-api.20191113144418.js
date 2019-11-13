@@ -3,11 +3,11 @@ $.fn.hasAttr = function(name) { var attr = $(this).attr(name); return typeof att
 
 
 $(document).ready(function() {
-r=function(){dpi=window.devicePixelRatio;$('.js31').attr('src', (dpi>1) ? 'images/2018feb_180917_0296-574-1.jpg' : 'images/2018feb_180917_0296-287-1.jpg');
-$('.js32').attr('src', (dpi>1) ? 'images/20171228-1230-hua-lian_180917_0389-686-1.jpg' : 'images/20171228-1230-hua-lian_180917_0389-343-1.jpg');
-$('.js33').attr('src', (dpi>1) ? 'images/2018march_180917_0151-694-1.jpg' : 'images/2018march_180917_0151-347-1.jpg');
-$('.js30').attr('src', (dpi>1) ? 'images/2018feb_180917_0270-762-1.jpg' : 'images/2018feb_180917_0270-381-1.jpg');};
-if(!window.HTMLPictureElement){r();}
 (function(){$('a[href^="#"]:not(.allowConsent,.noConsent,.denyConsent,.removeConsent)').each(function(i,e){$(e).click(function(){var t=e.hash.length>1?$('[name="'+e.hash.slice(1)+'"]').offset().top:0;return $("html, body").animate({scrollTop:t},400),!1})})})();
-var consent = new ConsentBanner('privacy-policy.html', 1);
+var consent = new ConsentBanner('privacy-policy.html', 1);var wl = new woolite();
+wl.init();
+wl.addAnimation($('.js30')[0], "1.00s", "0.00s", 1, 100);
+wl.addAnimation($('.js31')[0], "2.00s", "0.00s", 1, 100);
+wl.start();
+
 });
