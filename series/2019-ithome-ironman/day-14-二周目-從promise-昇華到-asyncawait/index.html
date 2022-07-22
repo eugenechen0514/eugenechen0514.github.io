@@ -1,0 +1,840 @@
+<!doctype html><html class="position-relative" itemscope itemtype="http://schema.org/WebPage" lang="zh-tw" data-theme="auto"
+  
+   data-palette="purple">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Day 14 - 二周目 - 從Promise 昇華到 async:await - EugeneChen</title><link rel="apple-touch-icon" href="/images/icons/icon-180x180.png" sizes="180x180">
+<link rel="icon" href="/images/icons/icon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/images/icons/icon-16x16.png" sizes="16x16" type="image/png">
+<link rel="icon" href="/images/icons/favicon.ico">
+<link rel="manifest" href="/manifest.json">
+<meta name="keywords" content="" />
+<meta name="description" content="從 Promise 昇華到 async:await" /><meta name="robots" content="index, follow" /><meta itemprop="name" content="Day 14 - 二周目 - 從Promise 昇華到 async:await">
+<meta itemprop="description" content="從 Promise 昇華到 async:await"><meta itemprop="datePublished" content="2018-10-14T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2018-10-14T00:00:00+00:00" />
+<meta itemprop="wordCount" content="3326">
+<meta itemprop="keywords" content="2019 iT 邦幫忙鐵人賽,用js成為老闆心中的全端工程師," /><meta property="og:title" content="Day 14 - 二周目 - 從Promise 昇華到 async:await" />
+<meta property="og:description" content="從 Promise 昇華到 async:await" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/series/2019-ithome-ironman/day-14-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E5%BE%9Epromise-%E6%98%87%E8%8F%AF%E5%88%B0-asyncawait/" /><meta property="article:section" content="series" />
+<meta property="article:published_time" content="2018-10-14T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-10-14T00:00:00+00:00" /><meta property="og:site_name" content="EugeneChen" />
+<meta property="og:see_also" content="/series/2019-ithome-ironman/day-30-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-network-%E6%9A%A8%E5%AE%8C%E8%B3%BD%E5%9B%9E%E9%A1%A7/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-29-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-compose%E4%B8%80%E6%AC%A1%E7%AE%A1%E7%90%86%E5%A4%9A%E5%80%8B%E5%AE%B9%E5%99%A8/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-28-%E4%B8%89%E5%91%A8%E7%9B%AE-%E8%A3%BD%E4%BD%9C%E8%87%AA%E5%B7%B1%E7%9A%84%E6%98%A0%E5%83%8F%E6%AA%94%E5%8C%85%E6%89%93%E5%89%8D%E5%BE%8C%E7%AB%AF%E6%98%A0%E5%83%8F%E6%AA%94/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-27-%E4%B8%89%E5%91%A8%E7%9B%AE-%E4%BA%94%E5%88%86%E9%90%98%E5%BB%BA%E7%AB%8B%E7%A7%81%E6%9C%89-npm-verdaccio/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-26-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E7%9C%8B%E5%AE%8C%E5%B0%B1%E6%9C%83%E6%9E%B6-docker-%E5%8C%96%E7%9A%84%E6%9C%8D%E5%8B%99/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-25-%E4%BA%8C%E5%91%A8%E7%9B%AE-react-component-%E5%A5%97%E4%BB%B6-material-ui-google-material-design-%E7%9A%84%E5%AF%A6%E4%BD%9C%E5%A5%97%E4%BB%B6/" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Day 14 - 二周目 - 從Promise 昇華到 async:await"/>
+<meta name="twitter:description" content="從 Promise 昇華到 async:await"/>
+<meta property="og:image" content="/images/logo.png"/>
+  <meta name="twitter:image" content="/images/logo.png"/><link rel="stylesheet" href="/assets/main/bundle.min.925f59d4c744cc5e99dcc7d02a6f68dff5cceaea488c7667bd947bf7aa35b649.css" integrity="sha256-kl9Z1MdEzF6Z3MfQKm9o3/XM6upIjHZnvZR796o1tkk=" crossorigin="anonymous"><link rel="stylesheet" href="/assets/viewer/bundle.min.f05183267bb952fbc8c63a7178364de2951614ab71d544ec1068ad36c7447ccc.css" integrity="sha256-8FGDJnu5UvvIxjpxeDZN4pUWFKtx1UTsEGitNsdEfMw=" crossorigin="anonymous"><link rel="stylesheet" href="/assets/docsearch/bundle.min.c165d6a127fffa285e6b89ef65362fe921bc0c1fdaefa35f6af069b962bdb50e.css" integrity="sha256-wWXWoSf/&#43;ihea4nvZTYv6SG8DB/a76NfavBpuWK9tQ4=" crossorigin="anonymous"></head>
+  <body><script>const items=["theme","palette"];items.forEach(function(e){const t=localStorage.getItem("hbs:"+e);t&&document.body.parentElement.setAttribute("data-"+e,t)})</script><header><nav class="top-app-bar shadow bg-primary text-white navbar navbar-expand-lg fixed-top">
+  <div class="container"><a class="navbar-brand flex-grow-1 flex-lg-grow-0 text-lg-start ms-2 ms-lg-0 mx-auto me-lg-3" href="/"><picture><img class="logo" alt="Logo" src="/images/logo.webp" loading="lazy"
+    
+     width="136" height="69"
+     />
+</picture>
+EugeneChen
+    </a>
+    <button class="navbar-toggler order-5" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarMenus"
+      aria-controls="navbarMenus" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-ellipsis-h"></i>
+    </button>
+    <div class="offcanvas-lg offcanvas-end flex-grow-1 bg-primary text-white" tabindex="-1" id="navbarMenus" aria-labelledby="navbarMenusLabel">
+      <div class="offcanvas-header px-4 pb-0">
+        <h5 class="offcanvas-title" id="navbarMenusLabel">EugeneChen</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" data-bs-target="#navbarMenus" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body p-4 pt-0 p-lg-0">
+        <hr class="d-lg-none">
+        <ul class="navbar-nav flex-row flex-wrap align-items-center me-auto"><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/posts/">
+              <i class="fas fa-book fa-fw"></i>文章
+            </a>
+          </li><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/series/">
+              <i class="fas fa-bars fa-fw"></i>專欄
+            </a>
+          </li><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/posts/notes/">
+              <i class="fas fa-sticky-note fa-fw"></i>隨手筆記
+            </a>
+          </li></ul>
+        <hr class="d-lg-none">
+        <form class="search-bar mx-auto my-1" action="/search" novalidate>
+  <div class="input-group input-group-sm align-items-center">
+    <span class="btn btn-search disabled position-absolute left-0 border-0">
+      <i class="fas fa-fw fa-search fa-lg"></i>
+    </span>
+    <input class="py-2 form-control rounded search-input" name="q" type="search" aria-label="Search" required>
+  </div>
+</form>
+<hr class="d-lg-none">
+        <ul class="navbar-nav flex-row flex-wrap align-items-center ms-md-auto"><li class="nav-item dropdown py-1 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-globe"></i>
+        <span class="d-lg-none">語言</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown"><li>
+        <a class="dropdown-item" href="/en/">
+            English
+        </a>
+        </li><li>
+        <a class="dropdown-item active" href="/">
+            繁體中文
+        </a>
+        </li></ul>
+</li>
+<li class="nav-item py-1 col-12 col-lg-auto">
+  <div class="vr d-none d-lg-flex h-100 mx-lg-2 text-white"></div>
+  <hr class="d-lg-none my-2">
+</li><li class="nav-item dropdown py-2 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="fontSizeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-font"></i>
+        <span class="d-lg-none">字體大小</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="fontSizeDropdown"><li>
+            <button class="font-size-item dropdown-item" data-size="xs">
+                特小號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="sm">
+                小號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item active" data-size="md">
+                中等
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="lg">
+                大號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="xl">
+                特大號
+            </button>
+        </li></ul>
+</li><li class="nav-item dropdown py-1 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="paletteDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-palette"></i>
+        <span class="d-lg-none">配色</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end px-2" aria-labelledby="paletteDropdown">
+        <div class="row"><li class="col-3 my-1">
+                <a role="button" id="palette-blue" aria-label="藍色"
+                    class="btn btn-sm w-100 palette text-bg-blue" data-palette="blue">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-blue-gray" aria-label="藍灰色"
+                    class="btn btn-sm w-100 palette text-bg-blue-gray" data-palette="blue-gray">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-brown" aria-label="棕色"
+                    class="btn btn-sm w-100 palette text-bg-brown" data-palette="brown">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-cyan" aria-label="青色"
+                    class="btn btn-sm w-100 palette text-bg-cyan" data-palette="cyan">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-green" aria-label="綠色"
+                    class="btn btn-sm w-100 palette text-bg-green" data-palette="green">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-indigo" aria-label="靛青色"
+                    class="btn btn-sm w-100 palette text-bg-indigo" data-palette="indigo">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-orange" aria-label="橙色"
+                    class="btn btn-sm w-100 palette text-bg-orange" data-palette="orange">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-pink" aria-label="粉色"
+                    class="btn btn-sm w-100 palette text-bg-pink" data-palette="pink">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-purple" aria-label="紫色"
+                    class="btn btn-sm w-100 palette text-bg-purple" data-palette="purple">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-red" aria-label="紅色"
+                    class="btn btn-sm w-100 palette text-bg-red" data-palette="red">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-teal" aria-label="藍綠色"
+                    class="btn btn-sm w-100 palette text-bg-teal" data-palette="teal">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-yellow" aria-label="黃色"
+                    class="btn btn-sm w-100 palette text-bg-yellow" data-palette="yellow">
+                </a>
+            </li></div>
+    </ul>
+</li>
+<li class="nav-item dropdown py-2 py-lg-1 col-6 col-lg-auto"><a class="nav-link px-0 px-lg-1" href="#" id="modeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="mode-icon fas fa-fw fa-adjust" id="modeIcon"></i>
+        <span class="d-lg-none">模式</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="modeDropdown"><li class="mode-item" data-color-mode="light" data-icon="sun">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-sun"></i> Light
+            </button>
+        </li><li class="mode-item" data-color-mode="dark" data-icon="moon">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-moon"></i> Dark
+            </button>
+        </li><li class="mode-item active" data-color-mode="auto" data-icon="adjust">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-adjust"></i> Auto
+            </button>
+        </li></ul>
+</li>
+</ul>
+      </div>
+    </div>
+  </div>
+</nav>
+</header>
+<main class="container">
+      <div class="row content"><noscript>
+    <div class="alert alert-danger" role="alert">你的瀏覽器不支持 JavaScript。</div>
+</noscript>
+
+<div class="col-lg-8">
+  <div class="container"><nav class="row card component" aria-label="breadcrumb">
+  <div class="card-body pb-0">
+    <ol class="breadcrumb"><li class="breadcrumb-item text-surface"><a href="/">主頁</a></li><li class="breadcrumb-item text-surface"><a href="/series/">Series</a></li><li class="breadcrumb-item active">Day 14 - 二周目 - 從Promise 昇華到 Async:await</li></ol>
+  </div>
+</nav><div class="post-panel-wrapper position-sticky">
+  <div class="d-flex flex-column component rounded post-panel position-absolute border">
+    
+    <a class="action action-panel-toggler" role="button" title="Panel toggler">
+      <i class="fas fa-fw fa-chevron-circle-down"></i>
+    </a>
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button" title="Sidebar toggler">
+  <i class="fas fa-fw fa-expand-alt" data-fa-transform="rotate-45"></i>
+</a>
+
+    
+
+    
+    <a class="action" href="#post-copyright" role="button" aria-label="Copyright" title="Copyright">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    <a class="action" href="#post-comments" role="button" aria-label="Comments" title="Comments">
+  <i class="fas fa-fw fa-comments"></i>
+</a>
+    <a class="action" href="#postTOC" aria-controls="Table of contents" role="button" title="Table of contents">
+  <i class="fas fa-fw fa-list-alt"></i>
+</a>
+    
+  </div>
+</div>
+<article class="row card component mb-4 post">
+  <div class="card-header ">
+    <h1 class="card-title post-title my-2">Day 14 - 二周目 - 從Promise 昇華到 Async:await
+</h1>
+  </div>
+  <div class="card-body"><div class="post-meta mb-3">
+  <span class="post-date me-1 mb-1" title="創建於 2018-10-14 08:00:00 &#43;0800 CST。">
+    2018-10-14
+  </span><span class="post-reading-time me-1 mb-1">
+    7 分鐘閱讀
+  </span><a href="/series/2019-ithome-ironman/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">用js成為老闆心中的全端工程師 - 2019 IT邦幫忙鐵人賽</a><a href="/tags/2019-it-%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">2019 IT 邦幫忙鐵人賽</a><a href="/tags/%E7%94%A8js%E6%88%90%E7%82%BA%E8%80%81%E9%97%86%E5%BF%83%E4%B8%AD%E7%9A%84%E5%85%A8%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%AB/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">用js成為老闆心中的全端工程師</a></div>
+<div class="post-content mb-3"><p>從 Promise 昇華到 async:await</p>
+<h1 id="修正">修正<a class="anchor ms-1" href="#修正"><i class="fas fa-link"></i></a></h1>
+<h2 id="2019-02-18">2019-02-18<a class="anchor ms-1" href="#2019-02-18"><i class="fas fa-link"></i></a></h2>
+<p>謝謝 <a href="https://ithelp.ithome.com.tw/articles/10201420#response-309921" target="_blank" rel="noopener noreferrer">文祥<i class="fas fa-external-link-square-alt ms-1"></i></a> 的提醒</p>
+<blockquote>
+<p><picture><img class="img-fluid" alt="https://ithelp.ithome.com.tw/upload/images/20190218/20110371BgMzX9Muzd.png" src="https://ithelp.ithome.com.tw/upload/images/20190218/20110371BgMzX9Muzd.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+</blockquote>
+<p>此處的例子太過複雜沒有表現出 <strong>依序/順序</strong> 的重點。內文增加一些說明，如下：
+<picture><img class="img-fluid" alt="Screen Shot 2019-02-18 at 10.09.26 PM.png" src="/series/2019-ithome-ironman/day-14-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E5%BE%9Epromise-%E6%98%87%E8%8F%AF%E5%88%B0-asyncawait/resources/3914EE334BB9546E34D3725418009E57.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<h1 id="回憶">回憶<a class="anchor ms-1" href="#回憶"><i class="fas fa-link"></i></a></h1>
+<p>昨天介紹了非同步神器 Promise 來包裝非同步函數穫得不用帶入 callback 當參數的簽章，爾後還可以使用 <code>then().catch()</code> 的鍊式語法</p>
+<h1 id="目標">目標<a class="anchor ms-1" href="#目標"><i class="fas fa-link"></i></a></h1>
+<p>今天要來介紹</p>
+<ol>
+<li>Promise 解決了什麼問題？</li>
+<li>asyn/await 這語法糖衣讓語法更自然</li>
+<li>他們要怎麼選用？</li>
+</ol>
+<h1 id="非同步-callback-的產生的-callback-hell">非同步 callback 的產生的 callback hell<a class="anchor ms-1" href="#非同步-callback-的產生的-callback-hell"><i class="fas fa-link"></i></a></h1>
+<p>非同步的函數通常要帶入 callback function當參數，等到結果出來才會被呼叫。若一大堆非同步串在一起就會出現 <strong>callback hell</strong>：</p>
+<p>下圖截自 <a href="https://medium.com/ninjadevs/node-7-6-koa-2-asynchronous-flow-control-made-right-b0d41c6ba570" target="_blank" rel="noopener noreferrer">Node 7.6 + Koa 2: asynchronous flow control made right<i class="fas fa-external-link-square-alt ms-1"></i></a>
+<picture><img class="img-fluid" alt="IMAGE" src="/series/2019-ithome-ironman/day-14-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E5%BE%9Epromise-%E6%98%87%E8%8F%AF%E5%88%B0-asyncawait/resources/789D7C3D81E210BC201F69883F54A8AE.jpg" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>以昨天 <a href="https://ithelp.ithome.com.tw/articles/10201276" target="_blank" rel="noopener noreferrer">Day 13 - 二周目 - 非同步神器 Promise<i class="fas fa-external-link-square-alt ms-1"></i></a> 的例子來說：
+兩個函數 <code>fetchOrders()</code> 和 <code>fetchPerson()</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kd">function</span> <span class="nx">fetchOrders</span><span class="p">(</span><span class="nx">person</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">  <span class="kr">const</span> <span class="nx">orders</span> <span class="o">=</span> <span class="nx">person</span><span class="p">.</span><span class="nx">orderIds</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">id</span> <span class="p">=&gt;</span> <span class="p">({</span> <span class="nx">id</span> <span class="p">}));</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">  <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">orders</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="kd">function</span> <span class="nx">fetchPerson</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">  <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">({</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">    <span class="nx">name</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">    <span class="nx">orderIds</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>可以串成</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="nx">fetchPerson</span><span class="p">(</span><span class="s1">&#39;Billy&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">    <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">fetchOrders</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">    <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">orders</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">      <span class="nx">orders</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">order</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">order</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl">      <span class="p">})</span>
+</span></span><span class="line"><span class="ln">7</span><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="ln">8</span><span class="cl">    <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">);</span>
+</span></span></code></pre></div><p>若是 callback 版本就是像</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1">// callback version with arrow functions
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="c1"></span><span class="nx">fetchPerson</span><span class="p">(</span><span class="s1">&#39;Billy&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">person</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">  <span class="k">if</span><span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">    <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">  <span class="nx">fetchOrders</span><span class="p">(</span><span class="nx">person</span><span class="p">,</span> <span class="p">(</span><span class="nx">_error</span><span class="p">,</span> <span class="nx">orders</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="nx">_error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">      <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">_error</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">      <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">    <span class="nx">orders</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">order</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">order</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="p">});</span>
+</span></span></code></pre></div><p>為了必免混淆，我們刻意把內層的 <code>error</code> 改成 <code>_error</code></p>
+<p>若沒有箭頭函數，更會使人抓狂</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1">// callback version with normal functions
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="c1"></span><span class="nx">fetchPerson</span><span class="p">(</span><span class="s1">&#39;Billy&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">person</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">  <span class="k">if</span><span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">    <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">  <span class="nx">fetchOrders</span><span class="p">(</span><span class="nx">person</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">_error</span><span class="p">,</span> <span class="nx">orders</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="nx">_error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">      <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">_error</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">      <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">    <span class="nx">orders</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">order</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">order</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="p">});</span>
+</span></span></code></pre></div><p>callback 版本的的問題：</p>
+<ol>
+<li>可讀性大幅度降低</li>
+<li>處理錯誤發生的程式都要重寫一次，就算抽出一個共用的錯誤處理函數，也是要寫呼叫錯誤處理函數</li>
+</ol>
+<p>因此，Promise 的出現可以降低 callback hell 的發生 <del>(可能從第18層地獄到第2層地獄)</del>。</p>
+<h2 id="thencatch-鍊式語法的問題非同步函數簽章需完整契合">then()...catch() 鍊式語法的問題：非同步函數簽章需完整契合<a class="anchor ms-1" href="#thencatch-鍊式語法的問題非同步函數簽章需完整契合"><i class="fas fa-link"></i></a></h2>
+<p><code>then()...catch()</code> 鍊式語法也不是沒有問題，我們注意看函數簽章</p>
+<ol>
+<li><code>fetchPerson()</code> 的簽章：<code>function(name: string): Promise&lt;object&gt;</code>
+<code>fetchPerson(name)</code>，這裡 <code>name</code> 是 <code>string</code>，resolve value 是 <code>object</code></li>
+<li><code>fetchOrders()</code> 的簽章：<code>function(person: {orderIds: array&lt;string&gt;}): Promise&lt;array&lt;object&gt;&gt;</code>
+<code>fetchOrders(person)</code>，這裡 <code>person</code> 是 <code>object</code>且有一個<code>orderIds</code>屬性的字串陣列，resolve value 是 <code>object</code> 的陣列</li>
+</ol>
+<blockquote>
+<p>為了更清楚表達：這裡我們偷引入<a href="http://usejsdoc.org/" target="_blank" rel="noopener noreferrer">JSDoc<i class="fas fa-external-link-square-alt ms-1"></i></a>
+1. <code>A: B</code> 用在參數時, 後面(B)是前面參數名(A) 的型態
+2. <code>function(): C</code> 用在函數時 在後面(C)就是函數的回傳
+3. <code>Promise&lt;D&gt;</code> 是指 Promise 的 resolve value 型態是 D
+4. <code>array&lt;E&gt;</code> 是指型態 E 元素的陣列
+5. <code>{propertyName: F}</code> 是指一個物件有 <code>propertyName</code> 屬性，且型態是 F</p>
+</blockquote>
+<p>為了讓 <code>then()</code> 可以串接，<code>fetchPerson()</code>　回傳的 resolve value 必需有 <code>object</code>且有一個<code>orderIds</code>屬性的字串陣列，或者說 <code>fetchOrders()</code>的實作要認識 <code>fetchPerson()</code> 的回傳才可以</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="nx">fetchPerson</span><span class="p">(</span><span class="s1">&#39;Billy&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">    <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">fetchOrders</span><span class="p">)</span>
+</span></span></code></pre></div><p>然而，實務上不太可能，因為非同步函數可能不是你寫的。</p>
+<p>若改成 <code>fetchOrders(orderIds)</code>，參數改成是字串陣列</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kd">function</span> <span class="nx">fetchOrders</span><span class="p">(</span><span class="nx">orderIds</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">  <span class="kr">const</span> <span class="nx">orders</span> <span class="o">=</span> <span class="nx">orderIds</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">id</span> <span class="p">=&gt;</span> <span class="p">({</span> <span class="nx">id</span> <span class="p">}));</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">  <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">orders</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="kd">function</span> <span class="nx">fetchPerson</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">  <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">({</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">    <span class="nx">name</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">    <span class="nx">orderIds</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>對應的鍊式就要改成</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="nx">fetchPerson</span><span class="p">(</span><span class="s1">&#39;Billy&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">    <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">person</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">        <span class="kr">const</span> <span class="p">{</span><span class="nx">orderIds</span><span class="p">}</span> <span class="o">=</span> <span class="nx">person</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">        <span class="k">return</span> <span class="nx">fetchOrders</span><span class="p">(</span><span class="nx">orderIds</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="c1">// 或直接解構
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="c1"></span><span class="nx">fetchPerson</span><span class="p">(</span><span class="s1">&#39;Billy&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">    <span class="p">.</span><span class="nx">then</span><span class="p">(({</span><span class="nx">orderIds</span><span class="p">})</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">        <span class="k">return</span> <span class="nx">fetchOrders</span><span class="p">(</span><span class="nx">orderIds</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">    <span class="p">})</span>
+</span></span></code></pre></div><p>我們只需要多一個箭頭函數就可以解構 <code>person</code> 的 <code>orderIds</code>，再往下傳。
+解構的程式是少不了的，但這樣不是又多出了一個 callback function嗎？</p>
+<h2 id="非同步語法糖衣-asyncawait">非同步語法糖衣 async/await<a class="anchor ms-1" href="#非同步語法糖衣-asyncawait"><i class="fas fa-link"></i></a></h2>
+<p><code>async/await</code>的出現解開了前面的麻煩，我們先看最後的樣子：
+我們的目地是從名字(name) 查詢出訂單(orders)，所以命名一個函數 <code>getOrdersFromPersonName</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="kr">async</span> <span class="kd">function</span> <span class="nx">getOrdersFromPersonName</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">  <span class="kr">const</span> <span class="nx">person</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">fetchPerson</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">  <span class="kr">const</span> <span class="p">{</span><span class="nx">orderIds</span><span class="p">}</span> <span class="o">=</span> <span class="nx">person</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">  <span class="kr">const</span> <span class="nx">orders</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">fetchOrders</span><span class="p">(</span><span class="nx">orderIds</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">  <span class="k">return</span> <span class="nx">orders</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>使用如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="nx">getOrdersFromPersonName</span><span class="p">(</span><span class="s1">&#39;Billy&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">orders</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">    <span class="nx">orders</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">order</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">order</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="ln">7</span><span class="cl">  <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">);</span>
+</span></span></code></pre></div><p><code>getOrdersFromPersonName()</code>的實作看起來就像是同步函數，只要：</p>
+<ol>
+<li><code>getOrdersFromPersonName()</code> 定義前面加上 <code>async</code></li>
+<li>所有回傳 Promise 的非同函數前面都可以加上 <code>await</code> ，被加上時就會等到 resolve value 出現程式才會往下走</li>
+</ol>
+<p>使用起來很簡單、自然。</p>
+<p>接下來，來詳細的說明 <code>async/await</code></p>
+<h3 id="async-function-是回傳-promise">async function() 是回傳 Promise<a class="anchor ms-1" href="#async-function-是回傳-promise"><i class="fas fa-link"></i></a></h3>
+<p>定義時加入 <code>async</code> 的函數會變成回傳Promise，且實作中的 <code>return</code> 的值會被當做 resolve value。他的規則如同 <a href="https://ithelp.ithome.com.tw/articles/10201276" target="_blank" rel="noopener noreferrer">Day 13 - 二周目 - 非同步神器 Promise<i class="fas fa-external-link-square-alt ms-1"></i></a> 中 <code>.then(callback)</code> 的 callback 的回傳。若：</p>
+<ol>
+<li>回傳 Primitive值：如undefined, object, number, string&hellip;等，<code>async getOrdersFromPersonName()</code> 會回傳 resolve promise</li>
+<li>回傳 Promise：<code>async getOrdersFromPersonName()</code>會和回傳的 promise 同樣狀態
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="kr">async</span> <span class="nx">getOrdersFromPersonName</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">  <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">();</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="nx">getOrdersFromPersonName</span><span class="p">();</span> <span class="c1">// resolve promise
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="kr">async</span> <span class="nx">getOrdersFromPersonName</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">  <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">reject</span><span class="p">();</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="nx">getOrdersFromPersonName</span><span class="p">();</span> <span class="c1">// reject promise
+</span></span></span></code></pre></div></li>
+</ol>
+<h3 id="async-function-的-reject-處理">async function() 的 reject 處理<a class="anchor ms-1" href="#async-function-的-reject-處理"><i class="fas fa-link"></i></a></h3>
+<p>在 <code>getOrdersFromPersonName(name)</code> 裡的 <strong>執行路徑上</strong> 所有 <code>await</code> 的 Promise 物件有任何一個 reject，則程式會 <strong>跳離</strong> <code>getOrdersFromPersonName()</code>，且 <code>getOrdersFromPersonName()</code> 會回傳 reject promise 而且 reason 是發生 reject promise 的 reason。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="kr">async</span> <span class="kd">function</span> <span class="nx">getOrdersFromPersonName</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">  <span class="kr">const</span> <span class="nx">person</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">fetchPerson</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span>  <span class="c1">// 若 reject, 則 getOrdersFromPersonName() reject　且是 fetchPerson() 引起的 reason
+</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="p">{</span><span class="nx">orderIds</span><span class="p">}</span> <span class="o">=</span> <span class="nx">person</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">  <span class="kr">const</span> <span class="nx">orders</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">fetchOrders</span><span class="p">(</span><span class="nx">orderIds</span><span class="p">);</span> <span class="c1">// 若 reject, 則 getOrdersFromPersonName() reject 且是 fetchOrders() 引起的 reason
+</span></span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="c1"></span>  <span class="k">return</span> <span class="nx">orders</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>就好像丟出一個例外(exception)，只是不會引起例外，而是變成 reject promise.</p>
+<h4 id="怎麼攔截內部的-reject-reason">怎麼攔截內部的 reject reason<a class="anchor ms-1" href="#怎麼攔截內部的-reject-reason"><i class="fas fa-link"></i></a></h4>
+<p>我們可以用 <code>try..catch</code> 攔截中間的 reject reason，例如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kr">async</span> <span class="kd">function</span> <span class="nx">getOrdersFromPersonName</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">  <span class="kd">let</span> <span class="nx">person</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">  <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">    <span class="nx">person</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">fetchPerson</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">  <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// 處理 reject reason，讓程式繼續
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="c1"></span>    <span class="nx">console</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">    <span class="nx">person</span> <span class="o">=</span> <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;訪客&#39;</span><span class="p">};</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">  
+</span></span><span class="line"><span class="ln">10</span><span class="cl">  <span class="kr">const</span> <span class="p">{</span><span class="nx">orderIds</span><span class="p">}</span> <span class="o">=</span> <span class="nx">person</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">  <span class="kr">const</span> <span class="nx">orders</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">fetchOrders</span><span class="p">(</span><span class="nx">orderIds</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">  <span class="k">return</span> <span class="nx">orders</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><code>fetchPerson(name)</code> 丟出的 error reason 會被 <code>try..catch</code> 攔截，然後 <code>getOrdersFromPersonName()</code> 繼續執行。</p>
+<p>若都不寫 <code>try..catch</code>，<code>async function getOrdersFromPersonName(name)</code> 就像是有個超大的<code>try..catch</code>包著，所以 <code>getOrdersFromPersonName(name)</code>的執行不可能丟出例外，最多只會變成 reject prmoise。因此，<code>async function()</code> 可以說被保護著，但在強調一次</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">Promise 可能會發生 reject，強健的程式應該要 &#34;.catch()&#34; reject reason，不然就漏接了。
+</span></span></code></pre></div><p><picture><img class="img-fluid" alt="catchmiss.gif" src="/series/2019-ithome-ironman/day-14-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E5%BE%9Epromise-%E6%98%87%E8%8F%AF%E5%88%B0-asyncawait/resources/00A5C793B555A22E5B2D9A288FF03E71.gif" loading="lazy"
+    
+    
+     />
+</picture>
+
+
+上圖來自<a href="https://www.twilio.com/blog/2016/10/guide-to-javascript-promises.html" target="_blank" rel="noopener noreferrer">A quick guide to JavaScript Promises<i class="fas fa-external-link-square-alt ms-1"></i></a></p>
+<h3 id="可以在裡面丟出例外">可以在裡面丟出例外<a class="anchor ms-1" href="#可以在裡面丟出例外"><i class="fas fa-link"></i></a></h3>
+<p>你可以在 <code>async function()</code> 中使用 <code>throw</code> 丟出例外，也可以用 <code>try...catch</code>攔截。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kr">async</span> <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">  <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">    <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;foo 1&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">  <span class="p">}</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">    <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;foo 2&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">
+</span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="nx">foo</span><span class="p">();</span> <span class="c1">// reject promise with Error(&#39;foo 2&#39;) reason
+</span></span></span></code></pre></div><p>這樣就會變成回傳 reject promise。</p>
+<p>你也可以用 <code>return Promise.reject()</code> 直接表明回傳的東西，如下</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kr">async</span> <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">  <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">    <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;foo 1&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">  <span class="p">}</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">    <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">reject</span><span class="p">(</span><span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;foo 2&#39;</span><span class="p">));</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">
+</span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="nx">foo</span><span class="p">();</span> <span class="c1">// reject promise with Error(&#39;foo 2&#39;) reason
+</span></span></span></code></pre></div><p>我個人是習慣用 <code>return Promise.reject()</code>，因為比較好掌控自己有處理過的例外，也知道是哪產生的。若出現沒看過的reject reason 表示有潛在的例外可能會發生，而是 <code>async function()</code> 幫你處理了。</p>
+<h2 id="asyncawait-vs-promise-物件用誰它們可以互相取代嗎">async/await VS Promise 物件用誰？它們可以互相取代嗎？<a class="anchor ms-1" href="#asyncawait-vs-promise-物件用誰它們可以互相取代嗎"><i class="fas fa-link"></i></a></h2>
+<p>這問題我覺得沒有一定答案？拿它們來比較有點怪，因為各有各的優、缺點和用法，找到自己的程式風格和混合使用才能有比較好的可讀性。</p>
+<p>Promise 適合拿來</p>
+<ol>
+<li>包裝具有 callback 的函數，以修改函數簽章</li>
+<li>支援度，但 <code>async/await</code> 就算不支援也可以用<a href="https://ithelp.ithome.com.tw/articles/10200734" target="_blank" rel="noopener noreferrer">轉譯的<i class="fas fa-external-link-square-alt ms-1"></i></a>
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-14 at 2.52.08 PM.png" src="/series/2019-ithome-ironman/day-14-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E5%BE%9Epromise-%E6%98%87%E8%8F%AF%E5%88%B0-asyncawait/resources/09C6F0CAE653E3A5579B0C9C85DB1C12.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-14 at 2.51.28 PM.png" src="/series/2019-ithome-ironman/day-14-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E5%BE%9Epromise-%E6%98%87%E8%8F%AF%E5%88%B0-asyncawait/resources/9B8A7DC720C5D6B8C1E0BCEB1AAFDC3A.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</li>
+<li>鍊式寫起來可以用比較短的程式碼，不像 <code>async function()</code> 還要包裝</li>
+<li>截斷中間的 reject promise，debug 時很好用，反觀 <code>async function()</code> 要用 <code>try...catch</code>這種產生分支的語法。
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">  <span class="p">.</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">reject</span><span class="p">(</span><span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;error 1&#39;</span><span class="p">)))</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">  <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">    <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">reject</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="ln">7</span><span class="cl">  <span class="p">.</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+</span></span><span class="line"><span class="ln">8</span><span class="cl">  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">9</span><span class="cl">  <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">)</span>
+</span></span></code></pre></div></li>
+</ol>
+<p><code>async function()</code> 適合拿來</p>
+<ol>
+<li>
+<p><del>當一連串非同步操作都要是 resolve時，一個工作才算完成</del> 當一個工作<code>worker</code>是由多個非同步(子)工作<strong>依序/順序</strong>執行 resolve，工作才能算 resolve。 下面的例子中，<code>subworker3()</code> 要等到 <code>subworker2()</code> resolve 才能決定是否執行。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kr">async</span> <span class="kd">function</span> <span class="nx">worker</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">  <span class="kr">const</span> <span class="nx">resolve1</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">subworker1</span><span class="p">();</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">  <span class="kr">const</span> <span class="nx">resolve2</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">subworker2</span><span class="p">();</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">  <span class="k">if</span><span class="p">(</span><span class="cm">/* resolve2 don&#39;t have something*/</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">    <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">reject</span><span class="p">(</span><span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;something miss&#39;</span><span class="p">));</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">  <span class="kr">const</span> <span class="nx">resolve3</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">subworker3</span><span class="p">();</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">  <span class="k">return</span> <span class="nx">computer</span><span class="p">(</span><span class="nx">resolve1</span><span class="p">,</span> <span class="nx">resolve2</span><span class="p">,</span> <span class="nx">resolve3</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="nx">worker</span><span class="p">();</span>
+</span></span></code></pre></div><p><code>subworker1()</code> -&gt; <code>subworker2()</code> -&gt; <code>subworker3()</code> 依序 resolve， <code>worker</code> 才會 resolve。</p>
+<p>眼尖的讀者會發現 <code>subworker1()</code>, <code>subworker2()</code> 是可以 <strong>並發</strong> 執行，而不用 <strong>依序/順序</strong>執行，這樣可以比較有效率，所以我們用 <code>Promise.all()</code> 增進效率。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kr">async</span> <span class="kd">function</span> <span class="nx">worker</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">  <span class="kr">const</span> <span class="nx">reslut_1_2</span> <span class="o">=</span> <span class="kr">await</span>　<span class="nb">Promise</span><span class="p">.</span><span class="nx">all</span><span class="p">([</span><span class="nx">subworker1</span><span class="p">(),</span> <span class="nx">subworker2</span><span class="p">()]);</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">  <span class="kr">const</span> <span class="nx">resolve1</span> <span class="o">=</span> <span class="nx">reslut_1_2</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">  <span class="kr">const</span> <span class="nx">resolve2</span> <span class="o">=</span> <span class="nx">reslut_1_2</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">  <span class="k">if</span><span class="p">(</span><span class="cm">/* resolve2 don&#39;t have something*/</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">    <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">reject</span><span class="p">(</span><span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;something miss&#39;</span><span class="p">));</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">  <span class="kr">const</span> <span class="nx">resolve3</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">subworker3</span><span class="p">();</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">  <span class="k">return</span> <span class="nx">computer</span><span class="p">(</span><span class="nx">resolve1</span><span class="p">,</span> <span class="nx">resolve2</span><span class="p">,</span> <span class="nx">resolve3</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="nx">worker</span><span class="p">();</span>
+</span></span></code></pre></div><p>若是全改用 prmoise 會很麻煩(尤其是有條件出現)</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kr">const</span> <span class="nx">workerPromise</span> <span class="o">=</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">all</span><span class="p">([</span><span class="nx">subworker1</span><span class="p">(),</span> <span class="nx">subworker2</span><span class="p">()])</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">  <span class="p">.</span><span class="nx">then</span><span class="p">(([</span><span class="nx">resolve1</span><span class="p">,</span> <span class="nx">resolve2</span><span class="p">])</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="cm">/* resolve2 don&#39;t have something*/</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">      <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">reject</span><span class="p">(</span><span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;something miss&#39;</span><span class="p">));</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">    <span class="k">return</span> <span class="nx">subworker3</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span><span class="nx">resolve3</span> <span class="p">=&gt;</span> <span class="p">([</span><span class="nx">resolve1</span><span class="p">,</span> <span class="nx">resolve2</span><span class="p">,</span> <span class="nx">resolve3</span><span class="p">]));</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">  <span class="p">.</span><span class="nx">then</span><span class="p">(([</span><span class="nx">resolve1</span><span class="p">,</span> <span class="nx">resolve2</span><span class="p">,</span> <span class="nx">resolve3</span><span class="p">])</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">    <span class="k">return</span> <span class="nx">computer</span><span class="p">(</span><span class="nx">resolve1</span><span class="p">,</span> <span class="nx">resolve2</span><span class="p">,</span> <span class="nx">resolve3</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="nx">workerPromise</span> <span class="c1">// promise
+</span></span></span></code></pre></div><blockquote>
+<p>這裡偷用了 <code>Promise.all(promises)</code>， promises 是一個 promise array, 所有的 promise 都要 resolve，<code>Promise.all(promises)</code> 才會 resolve，否則就是 reject。<code>Promise.all(promises)</code> 的 resolve value 是 promise array 的 resolve array。</p>
+</blockquote>
+</li>
+<li>
+<p>可讀性好，看起來像同步函數</p>
+</li>
+<li>
+<p>保護未處理到的例外，因為 <code>asyn function()</code> 不會丟出例外，只有 reject promise</p>
+</li>
+</ol>
+<p>最後，還有一點很重要</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">Promise 和 async/await 可以執行在 Node.js 和 瀏覽器(但可能要轉譯)。
+</span></span></code></pre></div><h1 id="補完-promise-的相關函數">補完 Promise 的相關函數<a class="anchor ms-1" href="#補完-promise-的相關函數"><i class="fas fa-link"></i></a></h1>
+<ol>
+<li><code>.finally()</code>：除了 <code>.then()</code> 和 <code>.catch()</code>外，還有一個 <code>.finally()</code>， 這是不論怎麼是 reject / resolve 都一定會回調，通常用在進行一些事後處理或清理用不到的資料。</li>
+<li><code>bluebird</code>：標準 Promise 提供建立 Promise 物件的建構函數只有：<code>Promise.resolve()</code>、<code>Promise.reject()</code>、<code>Promise.all()</code>、<code>Promise.race()</code>。有點不夠用，<a href="http://bluebirdjs.com/docs/api-reference.html" target="_blank" rel="noopener noreferrer">bluebird<i class="fas fa-external-link-square-alt ms-1"></i></a> 提供更多好用的 Promise 相關函數，像是要求 map 產生的 Promise 元系依序執行 <code>Promise.mapSeries()</code>…等</li>
+</ol>
+<h1 id="總結">總結<a class="anchor ms-1" href="#總結"><i class="fas fa-link"></i></a></h1>
+<p>今天再深入的探討 Promise 、引入 <code>async/await</code> 和比較它們。它們在 Node.js 和 瀏覽器扮演很重要的角色，所以它們值得我們花兩天學習。</p></div></div>
+  <div class="card-footer"><div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-prev">
+    <i class="fas fa-fw fa-chevron-circle-down post-prev-icon" data-fa-transform="rotate-90"></i>
+    <a href="/series/2019-ithome-ironman/day-13-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E9%9D%9E%E5%90%8C%E6%AD%A5%E7%A5%9E%E5%99%A8-promise/">Day 13 - 二周目 - 非同步神器 Promise
+</a>
+  </div><div class="post-nav post-next">
+    <a href="/series/2019-ithome-ironman/day-15-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E7%94%A8-docker-%E7%8E%A9%E8%BD%89-mongodb/">Day 15 - 二周目 - 用 Docker 玩轉 MongoDB
+</a>
+    <i class="fas fa-fw fa-chevron-circle-down post-next-icon" data-fa-transform="rotate-270"></i>
+  </div></div></div>
+</article><div class="post-copyright mb-3 row card component" id="post-copyright">
+    <div class="card-header">
+        <h2 class="card-title fs-4 my-2 text-surface">版權</h2>
+    </div>
+    <div class="card-body"><a class="d-flex align-items-center flex-column" target="_blank" rel="license noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_TW">
+  <span><i class="fab fa-fw fa-2x fa-creative-commons"></i><i class="fab fa-fw fa-2x fa-creative-commons-by"></i><i class="fab fa-fw fa-2x fa-creative-commons-nc"></i><i class="fab fa-fw fa-2x fa-creative-commons-sa"></i></span>
+  CC BY-NC-SA 4.0 
+</a>
+
+
+    </div>
+</div><section class="related-posts row card component">
+    <div class="card-header">
+      <h2 class="card-title fs-4 my-2 text-surface">相關文章</h2>
+    </div>
+    <div class="card-body">
+      <ul class="post-list list-unstyled"><li>
+          <a href="/series/2019-ithome-ironman/day-13-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E9%9D%9E%E5%90%8C%E6%AD%A5%E7%A5%9E%E5%99%A8-promise/">Day 13 - 二周目 - 非同步神器 Promise
+</a>
+          <span class="float-end post-date">2018-10-13
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-12-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E6%BA%96%E5%82%99%E8%B5%B7%E7%A8%8B%E6%B7%B1%E5%85%A5%E5%BE%8C%E7%AB%AF/">Day 12 - 二周目 - 準備起程深入後端
+</a>
+          <span class="float-end post-date">2018-10-12
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-11-%E4%B8%80%E5%91%A8%E7%9B%AE-%E9%96%8B%E5%A7%8B%E7%8E%A9%E8%BD%89%E5%89%8D%E7%AB%AF%E4%BA%8C/">Day 11 - 一周目- 開始玩轉前端(二)
+</a>
+          <span class="float-end post-date">2018-10-11
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-10-%E4%B8%80%E5%91%A8%E7%9B%AE-%E9%96%8B%E5%A7%8B%E7%8E%A9%E8%BD%89%E5%89%8D%E7%AB%AF%E4%B8%80/">Day 10- 一周目- 開始玩轉前端(一)
+</a>
+          <span class="float-end post-date">2018-10-10
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-9-%E4%B8%80%E5%91%A8%E7%9B%AE-%E9%96%8B%E5%A7%8B%E7%8E%A9%E8%BD%89%E5%BE%8C%E7%AB%AF%E4%BA%8C/">Day 9 - 一周目- 開始玩轉後端(二)
+</a>
+          <span class="float-end post-date">2018-10-09
+</span>
+        </li></ul>
+    </div>
+  </section><div class="card component row post-comments" id="post-comments">
+  <div class="card-header">
+    <h2 class="card-title my-2 fs-4 text-surface">評論</h2>
+  </div>
+  <div class="card-body"><script src="https://utteranc.es/client.js"
+  repo="eugenechen0514/eugenechen0514.github.io"
+  issue-term="pathname"
+  label="comment"
+  theme="github-light"
+  crossorigin="anonymous"
+  async>
+</script></div>
+</div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container d-flex flex-column">
+    
+    <div class="card row text-center profile component">
+  <div class="card-body">
+    <div class="col-12 d-flex align-items-center justify-content-center"><picture><img class="profile-avatar rounded-circle" alt="EugeneChen" src="/images/profile.webp" loading="lazy" data-viewer-invisible
+    
+     width="298" height="305"
+     />
+</picture>
+</div>
+    <div class="col-12 profile-meta"><div class="profile-name fw-fold fs-lg">EugeneChen</div><div class="profile-bio">軟體工程師，喜歡動手做些有的沒的專案，同時也喜愛數學、攝影、桌球，慢跑、游泳、作菜。</div><div class="profile-about"><i class="fas fa-fw fa-user"></i><a target="_blank" rel="noopener noreferrer" href="https://eugene-website.herokuapp.com">關於我</a></div><nav class="social-links nav justify-content-center"><a class="nav-link social-link" href="mailto:yujiechen0514@gmail.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i></a><a class="nav-link social-link" target="_blank" href="https://github.com/eugenechen0514" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-github"></i></a><a class="nav-link social-link" target="_blank" href="/index.xml" title="RSS" rel="noopener noreferrer">
+    <i class="fas fa-fw fa-2x fa-rss"></i></a></nav>
+</div>
+  </div>
+</div>
+<section class="taxonomies row card component">
+    <div class="card-body">
+        <ul class="nav nav-tabs" id="myTab" role="tablist"><li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="taxonomySeriesTab" data-bs-toggle="tab" data-bs-target="#taxonomySeries" 
+                        type="button" role="tab" aria-controls="專欄" aria-selected="true">
+                        專欄
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                    <button class="nav-link" id="taxonomyCategoriesTab" data-bs-toggle="tab" data-bs-target="#taxonomyCategories" 
+                        type="button" role="tab" aria-controls="分類" aria-selected="true">
+                        分類
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                    <button class="nav-link" id="taxonomyTagsTab" data-bs-toggle="tab" data-bs-target="#taxonomyTags" 
+                        type="button" role="tab" aria-controls="標籤" aria-selected="true">
+                        標籤
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                <button class="nav-link" id="taxonomyArchivesTab" data-bs-toggle="tab" data-bs-target="#taxonomyArchive" 
+                    type="button" role="tab" aria-controls="taxonomyArchives" aria-selected="true">
+                    歸檔
+                </button>
+            </li>
+        </ul>
+          
+        <div class="tab-content mt-3"><div class="tab-pane active" id="taxonomySeries" role="tabpanel" aria-labelledby="taxonomySeriesTab" tabindex="0"><a href="/series/2019-ithome-ironman/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="用js成為老闆心中的全端工程師 - 2019 iT邦幫忙鐵人賽">
+                        用js成為老闆心中的全端工程師 - 2019 iT邦幫忙鐵人賽<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a></div><div class="tab-pane" id="taxonomyCategories" role="tabpanel" aria-labelledby="taxonomyCategoriesTab" tabindex="0"><a href="/categories/%E9%9A%A8%E6%89%8B%E7%AD%86%E8%A8%98/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="隨手筆記">
+                        隨手筆記<span class="badge badge-sm text-secondary bg-white ms-1">2</span></a><a href="/categories/%E5%BF%83%E5%BE%97/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="心得">
+                        心得<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a></div><div class="tab-pane" id="taxonomyTags" role="tabpanel" aria-labelledby="taxonomyTagsTab" tabindex="0"><a href="/tags/2019-it-%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2019 iT 邦幫忙鐵人賽">
+                        2019 iT 邦幫忙鐵人賽<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a><a href="/tags/%E7%94%A8js%E6%88%90%E7%82%BA%E8%80%81%E9%97%86%E5%BF%83%E4%B8%AD%E7%9A%84%E5%85%A8%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%AB/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="用js成為老闆心中的全端工程師">
+                        用js成為老闆心中的全端工程師<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a><a href="/tags/alphacamp/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="AlphaCamp">
+                        AlphaCamp<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/kafka/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="Kafka">
+                        Kafka<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/mongodb/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="MongoDB">
+                        MongoDB<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/pandas/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="pandas">
+                        pandas<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/python/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="python">
+                        python<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/%E6%8E%A8%E8%96%A6%E7%B3%BB%E7%B5%B1/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="推薦系統">
+                        推薦系統<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a></div><div class="tab-pane" id="taxonomyArchive" role="tabpanel" aria-labelledby="taxonomyArchiveTab" tabindex="0"><a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2022">
+    2022 <span class="badge badge-sm text-secondary bg-white ms-1">1</span>
+    </a>
+<a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2021">
+    2021 <span class="badge badge-sm text-secondary bg-white ms-1">2</span>
+    </a>
+<a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2018">
+    2018 <span class="badge badge-sm text-secondary bg-white ms-1">30</span>
+    </a>
+
+</div>
+        </div>
+    </div>
+</section><div class="post-toc row mb-4 card component" id="postTOC">
+  <div class="card-header">
+    <h2 class="card-title fs-4 my-2 text-surface">目錄</h2>
+  </div>
+  <div class="card-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#2019-02-18">2019-02-18</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#thencatch-鍊式語法的問題非同步函數簽章需完整契合"><code>then()...catch()</code> 鍊式語法的問題：非同步函數簽章需完整契合</a></li>
+    <li><a href="#非同步語法糖衣-asyncawait">非同步語法糖衣 <code>async/await</code></a>
+      <ul>
+        <li><a href="#async-function-是回傳-promise"><code>async function()</code> 是回傳 Promise</a></li>
+        <li><a href="#async-function-的-reject-處理"><code>async function()</code> 的 reject 處理</a></li>
+        <li><a href="#可以在裡面丟出例外">可以在裡面丟出例外</a></li>
+      </ul>
+    </li>
+    <li><a href="#asyncawait-vs-promise-物件用誰它們可以互相取代嗎">async/await VS Promise 物件用誰？它們可以互相取代嗎？</a></li>
+  </ul>
+</nav>
+  </div>
+</div><section class="recent-posts row card component">
+  <div class="card-header">
+    <h2 class="card-title my-2 fs-4 text-surface">最近文章</h2>
+  </div>
+  <div class="card-body">
+    <ul class="post-list list-unstyled ms-1"><li class="mb-2">
+        <a href="/posts/reviews/2022-02-06-alphacamp%E6%8E%A8%E8%96%A6%E7%B3%BB%E7%B5%B1%E4%B8%8A%E8%AA%B2%E5%BF%83%E5%BE%97/">AlphaCamp 推薦系統上課心得
+</a>
+      </li><li class="mb-2">
+        <a href="/posts/notes/2021-08-22-%E4%B8%80%E7%AA%BAkafka%E5%85%A7%E9%83%A8%E5%84%B2%E5%AD%98%E8%B3%87%E6%96%99/">一窺 Kafka 內部儲存資料
+</a>
+      </li><li class="mb-2">
+        <a href="/posts/notes/2021-08-01-mongodb-5-%E4%BE%86%E4%BA%86%E6%9C%89%E4%BB%80%E9%BA%BC%E5%80%BC%E5%BE%97%E6%B3%A8%E6%84%8F%E7%9A%84%E6%9B%B4%E6%96%B0/">MongoDb 5 來了，有什麼值得注意的更新呢?
+</a>
+      </li><li class="mb-2">
+        <a href="/series/2019-ithome-ironman/day-30-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-network-%E6%9A%A8%E5%AE%8C%E8%B3%BD%E5%9B%9E%E9%A1%A7/">Day 30- 三周目 - Docker Network 暨完賽回顧
+</a>
+      </li><li class="mb-2">
+        <a href="/series/2019-ithome-ironman/day-29-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-compose%E4%B8%80%E6%AC%A1%E7%AE%A1%E7%90%86%E5%A4%9A%E5%80%8B%E5%AE%B9%E5%99%A8/">Day 29- 三周目 - Docker Compose：一次管理多個容器
+</a>
+      </li></ul>
+  </div>
+</section>
+    
+  </div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><div class="offcanvas offcanvas-bottom h-auto" tabindex="-1" id="offcanvasActionsPanel"
+  aria-labelledby="offcanvasActionsPanelLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title fs-4" id="offcanvasActionsPanelLabel">
+      <i class="fas fa-fw fa-th-large me-1"></i>
+      Actions
+    </h5>
+    <button type="button" class="btn-close ms-auto" data-bs-dismiss="offcanvas" data-bs-target="offcanvasActionsPanel" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body mt-2"><div class="social-share mb-4 d-flex overflow-auto">
+      <a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Twitter Share Button"
+      target="_blank" href="https://twitter.com/intent/tweet?title=Day%2014%20-%20%e4%ba%8c%e5%91%a8%e7%9b%ae%20-%20%e5%be%9ePromise%20%e6%98%87%e8%8f%af%e5%88%b0%20async%3aawait&url=%2fseries%2f2019-ithome-ironman%2fday-14-%25E4%25BA%258C%25E5%2591%25A8%25E7%259B%25AE-%25E5%25BE%259Epromise-%25E6%2598%2587%25E8%258F%25AF%25E5%2588%25B0-asyncawait%2f">
+        <i class="fab fa-2x fa-fw fa-twitter mb-2"></i> Twitter
+      </a>
+      <a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Facebook Share Button"
+        target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=%2fseries%2f2019-ithome-ironman%2fday-14-%25E4%25BA%258C%25E5%2591%25A8%25E7%259B%25AE-%25E5%25BE%259Epromise-%25E6%2598%2587%25E8%258F%25AF%25E5%2588%25B0-asyncawait%2f">
+        <i class="fab fa-2x fa-fw fa-facebook-f mb-2"></i> Facebook
+      </a>
+    </div>
+    <hr class="mb-4"><div class="actions d-flex overflow-auto align-items-center">
+      <a role="button" class="action action-go-back d-flex flex-column align-items-center me-3" href="javascript: window.history.back();">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-chevron-circle-down" data-fa-transform="rotate-90"></i></span> 返回
+      </a>
+      <a role="button" class="action action-reload-page d-flex flex-column align-items-center me-3">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-redo-alt"></i></span> 刷新
+      </a>
+      <a role="button" class="action action-copy-url d-flex flex-column align-items-center me-3">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-link"></i></span> 複製連結
+      </a>
+    </div>
+  </div>
+</div><nav class="social-links nav justify-content-center mb-2"><a class="nav-link social-link" href="mailto:yujiechen0514@gmail.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i></a><a class="nav-link social-link" target="_blank" href="https://github.com/eugenechen0514" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-github"></i></a><a class="nav-link social-link" target="_blank" href="https://linkedin.com/in/yuchieh-chen-37a48989" title="LinkedIn" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-linkedin-in"></i></a><a class="nav-link social-link" target="_blank" href="https://medium.com/@yujiechen0514" title="Medium" rel="noopener noreferrer">
+        <i class="fab fa-fw fa-2x fa-medium-m"></i></a><a class="nav-link social-link" target="_blank" href="/index.xml" title="RSS" rel="noopener noreferrer">
+    <i class="fas fa-fw fa-2x fa-rss"></i></a></nav>
+<div class="copyright mb-2">
+  Copyright © 2016-2022 EugeneChen. All Rights Reserved.
+</div>
+<div class="powered-by mb-2">
+  Powered by <a class="text-primary" href="https://gohugo.io" target="_blank" rel="noopener noreferrer">Hugo</a> and the <a class="text-primary" href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank" rel="noopener noreferrer">Bootstrap</a> theme.
+</div>
+<div class="sponsors">
+
+
+
+
+
+
+</div>
+</footer>
+<script src="/assets/main/bundle.min.2bc7d6952dbf38d6d2815939c58fc655e72d050b196d9fd99829d8fb23904646.js" integrity="sha256-K8fWlS2/ONbSgVk5xY/GVectBQsZbZ/ZmCnY&#43;yOQRkY=" crossorigin="anonymous" defer></script><script src="/assets/icons/bundle.min.a4bf8247f780c9bf61d579a8efe7129ec790bb98622bf4a29895eb21e689266c.js" integrity="sha256-pL&#43;CR/eAyb9h1Xmo7&#43;cSnseQu5hiK/SimJXrIeaJJmw=" crossorigin="anonymous" defer></script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('\/service-worker.min.js').then(function(reg) {
+      console.log('Successfully registered service worker', reg);
+    }).catch(function(err) {
+      console.warn('Error whilst registering service worker', err);
+    });
+  });
+}
+</script><script src="/assets/viewer/bundle.min.92d4a694e2e9a4c4d89b6998067e2f8e502dc7a951682bb5a160a3004b434908.js" integrity="sha256-ktSmlOLppMTYm2mYBn4vjlAtx6lRaCu1oWCjAEtDSQg=" crossorigin="anonymous" defer></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-ZWYL79X38Y', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+<script src="/assets/docsearch/bundle.min.c6965b5bee044b874617239932d6a7992b217f7949f895a7576980d110fb2ab1.js" integrity="sha256-xpZbW&#43;4ES4dGFyOZMtanmSshf3lJ&#43;JWnV2mA0RD7KrE=" crossorigin="anonymous" defer></script></body>
+</html>

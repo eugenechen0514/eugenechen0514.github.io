@@ -1,0 +1,770 @@
+<!doctype html><html class="position-relative" itemscope itemtype="http://schema.org/WebPage" lang="zh-tw" data-theme="auto"
+  
+   data-palette="purple">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Day 25 - 二周目 - React component 套件 Material-UI： Google Material Design 的實作套件 - EugeneChen</title><link rel="apple-touch-icon" href="/images/icons/icon-180x180.png" sizes="180x180">
+<link rel="icon" href="/images/icons/icon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/images/icons/icon-16x16.png" sizes="16x16" type="image/png">
+<link rel="icon" href="/images/icons/favicon.ico">
+<link rel="manifest" href="/manifest.json">
+<meta name="keywords" content="" />
+<meta name="description" content="使用 Material-UI 的 component" /><meta name="robots" content="index, follow" /><meta itemprop="name" content="Day 25 - 二周目 - React component 套件 Material-UI： Google Material Design 的實作套件">
+<meta itemprop="description" content="使用 Material-UI 的 component"><meta itemprop="datePublished" content="2018-10-25T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2018-10-25T00:00:00+00:00" />
+<meta itemprop="wordCount" content="2497">
+<meta itemprop="keywords" content="2019 iT 邦幫忙鐵人賽,用js成為老闆心中的全端工程師," /><meta property="og:title" content="Day 25 - 二周目 - React component 套件 Material-UI： Google Material Design 的實作套件" />
+<meta property="og:description" content="使用 Material-UI 的 component" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/series/2019-ithome-ironman/day-25-%E4%BA%8C%E5%91%A8%E7%9B%AE-react-component-%E5%A5%97%E4%BB%B6-material-ui-google-material-design-%E7%9A%84%E5%AF%A6%E4%BD%9C%E5%A5%97%E4%BB%B6/" /><meta property="article:section" content="series" />
+<meta property="article:published_time" content="2018-10-25T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-10-25T00:00:00+00:00" /><meta property="og:site_name" content="EugeneChen" />
+<meta property="og:see_also" content="/series/2019-ithome-ironman/day-30-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-network-%E6%9A%A8%E5%AE%8C%E8%B3%BD%E5%9B%9E%E9%A1%A7/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-29-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-compose%E4%B8%80%E6%AC%A1%E7%AE%A1%E7%90%86%E5%A4%9A%E5%80%8B%E5%AE%B9%E5%99%A8/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-28-%E4%B8%89%E5%91%A8%E7%9B%AE-%E8%A3%BD%E4%BD%9C%E8%87%AA%E5%B7%B1%E7%9A%84%E6%98%A0%E5%83%8F%E6%AA%94%E5%8C%85%E6%89%93%E5%89%8D%E5%BE%8C%E7%AB%AF%E6%98%A0%E5%83%8F%E6%AA%94/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-27-%E4%B8%89%E5%91%A8%E7%9B%AE-%E4%BA%94%E5%88%86%E9%90%98%E5%BB%BA%E7%AB%8B%E7%A7%81%E6%9C%89-npm-verdaccio/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-26-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E7%9C%8B%E5%AE%8C%E5%B0%B1%E6%9C%83%E6%9E%B6-docker-%E5%8C%96%E7%9A%84%E6%9C%8D%E5%8B%99/" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Day 25 - 二周目 - React component 套件 Material-UI： Google Material Design 的實作套件"/>
+<meta name="twitter:description" content="使用 Material-UI 的 component"/>
+<meta property="og:image" content="/images/logo.png"/>
+  <meta name="twitter:image" content="/images/logo.png"/><link rel="stylesheet" href="/assets/main/bundle.min.925f59d4c744cc5e99dcc7d02a6f68dff5cceaea488c7667bd947bf7aa35b649.css" integrity="sha256-kl9Z1MdEzF6Z3MfQKm9o3/XM6upIjHZnvZR796o1tkk=" crossorigin="anonymous"><link rel="stylesheet" href="/assets/viewer/bundle.min.f05183267bb952fbc8c63a7178364de2951614ab71d544ec1068ad36c7447ccc.css" integrity="sha256-8FGDJnu5UvvIxjpxeDZN4pUWFKtx1UTsEGitNsdEfMw=" crossorigin="anonymous"><link rel="stylesheet" href="/assets/docsearch/bundle.min.c165d6a127fffa285e6b89ef65362fe921bc0c1fdaefa35f6af069b962bdb50e.css" integrity="sha256-wWXWoSf/&#43;ihea4nvZTYv6SG8DB/a76NfavBpuWK9tQ4=" crossorigin="anonymous"></head>
+  <body><script>const items=["theme","palette"];items.forEach(function(e){const t=localStorage.getItem("hbs:"+e);t&&document.body.parentElement.setAttribute("data-"+e,t)})</script><header><nav class="top-app-bar shadow bg-primary text-white navbar navbar-expand-lg fixed-top">
+  <div class="container"><a class="navbar-brand flex-grow-1 flex-lg-grow-0 text-lg-start ms-2 ms-lg-0 mx-auto me-lg-3" href="/"><picture><img class="logo" alt="Logo" src="/images/logo.webp" loading="lazy"
+    
+     width="136" height="69"
+     />
+</picture>
+EugeneChen
+    </a>
+    <button class="navbar-toggler order-5" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarMenus"
+      aria-controls="navbarMenus" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-ellipsis-h"></i>
+    </button>
+    <div class="offcanvas-lg offcanvas-end flex-grow-1 bg-primary text-white" tabindex="-1" id="navbarMenus" aria-labelledby="navbarMenusLabel">
+      <div class="offcanvas-header px-4 pb-0">
+        <h5 class="offcanvas-title" id="navbarMenusLabel">EugeneChen</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" data-bs-target="#navbarMenus" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body p-4 pt-0 p-lg-0">
+        <hr class="d-lg-none">
+        <ul class="navbar-nav flex-row flex-wrap align-items-center me-auto"><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/posts/">
+              <i class="fas fa-book fa-fw"></i>文章
+            </a>
+          </li><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/series/">
+              <i class="fas fa-bars fa-fw"></i>專欄
+            </a>
+          </li><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/posts/notes/">
+              <i class="fas fa-sticky-note fa-fw"></i>隨手筆記
+            </a>
+          </li></ul>
+        <hr class="d-lg-none">
+        <form class="search-bar mx-auto my-1" action="/search" novalidate>
+  <div class="input-group input-group-sm align-items-center">
+    <span class="btn btn-search disabled position-absolute left-0 border-0">
+      <i class="fas fa-fw fa-search fa-lg"></i>
+    </span>
+    <input class="py-2 form-control rounded search-input" name="q" type="search" aria-label="Search" required>
+  </div>
+</form>
+<hr class="d-lg-none">
+        <ul class="navbar-nav flex-row flex-wrap align-items-center ms-md-auto"><li class="nav-item dropdown py-1 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-globe"></i>
+        <span class="d-lg-none">語言</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown"><li>
+        <a class="dropdown-item" href="/en/">
+            English
+        </a>
+        </li><li>
+        <a class="dropdown-item active" href="/">
+            繁體中文
+        </a>
+        </li></ul>
+</li>
+<li class="nav-item py-1 col-12 col-lg-auto">
+  <div class="vr d-none d-lg-flex h-100 mx-lg-2 text-white"></div>
+  <hr class="d-lg-none my-2">
+</li><li class="nav-item dropdown py-2 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="fontSizeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-font"></i>
+        <span class="d-lg-none">字體大小</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="fontSizeDropdown"><li>
+            <button class="font-size-item dropdown-item" data-size="xs">
+                特小號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="sm">
+                小號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item active" data-size="md">
+                中等
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="lg">
+                大號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="xl">
+                特大號
+            </button>
+        </li></ul>
+</li><li class="nav-item dropdown py-1 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="paletteDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-palette"></i>
+        <span class="d-lg-none">配色</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end px-2" aria-labelledby="paletteDropdown">
+        <div class="row"><li class="col-3 my-1">
+                <a role="button" id="palette-blue" aria-label="藍色"
+                    class="btn btn-sm w-100 palette text-bg-blue" data-palette="blue">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-blue-gray" aria-label="藍灰色"
+                    class="btn btn-sm w-100 palette text-bg-blue-gray" data-palette="blue-gray">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-brown" aria-label="棕色"
+                    class="btn btn-sm w-100 palette text-bg-brown" data-palette="brown">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-cyan" aria-label="青色"
+                    class="btn btn-sm w-100 palette text-bg-cyan" data-palette="cyan">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-green" aria-label="綠色"
+                    class="btn btn-sm w-100 palette text-bg-green" data-palette="green">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-indigo" aria-label="靛青色"
+                    class="btn btn-sm w-100 palette text-bg-indigo" data-palette="indigo">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-orange" aria-label="橙色"
+                    class="btn btn-sm w-100 palette text-bg-orange" data-palette="orange">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-pink" aria-label="粉色"
+                    class="btn btn-sm w-100 palette text-bg-pink" data-palette="pink">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-purple" aria-label="紫色"
+                    class="btn btn-sm w-100 palette text-bg-purple" data-palette="purple">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-red" aria-label="紅色"
+                    class="btn btn-sm w-100 palette text-bg-red" data-palette="red">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-teal" aria-label="藍綠色"
+                    class="btn btn-sm w-100 palette text-bg-teal" data-palette="teal">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-yellow" aria-label="黃色"
+                    class="btn btn-sm w-100 palette text-bg-yellow" data-palette="yellow">
+                </a>
+            </li></div>
+    </ul>
+</li>
+<li class="nav-item dropdown py-2 py-lg-1 col-6 col-lg-auto"><a class="nav-link px-0 px-lg-1" href="#" id="modeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="mode-icon fas fa-fw fa-adjust" id="modeIcon"></i>
+        <span class="d-lg-none">模式</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="modeDropdown"><li class="mode-item" data-color-mode="light" data-icon="sun">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-sun"></i> Light
+            </button>
+        </li><li class="mode-item" data-color-mode="dark" data-icon="moon">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-moon"></i> Dark
+            </button>
+        </li><li class="mode-item active" data-color-mode="auto" data-icon="adjust">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-adjust"></i> Auto
+            </button>
+        </li></ul>
+</li>
+</ul>
+      </div>
+    </div>
+  </div>
+</nav>
+</header>
+<main class="container">
+      <div class="row content"><noscript>
+    <div class="alert alert-danger" role="alert">你的瀏覽器不支持 JavaScript。</div>
+</noscript>
+
+<div class="col-lg-8">
+  <div class="container"><nav class="row card component" aria-label="breadcrumb">
+  <div class="card-body pb-0">
+    <ol class="breadcrumb"><li class="breadcrumb-item text-surface"><a href="/">主頁</a></li><li class="breadcrumb-item text-surface"><a href="/series/">Series</a></li><li class="breadcrumb-item active">Day 25 - 二周目 - React Component 套件 Material-UI： Google Material Design 的實作套件</li></ol>
+  </div>
+</nav><div class="post-panel-wrapper position-sticky">
+  <div class="d-flex flex-column component rounded post-panel position-absolute border">
+    
+    <a class="action action-panel-toggler" role="button" title="Panel toggler">
+      <i class="fas fa-fw fa-chevron-circle-down"></i>
+    </a>
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button" title="Sidebar toggler">
+  <i class="fas fa-fw fa-expand-alt" data-fa-transform="rotate-45"></i>
+</a>
+
+    
+
+    
+    <a class="action" href="#post-copyright" role="button" aria-label="Copyright" title="Copyright">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    <a class="action" href="#post-comments" role="button" aria-label="Comments" title="Comments">
+  <i class="fas fa-fw fa-comments"></i>
+</a>
+    <a class="action" href="#postTOC" aria-controls="Table of contents" role="button" title="Table of contents">
+  <i class="fas fa-fw fa-list-alt"></i>
+</a>
+    
+  </div>
+</div>
+<article class="row card component mb-4 post">
+  <div class="card-header ">
+    <h1 class="card-title post-title my-2">Day 25 - 二周目 - React Component 套件 Material-UI： Google Material Design 的實作套件
+</h1>
+  </div>
+  <div class="card-body"><div class="post-meta mb-3">
+  <span class="post-date me-1 mb-1" title="創建於 2018-10-25 08:00:00 &#43;0800 CST。">
+    2018-10-25
+  </span><span class="post-reading-time me-1 mb-1">
+    5 分鐘閱讀
+  </span><a href="/series/2019-ithome-ironman/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">用js成為老闆心中的全端工程師 - 2019 IT邦幫忙鐵人賽</a><a href="/tags/2019-it-%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">2019 IT 邦幫忙鐵人賽</a><a href="/tags/%E7%94%A8js%E6%88%90%E7%82%BA%E8%80%81%E9%97%86%E5%BF%83%E4%B8%AD%E7%9A%84%E5%85%A8%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%AB/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">用js成為老闆心中的全端工程師</a></div>
+<div class="post-content mb-3"><p>使用 Material-UI 的 component</p>
+<h1 id="回憶">回憶<a class="anchor ms-1" href="#回憶"><i class="fas fa-link"></i></a></h1>
+<p>前面三天都是在談 Redux 關於前端的資料流，今天要談一個「非必要」的 react component 套件：<a href="https://material-ui.com" target="_blank" rel="noopener noreferrer">Material-UI<i class="fas fa-external-link-square-alt ms-1"></i></a>。它是<a href="https://material.io" target="_blank" rel="noopener noreferrer">Material Design<i class="fas fa-external-link-square-alt ms-1"></i></a> 的 react 實作套件，它用來提供畫面的組件 (component)，像是 Button, Input, Dialog…等，充分地體現出 React component 讓我們以組件的概念組裝畫面。</p>
+<p>我們曾在<a href="https://ithelp.ithome.com.tw/articles/10201085" target="_blank" rel="noopener noreferrer">Day 12 - 二周目 - 準備起程深入後端<i class="fas fa-external-link-square-alt ms-1"></i></a> 中提到設計師做完設計稿後，會由一個前端工程師，做「切版」的工作，一般會寫出 HTML + CSS + Javascript。若前端框架採用 React，我們會把他們割一割封裝在各個 component，最後用 component 組裝畫面。</p>
+<p>然而，不是每家公司都有「切版」的工程師。若只是單純的做後台網站，沒有對廣大的用戶，就不會講求畫面多絢麗、使用者體驗多利害，所以就有這種已經做好的畫面樣式的 component 可以直接使用，像是：<a href="https://material-ui.com" target="_blank" rel="noopener noreferrer">Material-UI(Google)<i class="fas fa-external-link-square-alt ms-1"></i></a>，<a href="https://ant.design/" target="_blank" rel="noopener noreferrer">Ant Design (螞蟻金服)<i class="fas fa-external-link-square-alt ms-1"></i></a>…等。</p>
+<h1 id="目標">目標<a class="anchor ms-1" href="#目標"><i class="fas fa-link"></i></a></h1>
+<blockquote>
+<p><a href="https://github.com/eugenechen0514/ithelp-30dayfullstack-Day25" target="_blank" rel="noopener noreferrer">過程請見 github commit log<i class="fas fa-external-link-square-alt ms-1"></i></a></p>
+</blockquote>
+<ol>
+<li>使用 Material-UI 的 component</li>
+<li>如何對為 component 加入css 樣式</li>
+<li>如何用 Material-UI <code>Grid</code> 排版</li>
+</ol>
+<h1 id="使用-material-ui">使用 Material-UI<a class="anchor ms-1" href="#使用-material-ui"><i class="fas fa-link"></i></a></h1>
+<p>Material-UI 功能特色：</p>
+<ol>
+<li>大量的基本 component</li>
+<li>樣式(css style)注入系統：<code>withStyles</code> 這個 HOC(high order component)，可以注入/覆寫樣式</li>
+<li>排版 component： <code>Grid</code></li>
+</ol>
+<h2 id="安裝-material-ui">安裝 Material-UI<a class="anchor ms-1" href="#安裝-material-ui"><i class="fas fa-link"></i></a></h2>
+<p>Material-UI 歷經多次的 API 改版，現在的套件變的比較有組識了，基本元件全放到 <strong>@material-ui/core</strong> 中</p>
+<ol>
+<li>複制 <a href="https://ithelp.ithome.com.tw/articles/10204517" target="_blank" rel="noopener noreferrer">Day 23 - 二周目 - Redux 串接 React 與 Redux DevTools<i class="fas fa-external-link-square-alt ms-1"></i></a> 的專案 <code>hello-react</code></li>
+<li>安裝 <code>material-ui/core</code>： 安裝 <code>npm install @material-ui/core --save</code></li>
+<li>安裝 <code>material-ui/icons</code>(可選)：  安裝 <code>npm install @material-ui/icons --save</code>, 這套件提供一些svg(Scalable Vector Graphics) icon</li>
+</ol>
+<h2 id="大量的基本-component">大量的基本 component<a class="anchor ms-1" href="#大量的基本-component"><i class="fas fa-link"></i></a></h2>
+<h3 id="體驗一下-material-ui">體驗一下 Material-UI<a class="anchor ms-1" href="#體驗一下-material-ui"><i class="fas fa-link"></i></a></h3>
+<p>我們之前在 <code>hello-react</code> 中加入了一個 button 來發出一個 action，如圖 <picture><img class="img-fluid" alt="Screen Shot 2018-10-24 at 2.11.33 PM.png" src="/series/2019-ithome-ironman/day-25-%E4%BA%8C%E5%91%A8%E7%9B%AE-react-component-%E5%A5%97%E4%BB%B6-material-ui-google-material-design-%E7%9A%84%E5%AF%A6%E4%BD%9C%E5%A5%97%E4%BB%B6/resources/9321BFFA2E6A26C6D18106779B76BD69.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>現在我們來換成 Material-UI Button。修改前試想一下，我們要改的是畫面，所以應該改哪個資料夾的檔案呢？actions/stores/reducers/components/containers 哪一個？
+若你之前有跟上文章的內容應該可以想到，答應就是</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">components
+</span></span></code></pre></div><p>它是掌管畫面的資料夾，所以改 <code>components/LoginBox.js</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1">// components/LoginBox.js
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="c1"></span><span class="kr">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="kr">import</span> <span class="nx">Button</span> <span class="nx">from</span> <span class="s1">&#39;@material-ui/core/Button&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="kr">class</span> <span class="nx">LoginBox</span> <span class="kr">extends</span> <span class="nx">Component</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">    <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">      <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">        <span class="nx">message</span><span class="o">:</span> <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">message</span><span class="p">}</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">        <span class="o">&lt;</span><span class="nx">Button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">onClickSubmit</span><span class="p">}</span><span class="o">&gt;</span><span class="nx">Submit</span><span class="o">&lt;</span><span class="err">/Button&gt;</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">      <span class="o">&lt;</span><span class="err">/div &gt;</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">    <span class="p">);</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>我們把 html tag <code>button</code>，換成是 Material-UI component <code>Button</code>。存檔後就完成了，看結果
+<picture><img class="img-fluid" alt="Screen Recording 2018-10-24 at 2.20.58 PM.gif" src="/series/2019-ithome-ironman/day-25-%E4%BA%8C%E5%91%A8%E7%9B%AE-react-component-%E5%A5%97%E4%BB%B6-material-ui-google-material-design-%E7%9A%84%E5%AF%A6%E4%BD%9C%E5%A5%97%E4%BB%B6/resources/7838202E402CE275145499B92F979454.gif" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>如何？很容易吧! 有沒有體驗到下面的感覺呢？</p>
+<ol>
+<li>Flux framework 資料夾結構的分類</li>
+<li>React component 可以重構、組裝畫面</li>
+<li>JSX 語法方便替換 html tag</li>
+</ol>
+<h4 id="這麼多-component-要怎麼用-material-ui">這麼多 component, 要怎麼用 Material-UI？<a class="anchor ms-1" href="#這麼多-component-要怎麼用-material-ui"><i class="fas fa-link"></i></a></h4>
+<p>一打開 <strong>Component API</strong>  有沒有嚇一跳呢？要怎麼把它們組起來？
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-24 at 2.27.53 PM.png" src="/series/2019-ithome-ironman/day-25-%E4%BA%8C%E5%91%A8%E7%9B%AE-react-component-%E5%A5%97%E4%BB%B6-material-ui-google-material-design-%E7%9A%84%E5%AF%A6%E4%BD%9C%E5%A5%97%E4%BB%B6/resources/4DC79B581CFE9397B16BD4B30163AE9F.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>其實，可以不用一個個查，常用的 Demo 都有人整理好了，只要開 <strong>Component Demos</strong>
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-24 at 2.29.12 PM.png" src="/series/2019-ithome-ironman/day-25-%E4%BA%8C%E5%91%A8%E7%9B%AE-react-component-%E5%A5%97%E4%BB%B6-material-ui-google-material-design-%E7%9A%84%E5%AF%A6%E4%BD%9C%E5%A5%97%E4%BB%B6/resources/E4AD2B7BDE20904E066C442C4A7A18BD.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+
+選你要的畫面 Demo，然後找到 <strong>Show the source</strong> 按鈕
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-24 at 2.30.37 PM (2).png" src="/series/2019-ithome-ironman/day-25-%E4%BA%8C%E5%91%A8%E7%9B%AE-react-component-%E5%A5%97%E4%BB%B6-material-ui-google-material-design-%E7%9A%84%E5%AF%A6%E4%BD%9C%E5%A5%97%E4%BB%B6/resources/8ADCD55F08B984C186668AFD60181DDB.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+
+就可以查到原始碼了，再貼到自己的專案中，就可以用了。</p>
+<p>每個 Demo 頁面最下面還很貼心的附上相關的 API 連結，就可以進去看更多 component 用法。
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-24 at 2.35.36 PM.png" src="/series/2019-ithome-ironman/day-25-%E4%BA%8C%E5%91%A8%E7%9B%AE-react-component-%E5%A5%97%E4%BB%B6-material-ui-google-material-design-%E7%9A%84%E5%AF%A6%E4%BD%9C%E5%A5%97%E4%BB%B6/resources/831F95A20F43D7A9A80E54ED96EDE472.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<h2 id="樣式css-style注入系統封裝-sytle-或-修改替換樣式">樣式(css style)注入系統：「封裝 sytle」 或 「修改/替換樣式」<a class="anchor ms-1" href="#樣式css-style注入系統封裝-sytle-或-修改替換樣式"><i class="fas fa-link"></i></a></h2>
+<p>幾乎所有的 Demo code 最後面都會看到 <code>withStyles</code> 這個 HOC，如下圖：
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-24 at 2.42.28 PM.png" src="/series/2019-ithome-ironman/day-25-%E4%BA%8C%E5%91%A8%E7%9B%AE-react-component-%E5%A5%97%E4%BB%B6-material-ui-google-material-design-%E7%9A%84%E5%AF%A6%E4%BD%9C%E5%A5%97%E4%BB%B6/resources/6B759497CE10C7B079ECA0B448B1B915.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+
+這是那來封裝 sytle 或 overwrite style 用的，它的簽章如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">styles =&gt; component =&gt; component
+</span></span></code></pre></div><p>當 <code>withStyles(styles)</code> 時就是函數：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">component =&gt; component
+</span></span></code></pre></div><p>它把 component (class) 送入，產生新的 component (class)。不僅如此，它還把注入的 styles，放在 <code>classes</code> prop 中，你就可以在 component 使用注入的 style。</p>
+<p>因為 <code>withStyles</code> 會把樣式注入 <code>classes</code> prop 中，所以 component 的 prop 定義 (<code>propTypes</code>) 要有 <code>classes: PropTypes.object.isRequired</code>。沒加入的話， Material-UI 也會警告你。</p>
+<h3 id="封裝-sytle">封裝 sytle<a class="anchor ms-1" href="#封裝-sytle"><i class="fas fa-link"></i></a></h3>
+<p>注意看到 <code>styles</code> 是巢狀物件，屬性名是 <strong>css class name</strong>，屬性值是 CSS 物件 (<a href="https://developer.mozilla.org/zh-TW/docs/Web/API/CSS_Object_Model" target="_blank" rel="noopener noreferrer">見 CSS Object Model<i class="fas fa-external-link-square-alt ms-1"></i></a>)。 透過 <code>withStyles(styles)(Component)</code> 後，它會把 <strong>css class name</strong> 也當做 <code>classes</code> prop 的屬性名但是 <strong>值是字串</strong>，也就是：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="kr">const</span> <span class="nx">styles</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">  <span class="nx">myRoot</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">    <span class="nx">backgroundColor</span><span class="o">:</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>變成</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">classes</span><span class="p">.</span><span class="nx">myRoot</span> <span class="o">=</span> <span class="s1">&#39;某個含有 myRoot 的字串的 css class name&#39;</span> 
+</span></span></code></pre></div><p>舉個使用 <code>withStyles</code> 例子：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kr">const</span> <span class="nx">styles</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">  <span class="nx">myRoot</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">    <span class="nx">backgroundColor</span><span class="o">:</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="kr">const</span> <span class="nx">Box</span> <span class="o">=</span> <span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">(</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">  <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">classes</span><span class="p">.</span><span class="nx">myRoot</span><span class="p">}</span><span class="o">&gt;</span>  <span class="o">&lt;------</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">classes</span><span class="p">.</span><span class="nx">myRoot</span> <span class="nx">是字串</span><span class="err">，</span><span class="nx">不是</span>　<span class="nx">styles</span><span class="p">.</span><span class="nx">myRoot</span> <span class="p">(</span><span class="nx">CSS</span> <span class="nx">物件</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">    <span class="nx">hi</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">  <span class="o">&lt;</span><span class="err">/div&gt;</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="p">);</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">
+</span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="kr">const</span> <span class="nx">withStyleBox</span> <span class="o">=</span> <span class="nx">withStyles</span><span class="p">(</span><span class="nx">styles</span><span class="p">)(</span><span class="nx">Box</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">
+</span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="c1">// uasge: &lt;withStyleBox /&gt;
+</span></span></span></code></pre></div><h4 id="加載多個-style--加載多個-class-name">加載多個 style / 加載多個 class name<a class="anchor ms-1" href="#加載多個-style--加載多個-class-name"><i class="fas fa-link"></i></a></h4>
+<p>當你知道事實</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">this.props.classes.&lt;style anme&gt; = &lt;string&gt;
+</span></span></code></pre></div><p>你會知道 component 如何加載多個 style：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kr">const</span> <span class="nx">styles</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">  <span class="nx">myRoot</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">    <span class="nx">backgroundColor</span><span class="o">:</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">  <span class="nx">myLayout</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">    <span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;center&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">
+</span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="kr">const</span> <span class="nx">Box</span> <span class="o">=</span> <span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">(</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">  <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">classes</span><span class="p">.</span><span class="nx">myRoot</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="nx">props</span><span class="p">.</span><span class="nx">classes</span><span class="p">.</span><span class="nx">myLayout</span><span class="p">}</span><span class="o">&gt;</span>  <span class="o">&lt;------</span> <span class="nx">就和加載多個</span> <span class="kr">class</span> <span class="nx">name</span> <span class="nx">一樣</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">    <span class="nx">hi</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">  <span class="o">&lt;</span><span class="err">/div&gt;</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="p">);</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">
+</span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="kr">const</span> <span class="nx">withStyleBox</span> <span class="o">=</span> <span class="nx">withStyles</span><span class="p">(</span><span class="nx">styles</span><span class="p">)(</span><span class="nx">Box</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">
+</span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="c1">// uasge: &lt;withStyleBox /&gt;
+</span></span></span></code></pre></div><p>若你希望 <code>props.classes.myRoot + ' ' + props.classes.myLayout</code> 是動態的，可以使用 <a href="https://www.npmjs.com/package/classnames" target="_blank" rel="noopener noreferrer">classnames<i class="fas fa-external-link-square-alt ms-1"></i></a> 套件，有條件的控制名稱是否出現，如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="nx">classNames</span><span class="p">({</span> <span class="p">[</span><span class="nx">props</span><span class="p">.</span><span class="nx">classes</span><span class="p">.</span><span class="nx">myRoot</span><span class="p">]</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span> <span class="p">[</span><span class="nx">props</span><span class="p">.</span><span class="nx">classes</span><span class="p">.</span><span class="nx">myLayout</span><span class="p">]</span><span class="o">:</span> <span class="kc">true</span> <span class="p">});</span> <span class="c1">// =&gt;  props.classes.myRoot + &#39; &#39; + props.classes.myLayout
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="c1"></span><span class="nx">classNames</span><span class="p">({</span> <span class="p">[</span><span class="nx">props</span><span class="p">.</span><span class="nx">classes</span><span class="p">.</span><span class="nx">myRoot</span><span class="p">]</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span> <span class="p">[</span><span class="nx">props</span><span class="p">.</span><span class="nx">classes</span><span class="p">.</span><span class="nx">myLayout</span><span class="p">]</span><span class="o">:</span> <span class="kc">false</span> <span class="p">});</span> <span class="c1">// =&gt;  props.classes.myRoot
+</span></span></span></code></pre></div><h3 id="覆寫overwrite-style-修改替換樣式">覆寫(overwrite) style: 修改/替換樣式<a class="anchor ms-1" href="#覆寫overwrite-style-修改替換樣式"><i class="fas fa-link"></i></a></h3>
+<p>假如我們打開 <a href="https://material-ui.com/api/button/" target="_blank" rel="noopener noreferrer">Button<i class="fas fa-external-link-square-alt ms-1"></i></a>，往下看到 CSS API
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-24 at 3.32.56 PM.png" src="/series/2019-ithome-ironman/day-25-%E4%BA%8C%E5%91%A8%E7%9B%AE-react-component-%E5%A5%97%E4%BB%B6-material-ui-google-material-design-%E7%9A%84%E5%AF%A6%E4%BD%9C%E5%A5%97%E4%BB%B6/resources/F24952F503F1A644E43FC29D453A7E28.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>這就是你可以覆寫原始 component 樣式的 API。</p>
+<p>直接舉個官網<a href="https://material-ui.com/customization/overrides/#overriding-with-classes" target="_blank" rel="noopener noreferrer">例子<i class="fas fa-external-link-square-alt ms-1"></i></a>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kr">const</span> <span class="nx">StyledButton</span> <span class="o">=</span> <span class="nx">withStyles</span><span class="p">({</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">  <span class="nx">root</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">    <span class="nx">background</span><span class="o">:</span> <span class="s1">&#39;linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">    <span class="nx">borderRadius</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">    <span class="nx">border</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">    <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;white&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">    <span class="nx">height</span><span class="o">:</span> <span class="mi">48</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">    <span class="nx">padding</span><span class="o">:</span> <span class="s1">&#39;0 30px&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">    <span class="nx">boxShadow</span><span class="o">:</span> <span class="s1">&#39;0 3px 5px 2px rgba(255, 105, 135, .3)&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">  <span class="nx">label</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">    <span class="nx">textTransform</span><span class="o">:</span> <span class="s1">&#39;capitalize&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="p">})(</span><span class="nx">Button</span><span class="p">);</span>
+</span></span></code></pre></div><p>用 <code>withStyles</code> 就可以替換 <code>root</code> 和 <code>label</code> 原來的樣式。</p>
+<p>最後一個功能是：排版(layout)。</p>
+<h2 id="排版-component回應響應式網頁responsive-web">排版 component：回應/響應式網頁(responsive web)<a class="anchor ms-1" href="#排版-component回應響應式網頁responsive-web"><i class="fas fa-link"></i></a></h2>
+<p>Material-UI 和 <a href="https://getbootstrap.com/" target="_blank" rel="noopener noreferrer">bootstrap<i class="fas fa-external-link-square-alt ms-1"></i></a> 一樣，它提供 Responsive API，只不過是 component 版本的。</p>
+<p><a href="https://material-ui.com/api/grid/" target="_blank" rel="noopener noreferrer">Grid<i class="fas fa-external-link-square-alt ms-1"></i></a> 就是拿來做 responsive layout。它和 bootstrap 一樣採用 <strong>12-column grid layout(12欄網格系統)</strong>。</p>
+<p>不管螢幕大小，一個 row 就是被切成 12 欄，你要設定排版怎麼分配欄位數。直接看例子：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="o">&lt;</span><span class="nx">Grid</span> <span class="nx">container</span> <span class="nx">className</span><span class="o">=</span><span class="p">{</span><span class="nx">classes</span><span class="p">.</span><span class="nx">root</span><span class="p">}</span> <span class="nx">spacing</span><span class="o">=</span><span class="p">{</span><span class="mi">16</span><span class="p">}</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">  <span class="o">&lt;</span><span class="nx">Grid</span> <span class="nx">item</span> <span class="nx">xs</span><span class="o">=</span><span class="p">{</span><span class="mi">6</span><span class="p">}</span> <span class="nx">sm</span><span class="o">=</span><span class="p">{</span><span class="mi">4</span><span class="p">}</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">    <span class="nx">A</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">  <span class="o">&lt;</span><span class="err">/Grid&gt;</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">  <span class="o">&lt;</span><span class="nx">Grid</span> <span class="nx">item</span> <span class="nx">xs</span><span class="o">=</span><span class="p">{</span><span class="mi">6</span><span class="p">}</span> <span class="nx">sm</span><span class="o">=</span><span class="p">{</span><span class="mi">4</span><span class="p">}</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">    <span class="nx">B</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">  <span class="o">&lt;</span><span class="err">/Grid&gt;</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">  <span class="o">&lt;</span><span class="nx">Grid</span> <span class="nx">item</span> <span class="nx">xs</span><span class="o">=</span><span class="p">{</span><span class="mi">6</span><span class="p">}</span> <span class="nx">sm</span><span class="o">=</span><span class="p">{</span><span class="mi">4</span><span class="p">}</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">    <span class="nx">C</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">  <span class="o">&lt;</span><span class="err">/Grid&gt;</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="o">&lt;</span><span class="err">/Grid&gt;</span>
+</span></span></code></pre></div><p>你就知道怎麼用了，更多例子見 <a href="https://material-ui.com/layout/grid/" target="_blank" rel="noopener noreferrer">Grid Demos<i class="fas fa-external-link-square-alt ms-1"></i></a>。</p>
+<p>我們的心力還要花在設定 <a href="https://material-ui.com/layout/breakpoints/" target="_blank" rel="noopener noreferrer">Breakpoints<i class="fas fa-external-link-square-alt ms-1"></i></a>，每個 breakpoint 有固定的螢幕大小</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="nx">xs</span><span class="p">,</span> <span class="nx">extra</span><span class="o">-</span><span class="nx">small</span><span class="o">:</span> <span class="mi">0</span><span class="nx">px</span> <span class="nx">or</span> <span class="nx">larger</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="nx">sm</span><span class="p">,</span> <span class="nx">small</span><span class="o">:</span> <span class="mi">600</span><span class="nx">px</span> <span class="nx">or</span> <span class="nx">larger</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="nx">md</span><span class="p">,</span> <span class="nx">medium</span><span class="o">:</span> <span class="mi">960</span><span class="nx">px</span> <span class="nx">or</span> <span class="nx">larger</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="nx">lg</span><span class="p">,</span> <span class="nx">large</span><span class="o">:</span> <span class="mi">1280</span><span class="nx">px</span> <span class="nx">or</span> <span class="nx">larger</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="nx">xl</span><span class="p">,</span> <span class="nx">extra</span><span class="o">-</span><span class="nx">large</span><span class="o">:</span> <span class="mi">1920</span><span class="nx">px</span> <span class="nx">or</span> <span class="nx">larger</span>
+</span></span></code></pre></div><p>以上面例子來說：</p>
+<ol>
+<li><code>xs</code> 指的是當螢幕大於等於 0px 時要採用的「分配欄位數」，所以上面的結果是：
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">A B
+</span></span><span class="line"><span class="ln">2</span><span class="cl">C
+</span></span></code></pre></div>因為 <code>A</code> 和 <code>B</code> 的 <code>Grid</code> 各佔了6欄，它們剛好就是一個 row，所以 <code>C</code> 的 <code>Grid</code> 就會在下一 row。</li>
+<li><code>sm</code> 指的是當螢幕大於等於 600px 時，結果是：
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">A B C
+</span></span></code></pre></div>因為 <code>A</code> 、 <code>B</code> 和 <code>C</code> 可以剛好放滿一個 row 共 12 欄。</li>
+</ol>
+<h3 id="hidden-component">Hidden component<a class="anchor ms-1" href="#hidden-component"><i class="fas fa-link"></i></a></h3>
+<p>有時你會需要只有特定的螢幕大小，component 才會要出現/隱藏，這時候可以用 <a href="https://material-ui.com/layout/hidden/" target="_blank" rel="noopener noreferrer"><code>Hidden</code> component<i class="fas fa-external-link-square-alt ms-1"></i></a>。</p>
+<p>文件中給個例子：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">innerWidth  |xs      sm       md       lg       xl
+</span></span><span class="line"><span class="ln">2</span><span class="cl">            |--------|--------|--------|--------|--------&gt;
+</span></span><span class="line"><span class="ln">3</span><span class="cl">width       |   xs   |   sm   |   md   |   lg   |   xl
+</span></span><span class="line"><span class="ln">4</span><span class="cl">
+</span></span><span class="line"><span class="ln">5</span><span class="cl">smUp        |   show | hide
+</span></span><span class="line"><span class="ln">6</span><span class="cl">mdDown      |                     hide | show
+</span></span></code></pre></div><ol>
+<li>
+<p>若</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="o">&lt;</span><span class="nx">Hidden</span> <span class="nx">smUp</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">  <span class="p">...</span><span class="nx">may</span> <span class="nx">hidden</span> <span class="nx">dependent</span> <span class="nx">on</span> <span class="nx">screen</span> <span class="nx">size</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="o">&lt;</span><span class="err">/Hidden&gt;</span>
+</span></span></code></pre></div><p>你的螢幕大小若大於等於 600px ，<code>Hidden</code> 內的東西就會隱藏。反之，小於 600px 時會顯示。</p>
+</li>
+<li>
+<p>若</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="o">&lt;</span><span class="nx">Hidden</span> <span class="nx">mdDown</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">  <span class="p">...</span><span class="nx">may</span> <span class="nx">hidden</span> <span class="nx">dependent</span> <span class="nx">on</span> <span class="nx">screen</span> <span class="nx">size</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="o">&lt;</span><span class="err">/Hidden&gt;</span>
+</span></span></code></pre></div><p>你的螢幕大小若小於 1280px ，<code>Hidden</code> 內的東西就會隱藏。反之，大於等於 1280px 時會顯示。</p>
+</li>
+</ol>
+<h1 id="總結">總結<a class="anchor ms-1" href="#總結"><i class="fas fa-link"></i></a></h1>
+<p>今天介紹了 Material-UI 的常用功能</p>
+<ol>
+<li>基本 component 的使用</li>
+<li>使用 <code>withStyles</code> 樣式注入</li>
+<li>使用 <code>Grid</code> 操作12欄網格系統</li>
+</ol>
+<p>當沒有人寫做切版時，Material-UI 是一個可選方案。若你想做的畫面很絢麗、酷炫或太過客製化的 component，請花時間在 HTML + CS + Javascript中。若你願意包成 component 提供別人使用(如：<a href="https://www.npmjs.com/package/react-datepicker" target="_blank" rel="noopener noreferrer">React Date Picker<i class="fas fa-external-link-square-alt ms-1"></i></a>)，會有人感謝你的，</p>
+<h1 id="參考資料">參考資料<a class="anchor ms-1" href="#參考資料"><i class="fas fa-link"></i></a></h1>
+<ul>
+<li><a href="https://material-ui.com/" target="_blank" rel="noopener noreferrer">Material-UI<i class="fas fa-external-link-square-alt ms-1"></i></a></li>
+<li><a href="https://medium.com/@yujiechen0514/%E8%A6%86%E5%AF%AB-material-ui-component-css-50337b537fe3" target="_blank" rel="noopener noreferrer">覆寫 Material-UI component CSS<i class="fas fa-external-link-square-alt ms-1"></i></a></li>
+</ul></div></div>
+  <div class="card-footer"><div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-prev">
+    <i class="fas fa-fw fa-chevron-circle-down post-prev-icon" data-fa-transform="rotate-90"></i>
+    <a href="/series/2019-ithome-ironman/day-24-%E4%BA%8C%E5%91%A8%E7%9B%AE-redux-%E5%A6%82%E4%BD%95%E7%99%BC%E5%87%BA%E9%9D%9E%E5%90%8C%E6%AD%A5-action%E5%BC%95%E5%85%A5%E9%9D%9E%E5%90%8C%E6%AD%A5-middleware/">Day 24 - 二周目 - Redux 如何發出非同步 Action：引入非同步 Middleware
+</a>
+  </div><div class="post-nav post-next">
+    <a href="/series/2019-ithome-ironman/day-26-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E7%9C%8B%E5%AE%8C%E5%B0%B1%E6%9C%83%E6%9E%B6-docker-%E5%8C%96%E7%9A%84%E6%9C%8D%E5%8B%99/">Day 26 - 三周目 - Docker 基本使用：看完就會架 Docker 化的服務
+</a>
+    <i class="fas fa-fw fa-chevron-circle-down post-next-icon" data-fa-transform="rotate-270"></i>
+  </div></div></div>
+</article><div class="post-copyright mb-3 row card component" id="post-copyright">
+    <div class="card-header">
+        <h2 class="card-title fs-4 my-2 text-surface">版權</h2>
+    </div>
+    <div class="card-body"><a class="d-flex align-items-center flex-column" target="_blank" rel="license noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_TW">
+  <span><i class="fab fa-fw fa-2x fa-creative-commons"></i><i class="fab fa-fw fa-2x fa-creative-commons-by"></i><i class="fab fa-fw fa-2x fa-creative-commons-nc"></i><i class="fab fa-fw fa-2x fa-creative-commons-sa"></i></span>
+  CC BY-NC-SA 4.0 
+</a>
+
+
+    </div>
+</div><section class="related-posts row card component">
+    <div class="card-header">
+      <h2 class="card-title fs-4 my-2 text-surface">相關文章</h2>
+    </div>
+    <div class="card-body">
+      <ul class="post-list list-unstyled"><li>
+          <a href="/series/2019-ithome-ironman/day-24-%E4%BA%8C%E5%91%A8%E7%9B%AE-redux-%E5%A6%82%E4%BD%95%E7%99%BC%E5%87%BA%E9%9D%9E%E5%90%8C%E6%AD%A5-action%E5%BC%95%E5%85%A5%E9%9D%9E%E5%90%8C%E6%AD%A5-middleware/">Day 24 - 二周目 - Redux 如何發出非同步 Action：引入非同步 Middleware
+</a>
+          <span class="float-end post-date">2018-10-24
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-23-%E4%BA%8C%E5%91%A8%E7%9B%AE-redux-%E4%B8%B2%E6%8E%A5-react-%E8%88%87-redux-devtools/">Day 23 - 二周目 - Redux 串接 React 與 Redux DevTools
+</a>
+          <span class="float-end post-date">2018-10-23
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-22-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E8%A7%A3%E9%96%8B-stateprop-%E7%9A%84%E6%B7%B7%E4%BA%82flux-%E5%96%AE%E5%90%91%E8%B3%87%E6%96%99%E6%B5%81%E6%9A%A8-redux-%E9%AB%94%E9%A9%97/">Day 22 - 二周目 - 解開 State:prop 的混亂：Flux 單向資料流暨 Redux 體驗
+</a>
+          <span class="float-end post-date">2018-10-22
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-21-%E4%BA%8C%E5%91%A8%E7%9B%AE-react-%E5%BF%85%E5%82%99%E7%9F%A5%E8%AD%98%E5%92%8C%E6%95%88%E8%83%BD%E8%AD%B0%E9%A1%8C/">Day 21 - 二周目 - React 必備知識和效能議題
+</a>
+          <span class="float-end post-date">2018-10-21
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-20-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E8%BB%9F%E9%AB%94%E6%B8%AC%E8%A9%A6testing%E6%B8%AC%E8%A9%A6%E9%9D%9E%E5%90%8C%E6%AD%A5%E5%87%BD%E6%95%B8/">Day 20 - 二周目 - 軟體測試(Testing)：測試非同步函數
+</a>
+          <span class="float-end post-date">2018-10-20
+</span>
+        </li></ul>
+    </div>
+  </section><div class="card component row post-comments" id="post-comments">
+  <div class="card-header">
+    <h2 class="card-title my-2 fs-4 text-surface">評論</h2>
+  </div>
+  <div class="card-body"><script src="https://utteranc.es/client.js"
+  repo="eugenechen0514/eugenechen0514.github.io"
+  issue-term="pathname"
+  label="comment"
+  theme="github-light"
+  crossorigin="anonymous"
+  async>
+</script></div>
+</div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container d-flex flex-column">
+    
+    <div class="card row text-center profile component">
+  <div class="card-body">
+    <div class="col-12 d-flex align-items-center justify-content-center"><picture><img class="profile-avatar rounded-circle" alt="EugeneChen" src="/images/profile.webp" loading="lazy" data-viewer-invisible
+    
+     width="298" height="305"
+     />
+</picture>
+</div>
+    <div class="col-12 profile-meta"><div class="profile-name fw-fold fs-lg">EugeneChen</div><div class="profile-bio">軟體工程師，喜歡動手做些有的沒的專案，同時也喜愛數學、攝影、桌球，慢跑、游泳、作菜。</div><div class="profile-about"><i class="fas fa-fw fa-user"></i><a target="_blank" rel="noopener noreferrer" href="https://eugene-website.herokuapp.com">關於我</a></div><nav class="social-links nav justify-content-center"><a class="nav-link social-link" href="mailto:yujiechen0514@gmail.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i></a><a class="nav-link social-link" target="_blank" href="https://github.com/eugenechen0514" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-github"></i></a><a class="nav-link social-link" target="_blank" href="/index.xml" title="RSS" rel="noopener noreferrer">
+    <i class="fas fa-fw fa-2x fa-rss"></i></a></nav>
+</div>
+  </div>
+</div>
+<section class="taxonomies row card component">
+    <div class="card-body">
+        <ul class="nav nav-tabs" id="myTab" role="tablist"><li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="taxonomySeriesTab" data-bs-toggle="tab" data-bs-target="#taxonomySeries" 
+                        type="button" role="tab" aria-controls="專欄" aria-selected="true">
+                        專欄
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                    <button class="nav-link" id="taxonomyCategoriesTab" data-bs-toggle="tab" data-bs-target="#taxonomyCategories" 
+                        type="button" role="tab" aria-controls="分類" aria-selected="true">
+                        分類
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                    <button class="nav-link" id="taxonomyTagsTab" data-bs-toggle="tab" data-bs-target="#taxonomyTags" 
+                        type="button" role="tab" aria-controls="標籤" aria-selected="true">
+                        標籤
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                <button class="nav-link" id="taxonomyArchivesTab" data-bs-toggle="tab" data-bs-target="#taxonomyArchive" 
+                    type="button" role="tab" aria-controls="taxonomyArchives" aria-selected="true">
+                    歸檔
+                </button>
+            </li>
+        </ul>
+          
+        <div class="tab-content mt-3"><div class="tab-pane active" id="taxonomySeries" role="tabpanel" aria-labelledby="taxonomySeriesTab" tabindex="0"><a href="/series/2019-ithome-ironman/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="用js成為老闆心中的全端工程師 - 2019 iT邦幫忙鐵人賽">
+                        用js成為老闆心中的全端工程師 - 2019 iT邦幫忙鐵人賽<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a></div><div class="tab-pane" id="taxonomyCategories" role="tabpanel" aria-labelledby="taxonomyCategoriesTab" tabindex="0"><a href="/categories/%E9%9A%A8%E6%89%8B%E7%AD%86%E8%A8%98/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="隨手筆記">
+                        隨手筆記<span class="badge badge-sm text-secondary bg-white ms-1">2</span></a><a href="/categories/%E5%BF%83%E5%BE%97/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="心得">
+                        心得<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a></div><div class="tab-pane" id="taxonomyTags" role="tabpanel" aria-labelledby="taxonomyTagsTab" tabindex="0"><a href="/tags/2019-it-%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2019 iT 邦幫忙鐵人賽">
+                        2019 iT 邦幫忙鐵人賽<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a><a href="/tags/%E7%94%A8js%E6%88%90%E7%82%BA%E8%80%81%E9%97%86%E5%BF%83%E4%B8%AD%E7%9A%84%E5%85%A8%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%AB/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="用js成為老闆心中的全端工程師">
+                        用js成為老闆心中的全端工程師<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a><a href="/tags/alphacamp/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="AlphaCamp">
+                        AlphaCamp<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/kafka/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="Kafka">
+                        Kafka<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/mongodb/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="MongoDB">
+                        MongoDB<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/pandas/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="pandas">
+                        pandas<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/python/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="python">
+                        python<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/%E6%8E%A8%E8%96%A6%E7%B3%BB%E7%B5%B1/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="推薦系統">
+                        推薦系統<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a></div><div class="tab-pane" id="taxonomyArchive" role="tabpanel" aria-labelledby="taxonomyArchiveTab" tabindex="0"><a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2022">
+    2022 <span class="badge badge-sm text-secondary bg-white ms-1">1</span>
+    </a>
+<a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2021">
+    2021 <span class="badge badge-sm text-secondary bg-white ms-1">2</span>
+    </a>
+<a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2018">
+    2018 <span class="badge badge-sm text-secondary bg-white ms-1">30</span>
+    </a>
+
+</div>
+        </div>
+    </div>
+</section><div class="post-toc row mb-4 card component" id="postTOC">
+  <div class="card-header">
+    <h2 class="card-title fs-4 my-2 text-surface">目錄</h2>
+  </div>
+  <div class="card-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#安裝-material-ui">安裝 Material-UI</a></li>
+    <li><a href="#大量的基本-component">大量的基本 component</a>
+      <ul>
+        <li><a href="#體驗一下-material-ui">體驗一下 Material-UI</a></li>
+      </ul>
+    </li>
+    <li><a href="#樣式css-style注入系統封裝-sytle-或-修改替換樣式">樣式(css style)注入系統：「封裝 sytle」 或 「修改/替換樣式」</a>
+      <ul>
+        <li><a href="#封裝-sytle">封裝 sytle</a></li>
+        <li><a href="#覆寫overwrite-style-修改替換樣式">覆寫(overwrite) style: 修改/替換樣式</a></li>
+      </ul>
+    </li>
+    <li><a href="#排版-component回應響應式網頁responsive-web">排版 component：回應/響應式網頁(responsive web)</a>
+      <ul>
+        <li><a href="#hidden-component"><code>Hidden</code> component</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div><section class="recent-posts row card component">
+  <div class="card-header">
+    <h2 class="card-title my-2 fs-4 text-surface">最近文章</h2>
+  </div>
+  <div class="card-body">
+    <ul class="post-list list-unstyled ms-1"><li class="mb-2">
+        <a href="/posts/reviews/2022-02-06-alphacamp%E6%8E%A8%E8%96%A6%E7%B3%BB%E7%B5%B1%E4%B8%8A%E8%AA%B2%E5%BF%83%E5%BE%97/">AlphaCamp 推薦系統上課心得
+</a>
+      </li><li class="mb-2">
+        <a href="/posts/notes/2021-08-22-%E4%B8%80%E7%AA%BAkafka%E5%85%A7%E9%83%A8%E5%84%B2%E5%AD%98%E8%B3%87%E6%96%99/">一窺 Kafka 內部儲存資料
+</a>
+      </li><li class="mb-2">
+        <a href="/posts/notes/2021-08-01-mongodb-5-%E4%BE%86%E4%BA%86%E6%9C%89%E4%BB%80%E9%BA%BC%E5%80%BC%E5%BE%97%E6%B3%A8%E6%84%8F%E7%9A%84%E6%9B%B4%E6%96%B0/">MongoDb 5 來了，有什麼值得注意的更新呢?
+</a>
+      </li><li class="mb-2">
+        <a href="/series/2019-ithome-ironman/day-30-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-network-%E6%9A%A8%E5%AE%8C%E8%B3%BD%E5%9B%9E%E9%A1%A7/">Day 30- 三周目 - Docker Network 暨完賽回顧
+</a>
+      </li><li class="mb-2">
+        <a href="/series/2019-ithome-ironman/day-29-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-compose%E4%B8%80%E6%AC%A1%E7%AE%A1%E7%90%86%E5%A4%9A%E5%80%8B%E5%AE%B9%E5%99%A8/">Day 29- 三周目 - Docker Compose：一次管理多個容器
+</a>
+      </li></ul>
+  </div>
+</section>
+    
+  </div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><div class="offcanvas offcanvas-bottom h-auto" tabindex="-1" id="offcanvasActionsPanel"
+  aria-labelledby="offcanvasActionsPanelLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title fs-4" id="offcanvasActionsPanelLabel">
+      <i class="fas fa-fw fa-th-large me-1"></i>
+      Actions
+    </h5>
+    <button type="button" class="btn-close ms-auto" data-bs-dismiss="offcanvas" data-bs-target="offcanvasActionsPanel" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body mt-2"><div class="social-share mb-4 d-flex overflow-auto">
+      <a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Twitter Share Button"
+      target="_blank" href="https://twitter.com/intent/tweet?title=Day%2025%20-%20%e4%ba%8c%e5%91%a8%e7%9b%ae%20-%20React%20component%20%e5%a5%97%e4%bb%b6%20Material-UI%ef%bc%9a%20Google%20Material%20Design%20%e7%9a%84%e5%af%a6%e4%bd%9c%e5%a5%97%e4%bb%b6&url=%2fseries%2f2019-ithome-ironman%2fday-25-%25E4%25BA%258C%25E5%2591%25A8%25E7%259B%25AE-react-component-%25E5%25A5%2597%25E4%25BB%25B6-material-ui-google-material-design-%25E7%259A%2584%25E5%25AF%25A6%25E4%25BD%259C%25E5%25A5%2597%25E4%25BB%25B6%2f">
+        <i class="fab fa-2x fa-fw fa-twitter mb-2"></i> Twitter
+      </a>
+      <a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Facebook Share Button"
+        target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=%2fseries%2f2019-ithome-ironman%2fday-25-%25E4%25BA%258C%25E5%2591%25A8%25E7%259B%25AE-react-component-%25E5%25A5%2597%25E4%25BB%25B6-material-ui-google-material-design-%25E7%259A%2584%25E5%25AF%25A6%25E4%25BD%259C%25E5%25A5%2597%25E4%25BB%25B6%2f">
+        <i class="fab fa-2x fa-fw fa-facebook-f mb-2"></i> Facebook
+      </a>
+    </div>
+    <hr class="mb-4"><div class="actions d-flex overflow-auto align-items-center">
+      <a role="button" class="action action-go-back d-flex flex-column align-items-center me-3" href="javascript: window.history.back();">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-chevron-circle-down" data-fa-transform="rotate-90"></i></span> 返回
+      </a>
+      <a role="button" class="action action-reload-page d-flex flex-column align-items-center me-3">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-redo-alt"></i></span> 刷新
+      </a>
+      <a role="button" class="action action-copy-url d-flex flex-column align-items-center me-3">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-link"></i></span> 複製連結
+      </a>
+    </div>
+  </div>
+</div><nav class="social-links nav justify-content-center mb-2"><a class="nav-link social-link" href="mailto:yujiechen0514@gmail.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i></a><a class="nav-link social-link" target="_blank" href="https://github.com/eugenechen0514" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-github"></i></a><a class="nav-link social-link" target="_blank" href="https://linkedin.com/in/yuchieh-chen-37a48989" title="LinkedIn" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-linkedin-in"></i></a><a class="nav-link social-link" target="_blank" href="https://medium.com/@yujiechen0514" title="Medium" rel="noopener noreferrer">
+        <i class="fab fa-fw fa-2x fa-medium-m"></i></a><a class="nav-link social-link" target="_blank" href="/index.xml" title="RSS" rel="noopener noreferrer">
+    <i class="fas fa-fw fa-2x fa-rss"></i></a></nav>
+<div class="copyright mb-2">
+  Copyright © 2016-2022 EugeneChen. All Rights Reserved.
+</div>
+<div class="powered-by mb-2">
+  Powered by <a class="text-primary" href="https://gohugo.io" target="_blank" rel="noopener noreferrer">Hugo</a> and the <a class="text-primary" href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank" rel="noopener noreferrer">Bootstrap</a> theme.
+</div>
+<div class="sponsors">
+
+
+
+
+
+
+</div>
+</footer>
+<script src="/assets/main/bundle.min.2bc7d6952dbf38d6d2815939c58fc655e72d050b196d9fd99829d8fb23904646.js" integrity="sha256-K8fWlS2/ONbSgVk5xY/GVectBQsZbZ/ZmCnY&#43;yOQRkY=" crossorigin="anonymous" defer></script><script src="/assets/icons/bundle.min.a4bf8247f780c9bf61d579a8efe7129ec790bb98622bf4a29895eb21e689266c.js" integrity="sha256-pL&#43;CR/eAyb9h1Xmo7&#43;cSnseQu5hiK/SimJXrIeaJJmw=" crossorigin="anonymous" defer></script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('\/service-worker.min.js').then(function(reg) {
+      console.log('Successfully registered service worker', reg);
+    }).catch(function(err) {
+      console.warn('Error whilst registering service worker', err);
+    });
+  });
+}
+</script><script src="/assets/viewer/bundle.min.92d4a694e2e9a4c4d89b6998067e2f8e502dc7a951682bb5a160a3004b434908.js" integrity="sha256-ktSmlOLppMTYm2mYBn4vjlAtx6lRaCu1oWCjAEtDSQg=" crossorigin="anonymous" defer></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-ZWYL79X38Y', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+<script src="/assets/docsearch/bundle.min.c6965b5bee044b874617239932d6a7992b217f7949f895a7576980d110fb2ab1.js" integrity="sha256-xpZbW&#43;4ES4dGFyOZMtanmSshf3lJ&#43;JWnV2mA0RD7KrE=" crossorigin="anonymous" defer></script></body>
+</html>

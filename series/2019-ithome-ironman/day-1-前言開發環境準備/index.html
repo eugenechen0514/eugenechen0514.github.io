@@ -1,0 +1,620 @@
+<!doctype html><html class="position-relative" itemscope itemtype="http://schema.org/WebPage" lang="zh-tw" data-theme="auto"
+  
+   data-palette="purple">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Day 1 - 前言／開發環境準備 - EugeneChen</title><link rel="apple-touch-icon" href="/images/icons/icon-180x180.png" sizes="180x180">
+<link rel="icon" href="/images/icons/icon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/images/icons/icon-16x16.png" sizes="16x16" type="image/png">
+<link rel="icon" href="/images/icons/favicon.ico">
+<link rel="manifest" href="/manifest.json">
+<meta name="keywords" content="" />
+<meta name="description" content="最近剛好在做自己的個人網站，整理自己的技能樹，想要透過「iT邦幫忙鐵人賽」整理自己的開發經驗。" /><meta name="robots" content="index, follow" /><meta itemprop="name" content="Day 1 - 前言／開發環境準備">
+<meta itemprop="description" content="最近剛好在做自己的個人網站，整理自己的技能樹，想要透過「iT邦幫忙鐵人賽」整理自己的開發經驗。"><meta itemprop="datePublished" content="2018-10-01T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2018-10-01T00:00:00+00:00" />
+<meta itemprop="wordCount" content="1599">
+<meta itemprop="keywords" content="2019 iT 邦幫忙鐵人賽,用js成為老闆心中的全端工程師," /><meta property="og:title" content="Day 1 - 前言／開發環境準備" />
+<meta property="og:description" content="最近剛好在做自己的個人網站，整理自己的技能樹，想要透過「iT邦幫忙鐵人賽」整理自己的開發經驗。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/series/2019-ithome-ironman/day-1-%E5%89%8D%E8%A8%80%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83%E6%BA%96%E5%82%99/" /><meta property="article:section" content="series" />
+<meta property="article:published_time" content="2018-10-01T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-10-01T00:00:00+00:00" /><meta property="og:site_name" content="EugeneChen" />
+<meta property="og:see_also" content="/series/2019-ithome-ironman/day-30-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-network-%E6%9A%A8%E5%AE%8C%E8%B3%BD%E5%9B%9E%E9%A1%A7/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-29-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-compose%E4%B8%80%E6%AC%A1%E7%AE%A1%E7%90%86%E5%A4%9A%E5%80%8B%E5%AE%B9%E5%99%A8/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-28-%E4%B8%89%E5%91%A8%E7%9B%AE-%E8%A3%BD%E4%BD%9C%E8%87%AA%E5%B7%B1%E7%9A%84%E6%98%A0%E5%83%8F%E6%AA%94%E5%8C%85%E6%89%93%E5%89%8D%E5%BE%8C%E7%AB%AF%E6%98%A0%E5%83%8F%E6%AA%94/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-27-%E4%B8%89%E5%91%A8%E7%9B%AE-%E4%BA%94%E5%88%86%E9%90%98%E5%BB%BA%E7%AB%8B%E7%A7%81%E6%9C%89-npm-verdaccio/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-26-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E7%9C%8B%E5%AE%8C%E5%B0%B1%E6%9C%83%E6%9E%B6-docker-%E5%8C%96%E7%9A%84%E6%9C%8D%E5%8B%99/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-25-%E4%BA%8C%E5%91%A8%E7%9B%AE-react-component-%E5%A5%97%E4%BB%B6-material-ui-google-material-design-%E7%9A%84%E5%AF%A6%E4%BD%9C%E5%A5%97%E4%BB%B6/" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Day 1 - 前言／開發環境準備"/>
+<meta name="twitter:description" content="最近剛好在做自己的個人網站，整理自己的技能樹，想要透過「iT邦幫忙鐵人賽」整理自己的開發經驗。"/>
+<meta property="og:image" content="/images/logo.png"/>
+  <meta name="twitter:image" content="/images/logo.png"/><link rel="stylesheet" href="/assets/main/bundle.min.925f59d4c744cc5e99dcc7d02a6f68dff5cceaea488c7667bd947bf7aa35b649.css" integrity="sha256-kl9Z1MdEzF6Z3MfQKm9o3/XM6upIjHZnvZR796o1tkk=" crossorigin="anonymous"><link rel="stylesheet" href="/assets/viewer/bundle.min.f05183267bb952fbc8c63a7178364de2951614ab71d544ec1068ad36c7447ccc.css" integrity="sha256-8FGDJnu5UvvIxjpxeDZN4pUWFKtx1UTsEGitNsdEfMw=" crossorigin="anonymous"><link rel="stylesheet" href="/assets/docsearch/bundle.min.c165d6a127fffa285e6b89ef65362fe921bc0c1fdaefa35f6af069b962bdb50e.css" integrity="sha256-wWXWoSf/&#43;ihea4nvZTYv6SG8DB/a76NfavBpuWK9tQ4=" crossorigin="anonymous"></head>
+  <body><script>const items=["theme","palette"];items.forEach(function(e){const t=localStorage.getItem("hbs:"+e);t&&document.body.parentElement.setAttribute("data-"+e,t)})</script><header><nav class="top-app-bar shadow bg-primary text-white navbar navbar-expand-lg fixed-top">
+  <div class="container"><a class="navbar-brand flex-grow-1 flex-lg-grow-0 text-lg-start ms-2 ms-lg-0 mx-auto me-lg-3" href="/"><picture><img class="logo" alt="Logo" src="/images/logo.webp" loading="lazy"
+    
+     width="136" height="69"
+     />
+</picture>
+EugeneChen
+    </a>
+    <button class="navbar-toggler order-5" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarMenus"
+      aria-controls="navbarMenus" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-ellipsis-h"></i>
+    </button>
+    <div class="offcanvas-lg offcanvas-end flex-grow-1 bg-primary text-white" tabindex="-1" id="navbarMenus" aria-labelledby="navbarMenusLabel">
+      <div class="offcanvas-header px-4 pb-0">
+        <h5 class="offcanvas-title" id="navbarMenusLabel">EugeneChen</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" data-bs-target="#navbarMenus" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body p-4 pt-0 p-lg-0">
+        <hr class="d-lg-none">
+        <ul class="navbar-nav flex-row flex-wrap align-items-center me-auto"><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/posts/">
+              <i class="fas fa-book fa-fw"></i>文章
+            </a>
+          </li><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/series/">
+              <i class="fas fa-bars fa-fw"></i>專欄
+            </a>
+          </li><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/posts/notes/">
+              <i class="fas fa-sticky-note fa-fw"></i>隨手筆記
+            </a>
+          </li></ul>
+        <hr class="d-lg-none">
+        <form class="search-bar mx-auto my-1" action="/search" novalidate>
+  <div class="input-group input-group-sm align-items-center">
+    <span class="btn btn-search disabled position-absolute left-0 border-0">
+      <i class="fas fa-fw fa-search fa-lg"></i>
+    </span>
+    <input class="py-2 form-control rounded search-input" name="q" type="search" aria-label="Search" required>
+  </div>
+</form>
+<hr class="d-lg-none">
+        <ul class="navbar-nav flex-row flex-wrap align-items-center ms-md-auto"><li class="nav-item dropdown py-1 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-globe"></i>
+        <span class="d-lg-none">語言</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown"><li>
+        <a class="dropdown-item" href="/en/">
+            English
+        </a>
+        </li><li>
+        <a class="dropdown-item active" href="/">
+            繁體中文
+        </a>
+        </li></ul>
+</li>
+<li class="nav-item py-1 col-12 col-lg-auto">
+  <div class="vr d-none d-lg-flex h-100 mx-lg-2 text-white"></div>
+  <hr class="d-lg-none my-2">
+</li><li class="nav-item dropdown py-2 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="fontSizeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-font"></i>
+        <span class="d-lg-none">字體大小</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="fontSizeDropdown"><li>
+            <button class="font-size-item dropdown-item" data-size="xs">
+                特小號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="sm">
+                小號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item active" data-size="md">
+                中等
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="lg">
+                大號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="xl">
+                特大號
+            </button>
+        </li></ul>
+</li><li class="nav-item dropdown py-1 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="paletteDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-palette"></i>
+        <span class="d-lg-none">配色</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end px-2" aria-labelledby="paletteDropdown">
+        <div class="row"><li class="col-3 my-1">
+                <a role="button" id="palette-blue" aria-label="藍色"
+                    class="btn btn-sm w-100 palette text-bg-blue" data-palette="blue">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-blue-gray" aria-label="藍灰色"
+                    class="btn btn-sm w-100 palette text-bg-blue-gray" data-palette="blue-gray">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-brown" aria-label="棕色"
+                    class="btn btn-sm w-100 palette text-bg-brown" data-palette="brown">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-cyan" aria-label="青色"
+                    class="btn btn-sm w-100 palette text-bg-cyan" data-palette="cyan">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-green" aria-label="綠色"
+                    class="btn btn-sm w-100 palette text-bg-green" data-palette="green">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-indigo" aria-label="靛青色"
+                    class="btn btn-sm w-100 palette text-bg-indigo" data-palette="indigo">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-orange" aria-label="橙色"
+                    class="btn btn-sm w-100 palette text-bg-orange" data-palette="orange">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-pink" aria-label="粉色"
+                    class="btn btn-sm w-100 palette text-bg-pink" data-palette="pink">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-purple" aria-label="紫色"
+                    class="btn btn-sm w-100 palette text-bg-purple" data-palette="purple">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-red" aria-label="紅色"
+                    class="btn btn-sm w-100 palette text-bg-red" data-palette="red">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-teal" aria-label="藍綠色"
+                    class="btn btn-sm w-100 palette text-bg-teal" data-palette="teal">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-yellow" aria-label="黃色"
+                    class="btn btn-sm w-100 palette text-bg-yellow" data-palette="yellow">
+                </a>
+            </li></div>
+    </ul>
+</li>
+<li class="nav-item dropdown py-2 py-lg-1 col-6 col-lg-auto"><a class="nav-link px-0 px-lg-1" href="#" id="modeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="mode-icon fas fa-fw fa-adjust" id="modeIcon"></i>
+        <span class="d-lg-none">模式</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="modeDropdown"><li class="mode-item" data-color-mode="light" data-icon="sun">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-sun"></i> Light
+            </button>
+        </li><li class="mode-item" data-color-mode="dark" data-icon="moon">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-moon"></i> Dark
+            </button>
+        </li><li class="mode-item active" data-color-mode="auto" data-icon="adjust">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-adjust"></i> Auto
+            </button>
+        </li></ul>
+</li>
+</ul>
+      </div>
+    </div>
+  </div>
+</nav>
+</header>
+<main class="container">
+      <div class="row content"><noscript>
+    <div class="alert alert-danger" role="alert">你的瀏覽器不支持 JavaScript。</div>
+</noscript>
+
+<div class="col-lg-8">
+  <div class="container"><nav class="row card component" aria-label="breadcrumb">
+  <div class="card-body pb-0">
+    <ol class="breadcrumb"><li class="breadcrumb-item text-surface"><a href="/">主頁</a></li><li class="breadcrumb-item text-surface"><a href="/series/">Series</a></li><li class="breadcrumb-item active">Day 1 - 前言／開發環境準備</li></ol>
+  </div>
+</nav><div class="post-panel-wrapper position-sticky">
+  <div class="d-flex flex-column component rounded post-panel position-absolute border">
+    
+    <a class="action action-panel-toggler" role="button" title="Panel toggler">
+      <i class="fas fa-fw fa-chevron-circle-down"></i>
+    </a>
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button" title="Sidebar toggler">
+  <i class="fas fa-fw fa-expand-alt" data-fa-transform="rotate-45"></i>
+</a>
+
+    
+
+    
+    <a class="action" href="#post-copyright" role="button" aria-label="Copyright" title="Copyright">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    <a class="action" href="#post-comments" role="button" aria-label="Comments" title="Comments">
+  <i class="fas fa-fw fa-comments"></i>
+</a>
+    <a class="action" href="#postTOC" aria-controls="Table of contents" role="button" title="Table of contents">
+  <i class="fas fa-fw fa-list-alt"></i>
+</a>
+    
+  </div>
+</div>
+<article class="row card component mb-4 post">
+  <div class="card-header ">
+    <h1 class="card-title post-title my-2">Day 1 - 前言／開發環境準備
+</h1>
+  </div>
+  <div class="card-body"><div class="post-meta mb-3">
+  <span class="post-date me-1 mb-1" title="創建於 2018-10-01 08:00:00 &#43;0800 CST。">
+    2018-10-01
+  </span><span class="post-reading-time me-1 mb-1">
+    4 分鐘閱讀
+  </span><a href="/series/2019-ithome-ironman/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">用js成為老闆心中的全端工程師 - 2019 IT邦幫忙鐵人賽</a><a href="/tags/2019-it-%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">2019 IT 邦幫忙鐵人賽</a><a href="/tags/%E7%94%A8js%E6%88%90%E7%82%BA%E8%80%81%E9%97%86%E5%BF%83%E4%B8%AD%E7%9A%84%E5%85%A8%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%AB/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">用js成為老闆心中的全端工程師</a></div>
+<div class="post-content mb-3"><p>最近剛好在做自己的個人網站，整理自己的技能樹，想要透過「iT邦幫忙鐵人賽」整理自己的開發經驗。</p>
+<h1 id="題目由來">題目由來<a class="anchor ms-1" href="#題目由來"><i class="fas fa-link"></i></a></h1>
+<p>最近剛好在做自己的個人網站，整理自己的技能樹，想要透過「iT邦幫忙鐵人賽」整理自己的開發經驗。</p>
+<h1 id="題目目標">題目目標<a class="anchor ms-1" href="#題目目標"><i class="fas fa-link"></i></a></h1>
+<ol>
+<li>新手工程師，應該可以本主題學到不少前後端開發經驗，我會盡量用直白說法解釋內容</li>
+<li>提供比較全面的技能介紹，以提供有興趣的人躦研</li>
+<li>適合想看看後端開發在做什麼的人</li>
+</ol>
+<p>因為我想要儘量包含我所知道的，但這幾天我打草稿後發現不太可能，所以我只能抓取我覺得重要的內容，若有覺得講的不好的地方或缺少的內容，請跟我說<a href="yujichen0514@gmail.com">yujichen0514@gmail.com</a>，或直接討論。</p>
+<h1 id="學習心態">學習心態<a class="anchor ms-1" href="#學習心態"><i class="fas fa-link"></i></a></h1>
+<p>本篇叫「用js成為老闆心中的全端工程師」，我想老闆都希望可以快速完成工作，剛好我比較主張 <strong>用學相長</strong>(邊用邊學)，畢竟時間有限，但我不是指只要寫程式就好，<strong>(使)用</strong> 是讓自己抓到直覺和感受別人的設計最快的方法， <strong>學(習)</strong> 可以有更深的體悟、也記得久，更能融會貫通，<strong>用學相長</strong> 是一種知識上的演進。</p>
+<p>幾乎每天的文章內容都可以有自己動手做的部分，有興趣的人可以自己玩看看。</p>
+<h1 id="文章概觀">文章概觀<a class="anchor ms-1" href="#文章概觀"><i class="fas fa-link"></i></a></h1>
+<p>本目題打算進行三周目，大致上是先開發、發佈，再維運。主要使用 javascript / nodejs 為開發語言, 利用 docker 準備開發環境，進而發佈，最後引入程式維運。不得不說 docker 的出現使得開發者學習上有很大幫助。</p>
+<ul>
+<li><em><strong>前言/一輩子受用的工具</strong></em>：常用的工具：shell常用指令、markdown、draw.io，學會使用就一輩子受用</li>
+<li><em><strong>一周目</strong></em>：以極精簡程式一次串完前後端，快速了解前後端在串什麼東西</li>
+<li><em><strong>二周目</strong></em>：更深入了解前後端，不得不了解的概念或技術</li>
+<li><em><strong>三周目</strong></em>：利用 docker 發佈自己的程式，架設維運所需的相關服務</li>
+</ul>
+<h1 id="開發環境準備">開發環境準備<a class="anchor ms-1" href="#開發環境準備"><i class="fas fa-link"></i></a></h1>
+<p>若怕用髒自己的電腦環境、可以用 Virtual Machine，來安裝一個虛擬的作業系統。 Windows的使用者可以用<a href="https://www.virtualbox.org/" target="_blank" rel="noopener noreferrer">VirtualBox<i class="fas fa-external-link-square-alt ms-1"></i></a>，Mac可以用<a href="https://itunes.apple.com/tw/app/parallels-desktop-lite/id1085114709?mt=12" target="_blank" rel="noopener noreferrer">Parallels Desktop Lite<i class="fas fa-external-link-square-alt ms-1"></i></a>。不過我們也只會安裝 NodeJS、docker/ docker-compose, Visual Studio Code, Vegeta。</p>
+<p>雖然我的作業系統是Mac OS，我所以下的指令大多相容 linux, 就算是windows應該都有相對應的指令。</p>
+<p>首先，我們要建立開發環境，先安裝<a href="https://code.visualstudio.com/?wt.mc_id=DX_841432" target="_blank" rel="noopener noreferrer">Visual Studio Code<i class="fas fa-external-link-square-alt ms-1"></i></a>，這是程式碼編輯程式，同時也整合了發開現代網頁和後端應用程式的工具。</p>
+<h2 id="visual-studio-code-怎麼開一個專案">Visual Studio Code 怎麼開一個專案<a class="anchor ms-1" href="#visual-studio-code-怎麼開一個專案"><i class="fas fa-link"></i></a></h2>
+<p>第一個重要的事就是：</p>
+<blockquote>
+<p>一個專案就是一個資料夾</p>
+</blockquote>
+<p>所有跟專案有關的程式/檔案都會放在同一個資料夾裡。</p>
+<p>那麼有人會問，不同專案共用程式碼怎麼辨，可以用 <em><strong>程式庫</strong></em> 決解，不會放在專案，所有專案都可以下載到的地方。未來就會提到怎麼建立自己的私有庫。</p>
+<ol>
+<li>隨便開一個資料夾後，打開Visual Studio Code，選擇你建立的資料夾
+<picture><img class="img-fluid" alt="Screen Shot 2018-09-18 at 7.18.45 PM.png" src="/series/2019-ithome-ironman/day-1-%E5%89%8D%E8%A8%80%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83%E6%BA%96%E5%82%99/resources/AEEC55D7220E1B953E5FC3E454EBDD93.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+
+<picture><img class="img-fluid" alt="Screen Shot 2018-09-18 at 7.19.00 PM.png" src="/series/2019-ithome-ironman/day-1-%E5%89%8D%E8%A8%80%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83%E6%BA%96%E5%82%99/resources/B1D6B3357EBA6A436B18DF7E6FCB2B65.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+
+圖中<code>Day1</code>就是一個專案。</li>
+<li>結束，你學會了用Visual Studio Code開啟一個專案</li>
+</ol>
+<h2 id="建立專案中第一個檔案">建立專案中第一個檔案<a class="anchor ms-1" href="#建立專案中第一個檔案"><i class="fas fa-link"></i></a></h2>
+<ol>
+<li>開 terminal
+<picture><img class="img-fluid" alt="Screen Shot 2018-09-18 at 7.19.34 PM.png" src="/series/2019-ithome-ironman/day-1-%E5%89%8D%E8%A8%80%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83%E6%BA%96%E5%82%99/resources/700418D065CF6A7CFAF8A1E8937E148F.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</li>
+<li>就可以直接下指命
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-03 at 8.50.26 AM.png" src="/series/2019-ithome-ironman/day-1-%E5%89%8D%E8%A8%80%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83%E6%BA%96%E5%82%99/resources/60AFB320FA1F5832ED2710E8F11F3A21.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+
+這裡 <code>touch README.md</code> 就會建立一個名為<code>README.md</code>的檔案</li>
+</ol>
+<p>一但開啟一個 terminal，預設工作目錄就會在專案資料夾，所以下達<code>touch README.md</code>就會在專案根目錄建立檔案。</p>
+<h1 id="回顧">回顧<a class="anchor ms-1" href="#回顧"><i class="fas fa-link"></i></a></h1>
+<ol>
+<li>學習怎麼用 Visual Studio Code 開一個專案</li>
+<li>用 terminal下達一個指令</li>
+</ol>
+<h1 id="附錄題目可能包含的內容">(附錄)題目可能包含的內容<a class="anchor ms-1" href="#附錄題目可能包含的內容"><i class="fas fa-link"></i></a></h1>
+<p>下面是可能包含的內容，可能會隨著文章更改內容</p>
+<ol>
+<li>前言</li>
+<li>一輩子受用的工具
+<ol>
+<li>shell常用指令</li>
+<li>markdown - 打筆記</li>
+<li>draw.io - 畫圖</li>
+</ol>
+</li>
+<li>一周目 - 一次串完所有的服務
+<ol>
+<li>js/nodejs project</li>
+<li>js 速成 - es6語法、模組化</li>
+<li>eslint - 程式碼品質工具</li>
+<li>quick backend</li>
+<li>Postman - api 測式工具</li>
+<li>quick frontend</li>
+</ol>
+</li>
+<li>二周目
+<ol>
+<li>開發流程</li>
+<li>後端
+<ol>
+<li>基本知識</li>
+<li>awilix - 依賴注入</li>
+<li>process.env</li>
+<li>middleware / router / request / response</li>
+<li>建立與連線 MongoDB</li>
+<li>後端多工/ 叢集/child process</li>
+<li>Auth: token - JWT</li>
+<li>常用庫: lodash, monent, mongoose</li>
+<li>可研究方向: GraphQL, websocket, redis, server-side rending, Oauth</li>
+</ol>
+</li>
+<li>測試
+<ol>
+<li>基本知識 - 依賴注入</li>
+<li>單元測試、整合測試</li>
+<li>替身</li>
+<li>常用庫</li>
+<li>sinon.createFakeServer()</li>
+<li>unexpected/ unexpected react</li>
+</ol>
+</li>
+<li>前端
+<ol>
+<li>基本知識 - 打包, sass, rwd(mdiea query, boostrip)</li>
+<li>tooles: chrome extension</li>
+<li>google devtools</li>
+<li>snadbox - codesandbox</li>
+<li>React - pure/container, Fragments, lifecycle, Context, loop/condition expression, <a href="https://codesandbox.io/s/8k9k5zm060" target="_blank" rel="noopener noreferrer">lifecycle sandbox<i class="fas fa-external-link-square-alt ms-1"></i></a>, loop key strategy</li>
+<li>Redux - flux</li>
+<li>RxJs - 非同步action</li>
+<li>material-ui - UI元件庫</li>
+<li>可研究方向: PWA, functional programing</li>
+</ol>
+</li>
+<li>串連前後端
+<ol>
+<li>串接api</li>
+<li>單元測試、整合測試(puppeteer)</li>
+<li>nginx, single page application(spa) 設定</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>三周目 - 發佈、維運
+<ol>
+<li>發佈
+<ol>
+<li>Docker, Docker-compose: volumn, ps, image, network</li>
+<li>打包 image, shell script</li>
+<li>verdaccio - 建立自己的私有庫</li>
+</ol>
+</li>
+<li>維運
+<ol>
+<li>ELK</li>
+<li>Zabbix - email, slask</li>
+<li>vegeta - 壓測工具</li>
+<li>MongoDb 備份</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol></div></div>
+  <div class="card-footer"><div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-next">
+    <a href="/series/2019-ithome-ironman/day-2-%E4%B8%80%E8%BC%A9%E5%AD%90%E5%8F%97%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7/">Day 2 - 一輩子受用的工具
+</a>
+    <i class="fas fa-fw fa-chevron-circle-down post-next-icon" data-fa-transform="rotate-270"></i>
+  </div></div></div>
+</article><div class="post-copyright mb-3 row card component" id="post-copyright">
+    <div class="card-header">
+        <h2 class="card-title fs-4 my-2 text-surface">版權</h2>
+    </div>
+    <div class="card-body"><a class="d-flex align-items-center flex-column" target="_blank" rel="license noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_TW">
+  <span><i class="fab fa-fw fa-2x fa-creative-commons"></i><i class="fab fa-fw fa-2x fa-creative-commons-by"></i><i class="fab fa-fw fa-2x fa-creative-commons-nc"></i><i class="fab fa-fw fa-2x fa-creative-commons-sa"></i></span>
+  CC BY-NC-SA 4.0 
+</a>
+
+
+    </div>
+</div><div class="card component row post-comments" id="post-comments">
+  <div class="card-header">
+    <h2 class="card-title my-2 fs-4 text-surface">評論</h2>
+  </div>
+  <div class="card-body"><script src="https://utteranc.es/client.js"
+  repo="eugenechen0514/eugenechen0514.github.io"
+  issue-term="pathname"
+  label="comment"
+  theme="github-light"
+  crossorigin="anonymous"
+  async>
+</script></div>
+</div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container d-flex flex-column">
+    
+    <div class="card row text-center profile component">
+  <div class="card-body">
+    <div class="col-12 d-flex align-items-center justify-content-center"><picture><img class="profile-avatar rounded-circle" alt="EugeneChen" src="/images/profile.webp" loading="lazy" data-viewer-invisible
+    
+     width="298" height="305"
+     />
+</picture>
+</div>
+    <div class="col-12 profile-meta"><div class="profile-name fw-fold fs-lg">EugeneChen</div><div class="profile-bio">軟體工程師，喜歡動手做些有的沒的專案，同時也喜愛數學、攝影、桌球，慢跑、游泳、作菜。</div><div class="profile-about"><i class="fas fa-fw fa-user"></i><a target="_blank" rel="noopener noreferrer" href="https://eugene-website.herokuapp.com">關於我</a></div><nav class="social-links nav justify-content-center"><a class="nav-link social-link" href="mailto:yujiechen0514@gmail.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i></a><a class="nav-link social-link" target="_blank" href="https://github.com/eugenechen0514" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-github"></i></a><a class="nav-link social-link" target="_blank" href="/index.xml" title="RSS" rel="noopener noreferrer">
+    <i class="fas fa-fw fa-2x fa-rss"></i></a></nav>
+</div>
+  </div>
+</div>
+<section class="taxonomies row card component">
+    <div class="card-body">
+        <ul class="nav nav-tabs" id="myTab" role="tablist"><li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="taxonomySeriesTab" data-bs-toggle="tab" data-bs-target="#taxonomySeries" 
+                        type="button" role="tab" aria-controls="專欄" aria-selected="true">
+                        專欄
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                    <button class="nav-link" id="taxonomyCategoriesTab" data-bs-toggle="tab" data-bs-target="#taxonomyCategories" 
+                        type="button" role="tab" aria-controls="分類" aria-selected="true">
+                        分類
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                    <button class="nav-link" id="taxonomyTagsTab" data-bs-toggle="tab" data-bs-target="#taxonomyTags" 
+                        type="button" role="tab" aria-controls="標籤" aria-selected="true">
+                        標籤
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                <button class="nav-link" id="taxonomyArchivesTab" data-bs-toggle="tab" data-bs-target="#taxonomyArchive" 
+                    type="button" role="tab" aria-controls="taxonomyArchives" aria-selected="true">
+                    歸檔
+                </button>
+            </li>
+        </ul>
+          
+        <div class="tab-content mt-3"><div class="tab-pane active" id="taxonomySeries" role="tabpanel" aria-labelledby="taxonomySeriesTab" tabindex="0"><a href="/series/2019-ithome-ironman/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="用js成為老闆心中的全端工程師 - 2019 iT邦幫忙鐵人賽">
+                        用js成為老闆心中的全端工程師 - 2019 iT邦幫忙鐵人賽<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a></div><div class="tab-pane" id="taxonomyCategories" role="tabpanel" aria-labelledby="taxonomyCategoriesTab" tabindex="0"><a href="/categories/%E9%9A%A8%E6%89%8B%E7%AD%86%E8%A8%98/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="隨手筆記">
+                        隨手筆記<span class="badge badge-sm text-secondary bg-white ms-1">2</span></a><a href="/categories/%E5%BF%83%E5%BE%97/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="心得">
+                        心得<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a></div><div class="tab-pane" id="taxonomyTags" role="tabpanel" aria-labelledby="taxonomyTagsTab" tabindex="0"><a href="/tags/2019-it-%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2019 iT 邦幫忙鐵人賽">
+                        2019 iT 邦幫忙鐵人賽<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a><a href="/tags/%E7%94%A8js%E6%88%90%E7%82%BA%E8%80%81%E9%97%86%E5%BF%83%E4%B8%AD%E7%9A%84%E5%85%A8%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%AB/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="用js成為老闆心中的全端工程師">
+                        用js成為老闆心中的全端工程師<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a><a href="/tags/alphacamp/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="AlphaCamp">
+                        AlphaCamp<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/kafka/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="Kafka">
+                        Kafka<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/mongodb/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="MongoDB">
+                        MongoDB<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/pandas/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="pandas">
+                        pandas<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/python/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="python">
+                        python<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/%E6%8E%A8%E8%96%A6%E7%B3%BB%E7%B5%B1/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="推薦系統">
+                        推薦系統<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a></div><div class="tab-pane" id="taxonomyArchive" role="tabpanel" aria-labelledby="taxonomyArchiveTab" tabindex="0"><a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2022">
+    2022 <span class="badge badge-sm text-secondary bg-white ms-1">1</span>
+    </a>
+<a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2021">
+    2021 <span class="badge badge-sm text-secondary bg-white ms-1">2</span>
+    </a>
+<a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2018">
+    2018 <span class="badge badge-sm text-secondary bg-white ms-1">30</span>
+    </a>
+
+</div>
+        </div>
+    </div>
+</section><div class="post-toc row mb-4 card component" id="postTOC">
+  <div class="card-header">
+    <h2 class="card-title fs-4 my-2 text-surface">目錄</h2>
+  </div>
+  <div class="card-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#visual-studio-code-怎麼開一個專案">Visual Studio Code 怎麼開一個專案</a></li>
+    <li><a href="#建立專案中第一個檔案">建立專案中第一個檔案</a></li>
+  </ul>
+</nav>
+  </div>
+</div><section class="recent-posts row card component">
+  <div class="card-header">
+    <h2 class="card-title my-2 fs-4 text-surface">最近文章</h2>
+  </div>
+  <div class="card-body">
+    <ul class="post-list list-unstyled ms-1"><li class="mb-2">
+        <a href="/posts/reviews/2022-02-06-alphacamp%E6%8E%A8%E8%96%A6%E7%B3%BB%E7%B5%B1%E4%B8%8A%E8%AA%B2%E5%BF%83%E5%BE%97/">AlphaCamp 推薦系統上課心得
+</a>
+      </li><li class="mb-2">
+        <a href="/posts/notes/2021-08-22-%E4%B8%80%E7%AA%BAkafka%E5%85%A7%E9%83%A8%E5%84%B2%E5%AD%98%E8%B3%87%E6%96%99/">一窺 Kafka 內部儲存資料
+</a>
+      </li><li class="mb-2">
+        <a href="/posts/notes/2021-08-01-mongodb-5-%E4%BE%86%E4%BA%86%E6%9C%89%E4%BB%80%E9%BA%BC%E5%80%BC%E5%BE%97%E6%B3%A8%E6%84%8F%E7%9A%84%E6%9B%B4%E6%96%B0/">MongoDb 5 來了，有什麼值得注意的更新呢?
+</a>
+      </li><li class="mb-2">
+        <a href="/series/2019-ithome-ironman/day-30-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-network-%E6%9A%A8%E5%AE%8C%E8%B3%BD%E5%9B%9E%E9%A1%A7/">Day 30- 三周目 - Docker Network 暨完賽回顧
+</a>
+      </li><li class="mb-2">
+        <a href="/series/2019-ithome-ironman/day-29-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-compose%E4%B8%80%E6%AC%A1%E7%AE%A1%E7%90%86%E5%A4%9A%E5%80%8B%E5%AE%B9%E5%99%A8/">Day 29- 三周目 - Docker Compose：一次管理多個容器
+</a>
+      </li></ul>
+  </div>
+</section>
+    
+  </div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><div class="offcanvas offcanvas-bottom h-auto" tabindex="-1" id="offcanvasActionsPanel"
+  aria-labelledby="offcanvasActionsPanelLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title fs-4" id="offcanvasActionsPanelLabel">
+      <i class="fas fa-fw fa-th-large me-1"></i>
+      Actions
+    </h5>
+    <button type="button" class="btn-close ms-auto" data-bs-dismiss="offcanvas" data-bs-target="offcanvasActionsPanel" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body mt-2"><div class="social-share mb-4 d-flex overflow-auto">
+      <a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Twitter Share Button"
+      target="_blank" href="https://twitter.com/intent/tweet?title=Day%201%20-%20%e5%89%8d%e8%a8%80%ef%bc%8f%e9%96%8b%e7%99%bc%e7%92%b0%e5%a2%83%e6%ba%96%e5%82%99&url=%2fseries%2f2019-ithome-ironman%2fday-1-%25E5%2589%258D%25E8%25A8%2580%25E9%2596%258B%25E7%2599%25BC%25E7%2592%25B0%25E5%25A2%2583%25E6%25BA%2596%25E5%2582%2599%2f">
+        <i class="fab fa-2x fa-fw fa-twitter mb-2"></i> Twitter
+      </a>
+      <a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Facebook Share Button"
+        target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=%2fseries%2f2019-ithome-ironman%2fday-1-%25E5%2589%258D%25E8%25A8%2580%25E9%2596%258B%25E7%2599%25BC%25E7%2592%25B0%25E5%25A2%2583%25E6%25BA%2596%25E5%2582%2599%2f">
+        <i class="fab fa-2x fa-fw fa-facebook-f mb-2"></i> Facebook
+      </a>
+    </div>
+    <hr class="mb-4"><div class="actions d-flex overflow-auto align-items-center">
+      <a role="button" class="action action-go-back d-flex flex-column align-items-center me-3" href="javascript: window.history.back();">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-chevron-circle-down" data-fa-transform="rotate-90"></i></span> 返回
+      </a>
+      <a role="button" class="action action-reload-page d-flex flex-column align-items-center me-3">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-redo-alt"></i></span> 刷新
+      </a>
+      <a role="button" class="action action-copy-url d-flex flex-column align-items-center me-3">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-link"></i></span> 複製連結
+      </a>
+    </div>
+  </div>
+</div><nav class="social-links nav justify-content-center mb-2"><a class="nav-link social-link" href="mailto:yujiechen0514@gmail.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i></a><a class="nav-link social-link" target="_blank" href="https://github.com/eugenechen0514" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-github"></i></a><a class="nav-link social-link" target="_blank" href="https://linkedin.com/in/yuchieh-chen-37a48989" title="LinkedIn" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-linkedin-in"></i></a><a class="nav-link social-link" target="_blank" href="https://medium.com/@yujiechen0514" title="Medium" rel="noopener noreferrer">
+        <i class="fab fa-fw fa-2x fa-medium-m"></i></a><a class="nav-link social-link" target="_blank" href="/index.xml" title="RSS" rel="noopener noreferrer">
+    <i class="fas fa-fw fa-2x fa-rss"></i></a></nav>
+<div class="copyright mb-2">
+  Copyright © 2016-2022 EugeneChen. All Rights Reserved.
+</div>
+<div class="powered-by mb-2">
+  Powered by <a class="text-primary" href="https://gohugo.io" target="_blank" rel="noopener noreferrer">Hugo</a> and the <a class="text-primary" href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank" rel="noopener noreferrer">Bootstrap</a> theme.
+</div>
+<div class="sponsors">
+
+
+
+
+
+
+</div>
+</footer>
+<script src="/assets/main/bundle.min.2bc7d6952dbf38d6d2815939c58fc655e72d050b196d9fd99829d8fb23904646.js" integrity="sha256-K8fWlS2/ONbSgVk5xY/GVectBQsZbZ/ZmCnY&#43;yOQRkY=" crossorigin="anonymous" defer></script><script src="/assets/icons/bundle.min.a4bf8247f780c9bf61d579a8efe7129ec790bb98622bf4a29895eb21e689266c.js" integrity="sha256-pL&#43;CR/eAyb9h1Xmo7&#43;cSnseQu5hiK/SimJXrIeaJJmw=" crossorigin="anonymous" defer></script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('\/service-worker.min.js').then(function(reg) {
+      console.log('Successfully registered service worker', reg);
+    }).catch(function(err) {
+      console.warn('Error whilst registering service worker', err);
+    });
+  });
+}
+</script><script src="/assets/viewer/bundle.min.92d4a694e2e9a4c4d89b6998067e2f8e502dc7a951682bb5a160a3004b434908.js" integrity="sha256-ktSmlOLppMTYm2mYBn4vjlAtx6lRaCu1oWCjAEtDSQg=" crossorigin="anonymous" defer></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-ZWYL79X38Y', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+<script src="/assets/docsearch/bundle.min.c6965b5bee044b874617239932d6a7992b217f7949f895a7576980d110fb2ab1.js" integrity="sha256-xpZbW&#43;4ES4dGFyOZMtanmSshf3lJ&#43;JWnV2mA0RD7KrE=" crossorigin="anonymous" defer></script></body>
+</html>

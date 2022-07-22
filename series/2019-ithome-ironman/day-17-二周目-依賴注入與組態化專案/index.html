@@ -1,0 +1,764 @@
+<!doctype html><html class="position-relative" itemscope itemtype="http://schema.org/WebPage" lang="zh-tw" data-theme="auto"
+  
+   data-palette="purple">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Day 17 - 二周目 - 依賴注入與組態化專案 - EugeneChen</title><link rel="apple-touch-icon" href="/images/icons/icon-180x180.png" sizes="180x180">
+<link rel="icon" href="/images/icons/icon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/images/icons/icon-16x16.png" sizes="16x16" type="image/png">
+<link rel="icon" href="/images/icons/favicon.ico">
+<link rel="manifest" href="/manifest.json">
+<meta name="keywords" content="" />
+<meta name="description" content="依賴注入套件、組態化" /><meta name="robots" content="index, follow" /><meta itemprop="name" content="Day 17 - 二周目 - 依賴注入與組態化專案">
+<meta itemprop="description" content="依賴注入套件、組態化"><meta itemprop="datePublished" content="2018-10-17T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2018-10-17T00:00:00+00:00" />
+<meta itemprop="wordCount" content="2220">
+<meta itemprop="keywords" content="2019 iT 邦幫忙鐵人賽,用js成為老闆心中的全端工程師," /><meta property="og:title" content="Day 17 - 二周目 - 依賴注入與組態化專案" />
+<meta property="og:description" content="依賴注入套件、組態化" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/series/2019-ithome-ironman/day-17-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E4%BE%9D%E8%B3%B4%E6%B3%A8%E5%85%A5%E8%88%87%E7%B5%84%E6%85%8B%E5%8C%96%E5%B0%88%E6%A1%88/" /><meta property="article:section" content="series" />
+<meta property="article:published_time" content="2018-10-17T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-10-17T00:00:00+00:00" /><meta property="og:site_name" content="EugeneChen" />
+<meta property="og:see_also" content="/series/2019-ithome-ironman/day-30-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-network-%E6%9A%A8%E5%AE%8C%E8%B3%BD%E5%9B%9E%E9%A1%A7/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-29-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-compose%E4%B8%80%E6%AC%A1%E7%AE%A1%E7%90%86%E5%A4%9A%E5%80%8B%E5%AE%B9%E5%99%A8/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-28-%E4%B8%89%E5%91%A8%E7%9B%AE-%E8%A3%BD%E4%BD%9C%E8%87%AA%E5%B7%B1%E7%9A%84%E6%98%A0%E5%83%8F%E6%AA%94%E5%8C%85%E6%89%93%E5%89%8D%E5%BE%8C%E7%AB%AF%E6%98%A0%E5%83%8F%E6%AA%94/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-27-%E4%B8%89%E5%91%A8%E7%9B%AE-%E4%BA%94%E5%88%86%E9%90%98%E5%BB%BA%E7%AB%8B%E7%A7%81%E6%9C%89-npm-verdaccio/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-26-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E7%9C%8B%E5%AE%8C%E5%B0%B1%E6%9C%83%E6%9E%B6-docker-%E5%8C%96%E7%9A%84%E6%9C%8D%E5%8B%99/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-25-%E4%BA%8C%E5%91%A8%E7%9B%AE-react-component-%E5%A5%97%E4%BB%B6-material-ui-google-material-design-%E7%9A%84%E5%AF%A6%E4%BD%9C%E5%A5%97%E4%BB%B6/" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Day 17 - 二周目 - 依賴注入與組態化專案"/>
+<meta name="twitter:description" content="依賴注入套件、組態化"/>
+<meta property="og:image" content="/images/logo.png"/>
+  <meta name="twitter:image" content="/images/logo.png"/><link rel="stylesheet" href="/assets/main/bundle.min.925f59d4c744cc5e99dcc7d02a6f68dff5cceaea488c7667bd947bf7aa35b649.css" integrity="sha256-kl9Z1MdEzF6Z3MfQKm9o3/XM6upIjHZnvZR796o1tkk=" crossorigin="anonymous"><link rel="stylesheet" href="/assets/viewer/bundle.min.f05183267bb952fbc8c63a7178364de2951614ab71d544ec1068ad36c7447ccc.css" integrity="sha256-8FGDJnu5UvvIxjpxeDZN4pUWFKtx1UTsEGitNsdEfMw=" crossorigin="anonymous"><link rel="stylesheet" href="/assets/docsearch/bundle.min.c165d6a127fffa285e6b89ef65362fe921bc0c1fdaefa35f6af069b962bdb50e.css" integrity="sha256-wWXWoSf/&#43;ihea4nvZTYv6SG8DB/a76NfavBpuWK9tQ4=" crossorigin="anonymous"></head>
+  <body><script>const items=["theme","palette"];items.forEach(function(e){const t=localStorage.getItem("hbs:"+e);t&&document.body.parentElement.setAttribute("data-"+e,t)})</script><header><nav class="top-app-bar shadow bg-primary text-white navbar navbar-expand-lg fixed-top">
+  <div class="container"><a class="navbar-brand flex-grow-1 flex-lg-grow-0 text-lg-start ms-2 ms-lg-0 mx-auto me-lg-3" href="/"><picture><img class="logo" alt="Logo" src="/images/logo.webp" loading="lazy"
+    
+     width="136" height="69"
+     />
+</picture>
+EugeneChen
+    </a>
+    <button class="navbar-toggler order-5" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarMenus"
+      aria-controls="navbarMenus" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-ellipsis-h"></i>
+    </button>
+    <div class="offcanvas-lg offcanvas-end flex-grow-1 bg-primary text-white" tabindex="-1" id="navbarMenus" aria-labelledby="navbarMenusLabel">
+      <div class="offcanvas-header px-4 pb-0">
+        <h5 class="offcanvas-title" id="navbarMenusLabel">EugeneChen</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" data-bs-target="#navbarMenus" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body p-4 pt-0 p-lg-0">
+        <hr class="d-lg-none">
+        <ul class="navbar-nav flex-row flex-wrap align-items-center me-auto"><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/posts/">
+              <i class="fas fa-book fa-fw"></i>文章
+            </a>
+          </li><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/series/">
+              <i class="fas fa-bars fa-fw"></i>專欄
+            </a>
+          </li><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/posts/notes/">
+              <i class="fas fa-sticky-note fa-fw"></i>隨手筆記
+            </a>
+          </li></ul>
+        <hr class="d-lg-none">
+        <form class="search-bar mx-auto my-1" action="/search" novalidate>
+  <div class="input-group input-group-sm align-items-center">
+    <span class="btn btn-search disabled position-absolute left-0 border-0">
+      <i class="fas fa-fw fa-search fa-lg"></i>
+    </span>
+    <input class="py-2 form-control rounded search-input" name="q" type="search" aria-label="Search" required>
+  </div>
+</form>
+<hr class="d-lg-none">
+        <ul class="navbar-nav flex-row flex-wrap align-items-center ms-md-auto"><li class="nav-item dropdown py-1 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-globe"></i>
+        <span class="d-lg-none">語言</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown"><li>
+        <a class="dropdown-item" href="/en/">
+            English
+        </a>
+        </li><li>
+        <a class="dropdown-item active" href="/">
+            繁體中文
+        </a>
+        </li></ul>
+</li>
+<li class="nav-item py-1 col-12 col-lg-auto">
+  <div class="vr d-none d-lg-flex h-100 mx-lg-2 text-white"></div>
+  <hr class="d-lg-none my-2">
+</li><li class="nav-item dropdown py-2 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="fontSizeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-font"></i>
+        <span class="d-lg-none">字體大小</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="fontSizeDropdown"><li>
+            <button class="font-size-item dropdown-item" data-size="xs">
+                特小號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="sm">
+                小號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item active" data-size="md">
+                中等
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="lg">
+                大號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="xl">
+                特大號
+            </button>
+        </li></ul>
+</li><li class="nav-item dropdown py-1 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="paletteDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-palette"></i>
+        <span class="d-lg-none">配色</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end px-2" aria-labelledby="paletteDropdown">
+        <div class="row"><li class="col-3 my-1">
+                <a role="button" id="palette-blue" aria-label="藍色"
+                    class="btn btn-sm w-100 palette text-bg-blue" data-palette="blue">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-blue-gray" aria-label="藍灰色"
+                    class="btn btn-sm w-100 palette text-bg-blue-gray" data-palette="blue-gray">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-brown" aria-label="棕色"
+                    class="btn btn-sm w-100 palette text-bg-brown" data-palette="brown">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-cyan" aria-label="青色"
+                    class="btn btn-sm w-100 palette text-bg-cyan" data-palette="cyan">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-green" aria-label="綠色"
+                    class="btn btn-sm w-100 palette text-bg-green" data-palette="green">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-indigo" aria-label="靛青色"
+                    class="btn btn-sm w-100 palette text-bg-indigo" data-palette="indigo">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-orange" aria-label="橙色"
+                    class="btn btn-sm w-100 palette text-bg-orange" data-palette="orange">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-pink" aria-label="粉色"
+                    class="btn btn-sm w-100 palette text-bg-pink" data-palette="pink">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-purple" aria-label="紫色"
+                    class="btn btn-sm w-100 palette text-bg-purple" data-palette="purple">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-red" aria-label="紅色"
+                    class="btn btn-sm w-100 palette text-bg-red" data-palette="red">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-teal" aria-label="藍綠色"
+                    class="btn btn-sm w-100 palette text-bg-teal" data-palette="teal">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-yellow" aria-label="黃色"
+                    class="btn btn-sm w-100 palette text-bg-yellow" data-palette="yellow">
+                </a>
+            </li></div>
+    </ul>
+</li>
+<li class="nav-item dropdown py-2 py-lg-1 col-6 col-lg-auto"><a class="nav-link px-0 px-lg-1" href="#" id="modeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="mode-icon fas fa-fw fa-adjust" id="modeIcon"></i>
+        <span class="d-lg-none">模式</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="modeDropdown"><li class="mode-item" data-color-mode="light" data-icon="sun">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-sun"></i> Light
+            </button>
+        </li><li class="mode-item" data-color-mode="dark" data-icon="moon">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-moon"></i> Dark
+            </button>
+        </li><li class="mode-item active" data-color-mode="auto" data-icon="adjust">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-adjust"></i> Auto
+            </button>
+        </li></ul>
+</li>
+</ul>
+      </div>
+    </div>
+  </div>
+</nav>
+</header>
+<main class="container">
+      <div class="row content"><noscript>
+    <div class="alert alert-danger" role="alert">你的瀏覽器不支持 JavaScript。</div>
+</noscript>
+
+<div class="col-lg-8">
+  <div class="container"><nav class="row card component" aria-label="breadcrumb">
+  <div class="card-body pb-0">
+    <ol class="breadcrumb"><li class="breadcrumb-item text-surface"><a href="/">主頁</a></li><li class="breadcrumb-item text-surface"><a href="/series/">Series</a></li><li class="breadcrumb-item active">Day 17 - 二周目 - 依賴注入與組態化專案</li></ol>
+  </div>
+</nav><div class="post-panel-wrapper position-sticky">
+  <div class="d-flex flex-column component rounded post-panel position-absolute border">
+    
+    <a class="action action-panel-toggler" role="button" title="Panel toggler">
+      <i class="fas fa-fw fa-chevron-circle-down"></i>
+    </a>
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button" title="Sidebar toggler">
+  <i class="fas fa-fw fa-expand-alt" data-fa-transform="rotate-45"></i>
+</a>
+
+    
+
+    
+    <a class="action" href="#post-copyright" role="button" aria-label="Copyright" title="Copyright">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    <a class="action" href="#post-comments" role="button" aria-label="Comments" title="Comments">
+  <i class="fas fa-fw fa-comments"></i>
+</a>
+    <a class="action" href="#postTOC" aria-controls="Table of contents" role="button" title="Table of contents">
+  <i class="fas fa-fw fa-list-alt"></i>
+</a>
+    
+  </div>
+</div>
+<article class="row card component mb-4 post">
+  <div class="card-header ">
+    <h1 class="card-title post-title my-2">Day 17 - 二周目 - 依賴注入與組態化專案
+</h1>
+  </div>
+  <div class="card-body"><div class="post-meta mb-3">
+  <span class="post-date me-1 mb-1" title="創建於 2018-10-17 08:00:00 &#43;0800 CST。">
+    2018-10-17
+  </span><span class="post-reading-time me-1 mb-1">
+    5 分鐘閱讀
+  </span><a href="/series/2019-ithome-ironman/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">用js成為老闆心中的全端工程師 - 2019 IT邦幫忙鐵人賽</a><a href="/tags/2019-it-%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">2019 IT 邦幫忙鐵人賽</a><a href="/tags/%E7%94%A8js%E6%88%90%E7%82%BA%E8%80%81%E9%97%86%E5%BF%83%E4%B8%AD%E7%9A%84%E5%85%A8%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%AB/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">用js成為老闆心中的全端工程師</a></div>
+<div class="post-content mb-3"><p>依賴注入套件、組態化</p>
+<h1 id="回憶">回憶<a class="anchor ms-1" href="#回憶"><i class="fas fa-link"></i></a></h1>
+<p>昨天我們強化了後端專案結構，加入了services、daos的資料夾，這有助於切割商業邏輯，強化維護性。</p>
+<p>觀察一下，我們將大部分的物件建立移到 <code>app.js</code> 中，方便控制物件相依</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="kr">const</span> <span class="nx">echoDao</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">EchoDao</span><span class="p">({</span><span class="nx">mongoClient</span><span class="o">:</span> <span class="nx">client</span><span class="p">});</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="kr">const</span> <span class="nx">mongoService</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MongoService</span><span class="p">({</span><span class="nx">mongoClient</span><span class="o">:</span> <span class="nx">client</span><span class="p">,</span> <span class="nx">echoDao</span><span class="p">});</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="kr">const</span> <span class="p">{</span><span class="nx">createRouter</span><span class="o">:</span> <span class="nx">createRootRouter</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./routes/index&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="kr">const</span> <span class="nx">indexRouter</span> <span class="o">=</span> <span class="nx">createRootRouter</span><span class="p">({</span><span class="nx">mongoService</span><span class="p">});</span>
+</span></span></code></pre></div><p>這延申出幾個問題：</p>
+<ol>
+<li>新的 service、dao 出現的時候會越來越長</li>
+<li>相依關係要自己串連，很不方便</li>
+<li>太多的相依可能會忘記</li>
+<li>不小心循環引用</li>
+</ol>
+<h1 id="目標">目標<a class="anchor ms-1" href="#目標"><i class="fas fa-link"></i></a></h1>
+<p>我們要使用依賴注入套件<a href="https://github.com/jeffijoe/awilix" target="_blank" rel="noopener noreferrer">awilix<i class="fas fa-external-link-square-alt ms-1"></i></a>解決上面問題。</p>
+<ol>
+<li>使用 awilix</li>
+<li>組態化 <code>./configs/config.js</code></li>
+<li>環境變數 <code>process.env</code></li>
+</ol>
+<p>過程請見 github commit log <a href="https://github.com/eugenechen0514/ithelp-30dayfullstack-Day17" target="_blank" rel="noopener noreferrer">ithelp-30dayfullstack-Day17<i class="fas fa-external-link-square-alt ms-1"></i></a> 或 <a href="https://codesandbox.io/s/github/eugenechen0514/ithelp-30dayfullstack-Day17" target="_blank" rel="noopener noreferrer">codesandbox<i class="fas fa-external-link-square-alt ms-1"></i></a></p>
+<h1 id="awilix-依賴注入">awilix 依賴注入<a class="anchor ms-1" href="#awilix-依賴注入"><i class="fas fa-link"></i></a></h1>
+<p>先問幾個問題：</p>
+<ul>
+<li>為什麼要用 awilix？　－　自動處理相依關係，不用手動建立</li>
+<li>不用會怎樣？　－　不會怎樣，就自己建立物件，相依關系自己處理，有更大的彈性，但也很麻煩</li>
+<li>有什麼好處？　－　自動處理相依關係、避免循環引用、設定物件的生命期間(Lifetime)、物件建立的程式碼會集中起來</li>
+</ul>
+<h1 id="使用-awilix">使用 awilix<a class="anchor ms-1" href="#使用-awilix"><i class="fas fa-link"></i></a></h1>
+<p>大致上的流程是</p>
+<ol>
+<li>建立 container ：awilix container 裡面會放所有「物件建立方法」、物件</li>
+<li>register/load module ： 在 container 中，註冊「物件建立方法」
+<ol>
+<li><code>asClass</code>, <code>asFunction</code>, <code>asValue</code>: 物件建立的方法，再用 <code>container.register()</code> 註冊在 container 中
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="nx">container</span><span class="p">.</span><span class="nx">register</span><span class="p">({</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">  <span class="nx">objName1</span><span class="o">:</span> <span class="nx">asClass</span><span class="p">(</span><span class="nx">Class</span><span class="p">),</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">  <span class="nx">objName2</span><span class="o">:</span> <span class="nx">asFunction</span><span class="p">(</span><span class="nx">factoryFunction</span><span class="p">),</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">  <span class="nx">objName3</span><span class="o">:</span> <span class="nx">asValue</span><span class="p">(</span><span class="nx">value</span><span class="p">),</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="p">});</span>
+</span></span></code></pre></div></li>
+<li><code>container.loadModules(globPatterns, options)</code>：<code>loadModules()</code> 會掃描資料夾，套用我們設定的「物件建立方法」</li>
+</ol>
+</li>
+<li><code>resolve(name)</code> : 取出物件，這時才開始建立相依的物件</li>
+</ol>
+<p>所以任何地方只要有能存取 container，就可以透過 <code>resolve(name)</code> 取出物件。</p>
+<h2 id="用-awilix-建立物件關係">用 awilix 建立物件關係<a class="anchor ms-1" href="#用-awilix-建立物件關係"><i class="fas fa-link"></i></a></h2>
+<ol>
+<li>先安裝 awilix
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">npm install awilix --save
+</span></span></code></pre></div></li>
+<li>註冊部分「物件建立方法」：兩個物件名 mongoClient 和 indexRouter
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1">// app.js
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="p">{</span> <span class="nx">createContainer</span><span class="p">,</span> <span class="nx">asClass</span><span class="p">,</span> <span class="nx">asValue</span><span class="p">,</span> <span class="nx">asFunction</span><span class="p">,</span> <span class="nx">Lifetime</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;awilix&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="c1">// 建立 awilix container
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">container</span> <span class="o">=</span> <span class="nx">createContainer</span><span class="p">();</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="nx">container</span><span class="p">.</span><span class="nx">register</span><span class="p">({</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">  <span class="nx">mongoClient</span><span class="o">:</span> <span class="nx">asValue</span><span class="p">(</span><span class="nx">client</span><span class="p">,</span> <span class="p">{</span> <span class="nx">lifetime</span><span class="o">:</span> <span class="nx">Lifetime</span><span class="p">.</span><span class="nx">SINGLETON</span> <span class="p">}),</span> <span class="c1">// 註冊為 mongoClient，且生命期為 SINGLETON (執行中只有一個物件)
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="c1"></span>  <span class="nx">indexRouter</span><span class="o">:</span> <span class="nx">asFunction</span><span class="p">(</span><span class="nx">createRootRouter</span><span class="p">,</span> <span class="p">{</span> <span class="nx">lifetime</span><span class="o">:</span> <span class="nx">Lifetime</span><span class="p">.</span><span class="nx">SINGLETON</span> <span class="p">}),</span> <span class="c1">// 註冊為 indexRouter，利用工廠函數 createRootRouter 建立物件
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="c1"></span><span class="p">});</span>
+</span></span></code></pre></div></li>
+<li>掃描 services, daos 資料夾
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1">// app.js
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="c1"></span><span class="nx">container</span><span class="p">.</span><span class="nx">loadModules</span><span class="p">([</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">  <span class="s1">&#39;daos/*.js&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">  <span class="s1">&#39;services/*.js&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="p">],</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">    <span class="nx">formatName</span><span class="o">:</span> <span class="s1">&#39;camelCase&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">    <span class="nx">resolverOptions</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">      <span class="nx">lifetime</span><span class="o">:</span> <span class="nx">Lifetime</span><span class="p">.</span><span class="nx">SINGLETON</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">      <span class="nx">register</span><span class="o">:</span> <span class="nx">asClass</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">  <span class="p">});</span>
+</span></span></code></pre></div>掃描到的檔案，因為是 <code>module.exports =  clsss</code> 所以用 <code>asClass</code> 註冊。名稱命名規則為 <strong>camelCase</strong> ，生命期為 <strong>SINGLETON</strong>。例如：找到 <code>MongoService</code> 就好像用
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1">// app.js
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="c1"></span><span class="nx">container</span><span class="p">.</span><span class="nx">register</span><span class="p">({</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">  <span class="nx">mongoService</span><span class="o">:</span> <span class="nx">asClass</span><span class="p">(</span><span class="nx">MongoService</span><span class="p">,</span> <span class="p">{</span> <span class="nx">lifetime</span><span class="o">:</span> <span class="nx">Lifetime</span><span class="p">.</span><span class="nx">SINGLETON</span> <span class="p">}),</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="p">});</span>
+</span></span></code></pre></div>註冊</li>
+<li>取出名為 <strong>indexRouter</strong> 的物件
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1">// app.js
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">indexRouter</span> <span class="o">=</span> <span class="nx">container</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="s1">&#39;indexRouter&#39;</span><span class="p">);</span>
+</span></span></code></pre></div><strong>indexRouter</strong> 有指定用 <code>createRootRouter(dependencies)</code> 建立 (<code>asFunction(createRootRouter)</code>)，它會拿 <code>const {mongoService} = dependencies</code>， <strong>mongoService</strong> 就會被 <code>asClass(MongoService)</code>建立，所以會一直建立相關的物件
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">建立物件路徑:
+</span></span><span class="line"><span class="ln">2</span><span class="cl">createRootRouter({mongoService}) -&gt; mongoService -&gt; mongoClient and echoDao
+</span></span><span class="line"><span class="ln">3</span><span class="cl">                                                                        |
+</span></span><span class="line"><span class="ln">4</span><span class="cl">                                                                        ∟ -&gt;  mongoClient
+</span></span></code></pre></div></li>
+</ol>
+<p>awilix 幫助我們從</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">關注「建立物件」和「串接物件關係」
+</span></span></code></pre></div><p>變成</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">關注「物件建立方法」
+</span></span></code></pre></div><p>關連性透過命名串接，相依物件自動建立。</p>
+<h1 id="組態化專案">組態化專案<a class="anchor ms-1" href="#組態化專案"><i class="fas fa-link"></i></a></h1>
+<p>程式中的 MongoDB 連線有寫死(hard code) 常數值</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1">//  daos/EchoDao.js
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="c1"></span><span class="kr">class</span> <span class="nx">EchoDao</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">    <span class="p">...</span><span class="nx">略</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">    <span class="kr">async</span> <span class="nx">insert</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">        <span class="kr">const</span> <span class="nx">dbName</span> <span class="o">=</span> <span class="s1">&#39;myproject&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl">        <span class="kr">const</span> <span class="nx">db</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">mongoClient</span><span class="p">.</span><span class="nx">db</span><span class="p">(</span><span class="nx">dbName</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">7</span><span class="cl">        <span class="p">...</span><span class="nx">略</span>
+</span></span><span class="line"><span class="ln">8</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln">9</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>和</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1">//  app.js
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">MongoClient</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;mongodb&#39;</span><span class="p">).</span><span class="nx">MongoClient</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="kr">const</span> <span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;mongodb://localhost:27017&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="kr">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MongoClient</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="p">{</span> <span class="nx">useNewUrlParser</span><span class="o">:</span> <span class="kc">true</span> <span class="p">});</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="p">...</span><span class="nx">略</span>
+</span></span></code></pre></div><p>接下來要將它們抽出到一個 <code>config.js</code> 檔案，方便未來修改</p>
+<h2 id="建立-configsconfigjs">建立 ./configs/config.js<a class="anchor ms-1" href="#建立-configsconfigjs"><i class="fas fa-link"></i></a></h2>
+<p>提出連線的常數</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1">// configs/config.js
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="c1"></span><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">    <span class="nx">mongodb</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">        <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;mongodb://localhost:27017&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">        <span class="nx">dbName</span><span class="o">:</span> <span class="s1">&#39;myproject&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln">7</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="為-echodao-加入-config-相依">為 EchoDao 加入 config 相依<a class="anchor ms-1" href="#為-echodao-加入-config-相依"><i class="fas fa-link"></i></a></h2>
+<ol>
+<li><code>EchoDao</code> 加入 <code>config</code> 相依
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1">// daos/EchoDao.js
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="c1"></span><span class="kr">class</span> <span class="nx">EchoDao</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="cm">     * 
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="cm">     * @param {object} config
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="cm">     * @param {MongoClient} mongoClient
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">    <span class="nx">constructor</span><span class="p">({</span> <span class="nx">config</span><span class="p">,</span> <span class="nx">mongoClient</span> <span class="p">})</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="nx">config</span> <span class="o">=</span> <span class="nx">config</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="nx">mongoClient</span> <span class="o">=</span> <span class="nx">mongoClient</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">    <span class="p">...</span><span class="nx">略</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div></li>
+<li>加入名為 <strong>config</strong> 的物件建立設定
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1">// app.js
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">config</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./configs/config&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">
+</span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="nx">container</span><span class="p">.</span><span class="nx">register</span><span class="p">({</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">  <span class="nx">config</span><span class="o">:</span> <span class="nx">asValue</span><span class="p">(</span><span class="nx">config</span><span class="p">,</span> <span class="p">{</span> <span class="nx">lifetime</span><span class="o">:</span> <span class="nx">Lifetime</span><span class="p">.</span><span class="nx">SINGLETON</span> <span class="p">}),</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl">  <span class="p">...</span><span class="nx">略</span>
+</span></span><span class="line"><span class="ln">7</span><span class="cl"><span class="p">});</span>
+</span></span></code></pre></div></li>
+</ol>
+<h2 id="為資料庫連線加入相依">為資料庫連線加入相依<a class="anchor ms-1" href="#為資料庫連線加入相依"><i class="fas fa-link"></i></a></h2>
+<p>為了套用控制反轉(Inversion of Control, IoC)，把連線過程放到 <code>createMongoClient()</code> 這工廠函數：</p>
+<ol>
+<li>建立 <code>createMongoClient()</code> 用來產生 MongoClient 物件
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1">// app.js
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="c1"></span><span class="cm">/**
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="cm"> * 
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="cm"> * @param {object} config
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="cm"> * @returns {MongoClient}
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="kd">function</span> <span class="nx">createMongoClient</span><span class="p">({</span><span class="nx">config</span><span class="p">})</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">  <span class="kr">const</span> <span class="nx">url</span> <span class="o">=</span> <span class="nx">config</span><span class="p">.</span><span class="nx">mongodb</span><span class="p">.</span><span class="nx">url</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">  <span class="kr">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MongoClient</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="p">{</span> <span class="nx">useNewUrlParser</span><span class="o">:</span> <span class="kc">true</span> <span class="p">});</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">
+</span></span><span class="line"><span class="ln">11</span><span class="cl">  <span class="c1">// 立即連線
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="c1"></span>  <span class="nx">client</span><span class="p">.</span><span class="nx">connect</span><span class="p">()</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">    <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">connectedClient</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;mongodb is connected&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl">    <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">      <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl">    <span class="k">return</span> <span class="nx">client</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div></li>
+<li>改成用工廠函數 <code>createMongoClient()</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1">// app.js
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="c1"></span><span class="nx">container</span><span class="p">.</span><span class="nx">register</span><span class="p">({</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">  <span class="p">...</span><span class="nx">略</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">  <span class="nx">mongoClient</span><span class="o">:</span> <span class="nx">asFunction</span><span class="p">(</span><span class="nx">createMongoClient</span><span class="p">,</span> <span class="p">{</span> <span class="nx">lifetime</span><span class="o">:</span> <span class="nx">Lifetime</span><span class="p">.</span><span class="nx">SINGLETON</span> <span class="p">}),</span> <span class="c1">// 註冊為 mongoClient，且生命期為 SINGLETON (執行中只有一個物件)
+</span></span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="c1"></span>  <span class="p">...</span><span class="nx">略</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="p">});</span>
+</span></span></code></pre></div></li>
+<li>預先引起建立 mongoClient，為了可以 <strong>儘早</strong> 連線
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1">// app.js
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="c1">// 預先引起建立 mongoClient
+</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">mongoClient</span> <span class="o">=</span> <span class="nx">container</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="s1">&#39;mongoClient&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">
+</span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="kr">const</span> <span class="nx">indexRouter</span> <span class="o">=</span> <span class="nx">container</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="s1">&#39;indexRouter&#39;</span><span class="p">);</span>
+</span></span></code></pre></div></li>
+</ol>
+<p>這樣就大工告成了，剩下的像是：相依注入、建立物件…等會由awilix 幫我們完成</p>
+<h1 id="從執行外界接受參數">從執行外界接受參數<a class="anchor ms-1" href="#從執行外界接受參數"><i class="fas fa-link"></i></a></h1>
+<p>在 <a href="https://ithelp.ithome.com.tw/articles/10201085" target="_blank" rel="noopener noreferrer">Day 12 - 二周目 - 準備起程深入後端<i class="fas fa-external-link-square-alt ms-1"></i></a> 提過 Node.js 執行 js 檔時是單一行程、單一執行緒。有 golbals 的變數叫 <a href="https://nodejs.org/dist/latest-v10.x/docs/api/globals.html#globals_process" target="_blank" rel="noopener noreferrer"><code>process</code><i class="fas fa-external-link-square-alt ms-1"></i></a>，它是指當前執行時的 process。 當我們執行 <code>node ./bin/www</code> 時 <code>process</code> 就會被建立，它是外界串連的橋樑。</p>
+<h2 id="行程執行環境processenv">行程執行環境(process.env)<a class="anchor ms-1" href="#行程執行環境processenv"><i class="fas fa-link"></i></a></h2>
+<p>我們常常希望 <code>node ./bin/www</code> 可以從外部設定參數，像是 <strong>PORT</strong> 環境變數，就是會拿來設定 Web Server 會開啟的 port。你可以直接打開檔案<code>./bin/www</code> 會看到 <code>process.env.PORT</code>，</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="cm"> * Get port from environment and store in Express.
+</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">
+</span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="kd">var</span> <span class="nx">port</span> <span class="o">=</span> <span class="nx">normalizePort</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">PORT</span> <span class="o">||</span> <span class="s1">&#39;3000&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="nx">app</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;port&#39;</span><span class="p">,</span> <span class="nx">port</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">7</span><span class="cl"><span class="p">...</span><span class="nx">略</span>
+</span></span></code></pre></div><p>這裡的 <code>process.env</code> 物件是 process 執行時的環境變數(environment)。</p>
+<p>因此，下指令 <code>PORT=3001 node ./bin/www</code>，前面的 <code>PORT</code> 就會被設定在 <code>process.env.PORT</code> 中。若要更多環境變數就用「空白」區隔，例如 <code>MONGODB_URL=http://localhost:27017 PORT=3001 node ./bin/www</code></p>
+<h3 id="為-configjs-加入環境變數">為 config.js 加入環境變數<a class="anchor ms-1" href="#為-configjs-加入環境變數"><i class="fas fa-link"></i></a></h3>
+<p>利用 <code>process.env</code> 就可以從外界修改環境變數，不用動程式</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="kr">const</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">    <span class="nx">mongodb</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">        <span class="nx">url</span><span class="o">:</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">MONGODB_URL</span> <span class="o">||</span> <span class="s1">&#39;mongodb://localhost:27017&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">        <span class="nx">dbName</span><span class="o">:</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">MONGODB_DB_NAME</span> <span class="o">||</span> <span class="s1">&#39;myproject&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">7</span><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">config</span><span class="p">;</span>
+</span></span></code></pre></div><p>小技巧：<code>process.env.MONGODB_URL || 'mongodb://localhost:27017'</code> 可以在 <code>MONGODB_URL</code> 沒設定值時使用預設值  <code>'mongodb://localhost:27017'</code></p>
+<p>注意： <code>process.env.XXX</code> 是 <code>undefined</code> 或 <code>string</code>，所以萬一變數是其它的型態要進行轉型，如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kd">function</span> <span class="nx">__defaultFalse</span><span class="p">(</span><span class="nx">bool</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="nx">bool</span> <span class="o">===</span> <span class="s2">&#34;true&#34;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="nx">bool</span> <span class="o">===</span> <span class="s2">&#34;false&#34;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">        <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">    <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="kr">const</span> <span class="nx">enable</span> <span class="o">=</span> <span class="nx">__defaultFalse</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">ENABLE</span><span class="p">);</span>
+</span></span></code></pre></div><h3 id="為-vscode-debug-執行加入環境變數">為 VSCode debug 執行加入環境變數<a class="anchor ms-1" href="#為-vscode-debug-執行加入環境變數"><i class="fas fa-link"></i></a></h3>
+<p>若你是透過 VSCode debug 模式執行 js，一樣可以加入環境變數</p>
+<p>打開 <code>.vscode/launch.json</code>，加入 <code>env</code> 參數</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">  <span class="nt">&#34;configurations&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">          <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">              <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;node&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">              <span class="nt">&#34;request&#34;</span><span class="p">:</span> <span class="s2">&#34;launch&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">              <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;www&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">              <span class="nt">&#34;program&#34;</span><span class="p">:</span> <span class="s2">&#34;${workspaceFolder}/bin/www&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">              <span class="nt">&#34;env&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">                  <span class="nt">&#34;PORT&#34;</span><span class="p">:</span> <span class="s2">&#34;3001&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">              <span class="p">}</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">      <span class="p">]</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="執行參數processargv">執行參數(process.argv)<a class="anchor ms-1" href="#執行參數processargv"><i class="fas fa-link"></i></a></h2>
+<p><a href="https://nodejs.org/dist/latest-v10.x/docs/api/process.html#process_process_argv" target="_blank" rel="noopener noreferrer">process.argv<i class="fas fa-external-link-square-alt ms-1"></i></a> 是另一個方法，它是執行參數的字串陣列</p>
+<p>範例直接來自官網：</p>
+<p>當執行</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">node process-args.js one <span class="nv">two</span><span class="o">=</span>three four
+</span></span></code></pre></div><p><code>process.argv</code>陣列如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">0: /usr/local/bin/node
+</span></span><span class="line"><span class="ln">2</span><span class="cl">1: /Users/mjr/work/node/process-args.js
+</span></span><span class="line"><span class="ln">3</span><span class="cl">2: one
+</span></span><span class="line"><span class="ln">4</span><span class="cl">3: two=three
+</span></span><span class="line"><span class="ln">5</span><span class="cl">4: four
+</span></span></code></pre></div><p>若要讓程式可以輸入參數，我推薦使用 <a href="https://www.npmjs.com/package/argparse" target="_blank" rel="noopener noreferrer">argparse<i class="fas fa-external-link-square-alt ms-1"></i></a>，可以做 cli (command-line interface) 做的比較完整。</p>
+<h1 id="總結">總結<a class="anchor ms-1" href="#總結"><i class="fas fa-link"></i></a></h1>
+<p>今天我們介紹如何用 awilix 做依賴注入，讓我們從 <code>關注「建立物件」和「串接物件關係」</code>轉為<code>關注「物件建立方法」</code>。另外，用 <code>process.env</code> 來組態化專案，藉此來從外界接收設定值。</p></div></div>
+  <div class="card-footer"><div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-prev">
+    <i class="fas fa-fw fa-chevron-circle-down post-prev-icon" data-fa-transform="rotate-90"></i>
+    <a href="/series/2019-ithome-ironman/day-16-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E5%BC%B7%E5%8C%96%E5%BE%8C%E7%AB%AF%E5%B0%88%E6%A1%88%E7%B5%90%E6%A7%8B/">Day 16 - 二周目 - 強化後端專案結構
+</a>
+  </div><div class="post-nav post-next">
+    <a href="/series/2019-ithome-ironman/day-18-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E5%89%96%E6%9E%90-express-%E8%B7%AF%E7%94%B1router-%E4%B8%89%E6%A6%82%E5%BF%B5%E4%B8%AD%E9%96%93%E4%BB%B6middleware%E8%B7%AF%E7%94%B1routing%E6%B5%81stream/">Day 18 - 二周目 - 剖析 Express 路由(router) 三概念：中間件(middleware)、路由(routing)、流(stream)
+</a>
+    <i class="fas fa-fw fa-chevron-circle-down post-next-icon" data-fa-transform="rotate-270"></i>
+  </div></div></div>
+</article><div class="post-copyright mb-3 row card component" id="post-copyright">
+    <div class="card-header">
+        <h2 class="card-title fs-4 my-2 text-surface">版權</h2>
+    </div>
+    <div class="card-body"><a class="d-flex align-items-center flex-column" target="_blank" rel="license noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_TW">
+  <span><i class="fab fa-fw fa-2x fa-creative-commons"></i><i class="fab fa-fw fa-2x fa-creative-commons-by"></i><i class="fab fa-fw fa-2x fa-creative-commons-nc"></i><i class="fab fa-fw fa-2x fa-creative-commons-sa"></i></span>
+  CC BY-NC-SA 4.0 
+</a>
+
+
+    </div>
+</div><section class="related-posts row card component">
+    <div class="card-header">
+      <h2 class="card-title fs-4 my-2 text-surface">相關文章</h2>
+    </div>
+    <div class="card-body">
+      <ul class="post-list list-unstyled"><li>
+          <a href="/series/2019-ithome-ironman/day-16-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E5%BC%B7%E5%8C%96%E5%BE%8C%E7%AB%AF%E5%B0%88%E6%A1%88%E7%B5%90%E6%A7%8B/">Day 16 - 二周目 - 強化後端專案結構
+</a>
+          <span class="float-end post-date">2018-10-16
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-15-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E7%94%A8-docker-%E7%8E%A9%E8%BD%89-mongodb/">Day 15 - 二周目 - 用 Docker 玩轉 MongoDB
+</a>
+          <span class="float-end post-date">2018-10-15
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-14-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E5%BE%9Epromise-%E6%98%87%E8%8F%AF%E5%88%B0-asyncawait/">Day 14 - 二周目 - 從Promise 昇華到 Async:await
+</a>
+          <span class="float-end post-date">2018-10-14
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-13-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E9%9D%9E%E5%90%8C%E6%AD%A5%E7%A5%9E%E5%99%A8-promise/">Day 13 - 二周目 - 非同步神器 Promise
+</a>
+          <span class="float-end post-date">2018-10-13
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-12-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E6%BA%96%E5%82%99%E8%B5%B7%E7%A8%8B%E6%B7%B1%E5%85%A5%E5%BE%8C%E7%AB%AF/">Day 12 - 二周目 - 準備起程深入後端
+</a>
+          <span class="float-end post-date">2018-10-12
+</span>
+        </li></ul>
+    </div>
+  </section><div class="card component row post-comments" id="post-comments">
+  <div class="card-header">
+    <h2 class="card-title my-2 fs-4 text-surface">評論</h2>
+  </div>
+  <div class="card-body"><script src="https://utteranc.es/client.js"
+  repo="eugenechen0514/eugenechen0514.github.io"
+  issue-term="pathname"
+  label="comment"
+  theme="github-light"
+  crossorigin="anonymous"
+  async>
+</script></div>
+</div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container d-flex flex-column">
+    
+    <div class="card row text-center profile component">
+  <div class="card-body">
+    <div class="col-12 d-flex align-items-center justify-content-center"><picture><img class="profile-avatar rounded-circle" alt="EugeneChen" src="/images/profile.webp" loading="lazy" data-viewer-invisible
+    
+     width="298" height="305"
+     />
+</picture>
+</div>
+    <div class="col-12 profile-meta"><div class="profile-name fw-fold fs-lg">EugeneChen</div><div class="profile-bio">軟體工程師，喜歡動手做些有的沒的專案，同時也喜愛數學、攝影、桌球，慢跑、游泳、作菜。</div><div class="profile-about"><i class="fas fa-fw fa-user"></i><a target="_blank" rel="noopener noreferrer" href="https://eugene-website.herokuapp.com">關於我</a></div><nav class="social-links nav justify-content-center"><a class="nav-link social-link" href="mailto:yujiechen0514@gmail.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i></a><a class="nav-link social-link" target="_blank" href="https://github.com/eugenechen0514" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-github"></i></a><a class="nav-link social-link" target="_blank" href="/index.xml" title="RSS" rel="noopener noreferrer">
+    <i class="fas fa-fw fa-2x fa-rss"></i></a></nav>
+</div>
+  </div>
+</div>
+<section class="taxonomies row card component">
+    <div class="card-body">
+        <ul class="nav nav-tabs" id="myTab" role="tablist"><li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="taxonomySeriesTab" data-bs-toggle="tab" data-bs-target="#taxonomySeries" 
+                        type="button" role="tab" aria-controls="專欄" aria-selected="true">
+                        專欄
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                    <button class="nav-link" id="taxonomyCategoriesTab" data-bs-toggle="tab" data-bs-target="#taxonomyCategories" 
+                        type="button" role="tab" aria-controls="分類" aria-selected="true">
+                        分類
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                    <button class="nav-link" id="taxonomyTagsTab" data-bs-toggle="tab" data-bs-target="#taxonomyTags" 
+                        type="button" role="tab" aria-controls="標籤" aria-selected="true">
+                        標籤
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                <button class="nav-link" id="taxonomyArchivesTab" data-bs-toggle="tab" data-bs-target="#taxonomyArchive" 
+                    type="button" role="tab" aria-controls="taxonomyArchives" aria-selected="true">
+                    歸檔
+                </button>
+            </li>
+        </ul>
+          
+        <div class="tab-content mt-3"><div class="tab-pane active" id="taxonomySeries" role="tabpanel" aria-labelledby="taxonomySeriesTab" tabindex="0"><a href="/series/2019-ithome-ironman/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="用js成為老闆心中的全端工程師 - 2019 iT邦幫忙鐵人賽">
+                        用js成為老闆心中的全端工程師 - 2019 iT邦幫忙鐵人賽<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a></div><div class="tab-pane" id="taxonomyCategories" role="tabpanel" aria-labelledby="taxonomyCategoriesTab" tabindex="0"><a href="/categories/%E9%9A%A8%E6%89%8B%E7%AD%86%E8%A8%98/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="隨手筆記">
+                        隨手筆記<span class="badge badge-sm text-secondary bg-white ms-1">2</span></a><a href="/categories/%E5%BF%83%E5%BE%97/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="心得">
+                        心得<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a></div><div class="tab-pane" id="taxonomyTags" role="tabpanel" aria-labelledby="taxonomyTagsTab" tabindex="0"><a href="/tags/2019-it-%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2019 iT 邦幫忙鐵人賽">
+                        2019 iT 邦幫忙鐵人賽<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a><a href="/tags/%E7%94%A8js%E6%88%90%E7%82%BA%E8%80%81%E9%97%86%E5%BF%83%E4%B8%AD%E7%9A%84%E5%85%A8%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%AB/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="用js成為老闆心中的全端工程師">
+                        用js成為老闆心中的全端工程師<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a><a href="/tags/alphacamp/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="AlphaCamp">
+                        AlphaCamp<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/kafka/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="Kafka">
+                        Kafka<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/mongodb/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="MongoDB">
+                        MongoDB<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/pandas/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="pandas">
+                        pandas<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/python/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="python">
+                        python<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/%E6%8E%A8%E8%96%A6%E7%B3%BB%E7%B5%B1/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="推薦系統">
+                        推薦系統<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a></div><div class="tab-pane" id="taxonomyArchive" role="tabpanel" aria-labelledby="taxonomyArchiveTab" tabindex="0"><a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2022">
+    2022 <span class="badge badge-sm text-secondary bg-white ms-1">1</span>
+    </a>
+<a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2021">
+    2021 <span class="badge badge-sm text-secondary bg-white ms-1">2</span>
+    </a>
+<a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2018">
+    2018 <span class="badge badge-sm text-secondary bg-white ms-1">30</span>
+    </a>
+
+</div>
+        </div>
+    </div>
+</section><div class="post-toc row mb-4 card component" id="postTOC">
+  <div class="card-header">
+    <h2 class="card-title fs-4 my-2 text-surface">目錄</h2>
+  </div>
+  <div class="card-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#用-awilix-建立物件關係">用 awilix 建立物件關係</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#建立-configsconfigjs">建立 <code>./configs/config.js</code></a></li>
+    <li><a href="#為-echodao-加入-config-相依">為 <code>EchoDao</code> 加入 <code>config</code> 相依</a></li>
+    <li><a href="#為資料庫連線加入相依">為資料庫連線加入相依</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#行程執行環境processenv">行程執行環境(process.env)</a>
+      <ul>
+        <li><a href="#為-configjs-加入環境變數">為 <code>config.js</code> 加入環境變數</a></li>
+        <li><a href="#為-vscode-debug-執行加入環境變數">為 VSCode debug 執行加入環境變數</a></li>
+      </ul>
+    </li>
+    <li><a href="#執行參數processargv">執行參數(process.argv)</a></li>
+  </ul>
+</nav>
+  </div>
+</div><section class="recent-posts row card component">
+  <div class="card-header">
+    <h2 class="card-title my-2 fs-4 text-surface">最近文章</h2>
+  </div>
+  <div class="card-body">
+    <ul class="post-list list-unstyled ms-1"><li class="mb-2">
+        <a href="/posts/reviews/2022-02-06-alphacamp%E6%8E%A8%E8%96%A6%E7%B3%BB%E7%B5%B1%E4%B8%8A%E8%AA%B2%E5%BF%83%E5%BE%97/">AlphaCamp 推薦系統上課心得
+</a>
+      </li><li class="mb-2">
+        <a href="/posts/notes/2021-08-22-%E4%B8%80%E7%AA%BAkafka%E5%85%A7%E9%83%A8%E5%84%B2%E5%AD%98%E8%B3%87%E6%96%99/">一窺 Kafka 內部儲存資料
+</a>
+      </li><li class="mb-2">
+        <a href="/posts/notes/2021-08-01-mongodb-5-%E4%BE%86%E4%BA%86%E6%9C%89%E4%BB%80%E9%BA%BC%E5%80%BC%E5%BE%97%E6%B3%A8%E6%84%8F%E7%9A%84%E6%9B%B4%E6%96%B0/">MongoDb 5 來了，有什麼值得注意的更新呢?
+</a>
+      </li><li class="mb-2">
+        <a href="/series/2019-ithome-ironman/day-30-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-network-%E6%9A%A8%E5%AE%8C%E8%B3%BD%E5%9B%9E%E9%A1%A7/">Day 30- 三周目 - Docker Network 暨完賽回顧
+</a>
+      </li><li class="mb-2">
+        <a href="/series/2019-ithome-ironman/day-29-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-compose%E4%B8%80%E6%AC%A1%E7%AE%A1%E7%90%86%E5%A4%9A%E5%80%8B%E5%AE%B9%E5%99%A8/">Day 29- 三周目 - Docker Compose：一次管理多個容器
+</a>
+      </li></ul>
+  </div>
+</section>
+    
+  </div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><div class="offcanvas offcanvas-bottom h-auto" tabindex="-1" id="offcanvasActionsPanel"
+  aria-labelledby="offcanvasActionsPanelLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title fs-4" id="offcanvasActionsPanelLabel">
+      <i class="fas fa-fw fa-th-large me-1"></i>
+      Actions
+    </h5>
+    <button type="button" class="btn-close ms-auto" data-bs-dismiss="offcanvas" data-bs-target="offcanvasActionsPanel" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body mt-2"><div class="social-share mb-4 d-flex overflow-auto">
+      <a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Twitter Share Button"
+      target="_blank" href="https://twitter.com/intent/tweet?title=Day%2017%20-%20%e4%ba%8c%e5%91%a8%e7%9b%ae%20-%20%e4%be%9d%e8%b3%b4%e6%b3%a8%e5%85%a5%e8%88%87%e7%b5%84%e6%85%8b%e5%8c%96%e5%b0%88%e6%a1%88&url=%2fseries%2f2019-ithome-ironman%2fday-17-%25E4%25BA%258C%25E5%2591%25A8%25E7%259B%25AE-%25E4%25BE%259D%25E8%25B3%25B4%25E6%25B3%25A8%25E5%2585%25A5%25E8%2588%2587%25E7%25B5%2584%25E6%2585%258B%25E5%258C%2596%25E5%25B0%2588%25E6%25A1%2588%2f">
+        <i class="fab fa-2x fa-fw fa-twitter mb-2"></i> Twitter
+      </a>
+      <a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Facebook Share Button"
+        target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=%2fseries%2f2019-ithome-ironman%2fday-17-%25E4%25BA%258C%25E5%2591%25A8%25E7%259B%25AE-%25E4%25BE%259D%25E8%25B3%25B4%25E6%25B3%25A8%25E5%2585%25A5%25E8%2588%2587%25E7%25B5%2584%25E6%2585%258B%25E5%258C%2596%25E5%25B0%2588%25E6%25A1%2588%2f">
+        <i class="fab fa-2x fa-fw fa-facebook-f mb-2"></i> Facebook
+      </a>
+    </div>
+    <hr class="mb-4"><div class="actions d-flex overflow-auto align-items-center">
+      <a role="button" class="action action-go-back d-flex flex-column align-items-center me-3" href="javascript: window.history.back();">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-chevron-circle-down" data-fa-transform="rotate-90"></i></span> 返回
+      </a>
+      <a role="button" class="action action-reload-page d-flex flex-column align-items-center me-3">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-redo-alt"></i></span> 刷新
+      </a>
+      <a role="button" class="action action-copy-url d-flex flex-column align-items-center me-3">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-link"></i></span> 複製連結
+      </a>
+    </div>
+  </div>
+</div><nav class="social-links nav justify-content-center mb-2"><a class="nav-link social-link" href="mailto:yujiechen0514@gmail.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i></a><a class="nav-link social-link" target="_blank" href="https://github.com/eugenechen0514" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-github"></i></a><a class="nav-link social-link" target="_blank" href="https://linkedin.com/in/yuchieh-chen-37a48989" title="LinkedIn" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-linkedin-in"></i></a><a class="nav-link social-link" target="_blank" href="https://medium.com/@yujiechen0514" title="Medium" rel="noopener noreferrer">
+        <i class="fab fa-fw fa-2x fa-medium-m"></i></a><a class="nav-link social-link" target="_blank" href="/index.xml" title="RSS" rel="noopener noreferrer">
+    <i class="fas fa-fw fa-2x fa-rss"></i></a></nav>
+<div class="copyright mb-2">
+  Copyright © 2016-2022 EugeneChen. All Rights Reserved.
+</div>
+<div class="powered-by mb-2">
+  Powered by <a class="text-primary" href="https://gohugo.io" target="_blank" rel="noopener noreferrer">Hugo</a> and the <a class="text-primary" href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank" rel="noopener noreferrer">Bootstrap</a> theme.
+</div>
+<div class="sponsors">
+
+
+
+
+
+
+</div>
+</footer>
+<script src="/assets/main/bundle.min.2bc7d6952dbf38d6d2815939c58fc655e72d050b196d9fd99829d8fb23904646.js" integrity="sha256-K8fWlS2/ONbSgVk5xY/GVectBQsZbZ/ZmCnY&#43;yOQRkY=" crossorigin="anonymous" defer></script><script src="/assets/icons/bundle.min.a4bf8247f780c9bf61d579a8efe7129ec790bb98622bf4a29895eb21e689266c.js" integrity="sha256-pL&#43;CR/eAyb9h1Xmo7&#43;cSnseQu5hiK/SimJXrIeaJJmw=" crossorigin="anonymous" defer></script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('\/service-worker.min.js').then(function(reg) {
+      console.log('Successfully registered service worker', reg);
+    }).catch(function(err) {
+      console.warn('Error whilst registering service worker', err);
+    });
+  });
+}
+</script><script src="/assets/viewer/bundle.min.92d4a694e2e9a4c4d89b6998067e2f8e502dc7a951682bb5a160a3004b434908.js" integrity="sha256-ktSmlOLppMTYm2mYBn4vjlAtx6lRaCu1oWCjAEtDSQg=" crossorigin="anonymous" defer></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-ZWYL79X38Y', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+<script src="/assets/docsearch/bundle.min.c6965b5bee044b874617239932d6a7992b217f7949f895a7576980d110fb2ab1.js" integrity="sha256-xpZbW&#43;4ES4dGFyOZMtanmSshf3lJ&#43;JWnV2mA0RD7KrE=" crossorigin="anonymous" defer></script></body>
+</html>

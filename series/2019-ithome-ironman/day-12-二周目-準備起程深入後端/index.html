@@ -1,0 +1,652 @@
+<!doctype html><html class="position-relative" itemscope itemtype="http://schema.org/WebPage" lang="zh-tw" data-theme="auto"
+  
+   data-palette="purple">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Day 12 - 二周目 - 準備起程深入後端 - EugeneChen</title><link rel="apple-touch-icon" href="/images/icons/icon-180x180.png" sizes="180x180">
+<link rel="icon" href="/images/icons/icon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/images/icons/icon-16x16.png" sizes="16x16" type="image/png">
+<link rel="icon" href="/images/icons/favicon.ico">
+<link rel="manifest" href="/manifest.json">
+<meta name="keywords" content="" />
+<meta name="description" content="用非同步 request 串接前後端做為一周目的收尾。" /><meta name="robots" content="index, follow" /><meta itemprop="name" content="Day 12 - 二周目 - 準備起程深入後端">
+<meta itemprop="description" content="用非同步 request 串接前後端做為一周目的收尾。"><meta itemprop="datePublished" content="2018-10-12T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2018-10-12T00:00:00+00:00" />
+<meta itemprop="wordCount" content="3439">
+<meta itemprop="keywords" content="2019 iT 邦幫忙鐵人賽,用js成為老闆心中的全端工程師," /><meta property="og:title" content="Day 12 - 二周目 - 準備起程深入後端" />
+<meta property="og:description" content="用非同步 request 串接前後端做為一周目的收尾。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/series/2019-ithome-ironman/day-12-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E6%BA%96%E5%82%99%E8%B5%B7%E7%A8%8B%E6%B7%B1%E5%85%A5%E5%BE%8C%E7%AB%AF/" /><meta property="article:section" content="series" />
+<meta property="article:published_time" content="2018-10-12T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-10-12T00:00:00+00:00" /><meta property="og:site_name" content="EugeneChen" />
+<meta property="og:see_also" content="/series/2019-ithome-ironman/day-30-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-network-%E6%9A%A8%E5%AE%8C%E8%B3%BD%E5%9B%9E%E9%A1%A7/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-29-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-compose%E4%B8%80%E6%AC%A1%E7%AE%A1%E7%90%86%E5%A4%9A%E5%80%8B%E5%AE%B9%E5%99%A8/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-28-%E4%B8%89%E5%91%A8%E7%9B%AE-%E8%A3%BD%E4%BD%9C%E8%87%AA%E5%B7%B1%E7%9A%84%E6%98%A0%E5%83%8F%E6%AA%94%E5%8C%85%E6%89%93%E5%89%8D%E5%BE%8C%E7%AB%AF%E6%98%A0%E5%83%8F%E6%AA%94/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-27-%E4%B8%89%E5%91%A8%E7%9B%AE-%E4%BA%94%E5%88%86%E9%90%98%E5%BB%BA%E7%AB%8B%E7%A7%81%E6%9C%89-npm-verdaccio/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-26-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E7%9C%8B%E5%AE%8C%E5%B0%B1%E6%9C%83%E6%9E%B6-docker-%E5%8C%96%E7%9A%84%E6%9C%8D%E5%8B%99/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-25-%E4%BA%8C%E5%91%A8%E7%9B%AE-react-component-%E5%A5%97%E4%BB%B6-material-ui-google-material-design-%E7%9A%84%E5%AF%A6%E4%BD%9C%E5%A5%97%E4%BB%B6/" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Day 12 - 二周目 - 準備起程深入後端"/>
+<meta name="twitter:description" content="用非同步 request 串接前後端做為一周目的收尾。"/>
+<meta property="og:image" content="/images/logo.png"/>
+  <meta name="twitter:image" content="/images/logo.png"/><link rel="stylesheet" href="/assets/main/bundle.min.925f59d4c744cc5e99dcc7d02a6f68dff5cceaea488c7667bd947bf7aa35b649.css" integrity="sha256-kl9Z1MdEzF6Z3MfQKm9o3/XM6upIjHZnvZR796o1tkk=" crossorigin="anonymous"><link rel="stylesheet" href="/assets/viewer/bundle.min.f05183267bb952fbc8c63a7178364de2951614ab71d544ec1068ad36c7447ccc.css" integrity="sha256-8FGDJnu5UvvIxjpxeDZN4pUWFKtx1UTsEGitNsdEfMw=" crossorigin="anonymous"><link rel="stylesheet" href="/assets/docsearch/bundle.min.c165d6a127fffa285e6b89ef65362fe921bc0c1fdaefa35f6af069b962bdb50e.css" integrity="sha256-wWXWoSf/&#43;ihea4nvZTYv6SG8DB/a76NfavBpuWK9tQ4=" crossorigin="anonymous"></head>
+  <body><script>const items=["theme","palette"];items.forEach(function(e){const t=localStorage.getItem("hbs:"+e);t&&document.body.parentElement.setAttribute("data-"+e,t)})</script><header><nav class="top-app-bar shadow bg-primary text-white navbar navbar-expand-lg fixed-top">
+  <div class="container"><a class="navbar-brand flex-grow-1 flex-lg-grow-0 text-lg-start ms-2 ms-lg-0 mx-auto me-lg-3" href="/"><picture><img class="logo" alt="Logo" src="/images/logo.webp" loading="lazy"
+    
+     width="136" height="69"
+     />
+</picture>
+EugeneChen
+    </a>
+    <button class="navbar-toggler order-5" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarMenus"
+      aria-controls="navbarMenus" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-ellipsis-h"></i>
+    </button>
+    <div class="offcanvas-lg offcanvas-end flex-grow-1 bg-primary text-white" tabindex="-1" id="navbarMenus" aria-labelledby="navbarMenusLabel">
+      <div class="offcanvas-header px-4 pb-0">
+        <h5 class="offcanvas-title" id="navbarMenusLabel">EugeneChen</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" data-bs-target="#navbarMenus" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body p-4 pt-0 p-lg-0">
+        <hr class="d-lg-none">
+        <ul class="navbar-nav flex-row flex-wrap align-items-center me-auto"><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/posts/">
+              <i class="fas fa-book fa-fw"></i>文章
+            </a>
+          </li><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/series/">
+              <i class="fas fa-bars fa-fw"></i>專欄
+            </a>
+          </li><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/posts/notes/">
+              <i class="fas fa-sticky-note fa-fw"></i>隨手筆記
+            </a>
+          </li></ul>
+        <hr class="d-lg-none">
+        <form class="search-bar mx-auto my-1" action="/search" novalidate>
+  <div class="input-group input-group-sm align-items-center">
+    <span class="btn btn-search disabled position-absolute left-0 border-0">
+      <i class="fas fa-fw fa-search fa-lg"></i>
+    </span>
+    <input class="py-2 form-control rounded search-input" name="q" type="search" aria-label="Search" required>
+  </div>
+</form>
+<hr class="d-lg-none">
+        <ul class="navbar-nav flex-row flex-wrap align-items-center ms-md-auto"><li class="nav-item dropdown py-1 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-globe"></i>
+        <span class="d-lg-none">語言</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown"><li>
+        <a class="dropdown-item" href="/en/">
+            English
+        </a>
+        </li><li>
+        <a class="dropdown-item active" href="/">
+            繁體中文
+        </a>
+        </li></ul>
+</li>
+<li class="nav-item py-1 col-12 col-lg-auto">
+  <div class="vr d-none d-lg-flex h-100 mx-lg-2 text-white"></div>
+  <hr class="d-lg-none my-2">
+</li><li class="nav-item dropdown py-2 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="fontSizeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-font"></i>
+        <span class="d-lg-none">字體大小</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="fontSizeDropdown"><li>
+            <button class="font-size-item dropdown-item" data-size="xs">
+                特小號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="sm">
+                小號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item active" data-size="md">
+                中等
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="lg">
+                大號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="xl">
+                特大號
+            </button>
+        </li></ul>
+</li><li class="nav-item dropdown py-1 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="paletteDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-palette"></i>
+        <span class="d-lg-none">配色</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end px-2" aria-labelledby="paletteDropdown">
+        <div class="row"><li class="col-3 my-1">
+                <a role="button" id="palette-blue" aria-label="藍色"
+                    class="btn btn-sm w-100 palette text-bg-blue" data-palette="blue">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-blue-gray" aria-label="藍灰色"
+                    class="btn btn-sm w-100 palette text-bg-blue-gray" data-palette="blue-gray">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-brown" aria-label="棕色"
+                    class="btn btn-sm w-100 palette text-bg-brown" data-palette="brown">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-cyan" aria-label="青色"
+                    class="btn btn-sm w-100 palette text-bg-cyan" data-palette="cyan">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-green" aria-label="綠色"
+                    class="btn btn-sm w-100 palette text-bg-green" data-palette="green">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-indigo" aria-label="靛青色"
+                    class="btn btn-sm w-100 palette text-bg-indigo" data-palette="indigo">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-orange" aria-label="橙色"
+                    class="btn btn-sm w-100 palette text-bg-orange" data-palette="orange">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-pink" aria-label="粉色"
+                    class="btn btn-sm w-100 palette text-bg-pink" data-palette="pink">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-purple" aria-label="紫色"
+                    class="btn btn-sm w-100 palette text-bg-purple" data-palette="purple">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-red" aria-label="紅色"
+                    class="btn btn-sm w-100 palette text-bg-red" data-palette="red">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-teal" aria-label="藍綠色"
+                    class="btn btn-sm w-100 palette text-bg-teal" data-palette="teal">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-yellow" aria-label="黃色"
+                    class="btn btn-sm w-100 palette text-bg-yellow" data-palette="yellow">
+                </a>
+            </li></div>
+    </ul>
+</li>
+<li class="nav-item dropdown py-2 py-lg-1 col-6 col-lg-auto"><a class="nav-link px-0 px-lg-1" href="#" id="modeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="mode-icon fas fa-fw fa-adjust" id="modeIcon"></i>
+        <span class="d-lg-none">模式</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="modeDropdown"><li class="mode-item" data-color-mode="light" data-icon="sun">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-sun"></i> Light
+            </button>
+        </li><li class="mode-item" data-color-mode="dark" data-icon="moon">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-moon"></i> Dark
+            </button>
+        </li><li class="mode-item active" data-color-mode="auto" data-icon="adjust">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-adjust"></i> Auto
+            </button>
+        </li></ul>
+</li>
+</ul>
+      </div>
+    </div>
+  </div>
+</nav>
+</header>
+<main class="container">
+      <div class="row content"><noscript>
+    <div class="alert alert-danger" role="alert">你的瀏覽器不支持 JavaScript。</div>
+</noscript>
+
+<div class="col-lg-8">
+  <div class="container"><nav class="row card component" aria-label="breadcrumb">
+  <div class="card-body pb-0">
+    <ol class="breadcrumb"><li class="breadcrumb-item text-surface"><a href="/">主頁</a></li><li class="breadcrumb-item text-surface"><a href="/series/">Series</a></li><li class="breadcrumb-item active">Day 12 - 二周目 - 準備起程深入後端</li></ol>
+  </div>
+</nav><div class="post-panel-wrapper position-sticky">
+  <div class="d-flex flex-column component rounded post-panel position-absolute border">
+    
+    <a class="action action-panel-toggler" role="button" title="Panel toggler">
+      <i class="fas fa-fw fa-chevron-circle-down"></i>
+    </a>
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button" title="Sidebar toggler">
+  <i class="fas fa-fw fa-expand-alt" data-fa-transform="rotate-45"></i>
+</a>
+
+    
+
+    
+    <a class="action" href="#post-copyright" role="button" aria-label="Copyright" title="Copyright">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    <a class="action" href="#post-comments" role="button" aria-label="Comments" title="Comments">
+  <i class="fas fa-fw fa-comments"></i>
+</a>
+    <a class="action" href="#postTOC" aria-controls="Table of contents" role="button" title="Table of contents">
+  <i class="fas fa-fw fa-list-alt"></i>
+</a>
+    
+  </div>
+</div>
+<article class="row card component mb-4 post">
+  <div class="card-header ">
+    <h1 class="card-title post-title my-2">Day 12 - 二周目 - 準備起程深入後端
+</h1>
+  </div>
+  <div class="card-body"><div class="post-meta mb-3">
+  <span class="post-date me-1 mb-1" title="創建於 2018-10-12 08:00:00 &#43;0800 CST。">
+    2018-10-12
+  </span><span class="post-reading-time me-1 mb-1">
+    7 分鐘閱讀
+  </span><a href="/series/2019-ithome-ironman/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">用js成為老闆心中的全端工程師 - 2019 IT邦幫忙鐵人賽</a><a href="/tags/2019-it-%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">2019 IT 邦幫忙鐵人賽</a><a href="/tags/%E7%94%A8js%E6%88%90%E7%82%BA%E8%80%81%E9%97%86%E5%BF%83%E4%B8%AD%E7%9A%84%E5%85%A8%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%AB/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">用js成為老闆心中的全端工程師</a></div>
+<div class="post-content mb-3"><p>在一周目最後，用非同步 request 串接前後端做為一周目的收尾。</p>
+<h1 id="回憶">回憶<a class="anchor ms-1" href="#回憶"><i class="fas fa-link"></i></a></h1>
+<p>恭喜你!! 完成了龐大一周目，我們在一周目11天內介紹了很多東西、工具，像是</p>
+<ul>
+<li>下指令、Markdown</li>
+<li>開專案</li>
+<li>draw.io</li>
+<li>VSCode</li>
+<li>Chrome devTools</li>
+<li>Postman</li>
+</ul>
+<p>也寫了簡單的前後端</p>
+<ul>
+<li>hello-express</li>
+<li>hello-react</li>
+</ul>
+<p>在一周目最後，用非同步 request 串接前後端做為一周目的收尾。</p>
+<h1 id="二周目的進行方法">二周目的進行方法<a class="anchor ms-1" href="#二周目的進行方法"><i class="fas fa-link"></i></a></h1>
+<p>完成一周目的你已經掌握了我們在<a href="https://ithelp.ithome.com.tw/articles/10199491" target="_blank" rel="noopener noreferrer">Day 1 - 前言／開發環境準備<i class="fas fa-external-link-square-alt ms-1"></i></a>中提到的一周目目標：快速了解前後端在串什麼東西。原則上前面的知識已經可以開始開發自己的前後端，只是會覺得東缺西缺、不方便、效能不好或寫程式一直重覆程式碼，一但出現上述問題，恭喜你!有進步機會了!</p>
+<p>接下來二周目要更深了解前後端，以主題式的方式進行，每篇應該都可以獨立看，可以自行選擇需要的看。</p>
+<p>我覺得比起講如何套用，動機比較重要，所以我可能會花些時間在那，舉些什麼情況導致我們引入新的概念。這也跟學習過程經驗相近，遭遇困難、引入新東西、解決它。</p>
+<h1 id="前後端開發前的準備工作">前後端開發前的準備工作<a class="anchor ms-1" href="#前後端開發前的準備工作"><i class="fas fa-link"></i></a></h1>
+<p>軟體開發流程或方法論有很多種，且會因為公司、時間、人有所不同(見 <a href="https://medium.com/uxeastmeetswest/%E8%BB%9F%E9%AB%94%E9%96%8B%E7%99%BC%E6%B5%81%E7%A8%8B%E6%98%AF%E4%BB%80%E9%BA%BC-pm%E8%88%87ux-designer%E7%9A%84%E5%8D%80%E5%88%A5-75bf69a46016" target="_blank" rel="noopener noreferrer">軟體開發流程是什麼？PM與UX Designer的區別？<i class="fas fa-external-link-square-alt ms-1"></i></a>)，但從開發者的角度來看，以下工作多少都出現：</p>
+<ol>
+<li>企畫/需求分析：程式的目地性？有沒有意義？怎麼整合之前的軟體？</li>
+<li>軟體架構規畫：資料要存哪？資料如何串接？串接介面為何？要開幾個伺服器？效能好不好？有沒有彈性？需要認証機制？</li>
+<li>前端開發：畫面草稿(UI markup)？使用者操作感受如何(UX)？如何切版成HTML/CSS？怎麼串後端資料？</li>
+<li>後端後端：資料怎麼連線存取？認証機制怎麼實作？效能能否改善？程式能不能重用、模組化？</li>
+<li>發佈、測試：怎麼發佈前後端的程式？要發佈在哪個主機、雲端？需要申請DNS、SSL嗎？如何開防火牆？怎麼測試？上線後怎麼維運、監控？</li>
+</ol>
+<p>上述種種問題全端工師都可能要面對，甚至有我沒有列舉到的。每個環節都息息相關，不論你是想學前端還是後端，多了解都是有幫助的。</p>
+<blockquote>
+<p>這文章很有趣：<a href="https://m.oursky.com/app-web-%E9%96%8B%E7%99%BC%E5%B7%A5%E7%A8%8B%E5%B8%AB%E7%9A%84%E4%B8%89%E5%A4%A7%E9%8C%AF%E8%A6%BA-%E6%90%9E%E6%87%82%E4%BA%86%E5%B0%B1%E8%83%BD%E6%88%90%E7%82%BA%E5%A4%A7%E5%B8%AB-de067af7a2f8" target="_blank" rel="noopener noreferrer">App / Web 開發工程師的三大錯覺，搞懂了就能成為大師<i class="fas fa-external-link-square-alt ms-1"></i></a>，提出有趣的錯覺：
+1. 錯覺一：「寫 app 專注在前端 (front-end) 就好了，不需要懂後端 (back-end)。」
+2. 錯覺二：「只要寫 React native 就不用碰到 iOS / Android 的 code。」
+3. 錯覺三：「這個 bug 我只要一個小時就能搞定。」</p>
+</blockquote>
+<h1 id="問題很多但先從寫後端商業邏輯-當碼農是個不錯開始">問題很多，但先從寫後端商業邏輯 (當碼農)，是個不錯開始<a class="anchor ms-1" href="#問題很多但先從寫後端商業邏輯-當碼農是個不錯開始"><i class="fas fa-link"></i></a></h1>
+<p>寫後端商業邏輯你會直接碰到需求並實作，會考慮：</p>
+<ol>
+<li>需求如何實現？　－　商業邏輯就是需求，用程式碼實現。</li>
+<li>資料怎麼存？ －　資料可以存在記憶體、本地端硬碟還是資料庫，資料庫又可以讓各個後端連線、共享資料。</li>
+<li>寫完的商業邏輯如何提供服務？　－　採用Web API讓外界與你的後端互動，並告訢前端要打什麼API。</li>
+<li>怎麼發佈？　－　最簡單的方法就是在背景執行<code>npm run start</code></li>
+</ol>
+<h1 id="開始深入nodejs">開始深入Node.js<a class="anchor ms-1" href="#開始深入nodejs"><i class="fas fa-link"></i></a></h1>
+<p>接下來，看看看 Node.js 的特色</p>
+<h2 id="nodejs-是單執行緒single-thread">Node.js 是單執行緒(single thread)<a class="anchor ms-1" href="#nodejs-是單執行緒single-thread"><i class="fas fa-link"></i></a></h2>
+<p>執行緒(Thread), 行程(Process)&hellip;!! 沒學過作業系統嗎？沒關西，這不是作業系統的課，了解概念就好。</p>
+<p>首先，一隻程式是在執行時會把程式碼載入記憶體中等待 CUP 執行，這在記憶體中的實體就叫 <code>Process</code>。為了更有效率的使用 CPU，人們發明了更小執行單位，<code>Thread</code>，它是CUP最小的執行單位。</p>
+<p>一般而言，一個 Process 可以有多個 <code>Thread</code>，以達到 CPU 多工，
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-12 at 5.12.22 PM.png" src="/series/2019-ithome-ironman/day-12-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E6%BA%96%E5%82%99%E8%B5%B7%E7%A8%8B%E6%B7%B1%E5%85%A5%E5%BE%8C%E7%AB%AF/resources/62258B7174C2B0D7984DE1CA07F9CBCC.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>而 Node.js 有一個很重要的事實</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">它只有一個執行緒(thread)
+</span></span></code></pre></div><p>也就是 Node.js 在執行的時候，只產生一個 Process，且裡面只有一個 Thread。</p>
+<p>有人會問：是不是說他的效率不好呢？也不是這麼說。不論一個 Process 內有多少Thread，都還是會受到 CUP 實際可以運算的數量(ex: 四核、八核)限制。太多的Thread會反而會造成<a href="https://zh.wikipedia.org/wiki/%E6%8E%92%E7%A8%8B" target="_blank" rel="noopener noreferrer">排程(scheduling)<i class="fas fa-external-link-square-alt ms-1"></i></a>的系統負擔。反觀，單執行緒就只佔一個CPU運算單位，執行幾個 Node.js 程式就可以利用多少CPU。那…能不能說 Node.js 效能比其它語言好？我想是不能的，因為還要考慮程式碼的複雜程度、CPU的排程…等。</p>
+<p>下圖是執行 <code>hello-express</code> 的結果
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-12 at 4.58.58 PM.png" src="/series/2019-ithome-ironman/day-12-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E6%BA%96%E5%82%99%E8%B5%B7%E7%A8%8B%E6%B7%B1%E5%85%A5%E5%BE%8C%E7%AB%AF/resources/53A9E2F2F257AB907D23E6F622744C4D.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<blockquote>
+<p>關於有Process/Thread興趣的人可以看看： <a href="https://medium.com/@totoroLiu/program-process-thread-%E5%B7%AE%E7%95%B0-4a360c7345e5" target="_blank" rel="noopener noreferrer">Program/Process/Thread 差異<i class="fas fa-external-link-square-alt ms-1"></i></a></p>
+</blockquote>
+<h2 id="非阻塞">非阻塞<a class="anchor ms-1" href="#非阻塞"><i class="fas fa-link"></i></a></h2>
+<p>還記得我們在 <a href="https://ithelp.ithome.com.tw/articles/10200933" target="_blank" rel="noopener noreferrer">Day 11 - 一周目- 開始玩轉前端(二)<i class="fas fa-external-link-square-alt ms-1"></i></a>提到的非同步概念嗎？在 Node.js 中因為大量的使用非同步函數，所以產生非阻塞的特色。</p>
+<p>用<a href="https://nodejs.org/en/docs/guides/blocking-vs-non-blocking/" target="_blank" rel="noopener noreferrer">官方的讀檔例子<i class="fas fa-external-link-square-alt ms-1"></i></a> 來說，檔案相關的模組 <code>fs</code>，大部分同時提供非同步和同步函數，像是讀檔就有兩個 <code>fs.readFile()</code>　<code>fs.readFileSync()</code>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="kr">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="kr">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span><span class="p">(</span><span class="s1">&#39;/file.md&#39;</span><span class="p">);</span> <span class="c1">// blocks here until file is read
+</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="c1"></span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="nx">moreWork</span><span class="p">();</span> <span class="c1">// will run after console.log
+</span></span></span></code></pre></div><p>上面的例子，<code>moreWork();</code> 會等到 <code>fs.readFileSync()</code> 讀檔完成才執行。</p>
+<p>改成非同步的版本</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="kr">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span><span class="p">(</span><span class="s1">&#39;/file.md&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="nx">moreWork</span><span class="p">();</span> <span class="c1">// will run before console.log
+</span></span></span></code></pre></div><p><code>moreWork()</code> 會在還沒讀檔完成前就會執行。</p>
+<p><code>非阻塞</code>的特色在處理 request 的 web server 很有幫助，一個 request 來的時後很多時候都要到資料庫讀取資料(I/O)。若讀取資料的操作是同步時，我們要等到資料庫回傳資料程式才能往下執行，這時其它的 request 都要等之前 request 結束才能換它們處理。然而，若讀取資料的操作是非同步時，我們就可以用等資料庫回傳前的時間來處理其它 request。</p>
+<p>我們可以做個實驗，<code>hello-express</code>之前做了兩個 API， <code>GET /api/sayHi</code>、<code>POST /api/echo</code>，把 <code>GET /api/sayHi</code> 內的 <code>res.sned('hi')</code> 註解，就假設我們做的非同步的I/O，一直沒給回應。若這時用 Postman 打他
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-12 at 8.32.45 PM.png" src="/series/2019-ithome-ironman/day-12-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E6%BA%96%E5%82%99%E8%B5%B7%E7%A8%8B%E6%B7%B1%E5%85%A5%E5%BE%8C%E7%AB%AF/resources/1058A66480C8619F510C8EC42431C0F2.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+
+Postman不會給回應，因為我們一直不送出結果(除非 request timeout)。</p>
+<p>若馬上發出 <code>POST /api/echo</code>
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-12 at 8.32.54 PM.png" src="/series/2019-ithome-ironman/day-12-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E6%BA%96%E5%82%99%E8%B5%B7%E7%A8%8B%E6%B7%B1%E5%85%A5%E5%BE%8C%E7%AB%AF/resources/60B3686A563FBFDAD79CFBD48A1347F8.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+
+會發現，一樣可以馬上回應，就算前一個 request 還沒完成，Node.js 還是可以回應其它的 request。</p>
+<h2 id="nodejs適合-io-bound-的工作不適合-cpu-bound-的工作">Node.js適合 I/O bound 的工作，不適合 CPU bound 的工作<a class="anchor ms-1" href="#nodejs適合-io-bound-的工作不適合-cpu-bound-的工作"><i class="fas fa-link"></i></a></h2>
+<p>Node.js 是單執行緒，若你的程式是計算型的程式，需要大量的 CPU 運算 (CPU bound)，其它的工作會因為計算而卡住。因為 Node.js 預期你的程式可以並發(Concurrency)，只留下非同步的callback，等別人完成(ex: 資料庫回應，或I/O 結束)再來繼續執行。這非阻塞的特色，使得等待可以被覆蓋(或者說同時等待)進而提高吞吐量(throughput)</p>
+<h2 id="event-loop-實現非阻塞">Event Loop 實現非阻塞<a class="anchor ms-1" href="#event-loop-實現非阻塞"><i class="fas fa-link"></i></a></h2>
+<p><a href="https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/" target="_blank" rel="noopener noreferrer">Event Loop<i class="fas fa-external-link-square-alt ms-1"></i></a> 是實現非阻塞操作的關鍵技術，不過我沒打算太詳細的說它，因為先了解運作、寫寫程式，抓到感覺再去深入也不遲。有基本的了解就足以應付大部分的情形了。</p>
+<p>Event Loop，大致上長的像</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln"> 1</span><span class="cl">   ┌───────────────────────────┐
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">┌─&gt;│           timers          │
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">│  └─────────────┬─────────────┘
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">│  ┌─────────────┴─────────────┐
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">│  │     pending callbacks     │
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">│  └─────────────┬─────────────┘
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">│  ┌─────────────┴─────────────┐
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">│  │       idle, prepare       │
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">│  └─────────────┬─────────────┘      ┌───────────────┐
+</span></span><span class="line"><span class="ln">10</span><span class="cl">│  ┌─────────────┴─────────────┐      │   incoming:   │
+</span></span><span class="line"><span class="ln">11</span><span class="cl">│  │           poll            │&lt;─────┤  connections, │
+</span></span><span class="line"><span class="ln">12</span><span class="cl">│  └─────────────┬─────────────┘      │   data, etc.  │
+</span></span><span class="line"><span class="ln">13</span><span class="cl">│  ┌─────────────┴─────────────┐      └───────────────┘
+</span></span><span class="line"><span class="ln">14</span><span class="cl">│  │           check           │
+</span></span><span class="line"><span class="ln">15</span><span class="cl">│  └─────────────┬─────────────┘
+</span></span><span class="line"><span class="ln">16</span><span class="cl">│  ┌─────────────┴─────────────┐
+</span></span><span class="line"><span class="ln">17</span><span class="cl">└──┤      close callbacks      │
+</span></span><span class="line"><span class="ln">18</span><span class="cl">   └───────────────────────────┘
+</span></span></code></pre></div><p>圖片的串起來的每個區塊都是 queue，裡面放著一堆等待被執行的 callback fucntion ，queue 中的執行順序是 <strong>先進先出(First In First Out, FIFO)</strong>，區塊由上到下執行，直到所有的 queue 都空了，執行就會結束，關掉 process。</p>
+<p>看下面的程式：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="kr">const</span> <span class="nx">a</span> <span class="o">=</span> <span class="s1">&#39;hi&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="nx">setTimeout</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;bye&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="p">},</span> <span class="mi">1000</span><span class="p">);</span> <span class="c1">// 1秒後執行 callback()
+</span></span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="c1"></span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;done&#39;</span><span class="p">);</span>
+</span></span></code></pre></div><p>過程如下：</p>
+<ol>
+<li>當執行到 <code>setTimeout(callback)</code>，會把 callback 放到 <em><strong>timers</strong></em> 中。</li>
+<li><code>console.log('done')</code> 執行完，理當要結束的，但因為 <em><strong>timers</strong></em> 裡面還有東西，所以就一直等(loop的檢查每一個 queue)</li>
+<li>直到時間到，callback 執行完， <em><strong>timers</strong></em> 也空了</li>
+<li>當所有的 queue 都空，程式就結束了</li>
+</ol>
+<p>我只提了大概的運作，這也足夠應付大部分的情形，有更多的細節請看 <a href="https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/" target="_blank" rel="noopener noreferrer">The Node.js Event Loop, Timers, and process.nextTick()<i class="fas fa-external-link-square-alt ms-1"></i></a>。若你注重效能、寫底層的套件、遭遇callback/Promise太多導致記憶體不足的人，我覺得一定要看。</p>
+<blockquote>
+<p>這文章 <a href="https://blog.csdn.net/baidu_33295233/article/details/79335127" target="_blank" rel="noopener noreferrer">setTimeout async promise執行順序總結<i class="fas fa-external-link-square-alt ms-1"></i></a> 的例子可以自己猜猜看結果。不過正常人應該不會寫出這種程式： async/await, setTimeout, Promise並發(Concurrency)，又要管 console.log 的順序</p>
+</blockquote>
+<h1 id="總結">總結<a class="anchor ms-1" href="#總結"><i class="fas fa-link"></i></a></h1>
+<p>今天提了全端工程師可能遭遇的問題。此外，也提點了 Node.js 的特性：</p>
+<ol>
+<li>單執行緒</li>
+<li>非阻塞</li>
+<li>Node.js適合 I/O bound 的工作</li>
+<li>Event Loop 實現非阻塞</li>
+</ol>
+<blockquote>
+<p>題外話：我希望可以用白話的說法解釋概念，所以今天的文字有點多。</p>
+</blockquote></div></div>
+  <div class="card-footer"><div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-prev">
+    <i class="fas fa-fw fa-chevron-circle-down post-prev-icon" data-fa-transform="rotate-90"></i>
+    <a href="/series/2019-ithome-ironman/day-11-%E4%B8%80%E5%91%A8%E7%9B%AE-%E9%96%8B%E5%A7%8B%E7%8E%A9%E8%BD%89%E5%89%8D%E7%AB%AF%E4%BA%8C/">Day 11 - 一周目- 開始玩轉前端(二)
+</a>
+  </div><div class="post-nav post-next">
+    <a href="/series/2019-ithome-ironman/day-13-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E9%9D%9E%E5%90%8C%E6%AD%A5%E7%A5%9E%E5%99%A8-promise/">Day 13 - 二周目 - 非同步神器 Promise
+</a>
+    <i class="fas fa-fw fa-chevron-circle-down post-next-icon" data-fa-transform="rotate-270"></i>
+  </div></div></div>
+</article><div class="post-copyright mb-3 row card component" id="post-copyright">
+    <div class="card-header">
+        <h2 class="card-title fs-4 my-2 text-surface">版權</h2>
+    </div>
+    <div class="card-body"><a class="d-flex align-items-center flex-column" target="_blank" rel="license noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_TW">
+  <span><i class="fab fa-fw fa-2x fa-creative-commons"></i><i class="fab fa-fw fa-2x fa-creative-commons-by"></i><i class="fab fa-fw fa-2x fa-creative-commons-nc"></i><i class="fab fa-fw fa-2x fa-creative-commons-sa"></i></span>
+  CC BY-NC-SA 4.0 
+</a>
+
+
+    </div>
+</div><section class="related-posts row card component">
+    <div class="card-header">
+      <h2 class="card-title fs-4 my-2 text-surface">相關文章</h2>
+    </div>
+    <div class="card-body">
+      <ul class="post-list list-unstyled"><li>
+          <a href="/series/2019-ithome-ironman/day-11-%E4%B8%80%E5%91%A8%E7%9B%AE-%E9%96%8B%E5%A7%8B%E7%8E%A9%E8%BD%89%E5%89%8D%E7%AB%AF%E4%BA%8C/">Day 11 - 一周目- 開始玩轉前端(二)
+</a>
+          <span class="float-end post-date">2018-10-11
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-10-%E4%B8%80%E5%91%A8%E7%9B%AE-%E9%96%8B%E5%A7%8B%E7%8E%A9%E8%BD%89%E5%89%8D%E7%AB%AF%E4%B8%80/">Day 10- 一周目- 開始玩轉前端(一)
+</a>
+          <span class="float-end post-date">2018-10-10
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-9-%E4%B8%80%E5%91%A8%E7%9B%AE-%E9%96%8B%E5%A7%8B%E7%8E%A9%E8%BD%89%E5%BE%8C%E7%AB%AF%E4%BA%8C/">Day 9 - 一周目- 開始玩轉後端(二)
+</a>
+          <span class="float-end post-date">2018-10-09
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-8-%E4%B8%80%E5%91%A8%E7%9B%AE-%E9%96%8B%E5%A7%8B%E7%8E%A9%E8%BD%89%E5%BE%8C%E7%AB%AF%E4%B8%80/">Day 8 - 一周目- 開始玩轉後端(一)
+</a>
+          <span class="float-end post-date">2018-10-08
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-7-%E4%B8%80%E5%91%A8%E7%9B%AE-es6-%E8%AE%93%E4%BA%BA%E6%AC%B2%E7%BD%B7%E4%B8%8D%E8%83%BD%E7%9A%84%E8%AA%9E%E6%B3%95/">Day 7 - 一周目- ES6 讓人欲罷不能的語法
+</a>
+          <span class="float-end post-date">2018-10-07
+</span>
+        </li></ul>
+    </div>
+  </section><div class="card component row post-comments" id="post-comments">
+  <div class="card-header">
+    <h2 class="card-title my-2 fs-4 text-surface">評論</h2>
+  </div>
+  <div class="card-body"><script src="https://utteranc.es/client.js"
+  repo="eugenechen0514/eugenechen0514.github.io"
+  issue-term="pathname"
+  label="comment"
+  theme="github-light"
+  crossorigin="anonymous"
+  async>
+</script></div>
+</div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container d-flex flex-column">
+    
+    <div class="card row text-center profile component">
+  <div class="card-body">
+    <div class="col-12 d-flex align-items-center justify-content-center"><picture><img class="profile-avatar rounded-circle" alt="EugeneChen" src="/images/profile.webp" loading="lazy" data-viewer-invisible
+    
+     width="298" height="305"
+     />
+</picture>
+</div>
+    <div class="col-12 profile-meta"><div class="profile-name fw-fold fs-lg">EugeneChen</div><div class="profile-bio">軟體工程師，喜歡動手做些有的沒的專案，同時也喜愛數學、攝影、桌球，慢跑、游泳、作菜。</div><div class="profile-about"><i class="fas fa-fw fa-user"></i><a target="_blank" rel="noopener noreferrer" href="https://eugene-website.herokuapp.com">關於我</a></div><nav class="social-links nav justify-content-center"><a class="nav-link social-link" href="mailto:yujiechen0514@gmail.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i></a><a class="nav-link social-link" target="_blank" href="https://github.com/eugenechen0514" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-github"></i></a><a class="nav-link social-link" target="_blank" href="/index.xml" title="RSS" rel="noopener noreferrer">
+    <i class="fas fa-fw fa-2x fa-rss"></i></a></nav>
+</div>
+  </div>
+</div>
+<section class="taxonomies row card component">
+    <div class="card-body">
+        <ul class="nav nav-tabs" id="myTab" role="tablist"><li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="taxonomySeriesTab" data-bs-toggle="tab" data-bs-target="#taxonomySeries" 
+                        type="button" role="tab" aria-controls="專欄" aria-selected="true">
+                        專欄
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                    <button class="nav-link" id="taxonomyCategoriesTab" data-bs-toggle="tab" data-bs-target="#taxonomyCategories" 
+                        type="button" role="tab" aria-controls="分類" aria-selected="true">
+                        分類
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                    <button class="nav-link" id="taxonomyTagsTab" data-bs-toggle="tab" data-bs-target="#taxonomyTags" 
+                        type="button" role="tab" aria-controls="標籤" aria-selected="true">
+                        標籤
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                <button class="nav-link" id="taxonomyArchivesTab" data-bs-toggle="tab" data-bs-target="#taxonomyArchive" 
+                    type="button" role="tab" aria-controls="taxonomyArchives" aria-selected="true">
+                    歸檔
+                </button>
+            </li>
+        </ul>
+          
+        <div class="tab-content mt-3"><div class="tab-pane active" id="taxonomySeries" role="tabpanel" aria-labelledby="taxonomySeriesTab" tabindex="0"><a href="/series/2019-ithome-ironman/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="用js成為老闆心中的全端工程師 - 2019 iT邦幫忙鐵人賽">
+                        用js成為老闆心中的全端工程師 - 2019 iT邦幫忙鐵人賽<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a></div><div class="tab-pane" id="taxonomyCategories" role="tabpanel" aria-labelledby="taxonomyCategoriesTab" tabindex="0"><a href="/categories/%E9%9A%A8%E6%89%8B%E7%AD%86%E8%A8%98/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="隨手筆記">
+                        隨手筆記<span class="badge badge-sm text-secondary bg-white ms-1">2</span></a><a href="/categories/%E5%BF%83%E5%BE%97/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="心得">
+                        心得<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a></div><div class="tab-pane" id="taxonomyTags" role="tabpanel" aria-labelledby="taxonomyTagsTab" tabindex="0"><a href="/tags/2019-it-%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2019 iT 邦幫忙鐵人賽">
+                        2019 iT 邦幫忙鐵人賽<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a><a href="/tags/%E7%94%A8js%E6%88%90%E7%82%BA%E8%80%81%E9%97%86%E5%BF%83%E4%B8%AD%E7%9A%84%E5%85%A8%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%AB/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="用js成為老闆心中的全端工程師">
+                        用js成為老闆心中的全端工程師<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a><a href="/tags/alphacamp/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="AlphaCamp">
+                        AlphaCamp<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/kafka/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="Kafka">
+                        Kafka<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/mongodb/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="MongoDB">
+                        MongoDB<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/pandas/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="pandas">
+                        pandas<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/python/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="python">
+                        python<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/%E6%8E%A8%E8%96%A6%E7%B3%BB%E7%B5%B1/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="推薦系統">
+                        推薦系統<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a></div><div class="tab-pane" id="taxonomyArchive" role="tabpanel" aria-labelledby="taxonomyArchiveTab" tabindex="0"><a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2022">
+    2022 <span class="badge badge-sm text-secondary bg-white ms-1">1</span>
+    </a>
+<a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2021">
+    2021 <span class="badge badge-sm text-secondary bg-white ms-1">2</span>
+    </a>
+<a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2018">
+    2018 <span class="badge badge-sm text-secondary bg-white ms-1">30</span>
+    </a>
+
+</div>
+        </div>
+    </div>
+</section><div class="post-toc row mb-4 card component" id="postTOC">
+  <div class="card-header">
+    <h2 class="card-title fs-4 my-2 text-surface">目錄</h2>
+  </div>
+  <div class="card-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#nodejs-是單執行緒single-thread">Node.js 是單執行緒(single thread)</a></li>
+    <li><a href="#非阻塞">非阻塞</a></li>
+    <li><a href="#nodejs適合-io-bound-的工作不適合-cpu-bound-的工作">Node.js適合 I/O bound 的工作，不適合 CPU bound 的工作</a></li>
+    <li><a href="#event-loop-實現非阻塞">Event Loop 實現非阻塞</a></li>
+  </ul>
+</nav>
+  </div>
+</div><section class="recent-posts row card component">
+  <div class="card-header">
+    <h2 class="card-title my-2 fs-4 text-surface">最近文章</h2>
+  </div>
+  <div class="card-body">
+    <ul class="post-list list-unstyled ms-1"><li class="mb-2">
+        <a href="/posts/reviews/2022-02-06-alphacamp%E6%8E%A8%E8%96%A6%E7%B3%BB%E7%B5%B1%E4%B8%8A%E8%AA%B2%E5%BF%83%E5%BE%97/">AlphaCamp 推薦系統上課心得
+</a>
+      </li><li class="mb-2">
+        <a href="/posts/notes/2021-08-22-%E4%B8%80%E7%AA%BAkafka%E5%85%A7%E9%83%A8%E5%84%B2%E5%AD%98%E8%B3%87%E6%96%99/">一窺 Kafka 內部儲存資料
+</a>
+      </li><li class="mb-2">
+        <a href="/posts/notes/2021-08-01-mongodb-5-%E4%BE%86%E4%BA%86%E6%9C%89%E4%BB%80%E9%BA%BC%E5%80%BC%E5%BE%97%E6%B3%A8%E6%84%8F%E7%9A%84%E6%9B%B4%E6%96%B0/">MongoDb 5 來了，有什麼值得注意的更新呢?
+</a>
+      </li><li class="mb-2">
+        <a href="/series/2019-ithome-ironman/day-30-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-network-%E6%9A%A8%E5%AE%8C%E8%B3%BD%E5%9B%9E%E9%A1%A7/">Day 30- 三周目 - Docker Network 暨完賽回顧
+</a>
+      </li><li class="mb-2">
+        <a href="/series/2019-ithome-ironman/day-29-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-compose%E4%B8%80%E6%AC%A1%E7%AE%A1%E7%90%86%E5%A4%9A%E5%80%8B%E5%AE%B9%E5%99%A8/">Day 29- 三周目 - Docker Compose：一次管理多個容器
+</a>
+      </li></ul>
+  </div>
+</section>
+    
+  </div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><div class="offcanvas offcanvas-bottom h-auto" tabindex="-1" id="offcanvasActionsPanel"
+  aria-labelledby="offcanvasActionsPanelLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title fs-4" id="offcanvasActionsPanelLabel">
+      <i class="fas fa-fw fa-th-large me-1"></i>
+      Actions
+    </h5>
+    <button type="button" class="btn-close ms-auto" data-bs-dismiss="offcanvas" data-bs-target="offcanvasActionsPanel" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body mt-2"><div class="social-share mb-4 d-flex overflow-auto">
+      <a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Twitter Share Button"
+      target="_blank" href="https://twitter.com/intent/tweet?title=Day%2012%20-%20%e4%ba%8c%e5%91%a8%e7%9b%ae%20-%20%e6%ba%96%e5%82%99%e8%b5%b7%e7%a8%8b%e6%b7%b1%e5%85%a5%e5%be%8c%e7%ab%af&url=%2fseries%2f2019-ithome-ironman%2fday-12-%25E4%25BA%258C%25E5%2591%25A8%25E7%259B%25AE-%25E6%25BA%2596%25E5%2582%2599%25E8%25B5%25B7%25E7%25A8%258B%25E6%25B7%25B1%25E5%2585%25A5%25E5%25BE%258C%25E7%25AB%25AF%2f">
+        <i class="fab fa-2x fa-fw fa-twitter mb-2"></i> Twitter
+      </a>
+      <a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Facebook Share Button"
+        target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=%2fseries%2f2019-ithome-ironman%2fday-12-%25E4%25BA%258C%25E5%2591%25A8%25E7%259B%25AE-%25E6%25BA%2596%25E5%2582%2599%25E8%25B5%25B7%25E7%25A8%258B%25E6%25B7%25B1%25E5%2585%25A5%25E5%25BE%258C%25E7%25AB%25AF%2f">
+        <i class="fab fa-2x fa-fw fa-facebook-f mb-2"></i> Facebook
+      </a>
+    </div>
+    <hr class="mb-4"><div class="actions d-flex overflow-auto align-items-center">
+      <a role="button" class="action action-go-back d-flex flex-column align-items-center me-3" href="javascript: window.history.back();">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-chevron-circle-down" data-fa-transform="rotate-90"></i></span> 返回
+      </a>
+      <a role="button" class="action action-reload-page d-flex flex-column align-items-center me-3">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-redo-alt"></i></span> 刷新
+      </a>
+      <a role="button" class="action action-copy-url d-flex flex-column align-items-center me-3">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-link"></i></span> 複製連結
+      </a>
+    </div>
+  </div>
+</div><nav class="social-links nav justify-content-center mb-2"><a class="nav-link social-link" href="mailto:yujiechen0514@gmail.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i></a><a class="nav-link social-link" target="_blank" href="https://github.com/eugenechen0514" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-github"></i></a><a class="nav-link social-link" target="_blank" href="https://linkedin.com/in/yuchieh-chen-37a48989" title="LinkedIn" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-linkedin-in"></i></a><a class="nav-link social-link" target="_blank" href="https://medium.com/@yujiechen0514" title="Medium" rel="noopener noreferrer">
+        <i class="fab fa-fw fa-2x fa-medium-m"></i></a><a class="nav-link social-link" target="_blank" href="/index.xml" title="RSS" rel="noopener noreferrer">
+    <i class="fas fa-fw fa-2x fa-rss"></i></a></nav>
+<div class="copyright mb-2">
+  Copyright © 2016-2022 EugeneChen. All Rights Reserved.
+</div>
+<div class="powered-by mb-2">
+  Powered by <a class="text-primary" href="https://gohugo.io" target="_blank" rel="noopener noreferrer">Hugo</a> and the <a class="text-primary" href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank" rel="noopener noreferrer">Bootstrap</a> theme.
+</div>
+<div class="sponsors">
+
+
+
+
+
+
+</div>
+</footer>
+<script src="/assets/main/bundle.min.2bc7d6952dbf38d6d2815939c58fc655e72d050b196d9fd99829d8fb23904646.js" integrity="sha256-K8fWlS2/ONbSgVk5xY/GVectBQsZbZ/ZmCnY&#43;yOQRkY=" crossorigin="anonymous" defer></script><script src="/assets/icons/bundle.min.a4bf8247f780c9bf61d579a8efe7129ec790bb98622bf4a29895eb21e689266c.js" integrity="sha256-pL&#43;CR/eAyb9h1Xmo7&#43;cSnseQu5hiK/SimJXrIeaJJmw=" crossorigin="anonymous" defer></script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('\/service-worker.min.js').then(function(reg) {
+      console.log('Successfully registered service worker', reg);
+    }).catch(function(err) {
+      console.warn('Error whilst registering service worker', err);
+    });
+  });
+}
+</script><script src="/assets/viewer/bundle.min.92d4a694e2e9a4c4d89b6998067e2f8e502dc7a951682bb5a160a3004b434908.js" integrity="sha256-ktSmlOLppMTYm2mYBn4vjlAtx6lRaCu1oWCjAEtDSQg=" crossorigin="anonymous" defer></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-ZWYL79X38Y', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+<script src="/assets/docsearch/bundle.min.c6965b5bee044b874617239932d6a7992b217f7949f895a7576980d110fb2ab1.js" integrity="sha256-xpZbW&#43;4ES4dGFyOZMtanmSshf3lJ&#43;JWnV2mA0RD7KrE=" crossorigin="anonymous" defer></script></body>
+</html>

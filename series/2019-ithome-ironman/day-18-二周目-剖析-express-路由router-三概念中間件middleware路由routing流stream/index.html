@@ -1,0 +1,887 @@
+<!doctype html><html class="position-relative" itemscope itemtype="http://schema.org/WebPage" lang="zh-tw" data-theme="auto"
+  
+   data-palette="purple">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Day 18 - 二周目 - 剖析 express 路由(router) 三概念：中間件(middleware)、路由(routing)、流(stream) - EugeneChen</title><link rel="apple-touch-icon" href="/images/icons/icon-180x180.png" sizes="180x180">
+<link rel="icon" href="/images/icons/icon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/images/icons/icon-16x16.png" sizes="16x16" type="image/png">
+<link rel="icon" href="/images/icons/favicon.ico">
+<link rel="manifest" href="/manifest.json">
+<meta name="keywords" content="" />
+<meta name="description" content="中間件(middleware)、路由(routing)、流(stream)" /><meta name="robots" content="index, follow" /><meta itemprop="name" content="Day 18 - 二周目 - 剖析 express 路由(router) 三概念：中間件(middleware)、路由(routing)、流(stream)">
+<meta itemprop="description" content="中間件(middleware)、路由(routing)、流(stream)"><meta itemprop="datePublished" content="2018-10-18T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2018-10-18T00:00:00+00:00" />
+<meta itemprop="wordCount" content="3647">
+<meta itemprop="keywords" content="2019 iT 邦幫忙鐵人賽,用js成為老闆心中的全端工程師," /><meta property="og:title" content="Day 18 - 二周目 - 剖析 express 路由(router) 三概念：中間件(middleware)、路由(routing)、流(stream)" />
+<meta property="og:description" content="中間件(middleware)、路由(routing)、流(stream)" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/series/2019-ithome-ironman/day-18-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E5%89%96%E6%9E%90-express-%E8%B7%AF%E7%94%B1router-%E4%B8%89%E6%A6%82%E5%BF%B5%E4%B8%AD%E9%96%93%E4%BB%B6middleware%E8%B7%AF%E7%94%B1routing%E6%B5%81stream/" /><meta property="article:section" content="series" />
+<meta property="article:published_time" content="2018-10-18T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-10-18T00:00:00+00:00" /><meta property="og:site_name" content="EugeneChen" />
+<meta property="og:see_also" content="/series/2019-ithome-ironman/day-30-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-network-%E6%9A%A8%E5%AE%8C%E8%B3%BD%E5%9B%9E%E9%A1%A7/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-29-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-compose%E4%B8%80%E6%AC%A1%E7%AE%A1%E7%90%86%E5%A4%9A%E5%80%8B%E5%AE%B9%E5%99%A8/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-28-%E4%B8%89%E5%91%A8%E7%9B%AE-%E8%A3%BD%E4%BD%9C%E8%87%AA%E5%B7%B1%E7%9A%84%E6%98%A0%E5%83%8F%E6%AA%94%E5%8C%85%E6%89%93%E5%89%8D%E5%BE%8C%E7%AB%AF%E6%98%A0%E5%83%8F%E6%AA%94/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-27-%E4%B8%89%E5%91%A8%E7%9B%AE-%E4%BA%94%E5%88%86%E9%90%98%E5%BB%BA%E7%AB%8B%E7%A7%81%E6%9C%89-npm-verdaccio/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-26-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E7%9C%8B%E5%AE%8C%E5%B0%B1%E6%9C%83%E6%9E%B6-docker-%E5%8C%96%E7%9A%84%E6%9C%8D%E5%8B%99/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-25-%E4%BA%8C%E5%91%A8%E7%9B%AE-react-component-%E5%A5%97%E4%BB%B6-material-ui-google-material-design-%E7%9A%84%E5%AF%A6%E4%BD%9C%E5%A5%97%E4%BB%B6/" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Day 18 - 二周目 - 剖析 express 路由(router) 三概念：中間件(middleware)、路由(routing)、流(stream)"/>
+<meta name="twitter:description" content="中間件(middleware)、路由(routing)、流(stream)"/>
+<meta property="og:image" content="/images/logo.png"/>
+  <meta name="twitter:image" content="/images/logo.png"/><link rel="stylesheet" href="/assets/main/bundle.min.925f59d4c744cc5e99dcc7d02a6f68dff5cceaea488c7667bd947bf7aa35b649.css" integrity="sha256-kl9Z1MdEzF6Z3MfQKm9o3/XM6upIjHZnvZR796o1tkk=" crossorigin="anonymous"><link rel="stylesheet" href="/assets/viewer/bundle.min.f05183267bb952fbc8c63a7178364de2951614ab71d544ec1068ad36c7447ccc.css" integrity="sha256-8FGDJnu5UvvIxjpxeDZN4pUWFKtx1UTsEGitNsdEfMw=" crossorigin="anonymous"><link rel="stylesheet" href="/assets/docsearch/bundle.min.c165d6a127fffa285e6b89ef65362fe921bc0c1fdaefa35f6af069b962bdb50e.css" integrity="sha256-wWXWoSf/&#43;ihea4nvZTYv6SG8DB/a76NfavBpuWK9tQ4=" crossorigin="anonymous"></head>
+  <body><script>const items=["theme","palette"];items.forEach(function(e){const t=localStorage.getItem("hbs:"+e);t&&document.body.parentElement.setAttribute("data-"+e,t)})</script><header><nav class="top-app-bar shadow bg-primary text-white navbar navbar-expand-lg fixed-top">
+  <div class="container"><a class="navbar-brand flex-grow-1 flex-lg-grow-0 text-lg-start ms-2 ms-lg-0 mx-auto me-lg-3" href="/"><picture><img class="logo" alt="Logo" src="/images/logo.webp" loading="lazy"
+    
+     width="136" height="69"
+     />
+</picture>
+EugeneChen
+    </a>
+    <button class="navbar-toggler order-5" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarMenus"
+      aria-controls="navbarMenus" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-ellipsis-h"></i>
+    </button>
+    <div class="offcanvas-lg offcanvas-end flex-grow-1 bg-primary text-white" tabindex="-1" id="navbarMenus" aria-labelledby="navbarMenusLabel">
+      <div class="offcanvas-header px-4 pb-0">
+        <h5 class="offcanvas-title" id="navbarMenusLabel">EugeneChen</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" data-bs-target="#navbarMenus" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body p-4 pt-0 p-lg-0">
+        <hr class="d-lg-none">
+        <ul class="navbar-nav flex-row flex-wrap align-items-center me-auto"><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/posts/">
+              <i class="fas fa-book fa-fw"></i>文章
+            </a>
+          </li><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/series/">
+              <i class="fas fa-bars fa-fw"></i>專欄
+            </a>
+          </li><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/posts/notes/">
+              <i class="fas fa-sticky-note fa-fw"></i>隨手筆記
+            </a>
+          </li></ul>
+        <hr class="d-lg-none">
+        <form class="search-bar mx-auto my-1" action="/search" novalidate>
+  <div class="input-group input-group-sm align-items-center">
+    <span class="btn btn-search disabled position-absolute left-0 border-0">
+      <i class="fas fa-fw fa-search fa-lg"></i>
+    </span>
+    <input class="py-2 form-control rounded search-input" name="q" type="search" aria-label="Search" required>
+  </div>
+</form>
+<hr class="d-lg-none">
+        <ul class="navbar-nav flex-row flex-wrap align-items-center ms-md-auto"><li class="nav-item dropdown py-1 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-globe"></i>
+        <span class="d-lg-none">語言</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown"><li>
+        <a class="dropdown-item" href="/en/">
+            English
+        </a>
+        </li><li>
+        <a class="dropdown-item active" href="/">
+            繁體中文
+        </a>
+        </li></ul>
+</li>
+<li class="nav-item py-1 col-12 col-lg-auto">
+  <div class="vr d-none d-lg-flex h-100 mx-lg-2 text-white"></div>
+  <hr class="d-lg-none my-2">
+</li><li class="nav-item dropdown py-2 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="fontSizeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-font"></i>
+        <span class="d-lg-none">字體大小</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="fontSizeDropdown"><li>
+            <button class="font-size-item dropdown-item" data-size="xs">
+                特小號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="sm">
+                小號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item active" data-size="md">
+                中等
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="lg">
+                大號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="xl">
+                特大號
+            </button>
+        </li></ul>
+</li><li class="nav-item dropdown py-1 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="paletteDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-palette"></i>
+        <span class="d-lg-none">配色</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end px-2" aria-labelledby="paletteDropdown">
+        <div class="row"><li class="col-3 my-1">
+                <a role="button" id="palette-blue" aria-label="藍色"
+                    class="btn btn-sm w-100 palette text-bg-blue" data-palette="blue">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-blue-gray" aria-label="藍灰色"
+                    class="btn btn-sm w-100 palette text-bg-blue-gray" data-palette="blue-gray">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-brown" aria-label="棕色"
+                    class="btn btn-sm w-100 palette text-bg-brown" data-palette="brown">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-cyan" aria-label="青色"
+                    class="btn btn-sm w-100 palette text-bg-cyan" data-palette="cyan">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-green" aria-label="綠色"
+                    class="btn btn-sm w-100 palette text-bg-green" data-palette="green">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-indigo" aria-label="靛青色"
+                    class="btn btn-sm w-100 palette text-bg-indigo" data-palette="indigo">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-orange" aria-label="橙色"
+                    class="btn btn-sm w-100 palette text-bg-orange" data-palette="orange">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-pink" aria-label="粉色"
+                    class="btn btn-sm w-100 palette text-bg-pink" data-palette="pink">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-purple" aria-label="紫色"
+                    class="btn btn-sm w-100 palette text-bg-purple" data-palette="purple">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-red" aria-label="紅色"
+                    class="btn btn-sm w-100 palette text-bg-red" data-palette="red">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-teal" aria-label="藍綠色"
+                    class="btn btn-sm w-100 palette text-bg-teal" data-palette="teal">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-yellow" aria-label="黃色"
+                    class="btn btn-sm w-100 palette text-bg-yellow" data-palette="yellow">
+                </a>
+            </li></div>
+    </ul>
+</li>
+<li class="nav-item dropdown py-2 py-lg-1 col-6 col-lg-auto"><a class="nav-link px-0 px-lg-1" href="#" id="modeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="mode-icon fas fa-fw fa-adjust" id="modeIcon"></i>
+        <span class="d-lg-none">模式</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="modeDropdown"><li class="mode-item" data-color-mode="light" data-icon="sun">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-sun"></i> Light
+            </button>
+        </li><li class="mode-item" data-color-mode="dark" data-icon="moon">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-moon"></i> Dark
+            </button>
+        </li><li class="mode-item active" data-color-mode="auto" data-icon="adjust">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-adjust"></i> Auto
+            </button>
+        </li></ul>
+</li>
+</ul>
+      </div>
+    </div>
+  </div>
+</nav>
+</header>
+<main class="container">
+      <div class="row content"><noscript>
+    <div class="alert alert-danger" role="alert">你的瀏覽器不支持 JavaScript。</div>
+</noscript>
+
+<div class="col-lg-8">
+  <div class="container"><nav class="row card component" aria-label="breadcrumb">
+  <div class="card-body pb-0">
+    <ol class="breadcrumb"><li class="breadcrumb-item text-surface"><a href="/">主頁</a></li><li class="breadcrumb-item text-surface"><a href="/series/">Series</a></li><li class="breadcrumb-item active">Day 18 - 二周目 - 剖析 Express 路由(router) 三概念：中間件(middleware)、路由(routing)、流(stream)</li></ol>
+  </div>
+</nav><div class="post-panel-wrapper position-sticky">
+  <div class="d-flex flex-column component rounded post-panel position-absolute border">
+    
+    <a class="action action-panel-toggler" role="button" title="Panel toggler">
+      <i class="fas fa-fw fa-chevron-circle-down"></i>
+    </a>
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button" title="Sidebar toggler">
+  <i class="fas fa-fw fa-expand-alt" data-fa-transform="rotate-45"></i>
+</a>
+
+    
+
+    
+    <a class="action" href="#post-copyright" role="button" aria-label="Copyright" title="Copyright">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    <a class="action" href="#post-comments" role="button" aria-label="Comments" title="Comments">
+  <i class="fas fa-fw fa-comments"></i>
+</a>
+    <a class="action" href="#postTOC" aria-controls="Table of contents" role="button" title="Table of contents">
+  <i class="fas fa-fw fa-list-alt"></i>
+</a>
+    
+  </div>
+</div>
+<article class="row card component mb-4 post">
+  <div class="card-header ">
+    <h1 class="card-title post-title my-2">Day 18 - 二周目 - 剖析 Express 路由(router) 三概念：中間件(middleware)、路由(routing)、流(stream)
+</h1>
+  </div>
+  <div class="card-body"><div class="post-meta mb-3">
+  <span class="post-date me-1 mb-1" title="創建於 2018-10-18 08:00:00 &#43;0800 CST。">
+    2018-10-18
+  </span><span class="post-reading-time me-1 mb-1">
+    8 分鐘閱讀
+  </span><a href="/series/2019-ithome-ironman/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">用js成為老闆心中的全端工程師 - 2019 IT邦幫忙鐵人賽</a><a href="/tags/2019-it-%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">2019 IT 邦幫忙鐵人賽</a><a href="/tags/%E7%94%A8js%E6%88%90%E7%82%BA%E8%80%81%E9%97%86%E5%BF%83%E4%B8%AD%E7%9A%84%E5%85%A8%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%AB/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">用js成為老闆心中的全端工程師</a></div>
+<div class="post-content mb-3"><p>剖析 express 路由(router) 三概念：中間件(middleware)、路由(routing)、流(stream)</p>
+<h1 id="回憶">回憶<a class="anchor ms-1" href="#回憶"><i class="fas fa-link"></i></a></h1>
+<p>昨天介紹 awilix 來依賴注入， awilix 幫我們把 <code>mongoService</code> 建立好，並注入 <code>./routers/index.js</code> 這個根路由物件中，使我們可以在 <code>router.METHOD()</code> 中調用 <code>mongoService</code> 的方法。</p>
+<p>今天要看 <code>router.METHOD()</code> 、<code>router.use()</code>這些神秘的東西，是怎麼幫我們組合出各式各樣的 API。</p>
+<h1 id="目標">目標<a class="anchor ms-1" href="#目標"><i class="fas fa-link"></i></a></h1>
+<blockquote>
+<p>過程請見 github commit log <a href="https://github.com/eugenechen0514/ithelp-30dayfullstack-Day18" target="_blank" rel="noopener noreferrer">ithelp-30dayfullstack-Day18<i class="fas fa-external-link-square-alt ms-1"></i></a></p>
+</blockquote>
+<p>express 的核心技術之一就是 router，它之所以複雜是因為他同時包含三個重要的概念：</p>
+<p><picture><img class="img-fluid" alt="30天鐵人-Day18-middleware (1).png" src="/series/2019-ithome-ironman/day-18-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E5%89%96%E6%9E%90-express-%E8%B7%AF%E7%94%B1router-%E4%B8%89%E6%A6%82%E5%BF%B5%E4%B8%AD%E9%96%93%E4%BB%B6middleware%E8%B7%AF%E7%94%B1routing%E6%B5%81stream/resources/68B34854B8DCDC6B956666BC8C22C90D.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<ol>
+<li>中間件(middleware)</li>
+<li>路由(routing)</li>
+<li>流(stream)</li>
+</ol>
+<p>我們一一來了解它們</p>
+<h1 id="剖析-router---app">剖析 router /  app<a class="anchor ms-1" href="#剖析-router---app"><i class="fas fa-link"></i></a></h1>
+<p>首先看 <a href="http://expressjs.com/en/4x/api.html#router.METHOD" target="_blank" rel="noopener noreferrer"><code>app.METHOD(path, callback [, callback ...])</code><i class="fas fa-external-link-square-alt ms-1"></i></a> 和 <a href="http://expressjs.com/en/4x/api.html#router.METHOD" target="_blank" rel="noopener noreferrer"><code>router.METHOD(path, [callback, ...] callback)</code><i class="fas fa-external-link-square-alt ms-1"></i></a> 的簽章，<code>path</code> 是我們要比對的網址片斷，callback 是我們要做的事，你會發現簽章中你可以「串」很多個 callback，express 「<strong>預期</strong>」每一個 callback 可以一個個被呼叫。這種特別的目地的 callback，被稱作中間件(middleware)，未來在前端的 redux 也會看到。</p>
+<h2 id="中間件middleware串接處理流程">中間件(middleware)：串接處理流程<a class="anchor ms-1" href="#中間件middleware串接處理流程"><i class="fas fa-link"></i></a></h2>
+<p>express 中的兩種 middleware：</p>
+<ol>
+<li>Regular middleware <code>function (req, res, next)</code>：處理正常流程</li>
+<li>Error-handling middleware <code>function (err, req, res, next)</code>：處理錯誤流程</li>
+</ol>
+<p>不論是哪種 middleware，它們的簽章一定是長成那樣。並且，當 middleware 作完事，
+<em><strong>一定要呼叫 <code>next()</code></strong></em> 引發下一個 middleware 做事，除非是送出回應的最後一個 middleware，可以不用呼叫 <code>next()</code>。例如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kd">function</span> <span class="nx">middleware1</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">    <span class="c1">// 錯誤發生(一)
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="c1"></span>    <span class="c1">// throw new Error(&#39;fake error by throw&#39;); 
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="c1"></span>    
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">    <span class="c1">// 錯誤發生(二)
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="c1"></span>    <span class="c1">// next(new Error(&#39;fake error by next()&#39;));
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="c1"></span>    <span class="c1">// return;
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;middleware1&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">    <span class="c1">// res.send(&#39;搶先送出回應&#39;); // 這會引起錯誤，但不中斷： Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client 
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="c1"></span>    <span class="nx">next</span><span class="p">();</span> <span class="c1">// 引發下一個 middleware
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="c1"></span>  <span class="p">}</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">  <span class="kd">function</span> <span class="nx">middleware2</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;middleware2&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">    <span class="nx">next</span><span class="p">();</span> <span class="c1">// 引發下一個 middleware
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="c1"></span>  <span class="p">}</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">  <span class="nx">router</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/api/middleware&#39;</span><span class="p">,</span> <span class="nx">middleware1</span><span class="p">,</span> <span class="nx">middleware2</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">res</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">    <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s1">&#39;done&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl">  <span class="p">});</span>
+</span></span></code></pre></div><p>打 <code>GET /api/middleware</code> 的後在 console 結果是</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">middleware1
+</span></span><span class="line"><span class="ln">2</span><span class="cl">middleware2
+</span></span></code></pre></div><p>當沒有錯誤發生，所有「有呼叫 <code>next()</code> 的 regular middleware」 會依序處理，直到最後一個「沒有呼叫 <code>next()</code> regular middleware」執行完。因此，你一定要在後面一個 regular middleware 回應 request，不然 request 就會一直卡著，直到 timeout。</p>
+<p>當有錯誤發生，在某個 middleware 呼叫 <code>next(err)</code> 或被 <code>throw error</code>，就會略過所有 regular middleware 直到找到 error-handling middleware，來處理。</p>
+<p>雖然 regular middleware 和 error-handling middleware 可以交錯著串起來（就像 Promise 的 <code>then()...catch()</code>），但我薦議不要這麼做，這樣會讓處理邏輯混亂。</p>
+<blockquote>
+<p>試看看：
+1. 你可以解開上例中 &ldquo;錯誤發生&rdquo; 的註解看看
+2. 把 next() 註解，會使下一個 middleware 無法運作
+3. 搶先送出回應看看</p>
+</blockquote>
+<h2 id="路由routing網址片斷串接">路由(routing)：網址片斷串接<a class="anchor ms-1" href="#路由routing網址片斷串接"><i class="fas fa-link"></i></a></h2>
+<p><code>app.METHOD(path, callback [, callback ...])</code> 和 <code>router.METHOD(path, [callback, ...] callback)</code> 規定：</p>
+<ol>
+<li>request 的 method(GET/POST/DELETE/&hellip;) 要附合，並且</li>
+<li>網址片斷(path)附合</li>
+</ol>
+<p>才會執行參數中的 callback (middleware)</p>
+<p>此外，<code>app.usr([path, ]callbackOrRouter)</code> 和 <code>router.use([path,] callbackOrRouter)</code> (path 預設是 <code>/</code>) 就是不管所有 method ，只比對附合片斷就可以執行：</p>
+<ol>
+<li>參數中的 callback 或</li>
+<li>往下一個 router 執行</li>
+</ol>
+<p>直接舉例比較快，見下面：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1">// app.js
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="c1"></span><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="nx">indexRouter</span><span class="p">);</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1">// routers/index.js
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">UserRouter</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./users&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="kd">function</span> <span class="nx">createRouter</span><span class="p">(</span><span class="nx">dependencies</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">  <span class="nx">router</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/api/middleware&#39;</span><span class="p">,</span> <span class="nx">middleware1</span><span class="p">,</span> <span class="nx">middleware2</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">res</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">    <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s1">&#39;done&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">  <span class="nx">router</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;/user&#39;</span><span class="p">,</span> <span class="nx">UserRouter</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">  <span class="k">return</span> <span class="nx">router</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1">// routers/users.js
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="c1"></span><span class="nx">router</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">  <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s1">&#39;respond with a resource&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="p">});</span>
+</span></span></code></pre></div><p>有三個 router，<code>app</code>, <code>indexRouter</code>, <code>UserRouter</code>，串接圖如下：</p>
+<p><picture><img class="img-fluid" alt="router.png" src="/series/2019-ithome-ironman/day-18-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E5%89%96%E6%9E%90-express-%E8%B7%AF%E7%94%B1router-%E4%B8%89%E6%A6%82%E5%BF%B5%E4%B8%AD%E9%96%93%E4%BB%B6middleware%E8%B7%AF%E7%94%B1routing%E6%B5%81stream/resources/B3DFB021980EB6A56AD3CA78A1831DB6.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>上述串接後，只能搭配出</p>
+<ol>
+<li><code>GET /api/middleware</code></li>
+<li><code>GET /user/</code></li>
+</ol>
+<p>這兩個路徑，它們需要我們們自行回應 request(ex: <code>res.send()</code>、<code>res.json()</code>)。</p>
+<h3 id="關於網址片斷比對">關於網址片斷比對<a class="anchor ms-1" href="#關於網址片斷比對"><i class="fas fa-link"></i></a></h3>
+<p>網址片斷(<code>path</code>)，不是只能有定值，可以是下列任一種：</p>
+<ol>
+<li>path:</li>
+<li>Path Pattern</li>
+<li>Regular Expression</li>
+<li>Array</li>
+</ol>
+<p>我覺得直接看文件範例就可以了，見 <a href="http://expressjs.com/en/4x/api.html#path-examples" target="_blank" rel="noopener noreferrer">Path examples<i class="fas fa-external-link-square-alt ms-1"></i></a>，或 <a href="http://expressjs.com/en/guide/routing.html#route-paths" target="_blank" rel="noopener noreferrer">Route paths<i class="fas fa-external-link-square-alt ms-1"></i></a> 更詳細。</p>
+<p>不過有一點我一定要提，path 是可以抽取出 parameter 的，結果會放在 <code>req.param</code> 中，像是：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="nx">router</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/user/:userId&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">  <span class="kr">const</span> <span class="nx">userId</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">param</span><span class="p">.</span><span class="nx">userId</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">  <span class="p">...</span><span class="nx">略</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="p">})</span>
+</span></span></code></pre></div><p>這在 <code>RESTful API</code> 的設計很常使用。</p>
+<p>若是沒比對到的怎麼辨？ 在 <code>express-generator</code> 幫我們產生的 express 專案就幫我們寫好一些 middleware。</p>
+<h3 id="預設的-middleware">預設的 middleware<a class="anchor ms-1" href="#預設的-middleware"><i class="fas fa-link"></i></a></h3>
+<p><code>express-generator</code> 在生成 express 專案時，有幫我們產生預設的 middleware。</p>
+<h4 id="express-generator-預先產生的-middleware">express-generator 預先產生的 middleware<a class="anchor ms-1" href="#express-generator-預先產生的-middleware"><i class="fas fa-link"></i></a></h4>
+<p>在 <code>app.js</code>中最下面，有以下的程式碼…</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1">// app.js
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="c1">// 若 1. 前面的 middleware 都沒人處理 或 2. 沒有比對到路徑片斷，就會到這裡。
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="c1">// catch 404 and forward to error handler
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="c1"></span><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">  <span class="nx">next</span><span class="p">(</span><span class="nx">createError</span><span class="p">(</span><span class="mi">404</span><span class="p">));</span> <span class="c1">// 引起 Error, 實際上是 HttpError，它繼承 Error。 給下一個 error-handling middleware　處理。
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="c1"></span><span class="p">});</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="c1">// 最後的 error-handling middleware
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="c1">// error handler
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="c1"></span><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">  <span class="c1">// set locals, only providing error in development
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="c1"></span>  <span class="nx">res</span><span class="p">.</span><span class="nx">locals</span><span class="p">.</span><span class="nx">message</span> <span class="o">=</span> <span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">  <span class="nx">res</span><span class="p">.</span><span class="nx">locals</span><span class="p">.</span><span class="nx">error</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;env&#39;</span><span class="p">)</span> <span class="o">===</span> <span class="s1">&#39;development&#39;</span> <span class="o">?</span> <span class="nx">err</span> <span class="o">:</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">
+</span></span><span class="line"><span class="ln">16</span><span class="cl">  <span class="c1">// render the error page
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="c1"></span>  <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nx">status</span> <span class="o">||</span> <span class="mi">500</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">  <span class="nx">res</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="p">});</span>
+</span></span></code></pre></div><p>這個兩個 middleware 依序是</p>
+<ol>
+<li>regular middleware：當 1. 前面的 middleware 都沒人處理 或 2. 沒有比對到路徑片斷，就會執行。它在內部 <code>next(createError(404))</code>，把 error 送到下一個 error-handling middleware。</li>
+<li>error-handling middleware：當之前的 error-handling middleware 沒有人處理回應 request，就會執行。<code>res.render('error')</code> 會讀入名為 <code>error</code> 的樣板檔案(即<code>./view/error.hbs</code>)，樣板帶入參數(預設是 <code>res.locals</code>)後，傳 html 文字給 request。 這裡的 <code>res.locals</code> 有兩個屬性，因為
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="nx">res</span><span class="p">.</span><span class="nx">locals</span><span class="p">.</span><span class="nx">message</span> <span class="o">=</span> <span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="nx">res</span><span class="p">.</span><span class="nx">locals</span><span class="p">.</span><span class="nx">error</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;env&#39;</span><span class="p">)</span> <span class="o">===</span> <span class="s1">&#39;development&#39;</span> <span class="o">?</span> <span class="nx">err</span> <span class="o">:</span> <span class="p">{};</span>
+</span></span></code></pre></div></li>
+</ol>
+<p>如果把上面 <code>express-generator</code> 預先產生的 middleware，註解掉會怎麼樣呢？　…什麼事都不會發生，因為…</p>
+<h4 id="express-內建的-middleware">express 內建的 middleware<a class="anchor ms-1" href="#express-內建的-middleware"><i class="fas fa-link"></i></a></h4>
+<p><code>express</code> 有內建(built-in)的 middleware。</p>
+<p><picture><img class="img-fluid" alt="Screen Shot 2018-10-18 at 2.09.03 PM.png" src="/series/2019-ithome-ironman/day-18-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E5%89%96%E6%9E%90-express-%E8%B7%AF%E7%94%B1router-%E4%B8%89%E6%A6%82%E5%BF%B5%E4%B8%AD%E9%96%93%E4%BB%B6middleware%E8%B7%AF%E7%94%B1routing%E6%B5%81stream/resources/3F817A7BD88C5914B6A13BBE24AB13FE.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>這是寫在套件中，你改不了的。</p>
+<h2 id="流stream送出回應-request">流(stream)：送出回應 request<a class="anchor ms-1" href="#流stream送出回應-request"><i class="fas fa-link"></i></a></h2>
+<h3 id="流stream-的基本概念">流(stream) 的基本概念<a class="anchor ms-1" href="#流stream-的基本概念"><i class="fas fa-link"></i></a></h3>
+<p>stream 在 Node.js 是很常見的，其實我們常用的檔案存取都可以用 stream 來操作</p>
+<p>在資料傳遞的模型中，有兩個角色
+<picture><img class="img-fluid" alt="stream.png" src="/series/2019-ithome-ironman/day-18-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E5%89%96%E6%9E%90-express-%E8%B7%AF%E7%94%B1router-%E4%B8%89%E6%A6%82%E5%BF%B5%E4%B8%AD%E9%96%93%E4%BB%B6middleware%E8%B7%AF%E7%94%B1routing%E6%B5%81stream/resources/AB06DB809EFAE7E955FD4049523E8485.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<ol>
+<li>producer：產生資料的人</li>
+<li>consumer：消耗資料的人</li>
+</ol>
+<p>站在 producer 的角度來看，它拿著的 stream 叫做 <strong>write stream</strong>，它透過 <a href="https://nodejs.org/dist/latest-v10.x/docs/api/stream.html#stream_writable_write_chunk_encoding_callback" target="_blank" rel="noopener noreferrer"><code>writeStream.write(data)</code><i class="fas fa-external-link-square-alt ms-1"></i></a> 送出資料。當沒資料的時候送出 <a href="https://nodejs.org/dist/latest-v10.x/docs/api/stream.html#stream_writable_end_chunk_encoding_callback" target="_blank" rel="noopener noreferrer"><code>writeStream.end()</code><i class="fas fa-external-link-square-alt ms-1"></i></a> 通知 consumer 已經沒資料了。</p>
+<p>反之，站在consumer  的角度來看，它拿著的 stream 叫做 <strong>read stream</strong>，它透過 <a href="https://nodejs.org/dist/latest-v10.x/docs/api/stream.html#stream_readable_read_size" target="_blank" rel="noopener noreferrer"><code>readStream.read()</code><i class="fas fa-external-link-square-alt ms-1"></i></a> 讀出資料。更仔細的說，在 <code>read stream</code> 中內部有一個 buffer 區塊， producer 會把資料送到 consumer 的 buffer 中，滿的時候就會叫送出 <code>data</code> 事件，若 <code>readStream</code> 有註冊事件(即 <code>readStream.on('data', callback)</code>) ，就會被叫起處理資料。</p>
+<p>我們只需了解到這，更細的說明有機會再說。</p>
+<p>舉個 <code>fs</code> 模組常用的 stream 為例子：</p>
+<ul>
+<li><code>fs.createWriteStream(path[, options])</code>：建立一個 write stream，拿來寫檔
+圖解 write stream 就是
+<picture><img class="img-fluid" alt="fs_write_stream.png" src="/series/2019-ithome-ironman/day-18-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E5%89%96%E6%9E%90-express-%E8%B7%AF%E7%94%B1router-%E4%B8%89%E6%A6%82%E5%BF%B5%E4%B8%AD%E9%96%93%E4%BB%B6middleware%E8%B7%AF%E7%94%B1routing%E6%B5%81stream/resources/052C8B934A69688586D3EA6B1D8057B1.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</li>
+<li><code>fs.createReadStream(path[, options])</code>：建立一個 read stream，拿來讀檔
+圖解 read stream 就是
+<picture><img class="img-fluid" alt="read_stream.png" src="/series/2019-ithome-ironman/day-18-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E5%89%96%E6%9E%90-express-%E8%B7%AF%E7%94%B1router-%E4%B8%89%E6%A6%82%E5%BF%B5%E4%B8%AD%E9%96%93%E4%BB%B6middleware%E8%B7%AF%E7%94%B1routing%E6%B5%81stream/resources/1C664D9AF9202D5B510C7BE49604F357.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</li>
+</ul>
+<p>最後， stream 的迷人之處在於 <code>readStream.pipe(writeStream)</code>，就好像透過程式把兩個端點接起來，例如：copy 的 stream 版本
+<picture><img class="img-fluid" alt="copy_stream.png" src="/series/2019-ithome-ironman/day-18-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E5%89%96%E6%9E%90-express-%E8%B7%AF%E7%94%B1router-%E4%B8%89%E6%A6%82%E5%BF%B5%E4%B8%AD%E9%96%93%E4%BB%B6middleware%E8%B7%AF%E7%94%B1routing%E6%B5%81stream/resources/FE6FE4E9C422A6D7F76E7E1ADDAE9871.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1">// copyFile.js
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="kr">const</span> <span class="nx">readStream</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">createReadStream</span><span class="p">(</span><span class="s1">&#39;README.md&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="kr">const</span> <span class="nx">writeStream</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">createWriteStream</span><span class="p">(</span><span class="s1">&#39;README.log&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="nx">readStream</span><span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">writeStream</span><span class="p">);</span>
+</span></span></code></pre></div><h3 id="requestreq-responseres-其實分別就是-read-stream-和-write-steam">request(req), response(res) 其實分別就是 read stream 和 write steam<a class="anchor ms-1" href="#requestreq-responseres-其實分別就是-read-stream-和-write-steam"><i class="fas fa-link"></i></a></h3>
+<p>了解 stream 基本概念後，回來看 express 的 middleware 中 <code>req</code>, <code>res</code>，它們的真身就是：</p>
+<ul>
+<li><code>req</code>：read stream</li>
+<li><code>res</code>：write steam</li>
+</ul>
+<p>只不過它幫我們設定和處理 http message，像 state code, headers…之類的。</p>
+<p>之前說過，在 middleware中 「<strong>回應 request</strong>」 是指什麼呢？</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">()</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="nx">res</span><span class="p">.</span><span class="nx">file</span><span class="p">()</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="nx">res</span><span class="p">.</span><span class="nx">download</span><span class="p">()</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">()</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="nx">res</span><span class="p">.</span><span class="nx">render</span><span class="p">()</span>
+</span></span></code></pre></div><p>以上都是拿來回應 request， 都會引起 write steam 送出 <code>end()</code> 而斷掉。</p>
+<h3 id="不使用-appuseexpressjson-的後果及修正">不使用 app.use(express.json()) 的後果及修正<a class="anchor ms-1" href="#不使用-appuseexpressjson-的後果及修正"><i class="fas fa-link"></i></a></h3>
+<p>我們曾在 <a href="https://ithelp.ithome.com.tw/articles/10200622" target="_blank" rel="noopener noreferrer">Day 9 - 一周目- 開始玩轉後端(二)<i class="fas fa-external-link-square-alt ms-1"></i></a> 中提到</p>
+<p><picture><img class="img-fluid" alt="Screen Shot 2018-10-18 at 3.56.34 PM.png" src="/series/2019-ithome-ironman/day-18-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E5%89%96%E6%9E%90-express-%E8%B7%AF%E7%94%B1router-%E4%B8%89%E6%A6%82%E5%BF%B5%E4%B8%AD%E9%96%93%E4%BB%B6middleware%E8%B7%AF%E7%94%B1routing%E6%B5%81stream/resources/FBD681B4777F01B6B85D8AC0BE5AF7C3.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>把 <code>app.js</code> 中的 <code>app.use(express.json());</code> 註解掉會讓 <code>req.body</code> 讀不到 JSON 資料，這是因為 <code>express.json()</code> middleware 幫我們讀資料和轉換成 JSON Object。不過，我們還是可以自己處理，利用 <code>req</code> 這個 read stream 就可以讀出資料(使用 <a href="https://nodejs.org/dist/latest-v10.x/docs/api/stream.html#stream_two_reading_modes" target="_blank" rel="noopener noreferrer">flowing mode<i class="fas fa-external-link-square-alt ms-1"></i></a>，可以監聽收事件)。過程如下：</p>
+<ol>
+<li>收集所有 raw 資料(Buffer array)</li>
+<li>用解碼 Buffer array 成 String</li>
+<li>轉換成 JSON Object</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="nx">router</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">&#39;/api/echo&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">    <span class="c1">// decode: Buffer -&gt; String
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="p">{</span> <span class="nx">StringDecoder</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;string_decoder&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">    <span class="kr">const</span> <span class="nx">decoder</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">StringDecoder</span><span class="p">(</span><span class="s1">&#39;utf8&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">    <span class="kd">let</span> <span class="nx">rawData</span> <span class="o">=</span> <span class="p">[];</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">    <span class="nx">req</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span> <span class="c1">// read chunk
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="c1"></span>      <span class="nx">rawData</span> <span class="o">=</span> <span class="nx">rawData</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">    <span class="nx">req</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;end&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">      <span class="kr">const</span> <span class="nx">decodeData</span> <span class="o">=</span> <span class="nx">decoder</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="nx">rawData</span><span class="p">);</span> <span class="c1">// to String
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="c1"></span>      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">decodeData</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">
+</span></span><span class="line"><span class="ln">14</span><span class="cl">      <span class="kr">const</span> <span class="nx">body</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">decodeData</span><span class="p">);</span> <span class="c1">// to Object
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="c1"></span>      <span class="nx">mongoService</span><span class="p">.</span><span class="nx">insertEcho</span><span class="p">(</span><span class="nx">body</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl">        <span class="p">.</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">          <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">(</span><span class="nx">body</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">        <span class="p">})</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl">        <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">next</span><span class="p">);</span> <span class="c1">// 發生 error 的話，next() 交給之後的 middleware 處理，express 有預設的處理方法
+</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="c1"></span>    <span class="p">});</span>
+</span></span><span class="line"><span class="ln">21</span><span class="cl">  <span class="p">});</span>
+</span></span></code></pre></div><p>這樣就可以了。是不是超麻煩的？感謝 <code>express.json()</code> 這方便的 middleware 的存在。</p>
+<p>我修改過的檔案放在分支 <a href="https://github.com/eugenechen0514/ithelp-30dayfullstack-Day18/tree/release/no_express_json" target="_blank" rel="noopener noreferrer">no_express_json<i class="fas fa-external-link-square-alt ms-1"></i></a>中，有興趣可以下載來跑看看。</p>
+<h1 id="總結">總結<a class="anchor ms-1" href="#總結"><i class="fas fa-link"></i></a></h1>
+<p>今天解析了三個概念：</p>
+<ol>
+<li>中間件(middleware)：串接處理流程</li>
+<li>路由(routing)：網址片斷串接</li>
+<li>流(stream)：送出回應 request</li>
+</ol>
+<p>他們在 express 的運作極為重要。學習時可以用 debug 模式，多下一些中斷點觀察他們跑流程，可以有很大的收穫。</p>
+<p>最後，我們提一些要點做為本篇的總結：</p>
+<ol>
+<li>router, middleware 的串接是有順序性的</li>
+<li>每個 middleware 都要呼叫 <code>next()</code>，除非它是送出回應的最後 middleware</li>
+<li>回應 request 的方法(ex: <code>res.json()</code>) 很多，它們會讓 <code>res</code>(write steam) 斷掉，重送它們會印出 <code>Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client</code>，但不會中斷程式和進 error-handling middleware</li>
+</ol>
+<blockquote>
+<p>測驗：請自己寫一個 middleware 可以印出所有 request 的網址。解答放在 <a href="https://github.com/eugenechen0514/ithelp-30dayfullstack-Day18/commit/2c2a78e077f34592d3740a794a8dc3f703b7b03b" target="_blank" rel="noopener noreferrer">github commit<i class="fas fa-external-link-square-alt ms-1"></i></a></p>
+</blockquote>
+<blockquote>
+<p>題外話：有人把「送出回應的最後 middleware」稱作端點(endpoint)，也有人說一個 API 網址 <code>GET /api/sayHi</code> 是 endpoint。我想都可以，方便溝通就好。</p>
+</blockquote>
+<h1 id="附錄express-middleware-運作原始碼">附錄：express middleware 運作原始碼<a class="anchor ms-1" href="#附錄express-middleware-運作原始碼"><i class="fas fa-link"></i></a></h1>
+<p>我把 express middleware 運作原始碼截錄下來，有興趣可以自己看一下，就會發現巧妙之處。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1">// lib/router/index.js
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="c1"></span><span class="nx">proto</span><span class="p">.</span><span class="nx">use</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">use</span><span class="p">(</span><span class="nx">fn</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">  <span class="kd">var</span> <span class="nx">offset</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">  <span class="kd">var</span> <span class="nx">path</span> <span class="o">=</span> <span class="s1">&#39;/&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">  <span class="c1">// default path to &#39;/&#39;
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="c1"></span>  <span class="c1">// disambiguate router.use([fn])
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">fn</span> <span class="o">!==</span> <span class="s1">&#39;function&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">    <span class="kd">var</span> <span class="nx">arg</span> <span class="o">=</span> <span class="nx">fn</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">
+</span></span><span class="line"><span class="ln">11</span><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">arg</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">arg</span><span class="p">.</span><span class="nx">length</span> <span class="o">!==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">      <span class="nx">arg</span> <span class="o">=</span> <span class="nx">arg</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">
+</span></span><span class="line"><span class="ln">15</span><span class="cl">    <span class="c1">// first arg is the path
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">arg</span> <span class="o">!==</span> <span class="s1">&#39;function&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">      <span class="nx">offset</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">      <span class="nx">path</span> <span class="o">=</span> <span class="nx">fn</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln">20</span><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="ln">21</span><span class="cl">
+</span></span><span class="line"><span class="ln">22</span><span class="cl">  <span class="kd">var</span> <span class="nx">callbacks</span> <span class="o">=</span> <span class="nx">flatten</span><span class="p">(</span><span class="nx">slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">arguments</span><span class="p">,</span> <span class="nx">offset</span><span class="p">));</span>
+</span></span><span class="line"><span class="ln">23</span><span class="cl">
+</span></span><span class="line"><span class="ln">24</span><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nx">callbacks</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">25</span><span class="cl">    <span class="k">throw</span> <span class="k">new</span> <span class="nx">TypeError</span><span class="p">(</span><span class="s1">&#39;Router.use() requires a middleware function&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">26</span><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="ln">27</span><span class="cl">
+</span></span><span class="line"><span class="ln">28</span><span class="cl">  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">callbacks</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">29</span><span class="cl">    <span class="kd">var</span> <span class="nx">fn</span> <span class="o">=</span> <span class="nx">callbacks</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+</span></span><span class="line"><span class="ln">30</span><span class="cl">
+</span></span><span class="line"><span class="ln">31</span><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">fn</span> <span class="o">!==</span> <span class="s1">&#39;function&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">32</span><span class="cl">      <span class="k">throw</span> <span class="k">new</span> <span class="nx">TypeError</span><span class="p">(</span><span class="s1">&#39;Router.use() requires a middleware function but got a &#39;</span> <span class="o">+</span> <span class="nx">gettype</span><span class="p">(</span><span class="nx">fn</span><span class="p">))</span>
+</span></span><span class="line"><span class="ln">33</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln">34</span><span class="cl">
+</span></span><span class="line"><span class="ln">35</span><span class="cl">    <span class="c1">// add the middleware
+</span></span></span><span class="line"><span class="ln">36</span><span class="cl"><span class="c1"></span>    <span class="nx">debug</span><span class="p">(</span><span class="s1">&#39;use %o %s&#39;</span><span class="p">,</span> <span class="nx">path</span><span class="p">,</span> <span class="nx">fn</span><span class="p">.</span><span class="nx">name</span> <span class="o">||</span> <span class="s1">&#39;&lt;anonymous&gt;&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">37</span><span class="cl">
+</span></span><span class="line"><span class="ln">38</span><span class="cl">    <span class="kd">var</span> <span class="nx">layer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Layer</span><span class="p">(</span><span class="nx">path</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">39</span><span class="cl">      <span class="nx">sensitive</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">caseSensitive</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">40</span><span class="cl">      <span class="nx">strict</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">41</span><span class="cl">      <span class="nx">end</span><span class="o">:</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="ln">42</span><span class="cl">    <span class="p">},</span> <span class="nx">fn</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">43</span><span class="cl">
+</span></span><span class="line"><span class="ln">44</span><span class="cl">    <span class="nx">layer</span><span class="p">.</span><span class="nx">route</span> <span class="o">=</span> <span class="kc">undefined</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">45</span><span class="cl">
+</span></span><span class="line"><span class="ln">46</span><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">stack</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">layer</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">47</span><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="ln">48</span><span class="cl">
+</span></span><span class="line"><span class="ln">49</span><span class="cl">  <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">50</span><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1">// lib/router/route.js
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="c1"></span><span class="nx">Route</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">dispatch</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">dispatch</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">done</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">  <span class="kd">var</span> <span class="nx">idx</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">  <span class="kd">var</span> <span class="nx">stack</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">stack</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nx">stack</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">    <span class="k">return</span> <span class="nx">done</span><span class="p">();</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">  <span class="kd">var</span> <span class="nx">method</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">method</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">();</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nx">method</span> <span class="o">===</span> <span class="s1">&#39;head&#39;</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">methods</span><span class="p">[</span><span class="s1">&#39;head&#39;</span><span class="p">])</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">    <span class="nx">method</span> <span class="o">=</span> <span class="s1">&#39;get&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">
+</span></span><span class="line"><span class="ln">14</span><span class="cl">  <span class="nx">req</span><span class="p">.</span><span class="nx">route</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">
+</span></span><span class="line"><span class="ln">16</span><span class="cl">  <span class="nx">next</span><span class="p">();</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">
+</span></span><span class="line"><span class="ln">18</span><span class="cl">  <span class="kd">function</span> <span class="nx">next</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl">    <span class="c1">// signal to exit route
+</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="nx">err</span> <span class="o">&amp;&amp;</span> <span class="nx">err</span> <span class="o">===</span> <span class="s1">&#39;route&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">21</span><span class="cl">      <span class="k">return</span> <span class="nx">done</span><span class="p">();</span>
+</span></span><span class="line"><span class="ln">22</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln">23</span><span class="cl">
+</span></span><span class="line"><span class="ln">24</span><span class="cl">    <span class="c1">// signal to exit router
+</span></span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="nx">err</span> <span class="o">&amp;&amp;</span> <span class="nx">err</span> <span class="o">===</span> <span class="s1">&#39;router&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">26</span><span class="cl">      <span class="k">return</span> <span class="nx">done</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">27</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln">28</span><span class="cl">
+</span></span><span class="line"><span class="ln">29</span><span class="cl">    <span class="kd">var</span> <span class="nx">layer</span> <span class="o">=</span> <span class="nx">stack</span><span class="p">[</span><span class="nx">idx</span><span class="o">++</span><span class="p">];</span>
+</span></span><span class="line"><span class="ln">30</span><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">layer</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">31</span><span class="cl">      <span class="k">return</span> <span class="nx">done</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">32</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln">33</span><span class="cl">
+</span></span><span class="line"><span class="ln">34</span><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">layer</span><span class="p">.</span><span class="nx">method</span> <span class="o">&amp;&amp;</span> <span class="nx">layer</span><span class="p">.</span><span class="nx">method</span> <span class="o">!==</span> <span class="nx">method</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">35</span><span class="cl">      <span class="k">return</span> <span class="nx">next</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">36</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln">37</span><span class="cl">
+</span></span><span class="line"><span class="ln">38</span><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">39</span><span class="cl">      <span class="nx">layer</span><span class="p">.</span><span class="nx">handle_error</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">40</span><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">41</span><span class="cl">      <span class="nx">layer</span><span class="p">.</span><span class="nx">handle_request</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">42</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln">43</span><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="ln">44</span><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div></div></div>
+  <div class="card-footer"><div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-prev">
+    <i class="fas fa-fw fa-chevron-circle-down post-prev-icon" data-fa-transform="rotate-90"></i>
+    <a href="/series/2019-ithome-ironman/day-17-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E4%BE%9D%E8%B3%B4%E6%B3%A8%E5%85%A5%E8%88%87%E7%B5%84%E6%85%8B%E5%8C%96%E5%B0%88%E6%A1%88/">Day 17 - 二周目 - 依賴注入與組態化專案
+</a>
+  </div><div class="post-nav post-next">
+    <a href="/series/2019-ithome-ironman/day-19-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E5%B8%B3%E5%AF%86%E8%AA%8D%E8%A8%BC%E8%88%87jwt-json-web-token%E5%82%B3%E9%81%9E/">Day 19 - 二周目 - 帳密認証與JWT (JSON Web Token)傳遞
+</a>
+    <i class="fas fa-fw fa-chevron-circle-down post-next-icon" data-fa-transform="rotate-270"></i>
+  </div></div></div>
+</article><div class="post-copyright mb-3 row card component" id="post-copyright">
+    <div class="card-header">
+        <h2 class="card-title fs-4 my-2 text-surface">版權</h2>
+    </div>
+    <div class="card-body"><a class="d-flex align-items-center flex-column" target="_blank" rel="license noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_TW">
+  <span><i class="fab fa-fw fa-2x fa-creative-commons"></i><i class="fab fa-fw fa-2x fa-creative-commons-by"></i><i class="fab fa-fw fa-2x fa-creative-commons-nc"></i><i class="fab fa-fw fa-2x fa-creative-commons-sa"></i></span>
+  CC BY-NC-SA 4.0 
+</a>
+
+
+    </div>
+</div><section class="related-posts row card component">
+    <div class="card-header">
+      <h2 class="card-title fs-4 my-2 text-surface">相關文章</h2>
+    </div>
+    <div class="card-body">
+      <ul class="post-list list-unstyled"><li>
+          <a href="/series/2019-ithome-ironman/day-17-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E4%BE%9D%E8%B3%B4%E6%B3%A8%E5%85%A5%E8%88%87%E7%B5%84%E6%85%8B%E5%8C%96%E5%B0%88%E6%A1%88/">Day 17 - 二周目 - 依賴注入與組態化專案
+</a>
+          <span class="float-end post-date">2018-10-17
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-16-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E5%BC%B7%E5%8C%96%E5%BE%8C%E7%AB%AF%E5%B0%88%E6%A1%88%E7%B5%90%E6%A7%8B/">Day 16 - 二周目 - 強化後端專案結構
+</a>
+          <span class="float-end post-date">2018-10-16
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-15-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E7%94%A8-docker-%E7%8E%A9%E8%BD%89-mongodb/">Day 15 - 二周目 - 用 Docker 玩轉 MongoDB
+</a>
+          <span class="float-end post-date">2018-10-15
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-14-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E5%BE%9Epromise-%E6%98%87%E8%8F%AF%E5%88%B0-asyncawait/">Day 14 - 二周目 - 從Promise 昇華到 Async:await
+</a>
+          <span class="float-end post-date">2018-10-14
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-13-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E9%9D%9E%E5%90%8C%E6%AD%A5%E7%A5%9E%E5%99%A8-promise/">Day 13 - 二周目 - 非同步神器 Promise
+</a>
+          <span class="float-end post-date">2018-10-13
+</span>
+        </li></ul>
+    </div>
+  </section><div class="card component row post-comments" id="post-comments">
+  <div class="card-header">
+    <h2 class="card-title my-2 fs-4 text-surface">評論</h2>
+  </div>
+  <div class="card-body"><script src="https://utteranc.es/client.js"
+  repo="eugenechen0514/eugenechen0514.github.io"
+  issue-term="pathname"
+  label="comment"
+  theme="github-light"
+  crossorigin="anonymous"
+  async>
+</script></div>
+</div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container d-flex flex-column">
+    
+    <div class="card row text-center profile component">
+  <div class="card-body">
+    <div class="col-12 d-flex align-items-center justify-content-center"><picture><img class="profile-avatar rounded-circle" alt="EugeneChen" src="/images/profile.webp" loading="lazy" data-viewer-invisible
+    
+     width="298" height="305"
+     />
+</picture>
+</div>
+    <div class="col-12 profile-meta"><div class="profile-name fw-fold fs-lg">EugeneChen</div><div class="profile-bio">軟體工程師，喜歡動手做些有的沒的專案，同時也喜愛數學、攝影、桌球，慢跑、游泳、作菜。</div><div class="profile-about"><i class="fas fa-fw fa-user"></i><a target="_blank" rel="noopener noreferrer" href="https://eugene-website.herokuapp.com">關於我</a></div><nav class="social-links nav justify-content-center"><a class="nav-link social-link" href="mailto:yujiechen0514@gmail.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i></a><a class="nav-link social-link" target="_blank" href="https://github.com/eugenechen0514" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-github"></i></a><a class="nav-link social-link" target="_blank" href="/index.xml" title="RSS" rel="noopener noreferrer">
+    <i class="fas fa-fw fa-2x fa-rss"></i></a></nav>
+</div>
+  </div>
+</div>
+<section class="taxonomies row card component">
+    <div class="card-body">
+        <ul class="nav nav-tabs" id="myTab" role="tablist"><li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="taxonomySeriesTab" data-bs-toggle="tab" data-bs-target="#taxonomySeries" 
+                        type="button" role="tab" aria-controls="專欄" aria-selected="true">
+                        專欄
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                    <button class="nav-link" id="taxonomyCategoriesTab" data-bs-toggle="tab" data-bs-target="#taxonomyCategories" 
+                        type="button" role="tab" aria-controls="分類" aria-selected="true">
+                        分類
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                    <button class="nav-link" id="taxonomyTagsTab" data-bs-toggle="tab" data-bs-target="#taxonomyTags" 
+                        type="button" role="tab" aria-controls="標籤" aria-selected="true">
+                        標籤
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                <button class="nav-link" id="taxonomyArchivesTab" data-bs-toggle="tab" data-bs-target="#taxonomyArchive" 
+                    type="button" role="tab" aria-controls="taxonomyArchives" aria-selected="true">
+                    歸檔
+                </button>
+            </li>
+        </ul>
+          
+        <div class="tab-content mt-3"><div class="tab-pane active" id="taxonomySeries" role="tabpanel" aria-labelledby="taxonomySeriesTab" tabindex="0"><a href="/series/2019-ithome-ironman/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="用js成為老闆心中的全端工程師 - 2019 iT邦幫忙鐵人賽">
+                        用js成為老闆心中的全端工程師 - 2019 iT邦幫忙鐵人賽<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a></div><div class="tab-pane" id="taxonomyCategories" role="tabpanel" aria-labelledby="taxonomyCategoriesTab" tabindex="0"><a href="/categories/%E9%9A%A8%E6%89%8B%E7%AD%86%E8%A8%98/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="隨手筆記">
+                        隨手筆記<span class="badge badge-sm text-secondary bg-white ms-1">2</span></a><a href="/categories/%E5%BF%83%E5%BE%97/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="心得">
+                        心得<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a></div><div class="tab-pane" id="taxonomyTags" role="tabpanel" aria-labelledby="taxonomyTagsTab" tabindex="0"><a href="/tags/2019-it-%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2019 iT 邦幫忙鐵人賽">
+                        2019 iT 邦幫忙鐵人賽<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a><a href="/tags/%E7%94%A8js%E6%88%90%E7%82%BA%E8%80%81%E9%97%86%E5%BF%83%E4%B8%AD%E7%9A%84%E5%85%A8%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%AB/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="用js成為老闆心中的全端工程師">
+                        用js成為老闆心中的全端工程師<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a><a href="/tags/alphacamp/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="AlphaCamp">
+                        AlphaCamp<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/kafka/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="Kafka">
+                        Kafka<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/mongodb/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="MongoDB">
+                        MongoDB<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/pandas/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="pandas">
+                        pandas<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/python/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="python">
+                        python<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/%E6%8E%A8%E8%96%A6%E7%B3%BB%E7%B5%B1/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="推薦系統">
+                        推薦系統<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a></div><div class="tab-pane" id="taxonomyArchive" role="tabpanel" aria-labelledby="taxonomyArchiveTab" tabindex="0"><a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2022">
+    2022 <span class="badge badge-sm text-secondary bg-white ms-1">1</span>
+    </a>
+<a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2021">
+    2021 <span class="badge badge-sm text-secondary bg-white ms-1">2</span>
+    </a>
+<a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2018">
+    2018 <span class="badge badge-sm text-secondary bg-white ms-1">30</span>
+    </a>
+
+</div>
+        </div>
+    </div>
+</section><div class="post-toc row mb-4 card component" id="postTOC">
+  <div class="card-header">
+    <h2 class="card-title fs-4 my-2 text-surface">目錄</h2>
+  </div>
+  <div class="card-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#中間件middleware串接處理流程">中間件(middleware)：串接處理流程</a></li>
+    <li><a href="#路由routing網址片斷串接">路由(routing)：網址片斷串接</a>
+      <ul>
+        <li><a href="#關於網址片斷比對">關於網址片斷比對</a></li>
+        <li><a href="#預設的-middleware">預設的 middleware</a></li>
+      </ul>
+    </li>
+    <li><a href="#流stream送出回應-request">流(stream)：送出回應 request</a>
+      <ul>
+        <li><a href="#流stream-的基本概念">流(stream) 的基本概念</a></li>
+        <li><a href="#requestreq-responseres-其實分別就是-read-stream-和-write-steam">request(<code>req</code>), response(<code>res</code>) 其實分別就是 read stream 和 write steam</a></li>
+        <li><a href="#不使用-appuseexpressjson-的後果及修正">不使用 <code>app.use(express.json())</code> 的後果及修正</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div><section class="recent-posts row card component">
+  <div class="card-header">
+    <h2 class="card-title my-2 fs-4 text-surface">最近文章</h2>
+  </div>
+  <div class="card-body">
+    <ul class="post-list list-unstyled ms-1"><li class="mb-2">
+        <a href="/posts/reviews/2022-02-06-alphacamp%E6%8E%A8%E8%96%A6%E7%B3%BB%E7%B5%B1%E4%B8%8A%E8%AA%B2%E5%BF%83%E5%BE%97/">AlphaCamp 推薦系統上課心得
+</a>
+      </li><li class="mb-2">
+        <a href="/posts/notes/2021-08-22-%E4%B8%80%E7%AA%BAkafka%E5%85%A7%E9%83%A8%E5%84%B2%E5%AD%98%E8%B3%87%E6%96%99/">一窺 Kafka 內部儲存資料
+</a>
+      </li><li class="mb-2">
+        <a href="/posts/notes/2021-08-01-mongodb-5-%E4%BE%86%E4%BA%86%E6%9C%89%E4%BB%80%E9%BA%BC%E5%80%BC%E5%BE%97%E6%B3%A8%E6%84%8F%E7%9A%84%E6%9B%B4%E6%96%B0/">MongoDb 5 來了，有什麼值得注意的更新呢?
+</a>
+      </li><li class="mb-2">
+        <a href="/series/2019-ithome-ironman/day-30-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-network-%E6%9A%A8%E5%AE%8C%E8%B3%BD%E5%9B%9E%E9%A1%A7/">Day 30- 三周目 - Docker Network 暨完賽回顧
+</a>
+      </li><li class="mb-2">
+        <a href="/series/2019-ithome-ironman/day-29-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-compose%E4%B8%80%E6%AC%A1%E7%AE%A1%E7%90%86%E5%A4%9A%E5%80%8B%E5%AE%B9%E5%99%A8/">Day 29- 三周目 - Docker Compose：一次管理多個容器
+</a>
+      </li></ul>
+  </div>
+</section>
+    
+  </div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><div class="offcanvas offcanvas-bottom h-auto" tabindex="-1" id="offcanvasActionsPanel"
+  aria-labelledby="offcanvasActionsPanelLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title fs-4" id="offcanvasActionsPanelLabel">
+      <i class="fas fa-fw fa-th-large me-1"></i>
+      Actions
+    </h5>
+    <button type="button" class="btn-close ms-auto" data-bs-dismiss="offcanvas" data-bs-target="offcanvasActionsPanel" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body mt-2"><div class="social-share mb-4 d-flex overflow-auto">
+      <a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Twitter Share Button"
+      target="_blank" href="https://twitter.com/intent/tweet?title=Day%2018%20-%20%e4%ba%8c%e5%91%a8%e7%9b%ae%20-%20%e5%89%96%e6%9e%90%20express%20%e8%b7%af%e7%94%b1%28router%29%20%e4%b8%89%e6%a6%82%e5%bf%b5%ef%bc%9a%e4%b8%ad%e9%96%93%e4%bb%b6%28middleware%29%e3%80%81%e8%b7%af%e7%94%b1%28routing%29%e3%80%81%e6%b5%81%28stream%29&url=%2fseries%2f2019-ithome-ironman%2fday-18-%25E4%25BA%258C%25E5%2591%25A8%25E7%259B%25AE-%25E5%2589%2596%25E6%259E%2590-express-%25E8%25B7%25AF%25E7%2594%25B1router-%25E4%25B8%2589%25E6%25A6%2582%25E5%25BF%25B5%25E4%25B8%25AD%25E9%2596%2593%25E4%25BB%25B6middleware%25E8%25B7%25AF%25E7%2594%25B1routing%25E6%25B5%2581stream%2f">
+        <i class="fab fa-2x fa-fw fa-twitter mb-2"></i> Twitter
+      </a>
+      <a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Facebook Share Button"
+        target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=%2fseries%2f2019-ithome-ironman%2fday-18-%25E4%25BA%258C%25E5%2591%25A8%25E7%259B%25AE-%25E5%2589%2596%25E6%259E%2590-express-%25E8%25B7%25AF%25E7%2594%25B1router-%25E4%25B8%2589%25E6%25A6%2582%25E5%25BF%25B5%25E4%25B8%25AD%25E9%2596%2593%25E4%25BB%25B6middleware%25E8%25B7%25AF%25E7%2594%25B1routing%25E6%25B5%2581stream%2f">
+        <i class="fab fa-2x fa-fw fa-facebook-f mb-2"></i> Facebook
+      </a>
+    </div>
+    <hr class="mb-4"><div class="actions d-flex overflow-auto align-items-center">
+      <a role="button" class="action action-go-back d-flex flex-column align-items-center me-3" href="javascript: window.history.back();">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-chevron-circle-down" data-fa-transform="rotate-90"></i></span> 返回
+      </a>
+      <a role="button" class="action action-reload-page d-flex flex-column align-items-center me-3">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-redo-alt"></i></span> 刷新
+      </a>
+      <a role="button" class="action action-copy-url d-flex flex-column align-items-center me-3">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-link"></i></span> 複製連結
+      </a>
+    </div>
+  </div>
+</div><nav class="social-links nav justify-content-center mb-2"><a class="nav-link social-link" href="mailto:yujiechen0514@gmail.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i></a><a class="nav-link social-link" target="_blank" href="https://github.com/eugenechen0514" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-github"></i></a><a class="nav-link social-link" target="_blank" href="https://linkedin.com/in/yuchieh-chen-37a48989" title="LinkedIn" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-linkedin-in"></i></a><a class="nav-link social-link" target="_blank" href="https://medium.com/@yujiechen0514" title="Medium" rel="noopener noreferrer">
+        <i class="fab fa-fw fa-2x fa-medium-m"></i></a><a class="nav-link social-link" target="_blank" href="/index.xml" title="RSS" rel="noopener noreferrer">
+    <i class="fas fa-fw fa-2x fa-rss"></i></a></nav>
+<div class="copyright mb-2">
+  Copyright © 2016-2022 EugeneChen. All Rights Reserved.
+</div>
+<div class="powered-by mb-2">
+  Powered by <a class="text-primary" href="https://gohugo.io" target="_blank" rel="noopener noreferrer">Hugo</a> and the <a class="text-primary" href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank" rel="noopener noreferrer">Bootstrap</a> theme.
+</div>
+<div class="sponsors">
+
+
+
+
+
+
+</div>
+</footer>
+<script src="/assets/main/bundle.min.2bc7d6952dbf38d6d2815939c58fc655e72d050b196d9fd99829d8fb23904646.js" integrity="sha256-K8fWlS2/ONbSgVk5xY/GVectBQsZbZ/ZmCnY&#43;yOQRkY=" crossorigin="anonymous" defer></script><script src="/assets/icons/bundle.min.a4bf8247f780c9bf61d579a8efe7129ec790bb98622bf4a29895eb21e689266c.js" integrity="sha256-pL&#43;CR/eAyb9h1Xmo7&#43;cSnseQu5hiK/SimJXrIeaJJmw=" crossorigin="anonymous" defer></script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('\/service-worker.min.js').then(function(reg) {
+      console.log('Successfully registered service worker', reg);
+    }).catch(function(err) {
+      console.warn('Error whilst registering service worker', err);
+    });
+  });
+}
+</script><script src="/assets/viewer/bundle.min.92d4a694e2e9a4c4d89b6998067e2f8e502dc7a951682bb5a160a3004b434908.js" integrity="sha256-ktSmlOLppMTYm2mYBn4vjlAtx6lRaCu1oWCjAEtDSQg=" crossorigin="anonymous" defer></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-ZWYL79X38Y', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+<script src="/assets/docsearch/bundle.min.c6965b5bee044b874617239932d6a7992b217f7949f895a7576980d110fb2ab1.js" integrity="sha256-xpZbW&#43;4ES4dGFyOZMtanmSshf3lJ&#43;JWnV2mA0RD7KrE=" crossorigin="anonymous" defer></script></body>
+</html>

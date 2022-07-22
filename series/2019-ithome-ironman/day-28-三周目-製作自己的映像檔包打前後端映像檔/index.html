@@ -1,0 +1,730 @@
+<!doctype html><html class="position-relative" itemscope itemtype="http://schema.org/WebPage" lang="zh-tw" data-theme="auto"
+  
+   data-palette="purple">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Day 28 - 三周目 - 製作自己的映像檔：包打前後端映像檔 - EugeneChen</title><link rel="apple-touch-icon" href="/images/icons/icon-180x180.png" sizes="180x180">
+<link rel="icon" href="/images/icons/icon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/images/icons/icon-16x16.png" sizes="16x16" type="image/png">
+<link rel="icon" href="/images/icons/favicon.ico">
+<link rel="manifest" href="/manifest.json">
+<meta name="keywords" content="" />
+<meta name="description" content="製作自己的映像檔：包打前後端映像檔" /><meta name="robots" content="index, follow" /><meta itemprop="name" content="Day 28 - 三周目 - 製作自己的映像檔：包打前後端映像檔">
+<meta itemprop="description" content="製作自己的映像檔：包打前後端映像檔"><meta itemprop="datePublished" content="2018-10-28T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2018-10-28T00:00:00+00:00" />
+<meta itemprop="wordCount" content="2516">
+<meta itemprop="keywords" content="2019 iT 邦幫忙鐵人賽,用js成為老闆心中的全端工程師," /><meta property="og:title" content="Day 28 - 三周目 - 製作自己的映像檔：包打前後端映像檔" />
+<meta property="og:description" content="製作自己的映像檔：包打前後端映像檔" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/series/2019-ithome-ironman/day-28-%E4%B8%89%E5%91%A8%E7%9B%AE-%E8%A3%BD%E4%BD%9C%E8%87%AA%E5%B7%B1%E7%9A%84%E6%98%A0%E5%83%8F%E6%AA%94%E5%8C%85%E6%89%93%E5%89%8D%E5%BE%8C%E7%AB%AF%E6%98%A0%E5%83%8F%E6%AA%94/" /><meta property="article:section" content="series" />
+<meta property="article:published_time" content="2018-10-28T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-10-28T00:00:00+00:00" /><meta property="og:site_name" content="EugeneChen" />
+<meta property="og:see_also" content="/series/2019-ithome-ironman/day-30-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-network-%E6%9A%A8%E5%AE%8C%E8%B3%BD%E5%9B%9E%E9%A1%A7/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-29-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-compose%E4%B8%80%E6%AC%A1%E7%AE%A1%E7%90%86%E5%A4%9A%E5%80%8B%E5%AE%B9%E5%99%A8/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-27-%E4%B8%89%E5%91%A8%E7%9B%AE-%E4%BA%94%E5%88%86%E9%90%98%E5%BB%BA%E7%AB%8B%E7%A7%81%E6%9C%89-npm-verdaccio/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-26-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E7%9C%8B%E5%AE%8C%E5%B0%B1%E6%9C%83%E6%9E%B6-docker-%E5%8C%96%E7%9A%84%E6%9C%8D%E5%8B%99/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-25-%E4%BA%8C%E5%91%A8%E7%9B%AE-react-component-%E5%A5%97%E4%BB%B6-material-ui-google-material-design-%E7%9A%84%E5%AF%A6%E4%BD%9C%E5%A5%97%E4%BB%B6/" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Day 28 - 三周目 - 製作自己的映像檔：包打前後端映像檔"/>
+<meta name="twitter:description" content="製作自己的映像檔：包打前後端映像檔"/>
+<meta property="og:image" content="/images/logo.png"/>
+  <meta name="twitter:image" content="/images/logo.png"/><link rel="stylesheet" href="/assets/main/bundle.min.925f59d4c744cc5e99dcc7d02a6f68dff5cceaea488c7667bd947bf7aa35b649.css" integrity="sha256-kl9Z1MdEzF6Z3MfQKm9o3/XM6upIjHZnvZR796o1tkk=" crossorigin="anonymous"><link rel="stylesheet" href="/assets/viewer/bundle.min.f05183267bb952fbc8c63a7178364de2951614ab71d544ec1068ad36c7447ccc.css" integrity="sha256-8FGDJnu5UvvIxjpxeDZN4pUWFKtx1UTsEGitNsdEfMw=" crossorigin="anonymous"><link rel="stylesheet" href="/assets/docsearch/bundle.min.c165d6a127fffa285e6b89ef65362fe921bc0c1fdaefa35f6af069b962bdb50e.css" integrity="sha256-wWXWoSf/&#43;ihea4nvZTYv6SG8DB/a76NfavBpuWK9tQ4=" crossorigin="anonymous"></head>
+  <body><script>const items=["theme","palette"];items.forEach(function(e){const t=localStorage.getItem("hbs:"+e);t&&document.body.parentElement.setAttribute("data-"+e,t)})</script><header><nav class="top-app-bar shadow bg-primary text-white navbar navbar-expand-lg fixed-top">
+  <div class="container"><a class="navbar-brand flex-grow-1 flex-lg-grow-0 text-lg-start ms-2 ms-lg-0 mx-auto me-lg-3" href="/"><picture><img class="logo" alt="Logo" src="/images/logo.webp" loading="lazy"
+    
+     width="136" height="69"
+     />
+</picture>
+EugeneChen
+    </a>
+    <button class="navbar-toggler order-5" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarMenus"
+      aria-controls="navbarMenus" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-ellipsis-h"></i>
+    </button>
+    <div class="offcanvas-lg offcanvas-end flex-grow-1 bg-primary text-white" tabindex="-1" id="navbarMenus" aria-labelledby="navbarMenusLabel">
+      <div class="offcanvas-header px-4 pb-0">
+        <h5 class="offcanvas-title" id="navbarMenusLabel">EugeneChen</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" data-bs-target="#navbarMenus" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body p-4 pt-0 p-lg-0">
+        <hr class="d-lg-none">
+        <ul class="navbar-nav flex-row flex-wrap align-items-center me-auto"><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/posts/">
+              <i class="fas fa-book fa-fw"></i>文章
+            </a>
+          </li><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/series/">
+              <i class="fas fa-bars fa-fw"></i>專欄
+            </a>
+          </li><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/posts/notes/">
+              <i class="fas fa-sticky-note fa-fw"></i>隨手筆記
+            </a>
+          </li></ul>
+        <hr class="d-lg-none">
+        <form class="search-bar mx-auto my-1" action="/search" novalidate>
+  <div class="input-group input-group-sm align-items-center">
+    <span class="btn btn-search disabled position-absolute left-0 border-0">
+      <i class="fas fa-fw fa-search fa-lg"></i>
+    </span>
+    <input class="py-2 form-control rounded search-input" name="q" type="search" aria-label="Search" required>
+  </div>
+</form>
+<hr class="d-lg-none">
+        <ul class="navbar-nav flex-row flex-wrap align-items-center ms-md-auto"><li class="nav-item dropdown py-1 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-globe"></i>
+        <span class="d-lg-none">語言</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown"><li>
+        <a class="dropdown-item" href="/en/">
+            English
+        </a>
+        </li><li>
+        <a class="dropdown-item active" href="/">
+            繁體中文
+        </a>
+        </li></ul>
+</li>
+<li class="nav-item py-1 col-12 col-lg-auto">
+  <div class="vr d-none d-lg-flex h-100 mx-lg-2 text-white"></div>
+  <hr class="d-lg-none my-2">
+</li><li class="nav-item dropdown py-2 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="fontSizeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-font"></i>
+        <span class="d-lg-none">字體大小</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="fontSizeDropdown"><li>
+            <button class="font-size-item dropdown-item" data-size="xs">
+                特小號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="sm">
+                小號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item active" data-size="md">
+                中等
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="lg">
+                大號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="xl">
+                特大號
+            </button>
+        </li></ul>
+</li><li class="nav-item dropdown py-1 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="paletteDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-palette"></i>
+        <span class="d-lg-none">配色</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end px-2" aria-labelledby="paletteDropdown">
+        <div class="row"><li class="col-3 my-1">
+                <a role="button" id="palette-blue" aria-label="藍色"
+                    class="btn btn-sm w-100 palette text-bg-blue" data-palette="blue">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-blue-gray" aria-label="藍灰色"
+                    class="btn btn-sm w-100 palette text-bg-blue-gray" data-palette="blue-gray">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-brown" aria-label="棕色"
+                    class="btn btn-sm w-100 palette text-bg-brown" data-palette="brown">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-cyan" aria-label="青色"
+                    class="btn btn-sm w-100 palette text-bg-cyan" data-palette="cyan">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-green" aria-label="綠色"
+                    class="btn btn-sm w-100 palette text-bg-green" data-palette="green">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-indigo" aria-label="靛青色"
+                    class="btn btn-sm w-100 palette text-bg-indigo" data-palette="indigo">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-orange" aria-label="橙色"
+                    class="btn btn-sm w-100 palette text-bg-orange" data-palette="orange">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-pink" aria-label="粉色"
+                    class="btn btn-sm w-100 palette text-bg-pink" data-palette="pink">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-purple" aria-label="紫色"
+                    class="btn btn-sm w-100 palette text-bg-purple" data-palette="purple">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-red" aria-label="紅色"
+                    class="btn btn-sm w-100 palette text-bg-red" data-palette="red">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-teal" aria-label="藍綠色"
+                    class="btn btn-sm w-100 palette text-bg-teal" data-palette="teal">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-yellow" aria-label="黃色"
+                    class="btn btn-sm w-100 palette text-bg-yellow" data-palette="yellow">
+                </a>
+            </li></div>
+    </ul>
+</li>
+<li class="nav-item dropdown py-2 py-lg-1 col-6 col-lg-auto"><a class="nav-link px-0 px-lg-1" href="#" id="modeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="mode-icon fas fa-fw fa-adjust" id="modeIcon"></i>
+        <span class="d-lg-none">模式</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="modeDropdown"><li class="mode-item" data-color-mode="light" data-icon="sun">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-sun"></i> Light
+            </button>
+        </li><li class="mode-item" data-color-mode="dark" data-icon="moon">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-moon"></i> Dark
+            </button>
+        </li><li class="mode-item active" data-color-mode="auto" data-icon="adjust">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-adjust"></i> Auto
+            </button>
+        </li></ul>
+</li>
+</ul>
+      </div>
+    </div>
+  </div>
+</nav>
+</header>
+<main class="container">
+      <div class="row content"><noscript>
+    <div class="alert alert-danger" role="alert">你的瀏覽器不支持 JavaScript。</div>
+</noscript>
+
+<div class="col-lg-8">
+  <div class="container"><nav class="row card component" aria-label="breadcrumb">
+  <div class="card-body pb-0">
+    <ol class="breadcrumb"><li class="breadcrumb-item text-surface"><a href="/">主頁</a></li><li class="breadcrumb-item text-surface"><a href="/series/">Series</a></li><li class="breadcrumb-item active">Day 28 - 三周目 - 製作自己的映像檔：包打前後端映像檔</li></ol>
+  </div>
+</nav><div class="post-panel-wrapper position-sticky">
+  <div class="d-flex flex-column component rounded post-panel position-absolute border">
+    
+    <a class="action action-panel-toggler" role="button" title="Panel toggler">
+      <i class="fas fa-fw fa-chevron-circle-down"></i>
+    </a>
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button" title="Sidebar toggler">
+  <i class="fas fa-fw fa-expand-alt" data-fa-transform="rotate-45"></i>
+</a>
+
+    
+
+    
+    <a class="action" href="#post-copyright" role="button" aria-label="Copyright" title="Copyright">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    <a class="action" href="#post-comments" role="button" aria-label="Comments" title="Comments">
+  <i class="fas fa-fw fa-comments"></i>
+</a>
+    <a class="action" href="#postTOC" aria-controls="Table of contents" role="button" title="Table of contents">
+  <i class="fas fa-fw fa-list-alt"></i>
+</a>
+    
+  </div>
+</div>
+<article class="row card component mb-4 post">
+  <div class="card-header ">
+    <h1 class="card-title post-title my-2">Day 28 - 三周目 - 製作自己的映像檔：包打前後端映像檔
+</h1>
+  </div>
+  <div class="card-body"><div class="post-meta mb-3">
+  <span class="post-date me-1 mb-1" title="創建於 2018-10-28 08:00:00 &#43;0800 CST。">
+    2018-10-28
+  </span><span class="post-reading-time me-1 mb-1">
+    6 分鐘閱讀
+  </span><a href="/series/2019-ithome-ironman/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">用js成為老闆心中的全端工程師 - 2019 IT邦幫忙鐵人賽</a><a href="/tags/2019-it-%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">2019 IT 邦幫忙鐵人賽</a><a href="/tags/%E7%94%A8js%E6%88%90%E7%82%BA%E8%80%81%E9%97%86%E5%BF%83%E4%B8%AD%E7%9A%84%E5%85%A8%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%AB/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">用js成為老闆心中的全端工程師</a></div>
+<div class="post-content mb-3"><p>製作自己的映像檔：包打前後端映像檔</p>
+<h1 id="回憶">回憶<a class="anchor ms-1" href="#回憶"><i class="fas fa-link"></i></a></h1>
+<p>昨天學了如何利用 verdaccio 建立自己的私有庫，今天要自己做映像檔。</p>
+<h1 id="目標">目標<a class="anchor ms-1" href="#目標"><i class="fas fa-link"></i></a></h1>
+<p>可能很多人會遇到以下問題：</p>
+<ul>
+<li>怎麼在無對外網路的環境下發佈程式</li>
+<li>相依套件太多怎麼辨</li>
+<li>怎麼隨時切換版本</li>
+</ul>
+<p>以上問題，在 Docker 的世界可以容易克服：把你的程式打包成 <strong>映像檔</strong></p>
+<p>今夾就要來學習打包我們的前後端專案 <code>hello-mongo</code>、<code>hello-react</code>。</p>
+<p>請分別拷貝</p>
+<ol>
+<li><code>hello-mongo</code>：見 <a href="https://ithelp.ithome.com.tw/articles/10203292" target="_blank" rel="noopener noreferrer">Day 19 - 二周目 - 帳密認証與JWT (JSON Web Token)傳遞<i class="fas fa-external-link-square-alt ms-1"></i></a></li>
+<li><code>hello-react</code>： 見 <a href="https://ithelp.ithome.com.tw/articles/10205147" target="_blank" rel="noopener noreferrer">Day 25 - 二周目 - React component 套件 Material-UI： Google Material Design 的實作套件<i class="fas fa-external-link-square-alt ms-1"></i></a></li>
+</ol>
+<blockquote>
+<p>過程請參考 commit log：
+1. <a href="https://github.com/eugenechen0514/ithelp-30dayfullstack-Day28-backend" target="_blank" rel="noopener noreferrer">ithelp-30dayfullstack-Day28-backend<i class="fas fa-external-link-square-alt ms-1"></i></a>
+2. <a href="https://github.com/eugenechen0514/ithelp-30dayfullstack-Day28-frontend" target="_blank" rel="noopener noreferrer">ithelp-30dayfullstack-Day28-frontend<i class="fas fa-external-link-square-alt ms-1"></i></a></p>
+</blockquote>
+<h1 id="docker-image">Docker image<a class="anchor ms-1" href="#docker-image"><i class="fas fa-link"></i></a></h1>
+<p>打包映像檔需要一個 <code>Dockfile</code> 來描述打包過程，之後再執行 <code>docker build</code> 就可以進行製作映像檔。</p>
+<p><code>Dockfile</code> 就像是在 terminal 中打指令一樣，Docker 使用一行一行的操作(instruction)來建立映像檔。每個操作用大寫命名。</p>
+<p>我們用到的操作不多，全部操作見<a href="https://docs.docker.com/engine/reference/builder/" target="_blank" rel="noopener noreferrer">Dockerfile reference<i class="fas fa-external-link-square-alt ms-1"></i></a></p>
+<p>你可以想像現在有一個容器的File System 且 進入它，你想放什麼檔案？執行什麼指令？</p>
+<h2 id="製作後端映像檔">製作後端映像檔<a class="anchor ms-1" href="#製作後端映像檔"><i class="fas fa-link"></i></a></h2>
+<h3 id="建置操作檔-dockerfile-和-建置忽略檔dockerignore">建置操作檔 Dockerfile 和 建置忽略檔.dockerignore<a class="anchor ms-1" href="#建置操作檔-dockerfile-和-建置忽略檔dockerignore"><i class="fas fa-link"></i></a></h3>
+<ol>
+<li>
+<p>在根目錄下建立一個名為 <code>Dockerfile</code> 的檔案</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="k">FROM</span><span class="s"> node:10</span><span class="err">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="err"></span><span class="c"># Localtime</span><span class="err">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="err"></span><span class="k">ENV</span> <span class="nv">TZ</span><span class="o">=</span>Asia/Taipei<span class="err">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="err"></span><span class="k">RUN</span> ln -snf /usr/share/zoneinfo/<span class="nv">$TZ</span> /etc/localtime <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="nv">$TZ</span> &gt; /etc/timezone<span class="err">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="err"></span><span class="c"># Create app directory</span><span class="err">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="err"></span><span class="k">WORKDIR</span><span class="s"> /usr/src/app</span><span class="err">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="err"></span><span class="c"># Install app dependencies</span><span class="err">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="err"></span><span class="k">COPY</span> package*.json ./<span class="err">
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="err"></span><span class="c"># Use private registry</span><span class="err">
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="err"></span><span class="k">RUN</span> npm <span class="nb">set</span> registry http://127.0.0.1:4873<span class="err">
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="err"></span><span class="k">RUN</span> npm install<span class="err">
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="err"></span><span class="c"># If you are building your code for production</span><span class="err">
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="err"></span><span class="c"># RUN npm install --only=production</span><span class="err">
+</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="err"></span><span class="c"># Bundle app source</span><span class="err">
+</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="err"></span><span class="k">COPY</span> . .<span class="err">
+</span></span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="err"></span><span class="c"># Main server</span><span class="err">
+</span></span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="err"></span><span class="k">EXPOSE</span><span class="s"> 3001</span><span class="err">
+</span></span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="err"></span><span class="c"># Default command for executing container</span><span class="err">
+</span></span></span><span class="line"><span class="ln">27</span><span class="cl"><span class="err"></span><span class="c">#CMD [ &#34;npm&#34;, &#34;start&#34; ]</span><span class="err">
+</span></span></span></code></pre></div><p>Dockerfile 設定了基底映像檔(<a href="https://docs.docker.com/engine/reference/builder/#from" target="_blank" rel="noopener noreferrer"><code>FROM</code><i class="fas fa-external-link-square-alt ms-1"></i></a>)、系統時區(<a href="https://docs.docker.com/engine/reference/builder/#run" target="_blank" rel="noopener noreferrer"><code>RUN ln...</code><i class="fas fa-external-link-square-alt ms-1"></i></a>)、工作目錄(<code>WORKDIR</code>)、把本機端檔案拷貝到映像檔裡面(<a href="https://docs.docker.com/engine/reference/builder/#copy" target="_blank" rel="noopener noreferrer"><code>COPY</code><i class="fas fa-external-link-square-alt ms-1"></i></a>)、執行指令(<a href="https://docs.docker.com/engine/reference/builder/#run" target="_blank" rel="noopener noreferrer"><code>RUN</code><i class="fas fa-external-link-square-alt ms-1"></i></a>)、容器欲監聽的port (<a href="https://docs.docker.com/engine/reference/builder/#expose" target="_blank" rel="noopener noreferrer"><code>EXPOSE</code><i class="fas fa-external-link-square-alt ms-1"></i></a>)、容器執行時欲執行的指令(<a href="https://docs.docker.com/engine/reference/builder/#cmd" target="_blank" rel="noopener noreferrer"><code>CMD</code><i class="fas fa-external-link-square-alt ms-1"></i></a>)。因為都很直接，我就不多說了</p>
+<blockquote>
+<p>這 <code>CMD [ &quot;npm&quot;, &quot;start&quot; ]</code> 被我註解了，因為我想用另一種方法執行後端伺服器</p>
+</blockquote>
+</li>
+<li>
+<p>加入 <code>.dockerignore</code>：建置時忽略的檔案清單</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">node_modules
+</span></span><span class="line"><span class="ln">2</span><span class="cl">.git
+</span></span><span class="line"><span class="ln">3</span><span class="cl">.vscode
+</span></span></code></pre></div><p><code>COPY . .</code> 會拷貝所有檔案，但 <code>node_modules</code>、<code>.git</code>和<code>.vscode/</code> 不用拷貝進入，所以要加入到 <code>.dockerignore</code> 中忽略檔案。</p>
+<blockquote>
+<p><code>node_modules</code> 不應該放進映像檔，因為某些套件可能會跟作業系統有關。取而代之，我們要在建置映像檔時才安裝(<code>RUN npm install</code>)。</p>
+</blockquote>
+</li>
+</ol>
+<p>有幾點注意：</p>
+<ol>
+<li>若基底映像檔(<code>FROM</code>)不存在，docker 會自動去 docker hub 下載。</li>
+<li><code>RUN</code> 可以分行 <code>\</code> (backslash)：
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">RUN /bin/bash -c <span class="s1">&#39;source $HOME/.bashrc; \
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="s1">echo $HOME&#39;</span>
+</span></span></code></pre></div></li>
+<li><code>RUN</code> 是獨立地單一執行，不是像 terminal 可以一直下指令
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">RUN <span class="nv">TEST</span><span class="o">=</span>hi
+</span></span><span class="line"><span class="ln">2</span><span class="cl">RUN <span class="nb">echo</span> <span class="nv">$TEST</span> <span class="c1"># 抓不到值</span>
+</span></span></code></pre></div>要併成一行
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">RUN <span class="nv">TEST</span><span class="o">=</span>hi<span class="p">;</span> <span class="nb">echo</span> <span class="nv">$TEST</span>
+</span></span></code></pre></div></li>
+<li>系統時區一定要記得設，不然你看到的日期會是 <code>UTC +0:00</code>，跟我們的 <code>UTC +8:00</code> 差八小時。</li>
+<li><code>COPY . .</code> 是指拷貝本機端「當前目錄的所有檔案」到 映像檔的「<code>WORKDIR</code> 的當前目錄」(即 <code>/usr/src/app</code>)。</li>
+<li>若希望進容器後可以有更多指令，你可以安裝環境套件，如 <code>RUN apt-get install -y vim</code>。</li>
+<li><code>EXPOSE</code> 只是註明映像檔可能要暴露的 port，用來做文件使用，沒有實質的作用。因為 <code>-p</code> 會覆寫 port 設定。</li>
+<li>若你有用私有 NPM，記得 <code>RUN npm set registry http://127.0.0.1:4873</code> 設定套件庫來源，且在 <code>docker build</code> 時可能要指定<strong>建置時的網路</strong> (見下一節)。</li>
+</ol>
+<h3 id="執行建置映像檔">執行建置映像檔<a class="anchor ms-1" href="#執行建置映像檔"><i class="fas fa-link"></i></a></h3>
+<p>只要簡單下指令： <code>docker build --network host -f=&quot;Dockerfile&quot; -t=&quot;ithelp/backend:1.0.0&quot; .</code></p>
+<p><picture><img class="img-fluid" alt="Screen Shot 2018-10-26 at 5.23.32 PM.png" src="/series/2019-ithome-ironman/day-28-%E4%B8%89%E5%91%A8%E7%9B%AE-%E8%A3%BD%E4%BD%9C%E8%87%AA%E5%B7%B1%E7%9A%84%E6%98%A0%E5%83%8F%E6%AA%94%E5%8C%85%E6%89%93%E5%89%8D%E5%BE%8C%E7%AB%AF%E6%98%A0%E5%83%8F%E6%AA%94/resources/BAC9CD15B7191C536285426E812B228C.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>這裡的</p>
+<ul>
+<li><code>--network host</code>：使用<strong>私有 NPM 時要小心</strong>。設定建置時的網路為 host。 時，<code>http://127.0.0.1:4873</code> 才能訪問到 host 的私有庫。不然， <code>http://127.0.0.1</code> 會是建置時的沙盒環境。</li>
+<li><code>-f</code>：指要讀入的操作檔。當檔名是預設 <code>Dockerfile</code> ， <code>-f</code> 才可省。</li>
+<li><code>-t</code>：是映像檔的 tag。格式是 <code>&lt;repository name&gt;:tag</code>。</li>
+<li><code>.</code> 是指本機端當前的目錄。</li>
+</ul>
+<p>用 <code>docker images</code> 查看是否有建立
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-26 at 10.57.34 PM.png" src="/series/2019-ithome-ironman/day-28-%E4%B8%89%E5%91%A8%E7%9B%AE-%E8%A3%BD%E4%BD%9C%E8%87%AA%E5%B7%B1%E7%9A%84%E6%98%A0%E5%83%8F%E6%AA%94%E5%8C%85%E6%89%93%E5%89%8D%E5%BE%8C%E7%AB%AF%E6%98%A0%E5%83%8F%E6%AA%94/resources/7A49B48B1C697B44452EE73FE40F6141.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<h3 id="測試是否可以執行後端映像檔">測試是否可以執行後端映像檔<a class="anchor ms-1" href="#測試是否可以執行後端映像檔"><i class="fas fa-link"></i></a></h3>
+<p>跟之前一樣， 用 <code>docker run</code> 建立並執行容器：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">docker run --rm -p 3001:3001 --name ithelp.backend ithelp/backend:1.0.0 npm run start
+</span></span></code></pre></div><p>然後就用瀏覽器開 <code>http://localhost:3001</code>，即可以訪問到後端。</p>
+<blockquote>
+<p>若你需要 detach 在背景運作，請自行加 <code>-d</code> 參數</p>
+</blockquote>
+<p>我們建立容器並執行，帶以下參數</p>
+<ol>
+<li><code>--rm</code> ： 容器停止後自動刪除</li>
+<li><code>-p</code>   : 外部 port 是 <em>3001</em>，容器內是 <em>3001</em>。這裡因為 <code>npm run start</code> 我們有設定 <code>PORT=3001</code>，所以後端會監聽 <em>3001</em>。</li>
+<li><code>--name</code> ：容器名 <code>ithelp.backend</code>。</li>
+<li><code>npm run start</code> ：這個緊接在映像檔 <code>ithelp/backend:1.0.0</code> 後，容器建立完後「執行容器」時要執行的指令(command)。
+<code>docker run</code> 的格式如下：
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">Usage:  docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
+</span></span></code></pre></div>因此，「<strong>COMMAND</strong>」 是 <code>npm</code>，「<strong>ARG&hellip;</strong>」 是 <code>run start</code>。這就是我們不寫死 <code>CMD [ &quot;npm&quot;, &quot;start&quot; ]</code>的原因，希望可以保留執行指令的彈性。</li>
+</ol>
+<p>下面指令也可以執行後端：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">docker run --rm -p 3001:4000 --env <span class="nv">PORT</span><span class="o">=</span><span class="m">4000</span> --name ithelp.backend ithelp/backend:1.0.0 node bin/www
+</span></span></code></pre></div><p>這裡我們用 <code> --env</code> 參數設定環境變數 <code>PORT</code>，把後端的監聽port改成 <em>4000</em>，但因為對外 port 還是 <em>3001</em>，所以從瀏覽器還是用 <code>http://localhost:3001</code> 訪問後端，外界察覺不到容器內 <em>4000</em> port 的存在。</p>
+<p>另外，你可能會想知道： <code>bin/www</code> 是從哪個目錄開始算的？ 這問題的答案就在建立映像檔時的 <code>WORKDIR /usr/src/app</code>，我們指定了當前目錄。 不過，當前目錄也可以在 <code>docker run</code> 用 <code>--workdir</code> 覆寫指定當前目錄。</p>
+<h2 id="製作前端映像檔">製作前端映像檔<a class="anchor ms-1" href="#製作前端映像檔"><i class="fas fa-link"></i></a></h2>
+<p>製作方法大同小異，但這次我們程式碼不是前端的原始碼，而是 <code>npm run build</code> 打包後的檔案。</p>
+<h3 id="打包前端程式建立-dockerfile">打包前端程式，建立 Dockerfile<a class="anchor ms-1" href="#打包前端程式建立-dockerfile"><i class="fas fa-link"></i></a></h3>
+<p>前端的打包後的檔案也要放在網頁伺服器，別人才能從瀏覽器訪問。我們使用 Nginx 網頁伺服器基底，它也要包入我們的前端映像檔。</p>
+<ol>
+<li>先進行打包 <code>npm run build</code>
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-27 at 3.19.37 PM.png" src="/series/2019-ithome-ironman/day-28-%E4%B8%89%E5%91%A8%E7%9B%AE-%E8%A3%BD%E4%BD%9C%E8%87%AA%E5%B7%B1%E7%9A%84%E6%98%A0%E5%83%8F%E6%AA%94%E5%8C%85%E6%89%93%E5%89%8D%E5%BE%8C%E7%AB%AF%E6%98%A0%E5%83%8F%E6%AA%94/resources/99129B9FDB3D5488E06BCE0A2DD11C6F.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+
+它產生了一個 <code>build</code> 的資料夾，裡面放著打包後的所有檔案，所以這就是前端要發佈的所有檔案。</li>
+<li>在根目錄建立 <code>Dockerfile</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="k">FROM</span><span class="s"> nginx:1.15</span><span class="err">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="err"></span><span class="c"># Localtime</span><span class="err">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="err"></span><span class="k">ENV</span> <span class="nv">TZ</span><span class="o">=</span>Asia/Taipei<span class="err">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="err"></span><span class="k">RUN</span> ln -snf /usr/share/zoneinfo/<span class="nv">$TZ</span> /etc/localtime <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="nv">$TZ</span> &gt; /etc/timezone<span class="err">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="err"></span><span class="c"># Nginx default public folder</span><span class="err">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="err"></span><span class="k">WORKDIR</span><span class="s"> /usr/share/nginx/html</span><span class="err">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="err"></span><span class="c"># Copy public files</span><span class="err">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="err"></span><span class="k">COPY</span> ./build .<span class="err">
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="err"></span><span class="c"># Package (options)</span><span class="err">
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="err"></span><span class="c"># RUN apt-get update</span><span class="err">
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="err"></span><span class="c"># RUN apt-get install -y vim</span><span class="err">
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="err"></span><span class="c"># RUN apt-get install -y curl</span><span class="err">
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="err"></span><span class="c"># RUN apt-get install -y wget</span><span class="err">
+</span></span></span></code></pre></div></li>
+</ol>
+<h3 id="建置前端映像檔">建置前端映像檔<a class="anchor ms-1" href="#建置前端映像檔"><i class="fas fa-link"></i></a></h3>
+<p>下指令： <code>docker build -f=&quot;Dockerfile&quot; -t=&quot;ithelp/frontend:1.0.0&quot; .</code>
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-27 at 3.43.46 PM.png" src="/series/2019-ithome-ironman/day-28-%E4%B8%89%E5%91%A8%E7%9B%AE-%E8%A3%BD%E4%BD%9C%E8%87%AA%E5%B7%B1%E7%9A%84%E6%98%A0%E5%83%8F%E6%AA%94%E5%8C%85%E6%89%93%E5%89%8D%E5%BE%8C%E7%AB%AF%E6%98%A0%E5%83%8F%E6%AA%94/resources/81DD26A84E52F3B3B3CF95F7F28D5760.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<h3 id="建立並執行">建立並執行<a class="anchor ms-1" href="#建立並執行"><i class="fas fa-link"></i></a></h3>
+<p>跟之前一樣</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">docker run --rm -p 80:80 --name ithelp.frontend ithelp/frontend:1.0.0
+</span></span></code></pre></div><blockquote>
+<p>若你需要 detach 在背景運作，請自行加 <code>-d</code> 參數</p>
+</blockquote>
+<h3 id="小技巧腳本化你的工作">小技巧：腳本化你的工作<a class="anchor ms-1" href="#小技巧腳本化你的工作"><i class="fas fa-link"></i></a></h3>
+<p>每次製作映像檔都要先把前端打包，才能製作映像檔，可以將這些步驟寫在shell script 中。</p>
+<p>根目錄建立一個檔案 <code>images.sh</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">npm run build
+</span></span><span class="line"><span class="ln">2</span><span class="cl">docker build -f<span class="o">=</span><span class="s2">&#34;Dockerfile&#34;</span> -t<span class="o">=</span><span class="s2">&#34;ithelp/frontend:1.0.0&#34;</span> .
+</span></span></code></pre></div><p>然後，在 <code>package.json</code> 的 <code>scripts</code> 加入 <code>image</code> 腳本</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="ln">1</span><span class="cl"><span class="err">scripts:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">  <span class="err">...略</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">  <span class="nt">&#34;image&#34;</span><span class="p">:</span> <span class="s2">&#34;sh images.sh&#34;</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>以後，只要 <code>npm run image</code> 就可以製作映像檔</p>
+<h2 id="完成串接前後端">完成串接前後端<a class="anchor ms-1" href="#完成串接前後端"><i class="fas fa-link"></i></a></h2>
+<p>同時開啟前後端，即完成我們在 <a href="https://ithelp.ithome.com.tw/articles/10200933" target="_blank" rel="noopener noreferrer">Day 11 - 一周目- 開始玩轉前端(二)<i class="fas fa-external-link-square-alt ms-1"></i></a> 做的事：串接前後端。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1"># 後端</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">docker run --rm -p 3001:3001 --name ithelp.backend ithelp/backend:1.0.0 npm run start
+</span></span><span class="line"><span class="ln">3</span><span class="cl">
+</span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="c1"># 前端</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">docker run --rm -p 80:80 --name ithelp.frontend ithelp/frontend:1.0.0
+</span></span></code></pre></div><p><picture><img class="img-fluid" alt="Screen Shot 2018-10-27 at 3.55.02 PM.png" src="/series/2019-ithome-ironman/day-28-%E4%B8%89%E5%91%A8%E7%9B%AE-%E8%A3%BD%E4%BD%9C%E8%87%AA%E5%B7%B1%E7%9A%84%E6%98%A0%E5%83%8F%E6%AA%94%E5%8C%85%E6%89%93%E5%89%8D%E5%BE%8C%E7%AB%AF%E6%98%A0%E5%83%8F%E6%AA%94/resources/E66E1EF609B82A94DD66C67BAD6FFC2C.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<blockquote>
+<p><code>POST /api/echo</code> 是回應 <em>500</em> 耶？ 別怕，那是我們曾在 <a href="https://ithelp.ithome.com.tw/articles/10203292" target="_blank" rel="noopener noreferrer">Day 19 - 二周目 - 帳密認証與JWT (JSON Web Token)傳遞<i class="fas fa-external-link-square-alt ms-1"></i></a> 加入的 JWT 驗証。
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-27 at 4.00.11 PM.png" src="/series/2019-ithome-ironman/day-28-%E4%B8%89%E5%91%A8%E7%9B%AE-%E8%A3%BD%E4%BD%9C%E8%87%AA%E5%B7%B1%E7%9A%84%E6%98%A0%E5%83%8F%E6%AA%94%E5%8C%85%E6%89%93%E5%89%8D%E5%BE%8C%E7%AB%AF%E6%98%A0%E5%83%8F%E6%AA%94/resources/3E230C6C0AF12F8F154C78B13703B3C6.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+</blockquote>
+<h1 id="總結">總結<a class="anchor ms-1" href="#總結"><i class="fas fa-link"></i></a></h1>
+<p>今天我們學會了打包屬於自己的前後端映像檔，並且執行它們完成前後端串接。</p>
+<p>雖然完成了前後端串接，但我們的後端其實還需要 mongoDB 才算是完整的服務。因此，明天將引入 <code>docker-compose</code> 這工具來組織我們的容器：<code>ithelp.frontend</code> 、<code>ithelp.backend</code>、<code>mongo4</code></p></div></div>
+  <div class="card-footer"><div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-prev">
+    <i class="fas fa-fw fa-chevron-circle-down post-prev-icon" data-fa-transform="rotate-90"></i>
+    <a href="/series/2019-ithome-ironman/day-27-%E4%B8%89%E5%91%A8%E7%9B%AE-%E4%BA%94%E5%88%86%E9%90%98%E5%BB%BA%E7%AB%8B%E7%A7%81%E6%9C%89-npm-verdaccio/">Day 27 - 三周目 - 五分鐘建立私有 NPM: Verdaccio
+</a>
+  </div><div class="post-nav post-next">
+    <a href="/series/2019-ithome-ironman/day-29-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-compose%E4%B8%80%E6%AC%A1%E7%AE%A1%E7%90%86%E5%A4%9A%E5%80%8B%E5%AE%B9%E5%99%A8/">Day 29- 三周目 - Docker Compose：一次管理多個容器
+</a>
+    <i class="fas fa-fw fa-chevron-circle-down post-next-icon" data-fa-transform="rotate-270"></i>
+  </div></div></div>
+</article><div class="post-copyright mb-3 row card component" id="post-copyright">
+    <div class="card-header">
+        <h2 class="card-title fs-4 my-2 text-surface">版權</h2>
+    </div>
+    <div class="card-body"><a class="d-flex align-items-center flex-column" target="_blank" rel="license noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_TW">
+  <span><i class="fab fa-fw fa-2x fa-creative-commons"></i><i class="fab fa-fw fa-2x fa-creative-commons-by"></i><i class="fab fa-fw fa-2x fa-creative-commons-nc"></i><i class="fab fa-fw fa-2x fa-creative-commons-sa"></i></span>
+  CC BY-NC-SA 4.0 
+</a>
+
+
+    </div>
+</div><section class="related-posts row card component">
+    <div class="card-header">
+      <h2 class="card-title fs-4 my-2 text-surface">相關文章</h2>
+    </div>
+    <div class="card-body">
+      <ul class="post-list list-unstyled"><li>
+          <a href="/series/2019-ithome-ironman/day-27-%E4%B8%89%E5%91%A8%E7%9B%AE-%E4%BA%94%E5%88%86%E9%90%98%E5%BB%BA%E7%AB%8B%E7%A7%81%E6%9C%89-npm-verdaccio/">Day 27 - 三周目 - 五分鐘建立私有 NPM: Verdaccio
+</a>
+          <span class="float-end post-date">2018-10-27
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-26-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E7%9C%8B%E5%AE%8C%E5%B0%B1%E6%9C%83%E6%9E%B6-docker-%E5%8C%96%E7%9A%84%E6%9C%8D%E5%8B%99/">Day 26 - 三周目 - Docker 基本使用：看完就會架 Docker 化的服務
+</a>
+          <span class="float-end post-date">2018-10-26
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-25-%E4%BA%8C%E5%91%A8%E7%9B%AE-react-component-%E5%A5%97%E4%BB%B6-material-ui-google-material-design-%E7%9A%84%E5%AF%A6%E4%BD%9C%E5%A5%97%E4%BB%B6/">Day 25 - 二周目 - React Component 套件 Material-UI： Google Material Design 的實作套件
+</a>
+          <span class="float-end post-date">2018-10-25
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-24-%E4%BA%8C%E5%91%A8%E7%9B%AE-redux-%E5%A6%82%E4%BD%95%E7%99%BC%E5%87%BA%E9%9D%9E%E5%90%8C%E6%AD%A5-action%E5%BC%95%E5%85%A5%E9%9D%9E%E5%90%8C%E6%AD%A5-middleware/">Day 24 - 二周目 - Redux 如何發出非同步 Action：引入非同步 Middleware
+</a>
+          <span class="float-end post-date">2018-10-24
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-23-%E4%BA%8C%E5%91%A8%E7%9B%AE-redux-%E4%B8%B2%E6%8E%A5-react-%E8%88%87-redux-devtools/">Day 23 - 二周目 - Redux 串接 React 與 Redux DevTools
+</a>
+          <span class="float-end post-date">2018-10-23
+</span>
+        </li></ul>
+    </div>
+  </section><div class="card component row post-comments" id="post-comments">
+  <div class="card-header">
+    <h2 class="card-title my-2 fs-4 text-surface">評論</h2>
+  </div>
+  <div class="card-body"><script src="https://utteranc.es/client.js"
+  repo="eugenechen0514/eugenechen0514.github.io"
+  issue-term="pathname"
+  label="comment"
+  theme="github-light"
+  crossorigin="anonymous"
+  async>
+</script></div>
+</div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container d-flex flex-column">
+    
+    <div class="card row text-center profile component">
+  <div class="card-body">
+    <div class="col-12 d-flex align-items-center justify-content-center"><picture><img class="profile-avatar rounded-circle" alt="EugeneChen" src="/images/profile.webp" loading="lazy" data-viewer-invisible
+    
+     width="298" height="305"
+     />
+</picture>
+</div>
+    <div class="col-12 profile-meta"><div class="profile-name fw-fold fs-lg">EugeneChen</div><div class="profile-bio">軟體工程師，喜歡動手做些有的沒的專案，同時也喜愛數學、攝影、桌球，慢跑、游泳、作菜。</div><div class="profile-about"><i class="fas fa-fw fa-user"></i><a target="_blank" rel="noopener noreferrer" href="https://eugene-website.herokuapp.com">關於我</a></div><nav class="social-links nav justify-content-center"><a class="nav-link social-link" href="mailto:yujiechen0514@gmail.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i></a><a class="nav-link social-link" target="_blank" href="https://github.com/eugenechen0514" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-github"></i></a><a class="nav-link social-link" target="_blank" href="/index.xml" title="RSS" rel="noopener noreferrer">
+    <i class="fas fa-fw fa-2x fa-rss"></i></a></nav>
+</div>
+  </div>
+</div>
+<section class="taxonomies row card component">
+    <div class="card-body">
+        <ul class="nav nav-tabs" id="myTab" role="tablist"><li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="taxonomySeriesTab" data-bs-toggle="tab" data-bs-target="#taxonomySeries" 
+                        type="button" role="tab" aria-controls="專欄" aria-selected="true">
+                        專欄
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                    <button class="nav-link" id="taxonomyCategoriesTab" data-bs-toggle="tab" data-bs-target="#taxonomyCategories" 
+                        type="button" role="tab" aria-controls="分類" aria-selected="true">
+                        分類
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                    <button class="nav-link" id="taxonomyTagsTab" data-bs-toggle="tab" data-bs-target="#taxonomyTags" 
+                        type="button" role="tab" aria-controls="標籤" aria-selected="true">
+                        標籤
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                <button class="nav-link" id="taxonomyArchivesTab" data-bs-toggle="tab" data-bs-target="#taxonomyArchive" 
+                    type="button" role="tab" aria-controls="taxonomyArchives" aria-selected="true">
+                    歸檔
+                </button>
+            </li>
+        </ul>
+          
+        <div class="tab-content mt-3"><div class="tab-pane active" id="taxonomySeries" role="tabpanel" aria-labelledby="taxonomySeriesTab" tabindex="0"><a href="/series/2019-ithome-ironman/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="用js成為老闆心中的全端工程師 - 2019 iT邦幫忙鐵人賽">
+                        用js成為老闆心中的全端工程師 - 2019 iT邦幫忙鐵人賽<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a></div><div class="tab-pane" id="taxonomyCategories" role="tabpanel" aria-labelledby="taxonomyCategoriesTab" tabindex="0"><a href="/categories/%E9%9A%A8%E6%89%8B%E7%AD%86%E8%A8%98/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="隨手筆記">
+                        隨手筆記<span class="badge badge-sm text-secondary bg-white ms-1">2</span></a><a href="/categories/%E5%BF%83%E5%BE%97/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="心得">
+                        心得<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a></div><div class="tab-pane" id="taxonomyTags" role="tabpanel" aria-labelledby="taxonomyTagsTab" tabindex="0"><a href="/tags/2019-it-%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2019 iT 邦幫忙鐵人賽">
+                        2019 iT 邦幫忙鐵人賽<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a><a href="/tags/%E7%94%A8js%E6%88%90%E7%82%BA%E8%80%81%E9%97%86%E5%BF%83%E4%B8%AD%E7%9A%84%E5%85%A8%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%AB/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="用js成為老闆心中的全端工程師">
+                        用js成為老闆心中的全端工程師<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a><a href="/tags/alphacamp/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="AlphaCamp">
+                        AlphaCamp<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/kafka/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="Kafka">
+                        Kafka<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/mongodb/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="MongoDB">
+                        MongoDB<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/pandas/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="pandas">
+                        pandas<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/python/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="python">
+                        python<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/%E6%8E%A8%E8%96%A6%E7%B3%BB%E7%B5%B1/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="推薦系統">
+                        推薦系統<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a></div><div class="tab-pane" id="taxonomyArchive" role="tabpanel" aria-labelledby="taxonomyArchiveTab" tabindex="0"><a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2022">
+    2022 <span class="badge badge-sm text-secondary bg-white ms-1">1</span>
+    </a>
+<a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2021">
+    2021 <span class="badge badge-sm text-secondary bg-white ms-1">2</span>
+    </a>
+<a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2018">
+    2018 <span class="badge badge-sm text-secondary bg-white ms-1">30</span>
+    </a>
+
+</div>
+        </div>
+    </div>
+</section><div class="post-toc row mb-4 card component" id="postTOC">
+  <div class="card-header">
+    <h2 class="card-title fs-4 my-2 text-surface">目錄</h2>
+  </div>
+  <div class="card-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#製作後端映像檔">製作後端映像檔</a>
+      <ul>
+        <li><a href="#建置操作檔-dockerfile-和-建置忽略檔dockerignore">建置操作檔 <code>Dockerfile</code> 和 建置忽略檔<code>.dockerignore</code></a></li>
+        <li><a href="#執行建置映像檔">執行建置映像檔</a></li>
+        <li><a href="#測試是否可以執行後端映像檔">測試是否可以執行後端映像檔</a></li>
+      </ul>
+    </li>
+    <li><a href="#製作前端映像檔">製作前端映像檔</a>
+      <ul>
+        <li><a href="#打包前端程式建立-dockerfile">打包前端程式，建立 <code>Dockerfile</code></a></li>
+        <li><a href="#建置前端映像檔">建置前端映像檔</a></li>
+        <li><a href="#建立並執行">建立並執行</a></li>
+        <li><a href="#小技巧腳本化你的工作">小技巧：腳本化你的工作</a></li>
+      </ul>
+    </li>
+    <li><a href="#完成串接前後端">完成串接前後端</a></li>
+  </ul>
+</nav>
+  </div>
+</div><section class="recent-posts row card component">
+  <div class="card-header">
+    <h2 class="card-title my-2 fs-4 text-surface">最近文章</h2>
+  </div>
+  <div class="card-body">
+    <ul class="post-list list-unstyled ms-1"><li class="mb-2">
+        <a href="/posts/reviews/2022-02-06-alphacamp%E6%8E%A8%E8%96%A6%E7%B3%BB%E7%B5%B1%E4%B8%8A%E8%AA%B2%E5%BF%83%E5%BE%97/">AlphaCamp 推薦系統上課心得
+</a>
+      </li><li class="mb-2">
+        <a href="/posts/notes/2021-08-22-%E4%B8%80%E7%AA%BAkafka%E5%85%A7%E9%83%A8%E5%84%B2%E5%AD%98%E8%B3%87%E6%96%99/">一窺 Kafka 內部儲存資料
+</a>
+      </li><li class="mb-2">
+        <a href="/posts/notes/2021-08-01-mongodb-5-%E4%BE%86%E4%BA%86%E6%9C%89%E4%BB%80%E9%BA%BC%E5%80%BC%E5%BE%97%E6%B3%A8%E6%84%8F%E7%9A%84%E6%9B%B4%E6%96%B0/">MongoDb 5 來了，有什麼值得注意的更新呢?
+</a>
+      </li><li class="mb-2">
+        <a href="/series/2019-ithome-ironman/day-30-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-network-%E6%9A%A8%E5%AE%8C%E8%B3%BD%E5%9B%9E%E9%A1%A7/">Day 30- 三周目 - Docker Network 暨完賽回顧
+</a>
+      </li><li class="mb-2">
+        <a href="/series/2019-ithome-ironman/day-29-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-compose%E4%B8%80%E6%AC%A1%E7%AE%A1%E7%90%86%E5%A4%9A%E5%80%8B%E5%AE%B9%E5%99%A8/">Day 29- 三周目 - Docker Compose：一次管理多個容器
+</a>
+      </li></ul>
+  </div>
+</section>
+    
+  </div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><div class="offcanvas offcanvas-bottom h-auto" tabindex="-1" id="offcanvasActionsPanel"
+  aria-labelledby="offcanvasActionsPanelLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title fs-4" id="offcanvasActionsPanelLabel">
+      <i class="fas fa-fw fa-th-large me-1"></i>
+      Actions
+    </h5>
+    <button type="button" class="btn-close ms-auto" data-bs-dismiss="offcanvas" data-bs-target="offcanvasActionsPanel" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body mt-2"><div class="social-share mb-4 d-flex overflow-auto">
+      <a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Twitter Share Button"
+      target="_blank" href="https://twitter.com/intent/tweet?title=Day%2028%20-%20%e4%b8%89%e5%91%a8%e7%9b%ae%20-%20%e8%a3%bd%e4%bd%9c%e8%87%aa%e5%b7%b1%e7%9a%84%e6%98%a0%e5%83%8f%e6%aa%94%ef%bc%9a%e5%8c%85%e6%89%93%e5%89%8d%e5%be%8c%e7%ab%af%e6%98%a0%e5%83%8f%e6%aa%94&url=%2fseries%2f2019-ithome-ironman%2fday-28-%25E4%25B8%2589%25E5%2591%25A8%25E7%259B%25AE-%25E8%25A3%25BD%25E4%25BD%259C%25E8%2587%25AA%25E5%25B7%25B1%25E7%259A%2584%25E6%2598%25A0%25E5%2583%258F%25E6%25AA%2594%25E5%258C%2585%25E6%2589%2593%25E5%2589%258D%25E5%25BE%258C%25E7%25AB%25AF%25E6%2598%25A0%25E5%2583%258F%25E6%25AA%2594%2f">
+        <i class="fab fa-2x fa-fw fa-twitter mb-2"></i> Twitter
+      </a>
+      <a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Facebook Share Button"
+        target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=%2fseries%2f2019-ithome-ironman%2fday-28-%25E4%25B8%2589%25E5%2591%25A8%25E7%259B%25AE-%25E8%25A3%25BD%25E4%25BD%259C%25E8%2587%25AA%25E5%25B7%25B1%25E7%259A%2584%25E6%2598%25A0%25E5%2583%258F%25E6%25AA%2594%25E5%258C%2585%25E6%2589%2593%25E5%2589%258D%25E5%25BE%258C%25E7%25AB%25AF%25E6%2598%25A0%25E5%2583%258F%25E6%25AA%2594%2f">
+        <i class="fab fa-2x fa-fw fa-facebook-f mb-2"></i> Facebook
+      </a>
+    </div>
+    <hr class="mb-4"><div class="actions d-flex overflow-auto align-items-center">
+      <a role="button" class="action action-go-back d-flex flex-column align-items-center me-3" href="javascript: window.history.back();">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-chevron-circle-down" data-fa-transform="rotate-90"></i></span> 返回
+      </a>
+      <a role="button" class="action action-reload-page d-flex flex-column align-items-center me-3">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-redo-alt"></i></span> 刷新
+      </a>
+      <a role="button" class="action action-copy-url d-flex flex-column align-items-center me-3">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-link"></i></span> 複製連結
+      </a>
+    </div>
+  </div>
+</div><nav class="social-links nav justify-content-center mb-2"><a class="nav-link social-link" href="mailto:yujiechen0514@gmail.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i></a><a class="nav-link social-link" target="_blank" href="https://github.com/eugenechen0514" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-github"></i></a><a class="nav-link social-link" target="_blank" href="https://linkedin.com/in/yuchieh-chen-37a48989" title="LinkedIn" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-linkedin-in"></i></a><a class="nav-link social-link" target="_blank" href="https://medium.com/@yujiechen0514" title="Medium" rel="noopener noreferrer">
+        <i class="fab fa-fw fa-2x fa-medium-m"></i></a><a class="nav-link social-link" target="_blank" href="/index.xml" title="RSS" rel="noopener noreferrer">
+    <i class="fas fa-fw fa-2x fa-rss"></i></a></nav>
+<div class="copyright mb-2">
+  Copyright © 2016-2022 EugeneChen. All Rights Reserved.
+</div>
+<div class="powered-by mb-2">
+  Powered by <a class="text-primary" href="https://gohugo.io" target="_blank" rel="noopener noreferrer">Hugo</a> and the <a class="text-primary" href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank" rel="noopener noreferrer">Bootstrap</a> theme.
+</div>
+<div class="sponsors">
+
+
+
+
+
+
+</div>
+</footer>
+<script src="/assets/main/bundle.min.2bc7d6952dbf38d6d2815939c58fc655e72d050b196d9fd99829d8fb23904646.js" integrity="sha256-K8fWlS2/ONbSgVk5xY/GVectBQsZbZ/ZmCnY&#43;yOQRkY=" crossorigin="anonymous" defer></script><script src="/assets/icons/bundle.min.a4bf8247f780c9bf61d579a8efe7129ec790bb98622bf4a29895eb21e689266c.js" integrity="sha256-pL&#43;CR/eAyb9h1Xmo7&#43;cSnseQu5hiK/SimJXrIeaJJmw=" crossorigin="anonymous" defer></script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('\/service-worker.min.js').then(function(reg) {
+      console.log('Successfully registered service worker', reg);
+    }).catch(function(err) {
+      console.warn('Error whilst registering service worker', err);
+    });
+  });
+}
+</script><script src="/assets/viewer/bundle.min.92d4a694e2e9a4c4d89b6998067e2f8e502dc7a951682bb5a160a3004b434908.js" integrity="sha256-ktSmlOLppMTYm2mYBn4vjlAtx6lRaCu1oWCjAEtDSQg=" crossorigin="anonymous" defer></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-ZWYL79X38Y', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+<script src="/assets/docsearch/bundle.min.c6965b5bee044b874617239932d6a7992b217f7949f895a7576980d110fb2ab1.js" integrity="sha256-xpZbW&#43;4ES4dGFyOZMtanmSshf3lJ&#43;JWnV2mA0RD7KrE=" crossorigin="anonymous" defer></script></body>
+</html>

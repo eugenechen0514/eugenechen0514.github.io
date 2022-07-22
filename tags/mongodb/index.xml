@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>MongoDB on EugeneChen</title>
+    <link>/tags/mongodb/</link>
+    <description>Recent content in MongoDB on EugeneChen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-tw</language>
+    <copyright>Copyright © 2016-{year} EugeneChen. All Rights Reserved.</copyright>
+    <lastBuildDate>Sun, 01 Aug 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/mongodb/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MongoDb 5 來了，有什麼值得注意的更新呢?</title>
+      <link>/posts/notes/2021-08-01-mongodb-5-%E4%BE%86%E4%BA%86%E6%9C%89%E4%BB%80%E9%BA%BC%E5%80%BC%E5%BE%97%E6%B3%A8%E6%84%8F%E7%9A%84%E6%9B%B4%E6%96%B0/</link>
+      <pubDate>Sun, 01 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/notes/2021-08-01-mongodb-5-%E4%BE%86%E4%BA%86%E6%9C%89%E4%BB%80%E9%BA%BC%E5%80%BC%E5%BE%97%E6%B3%A8%E6%84%8F%E7%9A%84%E6%9B%B4%E6%96%B0/</guid>
+      <description>&lt;p&gt;MongoDB 於 7月13日釋出了 5.0 版，這次除了更新 &lt;code&gt;mongosh&lt;/code&gt; shell，也針對 Time Series 資料的支援。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

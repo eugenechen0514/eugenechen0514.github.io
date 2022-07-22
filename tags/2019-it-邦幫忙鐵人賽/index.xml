@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>2019 iT 邦幫忙鐵人賽 on EugeneChen</title>
+    <link>/tags/2019-it-%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/</link>
+    <description>Recent content in 2019 iT 邦幫忙鐵人賽 on EugeneChen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-tw</language>
+    <copyright>Copyright © 2016-{year} EugeneChen. All Rights Reserved.</copyright>
+    <lastBuildDate>Tue, 30 Oct 2018 00:00:00 +0000</lastBuildDate><atom:link href="/tags/2019-it-%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Day 30- 三周目 - Docker network 暨完賽回顧</title>
+      <link>/series/2019-ithome-ironman/day-30-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-network-%E6%9A%A8%E5%AE%8C%E8%B3%BD%E5%9B%9E%E9%A1%A7/</link>
+      <pubDate>Tue, 30 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/series/2019-ithome-ironman/day-30-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-network-%E6%9A%A8%E5%AE%8C%E8%B3%BD%E5%9B%9E%E9%A1%A7/</guid>
+      <description>&lt;p&gt;介紹 Docker Network mode 和三十天的回顧&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Day 29- 三周目 - Docker Compose：一次管理多個容器</title>
+      <link>/series/2019-ithome-ironman/day-29-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-compose%E4%B8%80%E6%AC%A1%E7%AE%A1%E7%90%86%E5%A4%9A%E5%80%8B%E5%AE%B9%E5%99%A8/</link>
+      <pubDate>Mon, 29 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/series/2019-ithome-ironman/day-29-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-compose%E4%B8%80%E6%AC%A1%E7%AE%A1%E7%90%86%E5%A4%9A%E5%80%8B%E5%AE%B9%E5%99%A8/</guid>
+      <description>&lt;p&gt;用 Docker Compose 一次管理多個容器&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Day 28 - 三周目 - 製作自己的映像檔：包打前後端映像檔</title>
+      <link>/series/2019-ithome-ironman/day-28-%E4%B8%89%E5%91%A8%E7%9B%AE-%E8%A3%BD%E4%BD%9C%E8%87%AA%E5%B7%B1%E7%9A%84%E6%98%A0%E5%83%8F%E6%AA%94%E5%8C%85%E6%89%93%E5%89%8D%E5%BE%8C%E7%AB%AF%E6%98%A0%E5%83%8F%E6%AA%94/</link>
+      <pubDate>Sun, 28 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/series/2019-ithome-ironman/day-28-%E4%B8%89%E5%91%A8%E7%9B%AE-%E8%A3%BD%E4%BD%9C%E8%87%AA%E5%B7%B1%E7%9A%84%E6%98%A0%E5%83%8F%E6%AA%94%E5%8C%85%E6%89%93%E5%89%8D%E5%BE%8C%E7%AB%AF%E6%98%A0%E5%83%8F%E6%AA%94/</guid>
+      <description>&lt;p&gt;製作自己的映像檔：包打前後端映像檔&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Day 27 - 三周目 - 五分鐘建立私有 NPM: verdaccio</title>
+      <link>/series/2019-ithome-ironman/day-27-%E4%B8%89%E5%91%A8%E7%9B%AE-%E4%BA%94%E5%88%86%E9%90%98%E5%BB%BA%E7%AB%8B%E7%A7%81%E6%9C%89-npm-verdaccio/</link>
+      <pubDate>Sat, 27 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/series/2019-ithome-ironman/day-27-%E4%B8%89%E5%91%A8%E7%9B%AE-%E4%BA%94%E5%88%86%E9%90%98%E5%BB%BA%E7%AB%8B%E7%A7%81%E6%9C%89-npm-verdaccio/</guid>
+      <description>&lt;p&gt;五分鐘建立私有 NPM: verdaccio&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Day 26 - 三周目 - Docker 基本使用：看完就會架 docker 化的服務</title>
+      <link>/series/2019-ithome-ironman/day-26-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E7%9C%8B%E5%AE%8C%E5%B0%B1%E6%9C%83%E6%9E%B6-docker-%E5%8C%96%E7%9A%84%E6%9C%8D%E5%8B%99/</link>
+      <pubDate>Fri, 26 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/series/2019-ithome-ironman/day-26-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E7%9C%8B%E5%AE%8C%E5%B0%B1%E6%9C%83%E6%9E%B6-docker-%E5%8C%96%E7%9A%84%E6%9C%8D%E5%8B%99/</guid>
+      <description>&lt;p&gt;快速入門 Docker 的操作&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Day 25 - 二周目 - React component 套件 Material-UI： Google Material Design 的實作套件</title>
+      <link>/series/2019-ithome-ironman/day-25-%E4%BA%8C%E5%91%A8%E7%9B%AE-react-component-%E5%A5%97%E4%BB%B6-material-ui-google-material-design-%E7%9A%84%E5%AF%A6%E4%BD%9C%E5%A5%97%E4%BB%B6/</link>
+      <pubDate>Thu, 25 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/series/2019-ithome-ironman/day-25-%E4%BA%8C%E5%91%A8%E7%9B%AE-react-component-%E5%A5%97%E4%BB%B6-material-ui-google-material-design-%E7%9A%84%E5%AF%A6%E4%BD%9C%E5%A5%97%E4%BB%B6/</guid>
+      <description>&lt;p&gt;使用 Material-UI 的 component&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Day 24 - 二周目 - Redux 如何發出非同步 action：引入非同步 middleware</title>
+      <link>/series/2019-ithome-ironman/day-24-%E4%BA%8C%E5%91%A8%E7%9B%AE-redux-%E5%A6%82%E4%BD%95%E7%99%BC%E5%87%BA%E9%9D%9E%E5%90%8C%E6%AD%A5-action%E5%BC%95%E5%85%A5%E9%9D%9E%E5%90%8C%E6%AD%A5-middleware/</link>
+      <pubDate>Wed, 24 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/series/2019-ithome-ironman/day-24-%E4%BA%8C%E5%91%A8%E7%9B%AE-redux-%E5%A6%82%E4%BD%95%E7%99%BC%E5%87%BA%E9%9D%9E%E5%90%8C%E6%AD%A5-action%E5%BC%95%E5%85%A5%E9%9D%9E%E5%90%8C%E6%AD%A5-middleware/</guid>
+      <description>&lt;p&gt;介紹 Redux Middleware，實作同步/非同步 middleware&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Day 23 - 二周目 - Redux 串接 React 與 Redux DevTools</title>
+      <link>/series/2019-ithome-ironman/day-23-%E4%BA%8C%E5%91%A8%E7%9B%AE-redux-%E4%B8%B2%E6%8E%A5-react-%E8%88%87-redux-devtools/</link>
+      <pubDate>Tue, 23 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/series/2019-ithome-ironman/day-23-%E4%BA%8C%E5%91%A8%E7%9B%AE-redux-%E4%B8%B2%E6%8E%A5-react-%E8%88%87-redux-devtools/</guid>
+      <description>&lt;p&gt;實作 Redux 與 React 的串接&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Day 22 - 二周目 - 解開 state:prop 的混亂：Flux 單向資料流暨 Redux 體驗</title>
+      <link>/series/2019-ithome-ironman/day-22-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E8%A7%A3%E9%96%8B-stateprop-%E7%9A%84%E6%B7%B7%E4%BA%82flux-%E5%96%AE%E5%90%91%E8%B3%87%E6%96%99%E6%B5%81%E6%9A%A8-redux-%E9%AB%94%E9%A9%97/</link>
+      <pubDate>Mon, 22 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/series/2019-ithome-ironman/day-22-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E8%A7%A3%E9%96%8B-stateprop-%E7%9A%84%E6%B7%B7%E4%BA%82flux-%E5%96%AE%E5%90%91%E8%B3%87%E6%96%99%E6%B5%81%E6%9A%A8-redux-%E9%AB%94%E9%A9%97/</guid>
+      <description>&lt;p&gt;介紹 Flux framework 和 Redux&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Day 21 - 二周目 - React 必備知識和效能議題</title>
+      <link>/series/2019-ithome-ironman/day-21-%E4%BA%8C%E5%91%A8%E7%9B%AE-react-%E5%BF%85%E5%82%99%E7%9F%A5%E8%AD%98%E5%92%8C%E6%95%88%E8%83%BD%E8%AD%B0%E9%A1%8C/</link>
+      <pubDate>Sun, 21 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/series/2019-ithome-ironman/day-21-%E4%BA%8C%E5%91%A8%E7%9B%AE-react-%E5%BF%85%E5%82%99%E7%9F%A5%E8%AD%98%E5%92%8C%E6%95%88%E8%83%BD%E8%AD%B0%E9%A1%8C/</guid>
+      <description>&lt;p&gt;React 快速入門&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Day 20 - 二周目 - 軟體測試(Testing)：測試非同步函數</title>
+      <link>/series/2019-ithome-ironman/day-20-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E8%BB%9F%E9%AB%94%E6%B8%AC%E8%A9%A6testing%E6%B8%AC%E8%A9%A6%E9%9D%9E%E5%90%8C%E6%AD%A5%E5%87%BD%E6%95%B8/</link>
+      <pubDate>Sat, 20 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/series/2019-ithome-ironman/day-20-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E8%BB%9F%E9%AB%94%E6%B8%AC%E8%A9%A6testing%E6%B8%AC%E8%A9%A6%E9%9D%9E%E5%90%8C%E6%AD%A5%E5%87%BD%E6%95%B8/</guid>
+      <description>&lt;p&gt;Jest 寫單元測試/整合測試&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Day 19 - 二周目 - 帳密認証與JWT (JSON Web Token)傳遞</title>
+      <link>/series/2019-ithome-ironman/day-19-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E5%B8%B3%E5%AF%86%E8%AA%8D%E8%A8%BC%E8%88%87jwt-json-web-token%E5%82%B3%E9%81%9E/</link>
+      <pubDate>Fri, 19 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/series/2019-ithome-ironman/day-19-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E5%B8%B3%E5%AF%86%E8%AA%8D%E8%A8%BC%E8%88%87jwt-json-web-token%E5%82%B3%E9%81%9E/</guid>
+      <description>&lt;p&gt;帳密認証與JWT、利用 middleware，認証 JWT middleware&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Day 18 - 二周目 - 剖析 express 路由(router) 三概念：中間件(middleware)、路由(routing)、流(stream)</title>
+      <link>/series/2019-ithome-ironman/day-18-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E5%89%96%E6%9E%90-express-%E8%B7%AF%E7%94%B1router-%E4%B8%89%E6%A6%82%E5%BF%B5%E4%B8%AD%E9%96%93%E4%BB%B6middleware%E8%B7%AF%E7%94%B1routing%E6%B5%81stream/</link>
+      <pubDate>Thu, 18 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/series/2019-ithome-ironman/day-18-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E5%89%96%E6%9E%90-express-%E8%B7%AF%E7%94%B1router-%E4%B8%89%E6%A6%82%E5%BF%B5%E4%B8%AD%E9%96%93%E4%BB%B6middleware%E8%B7%AF%E7%94%B1routing%E6%B5%81stream/</guid>
+      <description>&lt;p&gt;剖析 express 路由(router) 三概念：中間件(middleware)、路由(routing)、流(stream)&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Day 17 - 二周目 - 依賴注入與組態化專案</title>
+      <link>/series/2019-ithome-ironman/day-17-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E4%BE%9D%E8%B3%B4%E6%B3%A8%E5%85%A5%E8%88%87%E7%B5%84%E6%85%8B%E5%8C%96%E5%B0%88%E6%A1%88/</link>
+      <pubDate>Wed, 17 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/series/2019-ithome-ironman/day-17-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E4%BE%9D%E8%B3%B4%E6%B3%A8%E5%85%A5%E8%88%87%E7%B5%84%E6%85%8B%E5%8C%96%E5%B0%88%E6%A1%88/</guid>
+      <description>&lt;p&gt;依賴注入套件、組態化&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Day 16 - 二周目 - 強化後端專案結構</title>
+      <link>/series/2019-ithome-ironman/day-16-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E5%BC%B7%E5%8C%96%E5%BE%8C%E7%AB%AF%E5%B0%88%E6%A1%88%E7%B5%90%E6%A7%8B/</link>
+      <pubDate>Tue, 16 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/series/2019-ithome-ironman/day-16-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E5%BC%B7%E5%8C%96%E5%BE%8C%E7%AB%AF%E5%B0%88%E6%A1%88%E7%B5%90%E6%A7%8B/</guid>
+      <description>&lt;p&gt;專案結構介紹、了解如何重構，將商務邏輯拆的更細&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Day 15 - 二周目 - 用 Docker 玩轉 MongoDB</title>
+      <link>/series/2019-ithome-ironman/day-15-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E7%94%A8-docker-%E7%8E%A9%E8%BD%89-mongodb/</link>
+      <pubDate>Mon, 15 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/series/2019-ithome-ironman/day-15-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E7%94%A8-docker-%E7%8E%A9%E8%BD%89-mongodb/</guid>
+      <description>&lt;p&gt;今天要來準備存放資料的地方 MongoDB 和如何存取裡面的資料。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Day 14 - 二周目 - 從Promise 昇華到 async:await</title>
+      <link>/series/2019-ithome-ironman/day-14-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E5%BE%9Epromise-%E6%98%87%E8%8F%AF%E5%88%B0-asyncawait/</link>
+      <pubDate>Sun, 14 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/series/2019-ithome-ironman/day-14-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E5%BE%9Epromise-%E6%98%87%E8%8F%AF%E5%88%B0-asyncawait/</guid>
+      <description>&lt;p&gt;從 Promise 昇華到 async:await&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Day 13 - 二周目 - 非同步神器 Promise</title>
+      <link>/series/2019-ithome-ironman/day-13-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E9%9D%9E%E5%90%8C%E6%AD%A5%E7%A5%9E%E5%99%A8-promise/</link>
+      <pubDate>Sat, 13 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/series/2019-ithome-ironman/day-13-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E9%9D%9E%E5%90%8C%E6%AD%A5%E7%A5%9E%E5%99%A8-promise/</guid>
+      <description>&lt;p&gt;今天要來談怎麼利用計時器(timer)函式&lt;code&gt;setTimeout&lt;/code&gt;做出非同步執行的函數和用 &lt;code&gt;Promise&lt;/code&gt; 包裝非同步函數。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Day 12 - 二周目 - 準備起程深入後端</title>
+      <link>/series/2019-ithome-ironman/day-12-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E6%BA%96%E5%82%99%E8%B5%B7%E7%A8%8B%E6%B7%B1%E5%85%A5%E5%BE%8C%E7%AB%AF/</link>
+      <pubDate>Fri, 12 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/series/2019-ithome-ironman/day-12-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E6%BA%96%E5%82%99%E8%B5%B7%E7%A8%8B%E6%B7%B1%E5%85%A5%E5%BE%8C%E7%AB%AF/</guid>
+      <description>&lt;p&gt;在一周目最後，用非同步 request 串接前後端做為一周目的收尾。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Day 11 - 一周目- 開始玩轉前端(二)</title>
+      <link>/series/2019-ithome-ironman/day-11-%E4%B8%80%E5%91%A8%E7%9B%AE-%E9%96%8B%E5%A7%8B%E7%8E%A9%E8%BD%89%E5%89%8D%E7%AB%AF%E4%BA%8C/</link>
+      <pubDate>Thu, 11 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/series/2019-ithome-ironman/day-11-%E4%B8%80%E5%91%A8%E7%9B%AE-%E9%96%8B%E5%A7%8B%E7%8E%A9%E8%BD%89%E5%89%8D%E7%AB%AF%E4%BA%8C/</guid>
+      <description>&lt;p&gt;發出一個非同步 request 串接後端&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Day 10- 一周目- 開始玩轉前端(一)</title>
+      <link>/series/2019-ithome-ironman/day-10-%E4%B8%80%E5%91%A8%E7%9B%AE-%E9%96%8B%E5%A7%8B%E7%8E%A9%E8%BD%89%E5%89%8D%E7%AB%AF%E4%B8%80/</link>
+      <pubDate>Wed, 10 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/series/2019-ithome-ironman/day-10-%E4%B8%80%E5%91%A8%E7%9B%AE-%E9%96%8B%E5%A7%8B%E7%8E%A9%E8%BD%89%E5%89%8D%E7%AB%AF%E4%B8%80/</guid>
+      <description>&lt;p&gt;介紹 React、用&lt;code&gt;create-react-app&lt;/code&gt; 建立，我們第一個前端網頁&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Day 9 - 一周目- 開始玩轉後端(二)</title>
+      <link>/series/2019-ithome-ironman/day-9-%E4%B8%80%E5%91%A8%E7%9B%AE-%E9%96%8B%E5%A7%8B%E7%8E%A9%E8%BD%89%E5%BE%8C%E7%AB%AF%E4%BA%8C/</link>
+      <pubDate>Tue, 09 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/series/2019-ithome-ironman/day-9-%E4%B8%80%E5%91%A8%E7%9B%AE-%E9%96%8B%E5%A7%8B%E7%8E%A9%E8%BD%89%E5%BE%8C%E7%AB%AF%E4%BA%8C/</guid>
+      <description>&lt;p&gt;做第一隻API、requests工具&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Day 8 - 一周目- 開始玩轉後端(一)</title>
+      <link>/series/2019-ithome-ironman/day-8-%E4%B8%80%E5%91%A8%E7%9B%AE-%E9%96%8B%E5%A7%8B%E7%8E%A9%E8%BD%89%E5%BE%8C%E7%AB%AF%E4%B8%80/</link>
+      <pubDate>Mon, 08 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/series/2019-ithome-ironman/day-8-%E4%B8%80%E5%91%A8%E7%9B%AE-%E9%96%8B%E5%A7%8B%E7%8E%A9%E8%BD%89%E5%BE%8C%E7%AB%AF%E4%B8%80/</guid>
+      <description>&lt;p&gt;了解前後端的職責、架構，建立第一個後端應用程式&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Day 7 - 一周目- ES6 讓人欲罷不能的語法</title>
+      <link>/series/2019-ithome-ironman/day-7-%E4%B8%80%E5%91%A8%E7%9B%AE-es6-%E8%AE%93%E4%BA%BA%E6%AC%B2%E7%BD%B7%E4%B8%8D%E8%83%BD%E7%9A%84%E8%AA%9E%E6%B3%95/</link>
+      <pubDate>Sun, 07 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/series/2019-ithome-ironman/day-7-%E4%B8%80%E5%91%A8%E7%9B%AE-es6-%E8%AE%93%E4%BA%BA%E6%AC%B2%E7%BD%B7%E4%B8%8D%E8%83%BD%E7%9A%84%E8%AA%9E%E6%B3%95/</guid>
+      <description>&lt;p&gt;ES6 有些讓人欲罷不能的語法&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Day 6 - 一周目- 程式碼品質工具ESLint，照顧程式碼風格</title>
+      <link>/series/2019-ithome-ironman/day-6-%E4%B8%80%E5%91%A8%E7%9B%AE-%E7%A8%8B%E5%BC%8F%E7%A2%BC%E5%93%81%E8%B3%AA%E5%B7%A5%E5%85%B7eslint%E7%85%A7%E9%A1%A7%E7%A8%8B%E5%BC%8F%E7%A2%BC%E9%A2%A8%E6%A0%BC/</link>
+      <pubDate>Sat, 06 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/series/2019-ithome-ironman/day-6-%E4%B8%80%E5%91%A8%E7%9B%AE-%E7%A8%8B%E5%BC%8F%E7%A2%BC%E5%93%81%E8%B3%AA%E5%B7%A5%E5%85%B7eslint%E7%85%A7%E9%A1%A7%E7%A8%8B%E5%BC%8F%E7%A2%BC%E9%A2%A8%E6%A0%BC/</guid>
+      <description>&lt;p&gt;安裝程式碼品質工具、修改檢查規則組態檔&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Day 5 - 一周目- 從VSCode debug 模式看作用域(Scope)、this、閉包(Closure)</title>
+      <link>/series/2019-ithome-ironman/day-5-%E4%B8%80%E5%91%A8%E7%9B%AE-%E5%BE%9Evscode-debug-%E6%A8%A1%E5%BC%8F%E7%9C%8B%E4%BD%9C%E7%94%A8%E5%9F%9Fscopethis%E9%96%89%E5%8C%85closure/</link>
+      <pubDate>Fri, 05 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/series/2019-ithome-ironman/day-5-%E4%B8%80%E5%91%A8%E7%9B%AE-%E5%BE%9Evscode-debug-%E6%A8%A1%E5%BC%8F%E7%9C%8B%E4%BD%9C%E7%94%A8%E5%9F%9Fscopethis%E9%96%89%E5%8C%85closure/</guid>
+      <description>&lt;p&gt;以 VSCode dubug 模式來看，經典的觀念：作用域(Scope)、this、閉包(Closure)&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Day 4 - 一周目- 用VSCode debug 模式，玩玩 ES6 常用語法</title>
+      <link>/series/2019-ithome-ironman/day-4-%E4%B8%80%E5%91%A8%E7%9B%AE-%E7%94%A8vscode-debug-%E6%A8%A1%E5%BC%8F%E7%8E%A9%E7%8E%A9-es6-%E5%B8%B8%E7%94%A8%E8%AA%9E%E6%B3%95/</link>
+      <pubDate>Thu, 04 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/series/2019-ithome-ironman/day-4-%E4%B8%80%E5%91%A8%E7%9B%AE-%E7%94%A8vscode-debug-%E6%A8%A1%E5%BC%8F%E7%8E%A9%E7%8E%A9-es6-%E5%B8%B8%E7%94%A8%E8%AA%9E%E6%B3%95/</guid>
+      <description>&lt;p&gt;昨天介紹了用VSCode執行debug模式，今天要來看debug模式可以做什麼？&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Day 3 - 一周目- 建立第一個Node.js 專案</title>
+      <link>/series/2019-ithome-ironman/day-3-%E4%B8%80%E5%91%A8%E7%9B%AE-%E5%BB%BA%E7%AB%8B-%E7%AC%AC%E4%B8%80%E5%80%8Bnode.js-%E5%B0%88%E6%A1%88/</link>
+      <pubDate>Wed, 03 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/series/2019-ithome-ironman/day-3-%E4%B8%80%E5%91%A8%E7%9B%AE-%E5%BB%BA%E7%AB%8B-%E7%AC%AC%E4%B8%80%E5%80%8Bnode.js-%E5%B0%88%E6%A1%88/</guid>
+      <description>&lt;p&gt;今天我們要正式使用 VSCode 來建立 Node.js 專案，未來的前後端專案都是用Node.js 專案建立的。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Day 2 - 一輩子受用的工具</title>
+      <link>/series/2019-ithome-ironman/day-2-%E4%B8%80%E8%BC%A9%E5%AD%90%E5%8F%97%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7/</link>
+      <pubDate>Tue, 02 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/series/2019-ithome-ironman/day-2-%E4%B8%80%E8%BC%A9%E5%AD%90%E5%8F%97%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7/</guid>
+      <description>&lt;p&gt;昨天我們示範了&lt;code&gt;touch&lt;/code&gt;指令來建立空檔案，今天我們來看看有什麼常用的指令。此外，介紹常用來打文件的 Markdown 語法和畫圖用的 draw.io。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Day 1 - 前言／開發環境準備</title>
+      <link>/series/2019-ithome-ironman/day-1-%E5%89%8D%E8%A8%80%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83%E6%BA%96%E5%82%99/</link>
+      <pubDate>Mon, 01 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/series/2019-ithome-ironman/day-1-%E5%89%8D%E8%A8%80%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83%E6%BA%96%E5%82%99/</guid>
+      <description>&lt;p&gt;最近剛好在做自己的個人網站，整理自己的技能樹，想要透過「iT邦幫忙鐵人賽」整理自己的開發經驗。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

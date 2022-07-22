@@ -1,0 +1,908 @@
+<!doctype html><html class="position-relative" itemscope itemtype="http://schema.org/WebPage" lang="zh-tw" data-theme="auto"
+  
+   data-palette="purple">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Day 24 - 二周目 - Redux 如何發出非同步 action：引入非同步 middleware - EugeneChen</title><link rel="apple-touch-icon" href="/images/icons/icon-180x180.png" sizes="180x180">
+<link rel="icon" href="/images/icons/icon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/images/icons/icon-16x16.png" sizes="16x16" type="image/png">
+<link rel="icon" href="/images/icons/favicon.ico">
+<link rel="manifest" href="/manifest.json">
+<meta name="keywords" content="" />
+<meta name="description" content="介紹 Redux Middleware，實作同步/非同步 middleware" /><meta name="robots" content="index, follow" /><meta itemprop="name" content="Day 24 - 二周目 - Redux 如何發出非同步 action：引入非同步 middleware">
+<meta itemprop="description" content="介紹 Redux Middleware，實作同步/非同步 middleware"><meta itemprop="datePublished" content="2018-10-24T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2018-10-24T00:00:00+00:00" />
+<meta itemprop="wordCount" content="4432">
+<meta itemprop="keywords" content="2019 iT 邦幫忙鐵人賽,用js成為老闆心中的全端工程師," /><meta property="og:title" content="Day 24 - 二周目 - Redux 如何發出非同步 action：引入非同步 middleware" />
+<meta property="og:description" content="介紹 Redux Middleware，實作同步/非同步 middleware" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/series/2019-ithome-ironman/day-24-%E4%BA%8C%E5%91%A8%E7%9B%AE-redux-%E5%A6%82%E4%BD%95%E7%99%BC%E5%87%BA%E9%9D%9E%E5%90%8C%E6%AD%A5-action%E5%BC%95%E5%85%A5%E9%9D%9E%E5%90%8C%E6%AD%A5-middleware/" /><meta property="article:section" content="series" />
+<meta property="article:published_time" content="2018-10-24T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-10-24T00:00:00+00:00" /><meta property="og:site_name" content="EugeneChen" />
+<meta property="og:see_also" content="/series/2019-ithome-ironman/day-30-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-network-%E6%9A%A8%E5%AE%8C%E8%B3%BD%E5%9B%9E%E9%A1%A7/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-29-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-compose%E4%B8%80%E6%AC%A1%E7%AE%A1%E7%90%86%E5%A4%9A%E5%80%8B%E5%AE%B9%E5%99%A8/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-28-%E4%B8%89%E5%91%A8%E7%9B%AE-%E8%A3%BD%E4%BD%9C%E8%87%AA%E5%B7%B1%E7%9A%84%E6%98%A0%E5%83%8F%E6%AA%94%E5%8C%85%E6%89%93%E5%89%8D%E5%BE%8C%E7%AB%AF%E6%98%A0%E5%83%8F%E6%AA%94/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-27-%E4%B8%89%E5%91%A8%E7%9B%AE-%E4%BA%94%E5%88%86%E9%90%98%E5%BB%BA%E7%AB%8B%E7%A7%81%E6%9C%89-npm-verdaccio/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-26-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E7%9C%8B%E5%AE%8C%E5%B0%B1%E6%9C%83%E6%9E%B6-docker-%E5%8C%96%E7%9A%84%E6%9C%8D%E5%8B%99/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-25-%E4%BA%8C%E5%91%A8%E7%9B%AE-react-component-%E5%A5%97%E4%BB%B6-material-ui-google-material-design-%E7%9A%84%E5%AF%A6%E4%BD%9C%E5%A5%97%E4%BB%B6/" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Day 24 - 二周目 - Redux 如何發出非同步 action：引入非同步 middleware"/>
+<meta name="twitter:description" content="介紹 Redux Middleware，實作同步/非同步 middleware"/>
+<meta property="og:image" content="/images/logo.png"/>
+  <meta name="twitter:image" content="/images/logo.png"/><link rel="stylesheet" href="/assets/main/bundle.min.925f59d4c744cc5e99dcc7d02a6f68dff5cceaea488c7667bd947bf7aa35b649.css" integrity="sha256-kl9Z1MdEzF6Z3MfQKm9o3/XM6upIjHZnvZR796o1tkk=" crossorigin="anonymous"><link rel="stylesheet" href="/assets/viewer/bundle.min.f05183267bb952fbc8c63a7178364de2951614ab71d544ec1068ad36c7447ccc.css" integrity="sha256-8FGDJnu5UvvIxjpxeDZN4pUWFKtx1UTsEGitNsdEfMw=" crossorigin="anonymous"><link rel="stylesheet" href="/assets/docsearch/bundle.min.c165d6a127fffa285e6b89ef65362fe921bc0c1fdaefa35f6af069b962bdb50e.css" integrity="sha256-wWXWoSf/&#43;ihea4nvZTYv6SG8DB/a76NfavBpuWK9tQ4=" crossorigin="anonymous"></head>
+  <body><script>const items=["theme","palette"];items.forEach(function(e){const t=localStorage.getItem("hbs:"+e);t&&document.body.parentElement.setAttribute("data-"+e,t)})</script><header><nav class="top-app-bar shadow bg-primary text-white navbar navbar-expand-lg fixed-top">
+  <div class="container"><a class="navbar-brand flex-grow-1 flex-lg-grow-0 text-lg-start ms-2 ms-lg-0 mx-auto me-lg-3" href="/"><picture><img class="logo" alt="Logo" src="/images/logo.webp" loading="lazy"
+    
+     width="136" height="69"
+     />
+</picture>
+EugeneChen
+    </a>
+    <button class="navbar-toggler order-5" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarMenus"
+      aria-controls="navbarMenus" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-ellipsis-h"></i>
+    </button>
+    <div class="offcanvas-lg offcanvas-end flex-grow-1 bg-primary text-white" tabindex="-1" id="navbarMenus" aria-labelledby="navbarMenusLabel">
+      <div class="offcanvas-header px-4 pb-0">
+        <h5 class="offcanvas-title" id="navbarMenusLabel">EugeneChen</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" data-bs-target="#navbarMenus" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body p-4 pt-0 p-lg-0">
+        <hr class="d-lg-none">
+        <ul class="navbar-nav flex-row flex-wrap align-items-center me-auto"><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/posts/">
+              <i class="fas fa-book fa-fw"></i>文章
+            </a>
+          </li><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/series/">
+              <i class="fas fa-bars fa-fw"></i>專欄
+            </a>
+          </li><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/posts/notes/">
+              <i class="fas fa-sticky-note fa-fw"></i>隨手筆記
+            </a>
+          </li></ul>
+        <hr class="d-lg-none">
+        <form class="search-bar mx-auto my-1" action="/search" novalidate>
+  <div class="input-group input-group-sm align-items-center">
+    <span class="btn btn-search disabled position-absolute left-0 border-0">
+      <i class="fas fa-fw fa-search fa-lg"></i>
+    </span>
+    <input class="py-2 form-control rounded search-input" name="q" type="search" aria-label="Search" required>
+  </div>
+</form>
+<hr class="d-lg-none">
+        <ul class="navbar-nav flex-row flex-wrap align-items-center ms-md-auto"><li class="nav-item dropdown py-1 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-globe"></i>
+        <span class="d-lg-none">語言</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown"><li>
+        <a class="dropdown-item" href="/en/">
+            English
+        </a>
+        </li><li>
+        <a class="dropdown-item active" href="/">
+            繁體中文
+        </a>
+        </li></ul>
+</li>
+<li class="nav-item py-1 col-12 col-lg-auto">
+  <div class="vr d-none d-lg-flex h-100 mx-lg-2 text-white"></div>
+  <hr class="d-lg-none my-2">
+</li><li class="nav-item dropdown py-2 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="fontSizeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-font"></i>
+        <span class="d-lg-none">字體大小</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="fontSizeDropdown"><li>
+            <button class="font-size-item dropdown-item" data-size="xs">
+                特小號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="sm">
+                小號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item active" data-size="md">
+                中等
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="lg">
+                大號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="xl">
+                特大號
+            </button>
+        </li></ul>
+</li><li class="nav-item dropdown py-1 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="paletteDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-palette"></i>
+        <span class="d-lg-none">配色</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end px-2" aria-labelledby="paletteDropdown">
+        <div class="row"><li class="col-3 my-1">
+                <a role="button" id="palette-blue" aria-label="藍色"
+                    class="btn btn-sm w-100 palette text-bg-blue" data-palette="blue">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-blue-gray" aria-label="藍灰色"
+                    class="btn btn-sm w-100 palette text-bg-blue-gray" data-palette="blue-gray">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-brown" aria-label="棕色"
+                    class="btn btn-sm w-100 palette text-bg-brown" data-palette="brown">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-cyan" aria-label="青色"
+                    class="btn btn-sm w-100 palette text-bg-cyan" data-palette="cyan">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-green" aria-label="綠色"
+                    class="btn btn-sm w-100 palette text-bg-green" data-palette="green">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-indigo" aria-label="靛青色"
+                    class="btn btn-sm w-100 palette text-bg-indigo" data-palette="indigo">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-orange" aria-label="橙色"
+                    class="btn btn-sm w-100 palette text-bg-orange" data-palette="orange">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-pink" aria-label="粉色"
+                    class="btn btn-sm w-100 palette text-bg-pink" data-palette="pink">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-purple" aria-label="紫色"
+                    class="btn btn-sm w-100 palette text-bg-purple" data-palette="purple">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-red" aria-label="紅色"
+                    class="btn btn-sm w-100 palette text-bg-red" data-palette="red">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-teal" aria-label="藍綠色"
+                    class="btn btn-sm w-100 palette text-bg-teal" data-palette="teal">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-yellow" aria-label="黃色"
+                    class="btn btn-sm w-100 palette text-bg-yellow" data-palette="yellow">
+                </a>
+            </li></div>
+    </ul>
+</li>
+<li class="nav-item dropdown py-2 py-lg-1 col-6 col-lg-auto"><a class="nav-link px-0 px-lg-1" href="#" id="modeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="mode-icon fas fa-fw fa-adjust" id="modeIcon"></i>
+        <span class="d-lg-none">模式</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="modeDropdown"><li class="mode-item" data-color-mode="light" data-icon="sun">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-sun"></i> Light
+            </button>
+        </li><li class="mode-item" data-color-mode="dark" data-icon="moon">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-moon"></i> Dark
+            </button>
+        </li><li class="mode-item active" data-color-mode="auto" data-icon="adjust">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-adjust"></i> Auto
+            </button>
+        </li></ul>
+</li>
+</ul>
+      </div>
+    </div>
+  </div>
+</nav>
+</header>
+<main class="container">
+      <div class="row content"><noscript>
+    <div class="alert alert-danger" role="alert">你的瀏覽器不支持 JavaScript。</div>
+</noscript>
+
+<div class="col-lg-8">
+  <div class="container"><nav class="row card component" aria-label="breadcrumb">
+  <div class="card-body pb-0">
+    <ol class="breadcrumb"><li class="breadcrumb-item text-surface"><a href="/">主頁</a></li><li class="breadcrumb-item text-surface"><a href="/series/">Series</a></li><li class="breadcrumb-item active">Day 24 - 二周目 - Redux 如何發出非同步 Action：引入非同步 Middleware</li></ol>
+  </div>
+</nav><div class="post-panel-wrapper position-sticky">
+  <div class="d-flex flex-column component rounded post-panel position-absolute border">
+    
+    <a class="action action-panel-toggler" role="button" title="Panel toggler">
+      <i class="fas fa-fw fa-chevron-circle-down"></i>
+    </a>
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button" title="Sidebar toggler">
+  <i class="fas fa-fw fa-expand-alt" data-fa-transform="rotate-45"></i>
+</a>
+
+    
+
+    
+    <a class="action" href="#post-copyright" role="button" aria-label="Copyright" title="Copyright">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    <a class="action" href="#post-comments" role="button" aria-label="Comments" title="Comments">
+  <i class="fas fa-fw fa-comments"></i>
+</a>
+    <a class="action" href="#postTOC" aria-controls="Table of contents" role="button" title="Table of contents">
+  <i class="fas fa-fw fa-list-alt"></i>
+</a>
+    
+  </div>
+</div>
+<article class="row card component mb-4 post">
+  <div class="card-header ">
+    <h1 class="card-title post-title my-2">Day 24 - 二周目 - Redux 如何發出非同步 Action：引入非同步 Middleware
+</h1>
+  </div>
+  <div class="card-body"><div class="post-meta mb-3">
+  <span class="post-date me-1 mb-1" title="創建於 2018-10-24 08:00:00 &#43;0800 CST。">
+    2018-10-24
+  </span><span class="post-reading-time me-1 mb-1">
+    9 分鐘閱讀
+  </span><a href="/series/2019-ithome-ironman/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">用js成為老闆心中的全端工程師 - 2019 IT邦幫忙鐵人賽</a><a href="/tags/2019-it-%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">2019 IT 邦幫忙鐵人賽</a><a href="/tags/%E7%94%A8js%E6%88%90%E7%82%BA%E8%80%81%E9%97%86%E5%BF%83%E4%B8%AD%E7%9A%84%E5%85%A8%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%AB/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">用js成為老闆心中的全端工程師</a></div>
+<div class="post-content mb-3"><p>介紹 Redux Middleware，實作同步/非同步 middleware</p>
+<h1 id="回憶">回憶<a class="anchor ms-1" href="#回憶"><i class="fas fa-link"></i></a></h1>
+<p>前天我們介紹了<a href="https://ithelp.ithome.com.tw/articles/10204180" target="_blank" rel="noopener noreferrer">Flux framework 套件 Redux<i class="fas fa-external-link-square-alt ms-1"></i></a>，昨天實作 <a href="https://ithelp.ithome.com.tw/articles/10204517" target="_blank" rel="noopener noreferrer">Redux 和 React 做串接<i class="fas fa-external-link-square-alt ms-1"></i></a>，裡面提到不少概念：</p>
+<ol>
+<li>reducer： Redux 中實際存放 state 的單元</li>
+<li>React Context: 任何地方的 subcomponent 中可以存取到的資料(store)，利用 <a href="https://github.com/reduxjs/react-redux" target="_blank" rel="noopener noreferrer"><code>react-redux</code><i class="fas fa-external-link-square-alt ms-1"></i></a> 就可以方便把 Redux 和 React 串接</li>
+</ol>
+<p>今天要談的是最後也最重要的東西： Redux Middleware</p>
+<h1 id="目標">目標<a class="anchor ms-1" href="#目標"><i class="fas fa-link"></i></a></h1>
+<blockquote>
+<p>所有的範例程式放在 <a href="https://github.com/eugenechen0514/ithelp-30dayfullstack-hello-redux" target="_blank" rel="noopener noreferrer">ithelp-30dayfullstack-hello-redux<i class="fas fa-external-link-square-alt ms-1"></i></a>，有需要的請自取。</p>
+</blockquote>
+<p>學習完 middleware，我想當你在套用 Redux 相關套件 <a href="https://github.com/reactjs/react-router-redux#readme" target="_blank" rel="noopener noreferrer">react-router-redux<i class="fas fa-external-link-square-alt ms-1"></i></a>, <a href="https://github.com/supasate/connected-react-router" target="_blank" rel="noopener noreferrer">connected-react-router<i class="fas fa-external-link-square-alt ms-1"></i></a>、<a href="https://github.com/reduxjs/redux-thunk" target="_blank" rel="noopener noreferrer">redux-thunk<i class="fas fa-external-link-square-alt ms-1"></i></a>、<a href="https://redux-observable.js.org/" target="_blank" rel="noopener noreferrer">redux-observable<i class="fas fa-external-link-square-alt ms-1"></i></a>、<a href="https://redux-saga.js.org/" target="_blank" rel="noopener noreferrer">redux-saga<i class="fas fa-external-link-square-alt ms-1"></i></a>…等會有很大的信心和理解在做什麼。</p>
+<ol>
+<li>Redux Middleware 概念：本篇講的 middleware 都是指  Redux Middleware，除非有出現 express middleware 會特別指明是誰的 middleware。</li>
+<li>實作同步 middleware <strong>logger</strong> 並學習套用 redux middleware</li>
+<li>實作非同步 middleware <strong>PromiseMiddleware</strong>，讓你可以延伸 action 的結構、派分出非同步 action</li>
+</ol>
+<h1 id="redux-middleware">Redux Middleware<a class="anchor ms-1" href="#redux-middleware"><i class="fas fa-link"></i></a></h1>
+<p>Redux 也有 middleware，它類似 express middleware，我不得不說他更能難讓人理解，因為它是 higher-order function。不管理解到什麼程度，只要記得一件事：</p>
+<p><strong>Redux middleware 內的實作要把 action 送到 <code>next(action)</code> 中</strong></p>
+<p>Redux 在沒有引入 middleware 前的運作都是同步的，引入非同步的 middleware 就可以派分出非同步的 action。Redux Middleware 的威力很強，讓第三方的程式嵌入 Redux 的運作中。</p>
+<p>Redux Middleware 和 Express Middleware 有一點相似之處：</p>
+<ul>
+<li>Express Middleware：處理 「request」 的 middleware， middleware 從 <code>res, req, next</code> 換到下一個 <code>res, req, next</code> middleware ，<code>res</code>、<code>req</code> 都是物件，呼叫 <code>next()</code> 換下一個 middleware 執行。</li>
+<li>Redux Middleware：處理 「dispatch」 的 middleware,  middleware 把 <code>dispatch</code> 產生一個新的 <code>dispatch</code>，<code>dispatch</code> 是(處理 action)函數，在它的實作中要把 action 送到 <code>next(action)</code> 中， <code>next</code> 是內層的 dispatch function。</li>
+</ul>
+<p>文件是用 <a href="http://flowtype.org/docs/quick-reference.html" target="_blank" rel="noopener noreferrer">Flow notation<i class="fas fa-external-link-square-alt ms-1"></i></a>定義，我也列出 JSDoc 定義，選你習慣的看</p>
+<ul>
+<li>Flow notation
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="ln">1</span><span class="cl"><span class="kr">type</span> <span class="nx">Action</span> <span class="o">=</span> <span class="nb">Object</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="kr">type</span> <span class="nx">AsyncAction</span> <span class="o">=</span> <span class="kt">any</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="kr">type</span> <span class="nx">MiddlewareAPI</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">dispatch</span>: <span class="kt">Dispatch</span><span class="p">,</span> <span class="nx">getState</span><span class="o">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">State</span> <span class="p">}</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">
+</span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="kr">type</span> <span class="nx">BaseDispatch</span> <span class="o">=</span> <span class="p">(</span><span class="nx">a</span>: <span class="kt">Action</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">Action</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="kr">type</span> <span class="nx">Dispatch</span> <span class="o">=</span> <span class="p">(</span><span class="nx">a</span>: <span class="kt">Action</span> <span class="o">|</span> <span class="nx">AsyncAction</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="kt">any</span>
+</span></span><span class="line"><span class="ln">7</span><span class="cl">
+</span></span><span class="line"><span class="ln">8</span><span class="cl"><span class="kr">type</span> <span class="nx">Middleware</span> <span class="o">=</span> <span class="p">(</span><span class="nx">api</span>: <span class="kt">MiddlewareAPI</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nx">next</span>: <span class="kt">Dispatch</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">Dispatch</span>
+</span></span></code></pre></div></li>
+<li>JSDoc
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="nx">Action</span><span class="o">:</span> <span class="nx">object</span> <span class="p">(</span><span class="nx">含有</span> <span class="nx">type</span> <span class="nx">屬性</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="nx">AsyncAction</span><span class="o">:</span> <span class="nx">any</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="nx">MiddlewareAPI</span><span class="o">:</span> <span class="p">{</span> <span class="nx">dispatch</span><span class="o">:</span> <span class="nx">Dispatch</span><span class="p">,</span> <span class="nx">getState</span><span class="o">:</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="nx">State</span> <span class="p">}</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">
+</span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="kd">function</span> <span class="nx">BaseDispatch</span><span class="p">(</span><span class="nx">a</span><span class="o">:</span> <span class="nx">Action</span><span class="p">)</span><span class="o">:</span> <span class="nx">Action</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="kd">function</span> <span class="nx">Dispatch</span><span class="p">(</span><span class="nx">a</span><span class="o">:</span> <span class="nx">Action</span> <span class="o">|</span> <span class="nx">AsyncAction</span><span class="p">)</span><span class="o">:</span> <span class="nx">any</span>
+</span></span><span class="line"><span class="ln">7</span><span class="cl">
+</span></span><span class="line"><span class="ln">8</span><span class="cl"><span class="kd">function</span> <span class="nx">Middleware</span><span class="p">(</span><span class="nx">api</span><span class="o">:</span> <span class="nx">MiddlewareAPI</span><span class="p">)</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">next</span><span class="o">:</span> <span class="nx">Dispatch</span><span class="p">)</span><span class="o">:</span> <span class="nx">Dispatch</span>
+</span></span></code></pre></div></li>
+</ul>
+<p>上面的 <code>BaseDispatch</code> 一般是指最內層的 dispatch function，會把 action 送到 reducer 中。由 Redux 提供，就是之前提的 <code>store.dispatch</code>。然而，一個 middleware 的作用，會在 <code>store.dispatch</code> 外層在套一個 dispatch function，類似：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="kr">const</span> <span class="nx">oldDispatch</span> <span class="o">=</span> <span class="nx">store</span><span class="p">.</span><span class="nx">dispatch</span> <span class="c1">// 留下舊的 dispatch function
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">newDispatch</span> <span class="o">=</span> <span class="nx">action</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">  <span class="k">return</span> <span class="nx">oldDispatch</span><span class="p">(</span><span class="nx">action</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="nx">store</span><span class="p">.</span><span class="nx">dispatch</span> <span class="o">=</span> <span class="nx">newDispatch</span><span class="p">;</span> <span class="c1">// 替換成新的 dispatch function
+</span></span></span></code></pre></div><p>用 middleware 來演示就像：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="kr">const</span> <span class="nx">oldDispatch</span> <span class="o">=</span> <span class="nx">store</span><span class="p">.</span><span class="nx">dispatch</span> <span class="c1">// 留下舊的 dispatch function
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">middleware</span> <span class="o">=</span> <span class="nx">dispatch</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">  <span class="kr">const</span> <span class="nx">newDispatch</span> <span class="o">=</span> <span class="nx">action</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">    <span class="k">return</span> <span class="nx">oldDispatch</span><span class="p">(</span><span class="nx">action</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">  <span class="p">}</span> 
+</span></span><span class="line"><span class="ln">6</span><span class="cl">  <span class="k">return</span> <span class="nx">newDispatch</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">7</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">8</span><span class="cl">
+</span></span><span class="line"><span class="ln">9</span><span class="cl"><span class="nx">store</span><span class="p">.</span><span class="nx">dispatch</span> <span class="o">=</span> <span class="nx">middleware</span><span class="p">(</span><span class="nx">oldDispatch</span><span class="p">);</span> <span class="c1">// 替換成新的 dispatch function
+</span></span></span></code></pre></div><p>以上就是 redux middleware 期望要做的事。</p>
+<p>接下來，我們仔細的看 redux middleware 的簽章。 <code>Middleware</code> 會輸入一個 <code>api</code> 參數，回傳一個函數。 分別看它們的型態：</p>
+<ol>
+<li>「api」 是 <code>MiddlewareAPI</code>。它是一個物件，有 <code>dispatch</code>, <code>getState</code> 屬性。<a href="https://github.com/reduxjs/redux/blob/master/src/applyMiddleware.js#L33" target="_blank" rel="noopener noreferrer">原始碼<i class="fas fa-external-link-square-alt ms-1"></i></a> 表示只為了把做出包含 <code>api</code> 的閉包。</li>
+<li>「回傳函數」 是<code>function(next: Dispatch): Dispatch</code>，送入 Dispatch 回傳 Dispatch，所以用箭頭函數寫實作就要出現型如：
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="nx">next</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">Dispatch</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>主要是這個才是 middleware 的本體。若再把 <code>&lt;Deispatch&gt;</code> 打開
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="nx">next</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">  <span class="k">return</span> <span class="p">(</span><span class="nx">action</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">    <span class="k">return</span> <span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>這才是我們真的要實作的 middleware。此時的 <code>next</code> 其實就是內層的 dispatch function。</li>
+</ol>
+<p>為了方便理解 middleware 我們先不要管 api，就直接看真的要實作的 middleware(即作用完 api 的回傳函數)。</p>
+<h2 id="簡化版-middleware">簡化版 middleware<a class="anchor ms-1" href="#簡化版-middleware"><i class="fas fa-link"></i></a></h2>
+<p>考慮兩個 middleware <code>F</code>,<code>G</code> 和 印出資料的 <code>baseDispatch</code>，這裡 <code>F</code>,<code>G</code>的簽章都是 <code>function(next: Dispatch): Dispatch</code> 所以它們可以串接，有兩種串法 <code>F ● G</code> 或 <code>G ● F</code>，我們只考慮 <code>F ● G</code> 合成，我可以得到最後的 dispatch function：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="nx">dispatchFG</span> <span class="o">=</span> <span class="nx">F</span><span class="p">(</span><span class="nx">G</span><span class="p">(</span><span class="nx">baseDispatch</span><span class="p">));</span>
+</span></span></code></pre></div><p>若把 action 送到 <code>dispatchFG</code>，就是</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="nx">dispatchFG</span><span class="p">(</span><span class="nx">action</span><span class="p">)</span> <span class="o">=</span> <span class="nx">F</span><span class="p">(</span><span class="nx">G</span><span class="p">(</span><span class="nx">baseDispatch</span><span class="p">))(</span><span class="nx">action</span><span class="p">)</span>
+</span></span></code></pre></div><p>令 <code>dispatchF = F(G(baseDispatch))</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="nx">F</span><span class="p">(</span><span class="nx">G</span><span class="p">(</span><span class="nx">baseDispatch</span><span class="p">))(</span><span class="nx">action</span><span class="p">)</span> <span class="o">=</span> <span class="nx">dispatchF</span><span class="p">(</span><span class="nx">action</span><span class="p">)</span>
+</span></span></code></pre></div><p>就是說 <strong><code>action</code> 會先被 <code>dispatchF</code> 作用</strong>。</p>
+<p>令<code>dispatchG = G(baseDispatch)</code></p>
+<p>得到</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="nx">F</span><span class="p">(</span><span class="nx">G</span><span class="p">(</span><span class="nx">baseDispatch</span><span class="p">))(</span><span class="nx">action</span><span class="p">)</span> <span class="o">=</span> <span class="nx">F</span><span class="p">(</span><span class="nx">dispatchG</span><span class="p">)(</span><span class="nx">action</span><span class="p">)</span>
+</span></span></code></pre></div><p>Redux 要求：<strong><code>F</code> 內的實作也要把 action 送到 <code>dispatchG(action)</code> 中</strong> 。</p>
+<p>若把 <code>dispatchG</code> 改叫 <code>next</code> 重寫上面一句話： <strong><code>F</code> 內的實作也要把 action 送到 <code>next(action)</code> 中</strong> 。
+因此，就得到重要的規則：
+<strong>Redux middleware 內的實作要把 action 送到 <code>next(action)</code> 中</strong>
+這就和 express middleware 要求：
+<strong>Express middleware 內的實作一定要呼叫 <code>next()</code></strong> 一樣</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1">// mimicBasic.js
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="c1"></span><span class="cm">/**
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="cm"> * 
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="cm"> * @callback Dispatch
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="cm"> * @param {Action} action
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="cm"> * @returns {any}
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="cm"> * 
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="cm"> * @param {Dispatch} next 
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="cm"> * @returns {Dispatch}
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="kd">function</span> <span class="nx">F</span><span class="p">(</span><span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">  <span class="k">return</span> <span class="kd">function</span> <span class="nx">dispatchF</span><span class="p">(</span><span class="nx">action</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;dispatchF&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">    <span class="nx">action</span> <span class="o">=</span> <span class="nx">action</span> <span class="o">+</span> <span class="sb">` -&gt; F`</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">    <span class="nx">next</span><span class="p">(</span><span class="nx">action</span><span class="p">);</span> <span class="c1">// next = dispatchG = G(baseDispatch)
+</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="c1"></span>  <span class="p">};</span>
+</span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">21</span><span class="cl">
+</span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="cm"> * 
+</span></span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="cm"> * @param {Dispatch} next 
+</span></span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="cm"> * @returns {Dispatch}
+</span></span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="ln">27</span><span class="cl"><span class="kd">function</span> <span class="nx">G</span><span class="p">(</span><span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">28</span><span class="cl">  <span class="k">return</span> <span class="kd">function</span> <span class="nx">dispatchG</span><span class="p">(</span><span class="nx">action</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">29</span><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;dispatchG&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">30</span><span class="cl">    <span class="c1">// action
+</span></span></span><span class="line"><span class="ln">31</span><span class="cl"><span class="c1"></span>    <span class="nx">action</span> <span class="o">=</span> <span class="nx">action</span> <span class="o">+</span> <span class="sb">` -&gt; G`</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">32</span><span class="cl">    <span class="nx">next</span><span class="p">(</span><span class="nx">action</span><span class="p">);</span> <span class="c1">// next = baseDispatch
+</span></span></span><span class="line"><span class="ln">33</span><span class="cl"><span class="c1"></span>  <span class="p">};</span>
+</span></span><span class="line"><span class="ln">34</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">35</span><span class="cl">
+</span></span><span class="line"><span class="ln">36</span><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="ln">37</span><span class="cl"><span class="cm"> * 
+</span></span></span><span class="line"><span class="ln">38</span><span class="cl"><span class="cm"> * @type {Dispatch} 
+</span></span></span><span class="line"><span class="ln">39</span><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="ln">40</span><span class="cl"><span class="kd">function</span> <span class="nx">baseDispatch</span><span class="p">(</span><span class="nx">action</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">41</span><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">action</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">42</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">43</span><span class="cl">
+</span></span><span class="line"><span class="ln">44</span><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="ln">45</span><span class="cl"><span class="cm"> * 合成 middleware F, G
+</span></span></span><span class="line"><span class="ln">46</span><span class="cl"><span class="cm"> * @type {Dispatch} 
+</span></span></span><span class="line"><span class="ln">47</span><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="ln">48</span><span class="cl"><span class="kr">const</span> <span class="nx">dispatchFG</span> <span class="o">=</span> <span class="nx">F</span><span class="p">(</span><span class="nx">G</span><span class="p">(</span><span class="nx">baseDispatch</span><span class="p">));</span>
+</span></span><span class="line"><span class="ln">49</span><span class="cl">
+</span></span><span class="line"><span class="ln">50</span><span class="cl"><span class="nx">dispatchFG</span><span class="p">(</span><span class="s1">&#39;action&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">51</span><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;done&#39;</span><span class="p">);</span>
+</span></span></code></pre></div><p>結果：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">dispatchF
+</span></span><span class="line"><span class="ln">2</span><span class="cl">dispatchG
+</span></span><span class="line"><span class="ln">3</span><span class="cl">action -&gt; F -&gt; G
+</span></span><span class="line"><span class="ln">4</span><span class="cl">done
+</span></span></code></pre></div><p>圖解就是如下：
+<picture><img class="img-fluid" alt="30天鐵人-Day23-middleare.png" src="/series/2019-ithome-ironman/day-24-%E4%BA%8C%E5%91%A8%E7%9B%AE-redux-%E5%A6%82%E4%BD%95%E7%99%BC%E5%87%BA%E9%9D%9E%E5%90%8C%E6%AD%A5-action%E5%BC%95%E5%85%A5%E9%9D%9E%E5%90%8C%E6%AD%A5-middleware/resources/1355C86462EF70AB7AC897109176F983.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+
+(C) 是才是範例的圖，(B) 是只看 G 的作用，(A) 是沒有任何 middleware 的圖。(你可能需要花時間自己想圖的作用)</p>
+<h2 id="redux-原版-middleware">Redux 原版 middleware<a class="anchor ms-1" href="#redux-原版-middleware"><i class="fas fa-link"></i></a></h2>
+<p>還原成 Redux 原來的定義，把 api 弄進來，最後再寫成箭頭函數，就是 Redux middleware 最完整的簽章。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1">// mimic.js
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">f</span> <span class="o">=</span> <span class="p">(</span><span class="nx">api</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">next</span> <span class="p">=&gt;</span> <span class="nx">action</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;dispatchF&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">  <span class="nx">action</span> <span class="o">=</span> <span class="nx">action</span> <span class="o">+</span> <span class="sb">` -&gt; F`</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">  <span class="nx">next</span><span class="p">(</span><span class="nx">action</span><span class="p">);</span> <span class="c1">// next = g(api)(baseDispatch)
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="kr">const</span> <span class="nx">g</span> <span class="o">=</span> <span class="p">(</span><span class="nx">api</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">next</span> <span class="p">=&gt;</span> <span class="nx">action</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;dispatchG&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">  <span class="nx">action</span> <span class="o">=</span> <span class="nx">action</span> <span class="o">+</span> <span class="sb">` -&gt; G`</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">  <span class="nx">next</span><span class="p">(</span><span class="nx">action</span><span class="p">);</span> <span class="c1">// next = baseDispatch
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="kr">const</span> <span class="nx">baseDispatch</span> <span class="o">=</span> <span class="p">(</span><span class="nx">action</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">action</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">
+</span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="kd">function</span> <span class="nx">applayMiddleware</span><span class="p">(</span><span class="nx">f</span><span class="p">,</span> <span class="nx">g</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">  <span class="kr">const</span> <span class="nx">api</span> <span class="o">=</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl">  <span class="kr">const</span> <span class="nx">G</span> <span class="o">=</span>  <span class="nx">g</span><span class="p">(</span><span class="nx">api</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">  <span class="kr">const</span> <span class="nx">F</span> <span class="o">=</span> <span class="nx">f</span><span class="p">(</span><span class="nx">api</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">
+</span></span><span class="line"><span class="ln">19</span><span class="cl">  <span class="kr">const</span> <span class="nx">dispatchG</span> <span class="o">=</span> <span class="nx">G</span><span class="p">(</span><span class="nx">baseDispatch</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">20</span><span class="cl">  <span class="kr">const</span> <span class="nx">dispatchFG</span> <span class="o">=</span> <span class="nx">F</span><span class="p">(</span><span class="nx">dispatchG</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">21</span><span class="cl">  <span class="k">return</span> <span class="nx">dispatchFG</span><span class="p">;</span> <span class="c1">// F(G(baseDispatch)) = f(api)(g(api)(baseDispatch))
+</span></span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="ln">23</span><span class="cl">
+</span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="kr">const</span> <span class="nx">dispatchFG</span> <span class="o">=</span> <span class="nx">applayMiddleware</span><span class="p">(</span><span class="nx">f</span><span class="p">,</span> <span class="nx">g</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">25</span><span class="cl">
+</span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="nx">dispatchFG</span><span class="p">(</span><span class="s1">&#39;action&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">27</span><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;done&#39;</span><span class="p">);</span>
+</span></span></code></pre></div><h2 id="redux-middleware-小總結">Redux middleware 小總結<a class="anchor ms-1" href="#redux-middleware-小總結"><i class="fas fa-link"></i></a></h2>
+<p>Redux middleware 一定長成 <code>(api: MiddlewareAPI) =&gt; (next: Dispatch) =&gt; Dispatch</code>，才可以做合成  <code>F ● G</code>。</p>
+<p>我們觀察到：</p>
+<ul>
+<li><code>next</code> 是指內層的 dispatch function，因為 <code>(F ● G(BaseDispatch))(action) = F(dispatchG)(action) = F(next)(action)</code></li>
+<li>Redux middleware 實作規定，一定要呼叫 <code>next(action)</code>，action 才能一直往內層送，不然就會斷掉，reducer 就收不到 action 了。</li>
+<li>最後一個把 action 送到 reducer 的 dispatch 就叫做 <strong>BaseDispatch</strong>，它的一定是 <code>action =&gt; action</code>，其它中間過程是 action 被改成長什麼樣子都可以，所以你才會看到 <code>AsyncAction: any</code> 這特別的定義。</li>
+<li>middleware 的目地是把 dispatch function 合併成新的 dispatch function。</li>
+<li><code>return next(action)</code> 在非同步的 middleware 比較少用。</li>
+</ul>
+<h1 id="使用-redux-middleware-同步-middleware-logger">使用 Redux middleware: 同步 middleware logger<a class="anchor ms-1" href="#使用-redux-middleware-同步-middleware-logger"><i class="fas fa-link"></i></a></h1>
+<p>前面我們分析了 redux middleware，看不懂沒關係可能是我寫的不好 &gt;&lt;。</p>
+<p>只要記得一件事：
+<strong>Redux middleware 內的實作要把 action 送到 <code>next(action)</code> 中</strong>
+這樣才能引起一連串的內部 dispatch function 運作。剩下的只要知道 middleware 簽章，你也可以寫出自己的 middleware。</p>
+<p>接下來，我們來套用 redux middleware 到 store 中，只需要 <code>createStore()</code> 中使用 <code>applyMiddleware()</code>。</p>
+<p>當沒有用任何 middleware 時，像</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="kr">const</span> <span class="nx">store</span> <span class="o">=</span> <span class="nx">createStore</span><span class="p">(</span><span class="nx">reducer</span><span class="p">,</span> <span class="nx">initState</span><span class="p">);</span>
+</span></span></code></pre></div><p>此時的 store 的 dispatch function <code>store.dispatch</code> 是「某個 BaseDispatch 的實體」(我們暫時稱為 <code>aBaseDispatch</code>)，這是最內層的 dispatch function，內部會把 action 送入 reducer 中。</p>
+<p>假如，套用 logger middleware，</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kd">function</span> <span class="nx">logger</span><span class="p">({</span> <span class="nx">getState</span> <span class="p">})</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">  <span class="k">return</span> <span class="nx">next</span> <span class="p">=&gt;</span> <span class="nx">action</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;will dispatch: &#39;</span> <span class="o">+</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">action</span><span class="p">));</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">    <span class="c1">// 送 action 到內層 dispatch function
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">returnValue</span> <span class="o">=</span> <span class="nx">next</span><span class="p">(</span><span class="nx">action</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;state after dispatch: &#39;</span> <span class="o">+</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span> <span class="nx">getState</span><span class="p">()));</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">
+</span></span><span class="line"><span class="ln">10</span><span class="cl">    <span class="c1">// 在同步的 middleware 才有用  
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="nx">returnValue</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="kr">const</span> <span class="p">{</span> <span class="nx">createStore</span><span class="p">,</span> <span class="nx">applyMiddleware</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;redux&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="kr">const</span> <span class="nx">store</span> <span class="o">=</span> <span class="nx">createStore</span><span class="p">(</span><span class="nx">reducer</span><span class="p">,</span> <span class="nx">initState</span><span class="p">,</span> <span class="nx">applyMiddleware</span><span class="p">(</span><span class="nx">logger</span><span class="p">));</span>
+</span></span></code></pre></div><p>把 middleware 用到 store dispatch function 中，要用 <code>applyMiddleware</code> 這函數。 <code>applyMiddleware(...middleware)</code> 會回傳 <a href="https://redux.js.org/glossary#store-enhancer" target="_blank" rel="noopener noreferrer">enhancer<i class="fas fa-external-link-square-alt ms-1"></i></a>，給 <code>createStore</code> 使用 (就是 <code>enhancer(createStore)</code> 變成新的 store)。
+此時 store 的 dispatch function <code>store.dispatch</code> 的真實身份是 <code>logger(aBaseDispatch)</code>，</p>
+<p>若送出一個 action,</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="kr">const</span> <span class="nx">action</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">  <span class="nx">type</span><span class="o">:</span> <span class="nx">identityChangeMessage</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">  <span class="nx">payload</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">    <span class="nx">message</span><span class="o">:</span> <span class="s1">&#39;change&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>action 經過 logger middleare 會印出</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">will dispatch: {&#34;type&#34;:&#34;CHANGE_MESSAGE&#34;,&#34;payload&#34;:{&#34;message&#34;:&#34;change&#34;}}
+</span></span><span class="line"><span class="ln">2</span><span class="cl">state after dispatch: {&#34;message&#34;:&#34;change&#34;}
+</span></span></code></pre></div><p><a href="https://github.com/eugenechen0514/ithelp-30dayfullstack-hello-redux/blob/master/middlewareSync.js" target="_blank" rel="noopener noreferrer">完整的程式見 <code>middlewareSync.js</code><i class="fas fa-external-link-square-alt ms-1"></i></a></p>
+<h1 id="寫自己的非同步-middleware發出非同步-action">寫自己的非同步 middleware：發出非同步 action<a class="anchor ms-1" href="#寫自己的非同步-middleware發出非同步-action"><i class="fas fa-link"></i></a></h1>
+<p>這裡雖然是自己做非同步 middleware 但只是學習用，除非你有獨到的見解或其它考量，否則還是建議使用 middleware 套件：<a href="https://github.com/reduxjs/redux-thunk" target="_blank" rel="noopener noreferrer">redux-thunk<i class="fas fa-external-link-square-alt ms-1"></i></a>、<a href="https://redux-observable.js.org/" target="_blank" rel="noopener noreferrer">redux-observable<i class="fas fa-external-link-square-alt ms-1"></i></a>、<a href="https://redux-saga.js.org/" target="_blank" rel="noopener noreferrer">redux-saga<i class="fas fa-external-link-square-alt ms-1"></i></a>。</p>
+<h2 id="promise-action--帶有-promise-的-action">promise action : 帶有 promise 的 action<a class="anchor ms-1" href="#promise-action--帶有-promise-的-action"><i class="fas fa-link"></i></a></h2>
+<p>假設我們可以發出一個帶有 promise 的 action，例如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="kr">const</span> <span class="nx">promiseAction</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">  <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;CHANGE_MESSAGE&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">  <span class="nx">promise</span><span class="o">:</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">({</span><span class="nx">message</span><span class="o">:</span> <span class="s1">&#39;changed&#39;</span><span class="p">})</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">
+</span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="nx">store</span><span class="p">.</span><span class="nx">dispatch</span><span class="p">(</span><span class="nx">promiseAction</span><span class="p">);</span>
+</span></span></code></pre></div><h2 id="promisemiddleware-可以處理-pomise-的-middleware">PromiseMiddleware: 可以處理 pomise 的 middleware<a class="anchor ms-1" href="#promisemiddleware-可以處理-pomise-的-middleware"><i class="fas fa-link"></i></a></h2>
+<p>我們需一個 middleware，它要做以下的事</p>
+<ul>
+<li>它可以判斷 action 是否是 promise action</li>
+<li>若不是 promise action，不要做任何事，傳 action 到內層 middleware 做事 (即 <code>return next(action)</code>)</li>
+<li>若是 promise action，它會為 action 加入三種狀態 (<code>_TRIGGER</code>, <code>_SUCCESS</code>, <code>_FAIL</code>)
+<ol>
+<li>觸發 action: <code>CHANGE_MESSAGE_TRIGGER</code></li>
+<li>promise resolve: <code>CHANGE_MESSAGE_SUCCESS</code>，且 resolve data 放在 <code>action.payload</code></li>
+<li>promise reject: <code>CHANGE_MESSAGE_FAIL</code>，且 reject error 放在 <code>action.error</code></li>
+</ol>
+</li>
+<li>除了第一次的 trigger action，Promise 得到結果後也要引起 <code>next(action)</code> 讓內層 dispatch fuction 作用</li>
+</ul>
+<p>把上述寫成程式</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1">// PromiseMiddleware
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="c1"></span><span class="kd">function</span> <span class="nx">PromiseMiddleware</span><span class="p">(</span><span class="nx">action</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">  <span class="k">return</span> <span class="nx">next</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">    <span class="k">return</span> <span class="kd">function</span> <span class="nx">dispatchAsync</span><span class="p">(</span><span class="nx">action</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="nx">action</span><span class="p">.</span><span class="nx">promise</span> <span class="k">instanceof</span> <span class="nb">Promise</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Promise action&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">        <span class="kr">const</span> <span class="p">{</span> <span class="nx">type</span><span class="p">,</span> <span class="nx">promise</span><span class="p">,</span> <span class="p">...</span><span class="nx">others</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">action</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">        <span class="nx">promise</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">          <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">data</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">            <span class="nx">next</span><span class="p">({</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">              <span class="nx">type</span><span class="o">:</span> <span class="nx">success</span><span class="p">(</span><span class="nx">type</span><span class="p">),</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">              <span class="nx">payload</span><span class="o">:</span> <span class="nx">data</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">              <span class="nx">promise</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">              <span class="p">...</span><span class="nx">others</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">            <span class="p">});</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl">          <span class="p">})</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">          <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">            <span class="nx">next</span><span class="p">({</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl">              <span class="nx">type</span><span class="o">:</span> <span class="nx">fail</span><span class="p">(</span><span class="nx">type</span><span class="p">),</span>
+</span></span><span class="line"><span class="ln">20</span><span class="cl">              <span class="nx">error</span><span class="o">:</span> <span class="nx">error</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">21</span><span class="cl">              <span class="nx">promise</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">22</span><span class="cl">              <span class="p">...</span><span class="nx">others</span>
+</span></span><span class="line"><span class="ln">23</span><span class="cl">            <span class="p">});</span>
+</span></span><span class="line"><span class="ln">24</span><span class="cl">          <span class="p">});</span>
+</span></span><span class="line"><span class="ln">25</span><span class="cl">        <span class="k">return</span> <span class="nx">next</span><span class="p">({</span>
+</span></span><span class="line"><span class="ln">26</span><span class="cl">          <span class="nx">type</span><span class="o">:</span> <span class="nx">trigger</span><span class="p">(</span><span class="nx">type</span><span class="p">),</span>
+</span></span><span class="line"><span class="ln">27</span><span class="cl">          <span class="nx">promise</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">28</span><span class="cl">          <span class="p">...</span><span class="nx">others</span>
+</span></span><span class="line"><span class="ln">29</span><span class="cl">        <span class="p">});</span>
+</span></span><span class="line"><span class="ln">30</span><span class="cl">      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">31</span><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Not promise action&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">32</span><span class="cl">        <span class="k">return</span> <span class="nx">next</span><span class="p">(</span><span class="nx">action</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">33</span><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="ln">34</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln">35</span><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="ln">36</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>修改一下之面的 <code>logger</code> 方便我們觀察 action</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kd">function</span> <span class="nx">logger</span><span class="p">({</span> <span class="nx">getState</span> <span class="p">})</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">  <span class="k">return</span> <span class="nx">next</span> <span class="p">=&gt;</span> <span class="nx">action</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;========== action dispatching(start) ===============&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;will dispatch: &#39;</span> <span class="o">+</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">action</span><span class="p">));</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">    <span class="kr">const</span> <span class="nx">returnValue</span> <span class="o">=</span> <span class="nx">next</span><span class="p">(</span><span class="nx">action</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;state after dispatch: &#39;</span> <span class="o">+</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">getState</span><span class="p">()));</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;========== action dispatching(end) ===============&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">    <span class="k">return</span> <span class="nx">returnValue</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="使用-promisemiddleware-和-logger-middlewares">使用 PromiseMiddleware 和 logger middlewares<a class="anchor ms-1" href="#使用-promisemiddleware-和-logger-middlewares"><i class="fas fa-link"></i></a></h2>
+<p>接下來，使用 <code>PromiseMiddleware</code> 和 <code>logger</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">const store = createStore(reducer, initState, applyMiddleware(PromiseMiddleware, logger));
+</span></span></code></pre></div><p>要小心，middleware 順序不能換，因為 promise action 要先進到　<code>PromiseMiddleware</code>　的 dispatch function（dispatchAsync） 作用， action 才能進到內層的 <code>logger</code> 中 dispatch function 印出。</p>
+<blockquote>
+<p>你也可以試試看順序倒過來會怎麼樣。</p>
+</blockquote>
+<h2 id="發出一個-promise-action">發出一個 promise action<a class="anchor ms-1" href="#發出一個-promise-action"><i class="fas fa-link"></i></a></h2>
+<p>定義一個 promise action</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="kr">const</span> <span class="nx">identityChangeMessage</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="c1">// Case 1: 建立一個 resolve action
+</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">resolvePromiseAction</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">  <span class="nx">type</span><span class="o">:</span> <span class="nx">identityChangeMessage</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">  <span class="nx">promise</span><span class="o">:</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">({</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl">    <span class="nx">message</span><span class="o">:</span> <span class="s1">&#39;changed&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">7</span><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="ln">8</span><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><p>派分 promise action</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="nx">store</span><span class="p">.</span><span class="nx">dispatch</span><span class="p">(</span><span class="nx">resolvePromiseAction</span><span class="p">);</span>
+</span></span></code></pre></div><p>結果如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">========== action dispatching(start) ===============
+</span></span><span class="line"><span class="ln">2</span><span class="cl">will dispatch: {&#34;type&#34;:&#34;CHANGE_MESSAGE_TRIGGER&#34;,&#34;promise&#34;:{}}
+</span></span><span class="line"><span class="ln">3</span><span class="cl">state after dispatch: {&#34;message&#34;:&#34;identityChangeMessage trigger&#34;}
+</span></span><span class="line"><span class="ln">4</span><span class="cl">========== action dispatching(end) ===============
+</span></span><span class="line"><span class="ln">5</span><span class="cl">waiting...
+</span></span><span class="line"><span class="ln">6</span><span class="cl">========== action dispatching(start) ===============
+</span></span><span class="line"><span class="ln">7</span><span class="cl">will dispatch: {&#34;type&#34;:&#34;CHANGE_MESSAGE_SUCCESS&#34;,&#34;payload&#34;:{&#34;message&#34;:&#34;changed&#34;},&#34;promise&#34;:{}}
+</span></span><span class="line"><span class="ln">8</span><span class="cl">state after dispatch: {&#34;message&#34;:&#34;changed&#34;}
+</span></span><span class="line"><span class="ln">9</span><span class="cl">========== action dispatching(end) ===============
+</span></span></code></pre></div><p>我們發現產生了兩個 action，action type 分別是 <code>CHANGE_MESSAGE_TRIGGER</code>, <code>CHANGE_MESSAGE_SUCCESS</code>，這也符合 Promise 的運作過程，就像是我們模擬 Redux 版本的 <code>fetch()</code> request。當派分 promise action 後，在 reducer 就要收到一個 <code>_TRIGGER</code> 的 action，然後取回資料後，reducer 就要收到一個 <code>_SUCCESS</code> 的 action。</p>
+<blockquote>
+<p>reject promise action 和 normal action 的完整的範例見 <a href="https://github.com/eugenechen0514/ithelp-30dayfullstack-hello-redux/blob/master/middlewareAsync.js" target="_blank" rel="noopener noreferrer">middlewareAsync.js<i class="fas fa-external-link-square-alt ms-1"></i></a></p>
+</blockquote>
+<h2 id="總結非同步的-middlewarepromisemiddleware">總結非同步的 middleware：PromiseMiddleware<a class="anchor ms-1" href="#總結非同步的-middlewarepromisemiddleware"><i class="fas fa-link"></i></a></h2>
+<p>非同步的 middleware 有下列的特性：</p>
+<ol>
+<li>新形態的 action：它讓我們可以派分 promise action 這種新形態的 action，例如：在 <code>PromiseMiddleware</code> 中解讀 promise action, 就可以產生其它 action 來模擬 Promise 的運作過程。</li>
+<li>派分任意次 action：我們可以派分任意多次的 <code>next(action)</code>，就像我們發出了二個 actions
+<picture><img class="img-fluid" alt="30天鐵人-Day24-PromiseMiddleware.png" src="/series/2019-ithome-ironman/day-24-%E4%BA%8C%E5%91%A8%E7%9B%AE-redux-%E5%A6%82%E4%BD%95%E7%99%BC%E5%87%BA%E9%9D%9E%E5%90%8C%E6%AD%A5-action%E5%BC%95%E5%85%A5%E9%9D%9E%E5%90%8C%E6%AD%A5-middleware/resources/BE60D4DDF44276512F285BD9BA0F1A5F.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+
+<blockquote>
+<p>實務上，在發出 某 action 後可能又要發出其它 action，如下圖
+<picture><img class="img-fluid" alt="30天鐵人-Day24-3.png" src="/series/2019-ithome-ironman/day-24-%E4%BA%8C%E5%91%A8%E7%9B%AE-redux-%E5%A6%82%E4%BD%95%E7%99%BC%E5%87%BA%E9%9D%9E%E5%90%8C%E6%AD%A5-action%E5%BC%95%E5%85%A5%E9%9D%9E%E5%90%8C%E6%AD%A5-middleware/resources/E6241B017995580415EC9BC4A795698D.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+
+雖然這大量產生的 action 讓人有點詬病，但使用良好的非同步 action 套件，可以一定程度控制我們的程式碼，避免程式碼混亂。</p>
+</blockquote>
+</li>
+<li>action 自由性：<code>next(action)</code> 中的 action 可以在 middleware 中任意建立、修改、更換，例如：我們建立新的 action <code>{type: success(type),  payload: data, promise, ...others}</code> ( action type 加入後綴詞)</li>
+</ol>
+<h1 id="redux-生態系">Redux 生態系<a class="anchor ms-1" href="#redux-生態系"><i class="fas fa-link"></i></a></h1>
+<p>Redux 是很小的套件，以它為核心已經發展出大量的相關套件，當然你想要什麼功能除了自己實作，也可以用別人的套件。</p>
+<blockquote>
+<p>我的學習方法是先自己試寫看看體驗一下痛苦，再套用大神們的套件，因為自己臨時寫的 API 我不覺得會比大神們經過時間粹煉的套件好用、穩定。</p>
+</blockquote>
+<p>Redux 生態系列表如下：</p>
+<ul>
+<li><a href="https://redux.js.org/introduction/ecosystem" target="_blank" rel="noopener noreferrer">Redux exosystem(offical)<i class="fas fa-external-link-square-alt ms-1"></i></a>：裡面可以看到套件程式碼火力展示</li>
+<li><a href="https://chentsulin.github.io/redux/docs/introduction/Ecosystem.html" target="_blank" rel="noopener noreferrer">Redux 生態系(中文)<i class="fas fa-external-link-square-alt ms-1"></i></a>：當功能的英文關鍵字都不知道就可以查看看</li>
+</ul>
+<p>我還是可以小小的註解一下：</p>
+<h2 id="非同步-middleware-套件用來發出非同步-action-的套件">非同步 middleware 套件：用來發出非同步 action 的套件<a class="anchor ms-1" href="#非同步-middleware-套件用來發出非同步-action-的套件"><i class="fas fa-link"></i></a></h2>
+<p><a href="https://github.com/reduxjs/redux-thunk" target="_blank" rel="noopener noreferrer">redux-thunk<i class="fas fa-external-link-square-alt ms-1"></i></a>：我第一個用的非同步 middleware 套件。它的原始碼很簡單，把 action 結構改成一個函數(物件)，然後派分函數 action。我覺得 action 連發、維護不太好處理，我就轉為 <code>redux-observable</code>。
+<a href="https://redux-observable.js.org/" target="_blank" rel="noopener noreferrer">redux-observable<i class="fas fa-external-link-square-alt ms-1"></i></a>：要用 reactive programming 的概念，<a href="https://rxjs-dev.firebaseapp.com/" target="_blank" rel="noopener noreferrer">RxJS<i class="fas fa-external-link-square-alt ms-1"></i></a> 是 javascript 的 reactive programming 實現套件。 <code>redux-observable</code> 把它們引入 Redux 中。
+<a href="https://redux-saga.js.org/" target="_blank" rel="noopener noreferrer">redux-saga<i class="fas fa-external-link-square-alt ms-1"></i></a>：使用 ES6 的生成器函式(generator function)/ <code>yield</code> 語法不用學新的語法。</p>
+<h2 id="routing頁面切換">Routing：頁面切換<a class="anchor ms-1" href="#routing頁面切換"><i class="fas fa-link"></i></a></h2>
+<p><a href="https://github.com/ReactTraining/react-router" target="_blank" rel="noopener noreferrer">react-router<i class="fas fa-external-link-square-alt ms-1"></i></a> 是 react compoent 套件，用來依照網址選擇要渲染的 component。它是 React 相關套件，它與 redux 沒關西。</p>
+<p>因為篇福有限，我只點出一件很重要的事： <code>使用 react-router 要小心版本號</code></p>
+<p>若你要用 <strong>react-router 4.x</strong> 請用以下組合：</p>
+<ul>
+<li><a href="https://github.com/ReactTraining/history#readme" target="_blank" rel="noopener noreferrer">history<i class="fas fa-external-link-square-alt ms-1"></i></a>：</li>
+<li><a href="https://github.com/ReactTraining/react-router" target="_blank" rel="noopener noreferrer">react-router 4.x<i class="fas fa-external-link-square-alt ms-1"></i></a></li>
+<li><a href="https://github.com/supasate/connected-react-router" target="_blank" rel="noopener noreferrer">connected-react-router<i class="fas fa-external-link-square-alt ms-1"></i></a></li>
+</ul>
+<p>若你要用 <strong>react-router 2.x and 3.x</strong> 請用以下組合：</p>
+<ul>
+<li><a href="https://github.com/ReactTraining/react-router/releases/tag/v3.0.5" target="_blank" rel="noopener noreferrer">react-router 2.x and 3.x<i class="fas fa-external-link-square-alt ms-1"></i></a></li>
+<li><a href="https://github.com/reactjs/react-router-redux#readme" target="_blank" rel="noopener noreferrer">react-router-redux<i class="fas fa-external-link-square-alt ms-1"></i></a></li>
+</ul>
+<h1 id="總結">總結<a class="anchor ms-1" href="#總結"><i class="fas fa-link"></i></a></h1>
+<p>今天主要介紹 Redux Middleware，並分別給出了同步和非同步的 middleware 的範例 <code>logger</code> 和 <code>PromiseMiddleware</code>，並在建立 store 時使用 middleware，最後以Redux 生態系為結尾。</p></div></div>
+  <div class="card-footer"><div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-prev">
+    <i class="fas fa-fw fa-chevron-circle-down post-prev-icon" data-fa-transform="rotate-90"></i>
+    <a href="/series/2019-ithome-ironman/day-23-%E4%BA%8C%E5%91%A8%E7%9B%AE-redux-%E4%B8%B2%E6%8E%A5-react-%E8%88%87-redux-devtools/">Day 23 - 二周目 - Redux 串接 React 與 Redux DevTools
+</a>
+  </div><div class="post-nav post-next">
+    <a href="/series/2019-ithome-ironman/day-25-%E4%BA%8C%E5%91%A8%E7%9B%AE-react-component-%E5%A5%97%E4%BB%B6-material-ui-google-material-design-%E7%9A%84%E5%AF%A6%E4%BD%9C%E5%A5%97%E4%BB%B6/">Day 25 - 二周目 - React Component 套件 Material-UI： Google Material Design 的實作套件
+</a>
+    <i class="fas fa-fw fa-chevron-circle-down post-next-icon" data-fa-transform="rotate-270"></i>
+  </div></div></div>
+</article><div class="post-copyright mb-3 row card component" id="post-copyright">
+    <div class="card-header">
+        <h2 class="card-title fs-4 my-2 text-surface">版權</h2>
+    </div>
+    <div class="card-body"><a class="d-flex align-items-center flex-column" target="_blank" rel="license noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_TW">
+  <span><i class="fab fa-fw fa-2x fa-creative-commons"></i><i class="fab fa-fw fa-2x fa-creative-commons-by"></i><i class="fab fa-fw fa-2x fa-creative-commons-nc"></i><i class="fab fa-fw fa-2x fa-creative-commons-sa"></i></span>
+  CC BY-NC-SA 4.0 
+</a>
+
+
+    </div>
+</div><section class="related-posts row card component">
+    <div class="card-header">
+      <h2 class="card-title fs-4 my-2 text-surface">相關文章</h2>
+    </div>
+    <div class="card-body">
+      <ul class="post-list list-unstyled"><li>
+          <a href="/series/2019-ithome-ironman/day-23-%E4%BA%8C%E5%91%A8%E7%9B%AE-redux-%E4%B8%B2%E6%8E%A5-react-%E8%88%87-redux-devtools/">Day 23 - 二周目 - Redux 串接 React 與 Redux DevTools
+</a>
+          <span class="float-end post-date">2018-10-23
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-22-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E8%A7%A3%E9%96%8B-stateprop-%E7%9A%84%E6%B7%B7%E4%BA%82flux-%E5%96%AE%E5%90%91%E8%B3%87%E6%96%99%E6%B5%81%E6%9A%A8-redux-%E9%AB%94%E9%A9%97/">Day 22 - 二周目 - 解開 State:prop 的混亂：Flux 單向資料流暨 Redux 體驗
+</a>
+          <span class="float-end post-date">2018-10-22
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-21-%E4%BA%8C%E5%91%A8%E7%9B%AE-react-%E5%BF%85%E5%82%99%E7%9F%A5%E8%AD%98%E5%92%8C%E6%95%88%E8%83%BD%E8%AD%B0%E9%A1%8C/">Day 21 - 二周目 - React 必備知識和效能議題
+</a>
+          <span class="float-end post-date">2018-10-21
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-20-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E8%BB%9F%E9%AB%94%E6%B8%AC%E8%A9%A6testing%E6%B8%AC%E8%A9%A6%E9%9D%9E%E5%90%8C%E6%AD%A5%E5%87%BD%E6%95%B8/">Day 20 - 二周目 - 軟體測試(Testing)：測試非同步函數
+</a>
+          <span class="float-end post-date">2018-10-20
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-19-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E5%B8%B3%E5%AF%86%E8%AA%8D%E8%A8%BC%E8%88%87jwt-json-web-token%E5%82%B3%E9%81%9E/">Day 19 - 二周目 - 帳密認証與JWT (JSON Web Token)傳遞
+</a>
+          <span class="float-end post-date">2018-10-19
+</span>
+        </li></ul>
+    </div>
+  </section><div class="card component row post-comments" id="post-comments">
+  <div class="card-header">
+    <h2 class="card-title my-2 fs-4 text-surface">評論</h2>
+  </div>
+  <div class="card-body"><script src="https://utteranc.es/client.js"
+  repo="eugenechen0514/eugenechen0514.github.io"
+  issue-term="pathname"
+  label="comment"
+  theme="github-light"
+  crossorigin="anonymous"
+  async>
+</script></div>
+</div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container d-flex flex-column">
+    
+    <div class="card row text-center profile component">
+  <div class="card-body">
+    <div class="col-12 d-flex align-items-center justify-content-center"><picture><img class="profile-avatar rounded-circle" alt="EugeneChen" src="/images/profile.webp" loading="lazy" data-viewer-invisible
+    
+     width="298" height="305"
+     />
+</picture>
+</div>
+    <div class="col-12 profile-meta"><div class="profile-name fw-fold fs-lg">EugeneChen</div><div class="profile-bio">軟體工程師，喜歡動手做些有的沒的專案，同時也喜愛數學、攝影、桌球，慢跑、游泳、作菜。</div><div class="profile-about"><i class="fas fa-fw fa-user"></i><a target="_blank" rel="noopener noreferrer" href="https://eugene-website.herokuapp.com">關於我</a></div><nav class="social-links nav justify-content-center"><a class="nav-link social-link" href="mailto:yujiechen0514@gmail.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i></a><a class="nav-link social-link" target="_blank" href="https://github.com/eugenechen0514" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-github"></i></a><a class="nav-link social-link" target="_blank" href="/index.xml" title="RSS" rel="noopener noreferrer">
+    <i class="fas fa-fw fa-2x fa-rss"></i></a></nav>
+</div>
+  </div>
+</div>
+<section class="taxonomies row card component">
+    <div class="card-body">
+        <ul class="nav nav-tabs" id="myTab" role="tablist"><li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="taxonomySeriesTab" data-bs-toggle="tab" data-bs-target="#taxonomySeries" 
+                        type="button" role="tab" aria-controls="專欄" aria-selected="true">
+                        專欄
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                    <button class="nav-link" id="taxonomyCategoriesTab" data-bs-toggle="tab" data-bs-target="#taxonomyCategories" 
+                        type="button" role="tab" aria-controls="分類" aria-selected="true">
+                        分類
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                    <button class="nav-link" id="taxonomyTagsTab" data-bs-toggle="tab" data-bs-target="#taxonomyTags" 
+                        type="button" role="tab" aria-controls="標籤" aria-selected="true">
+                        標籤
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                <button class="nav-link" id="taxonomyArchivesTab" data-bs-toggle="tab" data-bs-target="#taxonomyArchive" 
+                    type="button" role="tab" aria-controls="taxonomyArchives" aria-selected="true">
+                    歸檔
+                </button>
+            </li>
+        </ul>
+          
+        <div class="tab-content mt-3"><div class="tab-pane active" id="taxonomySeries" role="tabpanel" aria-labelledby="taxonomySeriesTab" tabindex="0"><a href="/series/2019-ithome-ironman/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="用js成為老闆心中的全端工程師 - 2019 iT邦幫忙鐵人賽">
+                        用js成為老闆心中的全端工程師 - 2019 iT邦幫忙鐵人賽<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a></div><div class="tab-pane" id="taxonomyCategories" role="tabpanel" aria-labelledby="taxonomyCategoriesTab" tabindex="0"><a href="/categories/%E9%9A%A8%E6%89%8B%E7%AD%86%E8%A8%98/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="隨手筆記">
+                        隨手筆記<span class="badge badge-sm text-secondary bg-white ms-1">2</span></a><a href="/categories/%E5%BF%83%E5%BE%97/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="心得">
+                        心得<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a></div><div class="tab-pane" id="taxonomyTags" role="tabpanel" aria-labelledby="taxonomyTagsTab" tabindex="0"><a href="/tags/2019-it-%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2019 iT 邦幫忙鐵人賽">
+                        2019 iT 邦幫忙鐵人賽<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a><a href="/tags/%E7%94%A8js%E6%88%90%E7%82%BA%E8%80%81%E9%97%86%E5%BF%83%E4%B8%AD%E7%9A%84%E5%85%A8%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%AB/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="用js成為老闆心中的全端工程師">
+                        用js成為老闆心中的全端工程師<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a><a href="/tags/alphacamp/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="AlphaCamp">
+                        AlphaCamp<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/kafka/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="Kafka">
+                        Kafka<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/mongodb/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="MongoDB">
+                        MongoDB<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/pandas/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="pandas">
+                        pandas<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/python/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="python">
+                        python<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/%E6%8E%A8%E8%96%A6%E7%B3%BB%E7%B5%B1/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="推薦系統">
+                        推薦系統<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a></div><div class="tab-pane" id="taxonomyArchive" role="tabpanel" aria-labelledby="taxonomyArchiveTab" tabindex="0"><a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2022">
+    2022 <span class="badge badge-sm text-secondary bg-white ms-1">1</span>
+    </a>
+<a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2021">
+    2021 <span class="badge badge-sm text-secondary bg-white ms-1">2</span>
+    </a>
+<a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2018">
+    2018 <span class="badge badge-sm text-secondary bg-white ms-1">30</span>
+    </a>
+
+</div>
+        </div>
+    </div>
+</section><div class="post-toc row mb-4 card component" id="postTOC">
+  <div class="card-header">
+    <h2 class="card-title fs-4 my-2 text-surface">目錄</h2>
+  </div>
+  <div class="card-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#簡化版-middleware">簡化版 middleware</a></li>
+    <li><a href="#redux-原版-middleware">Redux 原版 middleware</a></li>
+    <li><a href="#redux-middleware-小總結">Redux middleware 小總結</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#promise-action--帶有-promise-的-action"><strong>promise action</strong> : 帶有 promise 的 action</a></li>
+    <li><a href="#promisemiddleware-可以處理-pomise-的-middleware"><code>PromiseMiddleware</code>: 可以處理 pomise 的 middleware</a></li>
+    <li><a href="#使用-promisemiddleware-和-logger-middlewares">使用 <code>PromiseMiddleware</code> 和 <code>logger</code> middlewares</a></li>
+    <li><a href="#發出一個-promise-action">發出一個 promise action</a></li>
+    <li><a href="#總結非同步的-middlewarepromisemiddleware">總結非同步的 middleware：<code>PromiseMiddleware</code></a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#非同步-middleware-套件用來發出非同步-action-的套件">非同步 middleware 套件：用來發出非同步 action 的套件</a></li>
+    <li><a href="#routing頁面切換">Routing：頁面切換</a></li>
+  </ul>
+</nav>
+  </div>
+</div><section class="recent-posts row card component">
+  <div class="card-header">
+    <h2 class="card-title my-2 fs-4 text-surface">最近文章</h2>
+  </div>
+  <div class="card-body">
+    <ul class="post-list list-unstyled ms-1"><li class="mb-2">
+        <a href="/posts/reviews/2022-02-06-alphacamp%E6%8E%A8%E8%96%A6%E7%B3%BB%E7%B5%B1%E4%B8%8A%E8%AA%B2%E5%BF%83%E5%BE%97/">AlphaCamp 推薦系統上課心得
+</a>
+      </li><li class="mb-2">
+        <a href="/posts/notes/2021-08-22-%E4%B8%80%E7%AA%BAkafka%E5%85%A7%E9%83%A8%E5%84%B2%E5%AD%98%E8%B3%87%E6%96%99/">一窺 Kafka 內部儲存資料
+</a>
+      </li><li class="mb-2">
+        <a href="/posts/notes/2021-08-01-mongodb-5-%E4%BE%86%E4%BA%86%E6%9C%89%E4%BB%80%E9%BA%BC%E5%80%BC%E5%BE%97%E6%B3%A8%E6%84%8F%E7%9A%84%E6%9B%B4%E6%96%B0/">MongoDb 5 來了，有什麼值得注意的更新呢?
+</a>
+      </li><li class="mb-2">
+        <a href="/series/2019-ithome-ironman/day-30-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-network-%E6%9A%A8%E5%AE%8C%E8%B3%BD%E5%9B%9E%E9%A1%A7/">Day 30- 三周目 - Docker Network 暨完賽回顧
+</a>
+      </li><li class="mb-2">
+        <a href="/series/2019-ithome-ironman/day-29-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-compose%E4%B8%80%E6%AC%A1%E7%AE%A1%E7%90%86%E5%A4%9A%E5%80%8B%E5%AE%B9%E5%99%A8/">Day 29- 三周目 - Docker Compose：一次管理多個容器
+</a>
+      </li></ul>
+  </div>
+</section>
+    
+  </div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><div class="offcanvas offcanvas-bottom h-auto" tabindex="-1" id="offcanvasActionsPanel"
+  aria-labelledby="offcanvasActionsPanelLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title fs-4" id="offcanvasActionsPanelLabel">
+      <i class="fas fa-fw fa-th-large me-1"></i>
+      Actions
+    </h5>
+    <button type="button" class="btn-close ms-auto" data-bs-dismiss="offcanvas" data-bs-target="offcanvasActionsPanel" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body mt-2"><div class="social-share mb-4 d-flex overflow-auto">
+      <a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Twitter Share Button"
+      target="_blank" href="https://twitter.com/intent/tweet?title=Day%2024%20-%20%e4%ba%8c%e5%91%a8%e7%9b%ae%20-%20Redux%20%e5%a6%82%e4%bd%95%e7%99%bc%e5%87%ba%e9%9d%9e%e5%90%8c%e6%ad%a5%20action%ef%bc%9a%e5%bc%95%e5%85%a5%e9%9d%9e%e5%90%8c%e6%ad%a5%20middleware&url=%2fseries%2f2019-ithome-ironman%2fday-24-%25E4%25BA%258C%25E5%2591%25A8%25E7%259B%25AE-redux-%25E5%25A6%2582%25E4%25BD%2595%25E7%2599%25BC%25E5%2587%25BA%25E9%259D%259E%25E5%2590%258C%25E6%25AD%25A5-action%25E5%25BC%2595%25E5%2585%25A5%25E9%259D%259E%25E5%2590%258C%25E6%25AD%25A5-middleware%2f">
+        <i class="fab fa-2x fa-fw fa-twitter mb-2"></i> Twitter
+      </a>
+      <a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Facebook Share Button"
+        target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=%2fseries%2f2019-ithome-ironman%2fday-24-%25E4%25BA%258C%25E5%2591%25A8%25E7%259B%25AE-redux-%25E5%25A6%2582%25E4%25BD%2595%25E7%2599%25BC%25E5%2587%25BA%25E9%259D%259E%25E5%2590%258C%25E6%25AD%25A5-action%25E5%25BC%2595%25E5%2585%25A5%25E9%259D%259E%25E5%2590%258C%25E6%25AD%25A5-middleware%2f">
+        <i class="fab fa-2x fa-fw fa-facebook-f mb-2"></i> Facebook
+      </a>
+    </div>
+    <hr class="mb-4"><div class="actions d-flex overflow-auto align-items-center">
+      <a role="button" class="action action-go-back d-flex flex-column align-items-center me-3" href="javascript: window.history.back();">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-chevron-circle-down" data-fa-transform="rotate-90"></i></span> 返回
+      </a>
+      <a role="button" class="action action-reload-page d-flex flex-column align-items-center me-3">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-redo-alt"></i></span> 刷新
+      </a>
+      <a role="button" class="action action-copy-url d-flex flex-column align-items-center me-3">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-link"></i></span> 複製連結
+      </a>
+    </div>
+  </div>
+</div><nav class="social-links nav justify-content-center mb-2"><a class="nav-link social-link" href="mailto:yujiechen0514@gmail.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i></a><a class="nav-link social-link" target="_blank" href="https://github.com/eugenechen0514" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-github"></i></a><a class="nav-link social-link" target="_blank" href="https://linkedin.com/in/yuchieh-chen-37a48989" title="LinkedIn" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-linkedin-in"></i></a><a class="nav-link social-link" target="_blank" href="https://medium.com/@yujiechen0514" title="Medium" rel="noopener noreferrer">
+        <i class="fab fa-fw fa-2x fa-medium-m"></i></a><a class="nav-link social-link" target="_blank" href="/index.xml" title="RSS" rel="noopener noreferrer">
+    <i class="fas fa-fw fa-2x fa-rss"></i></a></nav>
+<div class="copyright mb-2">
+  Copyright © 2016-2022 EugeneChen. All Rights Reserved.
+</div>
+<div class="powered-by mb-2">
+  Powered by <a class="text-primary" href="https://gohugo.io" target="_blank" rel="noopener noreferrer">Hugo</a> and the <a class="text-primary" href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank" rel="noopener noreferrer">Bootstrap</a> theme.
+</div>
+<div class="sponsors">
+
+
+
+
+
+
+</div>
+</footer>
+<script src="/assets/main/bundle.min.2bc7d6952dbf38d6d2815939c58fc655e72d050b196d9fd99829d8fb23904646.js" integrity="sha256-K8fWlS2/ONbSgVk5xY/GVectBQsZbZ/ZmCnY&#43;yOQRkY=" crossorigin="anonymous" defer></script><script src="/assets/icons/bundle.min.a4bf8247f780c9bf61d579a8efe7129ec790bb98622bf4a29895eb21e689266c.js" integrity="sha256-pL&#43;CR/eAyb9h1Xmo7&#43;cSnseQu5hiK/SimJXrIeaJJmw=" crossorigin="anonymous" defer></script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('\/service-worker.min.js').then(function(reg) {
+      console.log('Successfully registered service worker', reg);
+    }).catch(function(err) {
+      console.warn('Error whilst registering service worker', err);
+    });
+  });
+}
+</script><script src="/assets/viewer/bundle.min.92d4a694e2e9a4c4d89b6998067e2f8e502dc7a951682bb5a160a3004b434908.js" integrity="sha256-ktSmlOLppMTYm2mYBn4vjlAtx6lRaCu1oWCjAEtDSQg=" crossorigin="anonymous" defer></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-ZWYL79X38Y', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+<script src="/assets/docsearch/bundle.min.c6965b5bee044b874617239932d6a7992b217f7949f895a7576980d110fb2ab1.js" integrity="sha256-xpZbW&#43;4ES4dGFyOZMtanmSshf3lJ&#43;JWnV2mA0RD7KrE=" crossorigin="anonymous" defer></script></body>
+</html>

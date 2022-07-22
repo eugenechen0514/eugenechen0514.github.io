@@ -1,0 +1,883 @@
+<!doctype html><html class="position-relative" itemscope itemtype="http://schema.org/WebPage" lang="zh-tw" data-theme="auto"
+  
+   data-palette="purple">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Day 23 - 二周目 - Redux 串接 React 與 Redux DevTools - EugeneChen</title><link rel="apple-touch-icon" href="/images/icons/icon-180x180.png" sizes="180x180">
+<link rel="icon" href="/images/icons/icon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/images/icons/icon-16x16.png" sizes="16x16" type="image/png">
+<link rel="icon" href="/images/icons/favicon.ico">
+<link rel="manifest" href="/manifest.json">
+<meta name="keywords" content="" />
+<meta name="description" content="實作 Redux 與 React 的串接" /><meta name="robots" content="index, follow" /><meta itemprop="name" content="Day 23 - 二周目 - Redux 串接 React 與 Redux DevTools">
+<meta itemprop="description" content="實作 Redux 與 React 的串接"><meta itemprop="datePublished" content="2018-10-23T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2018-10-23T00:00:00+00:00" />
+<meta itemprop="wordCount" content="2695">
+<meta itemprop="keywords" content="2019 iT 邦幫忙鐵人賽,用js成為老闆心中的全端工程師," /><meta property="og:title" content="Day 23 - 二周目 - Redux 串接 React 與 Redux DevTools" />
+<meta property="og:description" content="實作 Redux 與 React 的串接" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/series/2019-ithome-ironman/day-23-%E4%BA%8C%E5%91%A8%E7%9B%AE-redux-%E4%B8%B2%E6%8E%A5-react-%E8%88%87-redux-devtools/" /><meta property="article:section" content="series" />
+<meta property="article:published_time" content="2018-10-23T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-10-23T00:00:00+00:00" /><meta property="og:site_name" content="EugeneChen" />
+<meta property="og:see_also" content="/series/2019-ithome-ironman/day-30-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-network-%E6%9A%A8%E5%AE%8C%E8%B3%BD%E5%9B%9E%E9%A1%A7/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-29-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-compose%E4%B8%80%E6%AC%A1%E7%AE%A1%E7%90%86%E5%A4%9A%E5%80%8B%E5%AE%B9%E5%99%A8/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-28-%E4%B8%89%E5%91%A8%E7%9B%AE-%E8%A3%BD%E4%BD%9C%E8%87%AA%E5%B7%B1%E7%9A%84%E6%98%A0%E5%83%8F%E6%AA%94%E5%8C%85%E6%89%93%E5%89%8D%E5%BE%8C%E7%AB%AF%E6%98%A0%E5%83%8F%E6%AA%94/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-27-%E4%B8%89%E5%91%A8%E7%9B%AE-%E4%BA%94%E5%88%86%E9%90%98%E5%BB%BA%E7%AB%8B%E7%A7%81%E6%9C%89-npm-verdaccio/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-26-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E7%9C%8B%E5%AE%8C%E5%B0%B1%E6%9C%83%E6%9E%B6-docker-%E5%8C%96%E7%9A%84%E6%9C%8D%E5%8B%99/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-25-%E4%BA%8C%E5%91%A8%E7%9B%AE-react-component-%E5%A5%97%E4%BB%B6-material-ui-google-material-design-%E7%9A%84%E5%AF%A6%E4%BD%9C%E5%A5%97%E4%BB%B6/" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Day 23 - 二周目 - Redux 串接 React 與 Redux DevTools"/>
+<meta name="twitter:description" content="實作 Redux 與 React 的串接"/>
+<meta property="og:image" content="/images/logo.png"/>
+  <meta name="twitter:image" content="/images/logo.png"/><link rel="stylesheet" href="/assets/main/bundle.min.925f59d4c744cc5e99dcc7d02a6f68dff5cceaea488c7667bd947bf7aa35b649.css" integrity="sha256-kl9Z1MdEzF6Z3MfQKm9o3/XM6upIjHZnvZR796o1tkk=" crossorigin="anonymous"><link rel="stylesheet" href="/assets/viewer/bundle.min.f05183267bb952fbc8c63a7178364de2951614ab71d544ec1068ad36c7447ccc.css" integrity="sha256-8FGDJnu5UvvIxjpxeDZN4pUWFKtx1UTsEGitNsdEfMw=" crossorigin="anonymous"><link rel="stylesheet" href="/assets/docsearch/bundle.min.c165d6a127fffa285e6b89ef65362fe921bc0c1fdaefa35f6af069b962bdb50e.css" integrity="sha256-wWXWoSf/&#43;ihea4nvZTYv6SG8DB/a76NfavBpuWK9tQ4=" crossorigin="anonymous"></head>
+  <body><script>const items=["theme","palette"];items.forEach(function(e){const t=localStorage.getItem("hbs:"+e);t&&document.body.parentElement.setAttribute("data-"+e,t)})</script><header><nav class="top-app-bar shadow bg-primary text-white navbar navbar-expand-lg fixed-top">
+  <div class="container"><a class="navbar-brand flex-grow-1 flex-lg-grow-0 text-lg-start ms-2 ms-lg-0 mx-auto me-lg-3" href="/"><picture><img class="logo" alt="Logo" src="/images/logo.webp" loading="lazy"
+    
+     width="136" height="69"
+     />
+</picture>
+EugeneChen
+    </a>
+    <button class="navbar-toggler order-5" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarMenus"
+      aria-controls="navbarMenus" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-ellipsis-h"></i>
+    </button>
+    <div class="offcanvas-lg offcanvas-end flex-grow-1 bg-primary text-white" tabindex="-1" id="navbarMenus" aria-labelledby="navbarMenusLabel">
+      <div class="offcanvas-header px-4 pb-0">
+        <h5 class="offcanvas-title" id="navbarMenusLabel">EugeneChen</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" data-bs-target="#navbarMenus" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body p-4 pt-0 p-lg-0">
+        <hr class="d-lg-none">
+        <ul class="navbar-nav flex-row flex-wrap align-items-center me-auto"><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/posts/">
+              <i class="fas fa-book fa-fw"></i>文章
+            </a>
+          </li><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/series/">
+              <i class="fas fa-bars fa-fw"></i>專欄
+            </a>
+          </li><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/posts/notes/">
+              <i class="fas fa-sticky-note fa-fw"></i>隨手筆記
+            </a>
+          </li></ul>
+        <hr class="d-lg-none">
+        <form class="search-bar mx-auto my-1" action="/search" novalidate>
+  <div class="input-group input-group-sm align-items-center">
+    <span class="btn btn-search disabled position-absolute left-0 border-0">
+      <i class="fas fa-fw fa-search fa-lg"></i>
+    </span>
+    <input class="py-2 form-control rounded search-input" name="q" type="search" aria-label="Search" required>
+  </div>
+</form>
+<hr class="d-lg-none">
+        <ul class="navbar-nav flex-row flex-wrap align-items-center ms-md-auto"><li class="nav-item dropdown py-1 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-globe"></i>
+        <span class="d-lg-none">語言</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown"><li>
+        <a class="dropdown-item" href="/en/">
+            English
+        </a>
+        </li><li>
+        <a class="dropdown-item active" href="/">
+            繁體中文
+        </a>
+        </li></ul>
+</li>
+<li class="nav-item py-1 col-12 col-lg-auto">
+  <div class="vr d-none d-lg-flex h-100 mx-lg-2 text-white"></div>
+  <hr class="d-lg-none my-2">
+</li><li class="nav-item dropdown py-2 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="fontSizeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-font"></i>
+        <span class="d-lg-none">字體大小</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="fontSizeDropdown"><li>
+            <button class="font-size-item dropdown-item" data-size="xs">
+                特小號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="sm">
+                小號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item active" data-size="md">
+                中等
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="lg">
+                大號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="xl">
+                特大號
+            </button>
+        </li></ul>
+</li><li class="nav-item dropdown py-1 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="paletteDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-palette"></i>
+        <span class="d-lg-none">配色</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end px-2" aria-labelledby="paletteDropdown">
+        <div class="row"><li class="col-3 my-1">
+                <a role="button" id="palette-blue" aria-label="藍色"
+                    class="btn btn-sm w-100 palette text-bg-blue" data-palette="blue">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-blue-gray" aria-label="藍灰色"
+                    class="btn btn-sm w-100 palette text-bg-blue-gray" data-palette="blue-gray">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-brown" aria-label="棕色"
+                    class="btn btn-sm w-100 palette text-bg-brown" data-palette="brown">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-cyan" aria-label="青色"
+                    class="btn btn-sm w-100 palette text-bg-cyan" data-palette="cyan">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-green" aria-label="綠色"
+                    class="btn btn-sm w-100 palette text-bg-green" data-palette="green">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-indigo" aria-label="靛青色"
+                    class="btn btn-sm w-100 palette text-bg-indigo" data-palette="indigo">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-orange" aria-label="橙色"
+                    class="btn btn-sm w-100 palette text-bg-orange" data-palette="orange">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-pink" aria-label="粉色"
+                    class="btn btn-sm w-100 palette text-bg-pink" data-palette="pink">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-purple" aria-label="紫色"
+                    class="btn btn-sm w-100 palette text-bg-purple" data-palette="purple">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-red" aria-label="紅色"
+                    class="btn btn-sm w-100 palette text-bg-red" data-palette="red">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-teal" aria-label="藍綠色"
+                    class="btn btn-sm w-100 palette text-bg-teal" data-palette="teal">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-yellow" aria-label="黃色"
+                    class="btn btn-sm w-100 palette text-bg-yellow" data-palette="yellow">
+                </a>
+            </li></div>
+    </ul>
+</li>
+<li class="nav-item dropdown py-2 py-lg-1 col-6 col-lg-auto"><a class="nav-link px-0 px-lg-1" href="#" id="modeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="mode-icon fas fa-fw fa-adjust" id="modeIcon"></i>
+        <span class="d-lg-none">模式</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="modeDropdown"><li class="mode-item" data-color-mode="light" data-icon="sun">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-sun"></i> Light
+            </button>
+        </li><li class="mode-item" data-color-mode="dark" data-icon="moon">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-moon"></i> Dark
+            </button>
+        </li><li class="mode-item active" data-color-mode="auto" data-icon="adjust">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-adjust"></i> Auto
+            </button>
+        </li></ul>
+</li>
+</ul>
+      </div>
+    </div>
+  </div>
+</nav>
+</header>
+<main class="container">
+      <div class="row content"><noscript>
+    <div class="alert alert-danger" role="alert">你的瀏覽器不支持 JavaScript。</div>
+</noscript>
+
+<div class="col-lg-8">
+  <div class="container"><nav class="row card component" aria-label="breadcrumb">
+  <div class="card-body pb-0">
+    <ol class="breadcrumb"><li class="breadcrumb-item text-surface"><a href="/">主頁</a></li><li class="breadcrumb-item text-surface"><a href="/series/">Series</a></li><li class="breadcrumb-item active">Day 23 - 二周目 - Redux 串接 React 與 Redux DevTools</li></ol>
+  </div>
+</nav><div class="post-panel-wrapper position-sticky">
+  <div class="d-flex flex-column component rounded post-panel position-absolute border">
+    
+    <a class="action action-panel-toggler" role="button" title="Panel toggler">
+      <i class="fas fa-fw fa-chevron-circle-down"></i>
+    </a>
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button" title="Sidebar toggler">
+  <i class="fas fa-fw fa-expand-alt" data-fa-transform="rotate-45"></i>
+</a>
+
+    
+
+    
+    <a class="action" href="#post-copyright" role="button" aria-label="Copyright" title="Copyright">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    <a class="action" href="#post-comments" role="button" aria-label="Comments" title="Comments">
+  <i class="fas fa-fw fa-comments"></i>
+</a>
+    <a class="action" href="#postTOC" aria-controls="Table of contents" role="button" title="Table of contents">
+  <i class="fas fa-fw fa-list-alt"></i>
+</a>
+    
+  </div>
+</div>
+<article class="row card component mb-4 post">
+  <div class="card-header ">
+    <h1 class="card-title post-title my-2">Day 23 - 二周目 - Redux 串接 React 與 Redux DevTools
+</h1>
+  </div>
+  <div class="card-body"><div class="post-meta mb-3">
+  <span class="post-date me-1 mb-1" title="創建於 2018-10-23 08:00:00 &#43;0800 CST。">
+    2018-10-23
+  </span><span class="post-reading-time me-1 mb-1">
+    6 分鐘閱讀
+  </span><a href="/series/2019-ithome-ironman/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">用js成為老闆心中的全端工程師 - 2019 IT邦幫忙鐵人賽</a><a href="/tags/2019-it-%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">2019 IT 邦幫忙鐵人賽</a><a href="/tags/%E7%94%A8js%E6%88%90%E7%82%BA%E8%80%81%E9%97%86%E5%BF%83%E4%B8%AD%E7%9A%84%E5%85%A8%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%AB/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">用js成為老闆心中的全端工程師</a></div>
+<div class="post-content mb-3"><p>實作 Redux 與 React 的串接</p>
+<h1 id="回憶">回憶<a class="anchor ms-1" href="#回憶"><i class="fas fa-link"></i></a></h1>
+<p>昨天介紹了 Flux 架構和它的實作套件 Redux。最後我們寫了簡單的 Redux 程式，體驗 Redux 如何運作。以 Flux 架構圖來說， 昨天的內容是
+<picture><img class="img-fluid" alt="30天鐵人-Day23-react-redux.png" src="/series/2019-ithome-ironman/day-23-%E4%BA%8C%E5%91%A8%E7%9B%AE-redux-%E4%B8%B2%E6%8E%A5-react-%E8%88%87-redux-devtools/resources/3D9E2E620F868C688621B5502DAC9AE1.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>今天我們要專注在與 React 的串接
+<picture><img class="img-fluid" alt="30天鐵人-Day23-react-redux2.png" src="/series/2019-ithome-ironman/day-23-%E4%BA%8C%E5%91%A8%E7%9B%AE-redux-%E4%B8%B2%E6%8E%A5-react-%E8%88%87-redux-devtools/resources/7158DCD5A961E4454FA0E74431502F7C.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<h1 id="目標">目標<a class="anchor ms-1" href="#目標"><i class="fas fa-link"></i></a></h1>
+<ol>
+<li>實作 Redux 與 React 的串接</li>
+<li>安裝 Chrome extension <a href="https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd" target="_blank" rel="noopener noreferrer">Redux DevTools<i class="fas fa-external-link-square-alt ms-1"></i></a> 確認 Redux 有運作</li>
+</ol>
+<blockquote>
+<p><a href="https://github.com/eugenechen0514/ithelp-30dayfullstack-Day23" target="_blank" rel="noopener noreferrer">過程請見 github commit log<i class="fas fa-external-link-square-alt ms-1"></i></a></p>
+</blockquote>
+<h1 id="redux-與-react-的串接">Redux 與 React 的串接<a class="anchor ms-1" href="#redux-與-react-的串接"><i class="fas fa-link"></i></a></h1>
+<p>我們實際引入 Redux 到之前的 <code>hello-react</code> 專案中</p>
+<h2 id="安裝-redux-建立-reducer-store">安裝 redux： 建立 Reducer, Store<a class="anchor ms-1" href="#安裝-redux-建立-reducer-store"><i class="fas fa-link"></i></a></h2>
+<ol>
+<li>
+<p>複制 <a href="https://ithelp.ithome.com.tw/articles/10200933" target="_blank" rel="noopener noreferrer">Day 11 - 一周目- 開始玩轉前端(二)<i class="fas fa-external-link-square-alt ms-1"></i></a> 的專案 <code>hello-react</code></p>
+</li>
+<li>
+<p>安裝 Redux： <code>npm install redux --save</code></p>
+</li>
+<li>
+<p>建立 <code>RootReducer.js</code>，放在 <code>reducers/RootReducer.js</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1">// reducers/RootReducer.js
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">initState</span> <span class="o">=</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="kr">const</span> <span class="nx">reducer</span> <span class="o">=</span> <span class="p">(</span><span class="nx">state</span> <span class="o">=</span> <span class="nx">initState</span><span class="p">,</span> <span class="nx">action</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">  <span class="kr">const</span> <span class="p">{</span><span class="nx">type</span><span class="p">}</span> <span class="o">=</span> <span class="nx">action</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">  <span class="k">switch</span> <span class="p">(</span><span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">      <span class="k">default</span><span class="o">:</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">          <span class="k">return</span> <span class="nx">state</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">
+</span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">reducer</span><span class="p">;</span>
+</span></span></code></pre></div><p>這裡我們建立了一個 <code>RootReducer</code>，不打算合併其它的 reducer。若你需要更有結構的 state，你可以用 <code>combineReducers</code> 合併多個 reducer。以 <code>const rootReducer = combineReducers({ login: LoginReducer, account: AccountReducer,})</code> 來說， state 是巢狀物件，它有 <code>login</code>、<code>account</code> 分別可以索引到 <code>LoginReducer</code>、<code>AccountReducer</code> 裡面的 state。</p>
+</li>
+<li>
+<p>開一個 <strong>stores</strong> 資料夾，建三個檔案 <code>configureStore.js</code>、<code>configureStore.prod.js</code>、<code>configureStore.dev.js</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1">// stores/configureStore.js
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="c1"></span><span class="k">if</span> <span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">NODE_ENV</span> <span class="o">===</span> <span class="s1">&#39;production&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">    <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./configureStore.prod&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">    <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./configureStore.dev&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="c1">// stores/configureStore.prod.js 和 stores/configureStore.dev.js
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="c1"></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">createStore</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;redux&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="kr">import</span> <span class="nx">RootReducer</span> <span class="nx">from</span> <span class="s1">&#39;../reducers/RootReducer&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">
+</span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="kr">export</span> <span class="kd">function</span> <span class="nx">configureStore</span><span class="p">(</span><span class="nx">initialState</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">    <span class="kr">const</span> <span class="nx">store</span> <span class="o">=</span> <span class="nx">createStore</span><span class="p">(</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">        <span class="nx">RootReducer</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">        <span class="nx">initialState</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl">    <span class="p">);</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">    <span class="k">return</span> <span class="nx">store</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>我們未來只要 <code>import {configureStore} from 'stores/configureStore'</code> 就可以依照環境變數 <code>NODE_ENV</code>，選用 store。因為是同樣的程式碼，當 Redux DevTools 引入時就會不一樣。</p>
+</li>
+</ol>
+<h2 id="安裝-react-redux把-store-送入-view-中">安裝 react-redux：把 Store 送入 View 中<a class="anchor ms-1" href="#安裝-react-redux把-store-送入-view-中"><i class="fas fa-link"></i></a></h2>
+<p>之前只安裝了 Redux 的 Reducer　和 Store，但最後我們要把 Store 送到 Controller-View 中，這樣 Controller-View 才可以用 store 拿出 state (<code>store.getState()</code>) 和 dispatch action (<code>store.dispatch(action)</code>)。</p>
+<h3 id="react-contextcomponent-tree-中任何地方都可以拿到的值">React Context：component tree 中任何地方都可以拿到的值<a class="anchor ms-1" href="#react-contextcomponent-tree-中任何地方都可以拿到的值"><i class="fas fa-link"></i></a></h3>
+<p>為了完成這件事要用到 <a href="https://reactjs.org/docs/context.html" target="_blank" rel="noopener noreferrer">React Context<i class="fas fa-external-link-square-alt ms-1"></i></a>，這是由 React 提供的，它的功用是在 component tree 中的上層把值送入後，底下的所有 subcomponent 任何一層都可以拿的到這值，而不用一個個傳遞下去。</p>
+<p>舉官方例子：
+<picture><img class="img-fluid" alt="30天鐵人-Day23-Context.png" src="/series/2019-ithome-ironman/day-23-%E4%BA%8C%E5%91%A8%E7%9B%AE-redux-%E4%B8%B2%E6%8E%A5-react-%E8%88%87-redux-devtools/resources/844A621BFDBFCD0C04FB33A4CD8A6271.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+
+(A)圖是本來的 component tree, 假設有個 <code>theme value</code> 要從 <code>App</code> 送 到 <code>ThemedButton</code> 中，用 Context API 後邏輯上就是 (B) 圖，實際使用Contenx API 就是 (C)圖。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1">// 建立一個 Context
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">ThemeContext</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createContext</span><span class="p">(</span><span class="s1">&#39;light&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="kr">class</span> <span class="nx">App</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">    <span class="c1">// 使用 ThemeContext.Provider 把值送入
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">      <span class="o">&lt;</span><span class="nx">ThemeContext</span><span class="p">.</span><span class="nx">Provider</span> <span class="nx">value</span><span class="o">=</span><span class="s2">&#34;dark&#34;</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">        <span class="o">&lt;</span><span class="nx">Toolbar</span> <span class="o">/&gt;</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">      <span class="o">&lt;</span><span class="err">/ThemeContext.Provider&gt;</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">    <span class="p">);</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">
+</span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="c1">// 這是中間層的元件，不用把值送到 &lt;ThemedButton/&gt; 中
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="c1"></span><span class="kd">function</span> <span class="nx">Toolbar</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">  <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">    <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl">      <span class="o">&lt;</span><span class="nx">ThemedButton</span> <span class="o">/&gt;</span>
+</span></span><span class="line"><span class="ln">20</span><span class="cl">    <span class="o">&lt;</span><span class="err">/div&gt;</span>
+</span></span><span class="line"><span class="ln">21</span><span class="cl">  <span class="p">);</span>
+</span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">23</span><span class="cl">
+</span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="c1">// 這是下層的元件，只要用 ThemeContext.Consumer，就可以取出值
+</span></span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="c1"></span><span class="kd">function</span> <span class="nx">ThemedButton</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">26</span><span class="cl">  <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="ln">27</span><span class="cl">    <span class="o">&lt;</span><span class="nx">ThemeContext</span><span class="p">.</span><span class="nx">Consumer</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="ln">28</span><span class="cl">      <span class="p">{</span><span class="nx">theme</span> <span class="p">=&gt;</span> <span class="o">&lt;</span><span class="nx">Button</span> <span class="p">{...</span><span class="nx">props</span><span class="p">}</span> <span class="nx">theme</span><span class="o">=</span><span class="p">{</span><span class="nx">theme</span><span class="p">}</span> <span class="o">/&gt;</span><span class="p">}</span>
+</span></span><span class="line"><span class="ln">29</span><span class="cl">    <span class="o">&lt;</span><span class="err">/ThemeContext.Consumer&gt;</span>
+</span></span><span class="line"><span class="ln">30</span><span class="cl">  <span class="p">);</span>
+</span></span><span class="line"><span class="ln">31</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>回到 Redux，一般來說我們也要做類似的事情，但有大神們開發了 <code>react-redux</code> 套件幫我們把 Store 送入 View 中，我們甚至不會察覺到 context 的存在。</p>
+<h3 id="react-redux-串連-redux-和-react">react-redux： 串連 redux 和 react<a class="anchor ms-1" href="#react-redux-串連-redux-和-react"><i class="fas fa-link"></i></a></h3>
+<p><code>react-redux</code> 提供兩個好用的函數：</p>
+<ol>
+<li><code>Provider</code>：我們再也不用建立 Context，直接用庫提供的Provider <code>&lt;Provider store={store}&gt;</code> 送入 store</li>
+<li><code>connect(mapStateToProps, mapDispatchToProps)(component)</code>：連接 state 到 component props 和連接 「dispatch行為」 到 component props (指事件的 callback props, ex: <code>onClickButton</code>，要執行派發 action)。 更明確地說，這 API 結果就是回傳 <code>&lt;component {...mapStateToProps()} {...mapDispatchToProps()} /&gt;</code></li>
+</ol>
+<blockquote>
+<p>其實， <code>connect</code> 是 high-order component (HOC)，它輸入 component 送出 component。見<a href="https://medium.com/@yujiechen0514/%E9%87%8D%E6%A7%8B-react-component-%E9%82%81%E5%90%91-prue-container-component-%E5%92%8C-hoc-3df5adf35aaf" target="_blank" rel="noopener noreferrer">重構 React component 邁向 Prue/Container component 和 HOC<i class="fas fa-external-link-square-alt ms-1"></i></a></p>
+</blockquote>
+<p>開始套用吧~</p>
+<h4 id="把-store-注入-component-tree">把 store 注入 component tree<a class="anchor ms-1" href="#把-store-注入-component-tree"><i class="fas fa-link"></i></a></h4>
+<ol>
+<li>安裝 react-redux：<code>npm install react-redux --save</code></li>
+<li>找到 Component 的入口 <code>./index.js</code>，建立 store，放入　<code>&lt;Provider store={store}&gt;</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1">// index.js
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="c1"></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">Provider</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;react-redux&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">
+</span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">((</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">    <span class="o">&lt;</span><span class="nx">Provider</span> <span class="nx">store</span><span class="o">=</span><span class="p">{</span><span class="nx">store</span><span class="p">}</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl">        <span class="o">&lt;</span><span class="nx">App</span> <span class="o">/&gt;</span>
+</span></span><span class="line"><span class="ln">7</span><span class="cl">    <span class="o">&lt;</span><span class="err">/Provider&gt;</span>
+</span></span><span class="line"><span class="ln">8</span><span class="cl"><span class="p">),</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;root&#39;</span><span class="p">));</span>
+</span></span></code></pre></div></li>
+</ol>
+<h4 id="建立第一組-container-pure-component-loginbox">建立第一組 Container/ Pure component: LoginBox<a class="anchor ms-1" href="#建立第一組-container-pure-component-loginbox"><i class="fas fa-link"></i></a></h4>
+<p>Controller-View (component) 雖然沒有存 state，但它與 store 串連，所以它邏輯上來看就好像有自己 state，所以也可以稱為 <strong>Container</strong>。反之，完全沒有 state 的 component，被稱為 <strong>Pure component</strong>。</p>
+<ol>
+<li>建立 <code>components/LoginBox.js</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kr">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="kr">class</span> <span class="nx">LoginBox</span> <span class="kr">extends</span> <span class="nx">Component</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">    <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">      <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">        <span class="nx">message</span><span class="o">:</span> <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">message</span><span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">      <span class="o">&lt;</span><span class="err">/div &gt;</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">    <span class="p">);</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">LoginBox</span><span class="p">;</span>
+</span></span></code></pre></div></li>
+<li>建立  <code>containers/LoginBox.js</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">connect</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;react-redux&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="kr">import</span> <span class="nx">LobinBox</span> <span class="nx">from</span> <span class="s1">&#39;../components/LoginBox&#39;</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="kr">const</span> <span class="nx">mapStateToProps</span> <span class="o">=</span> <span class="p">(</span><span class="nx">state</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">    <span class="k">return</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="kr">const</span> <span class="nx">mapDispatchToProps</span> <span class="o">=</span> <span class="p">(</span><span class="nx">dispatch</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">
+</span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">connect</span><span class="p">(</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">    <span class="nx">mapStateToProps</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">    <span class="nx">mapDispatchToProps</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="p">)(</span><span class="nx">LobinBox</span><span class="p">);</span>
+</span></span></code></pre></div></li>
+<li>在 <code>App.js</code> 中使用 LoginBox Container
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kr">import</span> <span class="nx">LoginBox</span> <span class="nx">from</span> <span class="s1">&#39;./containers/LoginBox&#39;</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="kr">class</span> <span class="nx">App</span> <span class="kr">extends</span> <span class="nx">Component</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">      <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">        <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">&#34;App&#34;</span> <span class="o">&gt;</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">          <span class="nx">Hello</span> <span class="nx">React</span><span class="o">:</span> <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">name</span><span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">          <span class="o">&lt;</span><span class="nx">LoginBox</span> <span class="o">/&gt;</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">        <span class="o">&lt;</span><span class="err">/div &gt;</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">      <span class="p">);</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div></li>
+</ol>
+<h4 id="加入-message-state配置空間和設定預設值">加入 message state：配置空間和設定預設值<a class="anchor ms-1" href="#加入-message-state配置空間和設定預設值"><i class="fas fa-link"></i></a></h4>
+<p>因為 LoginBox container 的 message 的值我們還沒有設定，所以你打開 <code>npm run start</code>，只會看到
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-22 at 4.20.03 PM.png" src="/series/2019-ithome-ironman/day-23-%E4%BA%8C%E5%91%A8%E7%9B%AE-redux-%E4%B8%B2%E6%8E%A5-react-%E8%88%87-redux-devtools/resources/764482331EE217FC68671830449047E5.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<ol>
+<li>在 <code>RootReducer</code> 中設定 message state 變數和它初始的值
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1">// reducers/RootReducer.js
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">initState</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">  <span class="nx">message</span><span class="o">:</span> <span class="s1">&#39;init message&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="p">...</span><span class="nx">略</span>
+</span></span></code></pre></div></li>
+<li>在 LoginBox container 指定要使用這 state
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1">// containers/LoginBox.js
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">mapStateToProps</span> <span class="o">=</span> <span class="p">(</span><span class="nx">state</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">    <span class="k">return</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">        <span class="nx">message</span><span class="o">:</span> <span class="nx">state</span><span class="p">.</span><span class="nx">message</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="ln">7</span><span class="cl"><span class="p">...</span><span class="nx">略</span>
+</span></span></code></pre></div>這裡的 state 就是 store 中全部的 state，就是 <code>RootReducer</code> 中定義的 state。
+<code>connect(...)(LoginBox)</code> 就好像把 <code>message</code> 送入 LoginBox pure component, ex: <code>&lt;LoginBox message={state.message} /&gt;</code></li>
+</ol>
+<p>結果如下：
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-22 at 4.29.35 PM.png" src="/series/2019-ithome-ironman/day-23-%E4%BA%8C%E5%91%A8%E7%9B%AE-redux-%E4%B8%B2%E6%8E%A5-react-%E8%88%87-redux-devtools/resources/EBBDA77C60987DB2232DB8F0CB7F62FF.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<h4 id="加入行為">加入行為<a class="anchor ms-1" href="#加入行為"><i class="fas fa-link"></i></a></h4>
+<p>假如我們按一個 Button 就要改變 message 的值。</p>
+<ol>
+<li>
+<p>在 LoginBox 加入一個 Button 和定義一個 <code>onClickSubmit</code> callback</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kr">class</span> <span class="nx">LoginBox</span> <span class="kr">extends</span> <span class="nx">Component</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">    <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">      <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">        <span class="nx">message</span><span class="o">:</span> <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">message</span><span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">        <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">onClickSubmit</span><span class="p">}</span><span class="o">&gt;</span><span class="nx">Submit</span><span class="o">&lt;</span><span class="err">/button&gt;</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">      <span class="o">&lt;</span><span class="err">/div &gt;</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">    <span class="p">);</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div></li>
+<li>
+<p>開一個 <strong>actions</strong> 資料夾，建立 <code>LoginBoxActions.js</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="kr">export</span> <span class="kr">const</span> <span class="nx">identityOnClickSubmit</span> <span class="o">=</span> <span class="s1">&#39;identityOnClickSubmit&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="kr">export</span> <span class="kd">function</span> <span class="nx">onClickSubmit</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">    <span class="k">return</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">        <span class="nx">type</span><span class="o">:</span> <span class="nx">identityOnClickSubmit</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl">        <span class="nx">payload</span><span class="o">:</span> <span class="nx">data</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">7</span><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="ln">8</span><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><blockquote>
+<p>我們很刻意的把資料放到 <code>playlod</code> 中(叫 <code>data</code> 也可以)，這不是一定要這麼做，只是為了保留最外層是 action 的專用屬性，防止 <code>data</code> 內也有 <code>type</code> 屬性干擾 action 最外層屬性。另外也有個好處，<code>data</code> 是陣列時，就有通用屬性名 <code>playlod</code> 可以取出陣列。</p>
+</blockquote>
+</li>
+<li>
+<p>在 LoginBox container 指定要使用 <code>onClickSubmit</code> 來派分(dispatch)一個 action</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="p">...</span><span class="nx">略</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="kr">const</span> <span class="nx">mapDispatchToProps</span> <span class="o">=</span> <span class="p">(</span><span class="nx">dispatch</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">    <span class="k">return</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">        <span class="nx">onClickSubmit</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">            <span class="nx">dispatch</span><span class="p">(</span><span class="nx">actions</span><span class="p">.</span><span class="nx">onClickSubmit</span><span class="p">({</span><span class="nx">message</span><span class="o">:</span> <span class="s1">&#39;clicked&#39;</span><span class="p">}));</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="ln">7</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln">8</span><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="ln">9</span><span class="cl"><span class="p">...</span><span class="nx">略</span>
+</span></span></code></pre></div></li>
+<li>
+<p>RootReducer 要監控這個 action (即 <code>identityOnClickSubmit</code>)</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kr">import</span> <span class="o">*</span> <span class="nx">as</span> <span class="nx">actions</span> <span class="nx">from</span> <span class="s1">&#39;../actions/LoginBoxActions&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="p">...</span><span class="nx">略</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="kr">const</span> <span class="nx">reducer</span> <span class="o">=</span> <span class="p">(</span><span class="nx">state</span> <span class="o">=</span> <span class="nx">initState</span><span class="p">,</span> <span class="nx">action</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">  <span class="kr">const</span> <span class="p">{</span><span class="nx">type</span><span class="p">,</span> <span class="nx">payload</span><span class="p">}</span> <span class="o">=</span> <span class="nx">action</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">  <span class="k">switch</span> <span class="p">(</span><span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">      <span class="k">case</span> <span class="nx">actions</span><span class="p">.</span><span class="nx">identityOnClickSubmit</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">        <span class="kr">const</span> <span class="p">{</span><span class="nx">message</span><span class="p">}</span> <span class="o">=</span> <span class="nx">payload</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">        <span class="k">return</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">assign</span><span class="p">({},</span> <span class="p">{</span><span class="nx">message</span><span class="p">});</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">      <span class="k">default</span><span class="o">:</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">          <span class="k">return</span> <span class="nx">state</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div></li>
+</ol>
+<p>結果如下：
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-22 at 5.03.44 PM.png" src="/series/2019-ithome-ironman/day-23-%E4%BA%8C%E5%91%A8%E7%9B%AE-redux-%E4%B8%B2%E6%8E%A5-react-%E8%88%87-redux-devtools/resources/2182DBA348A61455C84E39A564F00F93.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+
+按下Submit，message 改變了
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-22 at 5.03.33 PM.png" src="/series/2019-ithome-ironman/day-23-%E4%BA%8C%E5%91%A8%E7%9B%AE-redux-%E4%B8%B2%E6%8E%A5-react-%E8%88%87-redux-devtools/resources/3B86E890F5085D380AD8BCCCC0373A0E.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>最後看一下我們做了什麼？我們建了 Sore/Action/Container/Components 資料夾，來附合 Flux 架構，大部分 Flux 架構的前端專案都有類似的資料夾
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-23 at 11.18.56 AM.png" src="/series/2019-ithome-ironman/day-23-%E4%BA%8C%E5%91%A8%E7%9B%AE-redux-%E4%B8%B2%E6%8E%A5-react-%E8%88%87-redux-devtools/resources/1C92B061E5F97D59FE187129D0E5A01C.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<h1 id="在網頁中如何確認-redux-有運作">在網頁中如何確認 Redux 有運作<a class="anchor ms-1" href="#在網頁中如何確認-redux-有運作"><i class="fas fa-link"></i></a></h1>
+<p>Redux DevTools 用來看 Redux 運作，更明確的說，它在監控「dispatcher 和 action 的運作」及「action 如何影響 state」。馬上來試試看：</p>
+<ol>
+<li>下載 Chrome extension <a href="https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd" target="_blank" rel="noopener noreferrer">Redux DevTools<i class="fas fa-external-link-square-alt ms-1"></i></a></li>
+<li><code>createStore()</code> 中加入 store enhancer
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1">// stores/configureStore.dev.js
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="c1"></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">compose</span><span class="p">,</span> <span class="nx">createStore</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;redux&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="kr">import</span> <span class="nx">RootReducer</span> <span class="nx">from</span> <span class="s1">&#39;../reducers/RootReducer&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="kr">const</span> <span class="nx">composeEnhancer</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">__REDUX_DEVTOOLS_EXTENSION_COMPOSE__</span> <span class="o">||</span> <span class="nx">compose</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="kr">export</span> <span class="kd">function</span> <span class="nx">configureStore</span><span class="p">(</span><span class="nx">initialState</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">    <span class="kr">const</span> <span class="nx">store</span> <span class="o">=</span> <span class="nx">createStore</span><span class="p">(</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">        <span class="nx">RootReducer</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">        <span class="nx">initialState</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">        <span class="nx">composeEnhancer</span><span class="p">()</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">    <span class="p">);</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">    <span class="k">return</span> <span class="nx">store</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><ul>
+<li>
+<p><code>createStore(reducer, initialState, enhancer)</code>第三個參數是 enhancer，拿來套用第三方的套件，修改 store creator，它是 hight-order function，它結合 store creator 成為另一新的 store creator。 store enhancer 簽章如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="kd">function</span> <span class="nx">StoreEnhancer</span><span class="p">(</span><span class="nx">next</span><span class="o">:</span> <span class="nx">StoreCreator</span><span class="p">)</span><span class="o">:</span> <span class="nx">StoreCreator</span>
+</span></span></code></pre></div><p><code>createStore(reducer, initialState, enhancer)</code> 就像是 <code>enhancer(createStore)(reducer, initialState)</code>，<code>enhancer(createStore)</code> 變成新的 store creator。(<a href="https://github.com/reduxjs/redux/blob/master/src/createStore.js#L53" target="_blank" rel="noopener noreferrer">見原始碼<i class="fas fa-external-link-square-alt ms-1"></i></a>)</p>
+</li>
+<li>
+<p><code>compose()</code> 是拿來以合併 store enhancer 用的。舉個例子：<code>compose(Enhancer1, Enhancer2)(createStore) =&gt; Enhancer1(Enhancer2(createStore))</code></p>
+</li>
+</ul>
+</li>
+<li>開啟 Chrome DevTools(空白處右鍵 Inspect)，<strong>Redux</strong> 頁籤
+<ol>
+<li>一開啟網站的狀態
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-22 at 10.46.30 PM.png" src="/series/2019-ithome-ironman/day-23-%E4%BA%8C%E5%91%A8%E7%9B%AE-redux-%E4%B8%B2%E6%8E%A5-react-%E8%88%87-redux-devtools/resources/CCBE98CA80B89EAAE034AE685A3616FB.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</li>
+<li>按下 Submit 後發出 action (action type 是 <code>identityOnClickSubmit</code>)
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-22 at 10.46.39 PM.png" src="/series/2019-ithome-ironman/day-23-%E4%BA%8C%E5%91%A8%E7%9B%AE-redux-%E4%B8%B2%E6%8E%A5-react-%E8%88%87-redux-devtools/resources/E753286E3A2AC226C515F31736003784.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</li>
+</ol>
+</li>
+</ol>
+<p>Redux DevTools 有三種模式</p>
+<ol>
+<li>Log monitor：用來看 action log
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-22 at 10.46.39 PM.png" src="/series/2019-ithome-ironman/day-23-%E4%BA%8C%E5%91%A8%E7%9B%AE-redux-%E4%B8%B2%E6%8E%A5-react-%E8%88%87-redux-devtools/resources/E753286E3A2AC226C515F31736003784.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</li>
+<li>Inspector：最完整的模式。能看 Action/State/Diff/Test，但這模式太大型的網站可能會很慢或當掉
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-22 at 10.50.40 PM.png" src="/series/2019-ithome-ironman/day-23-%E4%BA%8C%E5%91%A8%E7%9B%AE-redux-%E4%B8%B2%E6%8E%A5-react-%E8%88%87-redux-devtools/resources/C9DA046AFD3EA0749DBE52FB0C20DF04.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</li>
+<li>Chart：state 的結構圖。 redux 的串接(<code>combineReducers()</code>) 會讓 state 是巢狀 object，這模式可以看 state 結構和各個 state 值。
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-22 at 10.50.59 PM.png" src="/series/2019-ithome-ironman/day-23-%E4%BA%8C%E5%91%A8%E7%9B%AE-redux-%E4%B8%B2%E6%8E%A5-react-%E8%88%87-redux-devtools/resources/A64FCA104E3252AB2FD0D3B23E205020.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</li>
+</ol>
+<p>每個模式都有它特別的地方，自己玩看看。</p>
+<h1 id="總結">總結<a class="anchor ms-1" href="#總結"><i class="fas fa-link"></i></a></h1>
+<p>今天我們實際串接 Redux 和 React，利用 <strong>react-redux</strong> 套件，就不需要自己寫 React Context。為了確保有運行，我們還裝了 Chrome extension Redux DevTools，可以查看 Redux 的運作。</p></div></div>
+  <div class="card-footer"><div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-prev">
+    <i class="fas fa-fw fa-chevron-circle-down post-prev-icon" data-fa-transform="rotate-90"></i>
+    <a href="/series/2019-ithome-ironman/day-22-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E8%A7%A3%E9%96%8B-stateprop-%E7%9A%84%E6%B7%B7%E4%BA%82flux-%E5%96%AE%E5%90%91%E8%B3%87%E6%96%99%E6%B5%81%E6%9A%A8-redux-%E9%AB%94%E9%A9%97/">Day 22 - 二周目 - 解開 State:prop 的混亂：Flux 單向資料流暨 Redux 體驗
+</a>
+  </div><div class="post-nav post-next">
+    <a href="/series/2019-ithome-ironman/day-24-%E4%BA%8C%E5%91%A8%E7%9B%AE-redux-%E5%A6%82%E4%BD%95%E7%99%BC%E5%87%BA%E9%9D%9E%E5%90%8C%E6%AD%A5-action%E5%BC%95%E5%85%A5%E9%9D%9E%E5%90%8C%E6%AD%A5-middleware/">Day 24 - 二周目 - Redux 如何發出非同步 Action：引入非同步 Middleware
+</a>
+    <i class="fas fa-fw fa-chevron-circle-down post-next-icon" data-fa-transform="rotate-270"></i>
+  </div></div></div>
+</article><div class="post-copyright mb-3 row card component" id="post-copyright">
+    <div class="card-header">
+        <h2 class="card-title fs-4 my-2 text-surface">版權</h2>
+    </div>
+    <div class="card-body"><a class="d-flex align-items-center flex-column" target="_blank" rel="license noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_TW">
+  <span><i class="fab fa-fw fa-2x fa-creative-commons"></i><i class="fab fa-fw fa-2x fa-creative-commons-by"></i><i class="fab fa-fw fa-2x fa-creative-commons-nc"></i><i class="fab fa-fw fa-2x fa-creative-commons-sa"></i></span>
+  CC BY-NC-SA 4.0 
+</a>
+
+
+    </div>
+</div><section class="related-posts row card component">
+    <div class="card-header">
+      <h2 class="card-title fs-4 my-2 text-surface">相關文章</h2>
+    </div>
+    <div class="card-body">
+      <ul class="post-list list-unstyled"><li>
+          <a href="/series/2019-ithome-ironman/day-22-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E8%A7%A3%E9%96%8B-stateprop-%E7%9A%84%E6%B7%B7%E4%BA%82flux-%E5%96%AE%E5%90%91%E8%B3%87%E6%96%99%E6%B5%81%E6%9A%A8-redux-%E9%AB%94%E9%A9%97/">Day 22 - 二周目 - 解開 State:prop 的混亂：Flux 單向資料流暨 Redux 體驗
+</a>
+          <span class="float-end post-date">2018-10-22
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-21-%E4%BA%8C%E5%91%A8%E7%9B%AE-react-%E5%BF%85%E5%82%99%E7%9F%A5%E8%AD%98%E5%92%8C%E6%95%88%E8%83%BD%E8%AD%B0%E9%A1%8C/">Day 21 - 二周目 - React 必備知識和效能議題
+</a>
+          <span class="float-end post-date">2018-10-21
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-20-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E8%BB%9F%E9%AB%94%E6%B8%AC%E8%A9%A6testing%E6%B8%AC%E8%A9%A6%E9%9D%9E%E5%90%8C%E6%AD%A5%E5%87%BD%E6%95%B8/">Day 20 - 二周目 - 軟體測試(Testing)：測試非同步函數
+</a>
+          <span class="float-end post-date">2018-10-20
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-19-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E5%B8%B3%E5%AF%86%E8%AA%8D%E8%A8%BC%E8%88%87jwt-json-web-token%E5%82%B3%E9%81%9E/">Day 19 - 二周目 - 帳密認証與JWT (JSON Web Token)傳遞
+</a>
+          <span class="float-end post-date">2018-10-19
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-18-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E5%89%96%E6%9E%90-express-%E8%B7%AF%E7%94%B1router-%E4%B8%89%E6%A6%82%E5%BF%B5%E4%B8%AD%E9%96%93%E4%BB%B6middleware%E8%B7%AF%E7%94%B1routing%E6%B5%81stream/">Day 18 - 二周目 - 剖析 Express 路由(router) 三概念：中間件(middleware)、路由(routing)、流(stream)
+</a>
+          <span class="float-end post-date">2018-10-18
+</span>
+        </li></ul>
+    </div>
+  </section><div class="card component row post-comments" id="post-comments">
+  <div class="card-header">
+    <h2 class="card-title my-2 fs-4 text-surface">評論</h2>
+  </div>
+  <div class="card-body"><script src="https://utteranc.es/client.js"
+  repo="eugenechen0514/eugenechen0514.github.io"
+  issue-term="pathname"
+  label="comment"
+  theme="github-light"
+  crossorigin="anonymous"
+  async>
+</script></div>
+</div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container d-flex flex-column">
+    
+    <div class="card row text-center profile component">
+  <div class="card-body">
+    <div class="col-12 d-flex align-items-center justify-content-center"><picture><img class="profile-avatar rounded-circle" alt="EugeneChen" src="/images/profile.webp" loading="lazy" data-viewer-invisible
+    
+     width="298" height="305"
+     />
+</picture>
+</div>
+    <div class="col-12 profile-meta"><div class="profile-name fw-fold fs-lg">EugeneChen</div><div class="profile-bio">軟體工程師，喜歡動手做些有的沒的專案，同時也喜愛數學、攝影、桌球，慢跑、游泳、作菜。</div><div class="profile-about"><i class="fas fa-fw fa-user"></i><a target="_blank" rel="noopener noreferrer" href="https://eugene-website.herokuapp.com">關於我</a></div><nav class="social-links nav justify-content-center"><a class="nav-link social-link" href="mailto:yujiechen0514@gmail.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i></a><a class="nav-link social-link" target="_blank" href="https://github.com/eugenechen0514" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-github"></i></a><a class="nav-link social-link" target="_blank" href="/index.xml" title="RSS" rel="noopener noreferrer">
+    <i class="fas fa-fw fa-2x fa-rss"></i></a></nav>
+</div>
+  </div>
+</div>
+<section class="taxonomies row card component">
+    <div class="card-body">
+        <ul class="nav nav-tabs" id="myTab" role="tablist"><li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="taxonomySeriesTab" data-bs-toggle="tab" data-bs-target="#taxonomySeries" 
+                        type="button" role="tab" aria-controls="專欄" aria-selected="true">
+                        專欄
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                    <button class="nav-link" id="taxonomyCategoriesTab" data-bs-toggle="tab" data-bs-target="#taxonomyCategories" 
+                        type="button" role="tab" aria-controls="分類" aria-selected="true">
+                        分類
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                    <button class="nav-link" id="taxonomyTagsTab" data-bs-toggle="tab" data-bs-target="#taxonomyTags" 
+                        type="button" role="tab" aria-controls="標籤" aria-selected="true">
+                        標籤
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                <button class="nav-link" id="taxonomyArchivesTab" data-bs-toggle="tab" data-bs-target="#taxonomyArchive" 
+                    type="button" role="tab" aria-controls="taxonomyArchives" aria-selected="true">
+                    歸檔
+                </button>
+            </li>
+        </ul>
+          
+        <div class="tab-content mt-3"><div class="tab-pane active" id="taxonomySeries" role="tabpanel" aria-labelledby="taxonomySeriesTab" tabindex="0"><a href="/series/2019-ithome-ironman/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="用js成為老闆心中的全端工程師 - 2019 iT邦幫忙鐵人賽">
+                        用js成為老闆心中的全端工程師 - 2019 iT邦幫忙鐵人賽<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a></div><div class="tab-pane" id="taxonomyCategories" role="tabpanel" aria-labelledby="taxonomyCategoriesTab" tabindex="0"><a href="/categories/%E9%9A%A8%E6%89%8B%E7%AD%86%E8%A8%98/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="隨手筆記">
+                        隨手筆記<span class="badge badge-sm text-secondary bg-white ms-1">2</span></a><a href="/categories/%E5%BF%83%E5%BE%97/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="心得">
+                        心得<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a></div><div class="tab-pane" id="taxonomyTags" role="tabpanel" aria-labelledby="taxonomyTagsTab" tabindex="0"><a href="/tags/2019-it-%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2019 iT 邦幫忙鐵人賽">
+                        2019 iT 邦幫忙鐵人賽<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a><a href="/tags/%E7%94%A8js%E6%88%90%E7%82%BA%E8%80%81%E9%97%86%E5%BF%83%E4%B8%AD%E7%9A%84%E5%85%A8%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%AB/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="用js成為老闆心中的全端工程師">
+                        用js成為老闆心中的全端工程師<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a><a href="/tags/alphacamp/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="AlphaCamp">
+                        AlphaCamp<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/kafka/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="Kafka">
+                        Kafka<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/mongodb/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="MongoDB">
+                        MongoDB<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/pandas/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="pandas">
+                        pandas<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/python/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="python">
+                        python<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/%E6%8E%A8%E8%96%A6%E7%B3%BB%E7%B5%B1/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="推薦系統">
+                        推薦系統<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a></div><div class="tab-pane" id="taxonomyArchive" role="tabpanel" aria-labelledby="taxonomyArchiveTab" tabindex="0"><a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2022">
+    2022 <span class="badge badge-sm text-secondary bg-white ms-1">1</span>
+    </a>
+<a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2021">
+    2021 <span class="badge badge-sm text-secondary bg-white ms-1">2</span>
+    </a>
+<a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2018">
+    2018 <span class="badge badge-sm text-secondary bg-white ms-1">30</span>
+    </a>
+
+</div>
+        </div>
+    </div>
+</section><div class="post-toc row mb-4 card component" id="postTOC">
+  <div class="card-header">
+    <h2 class="card-title fs-4 my-2 text-surface">目錄</h2>
+  </div>
+  <div class="card-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#安裝-redux-建立-reducer-store">安裝 <code>redux</code>： 建立 Reducer, Store</a></li>
+    <li><a href="#安裝-react-redux把-store-送入-view-中">安裝 <code>react-redux</code>：把 Store 送入 View 中</a>
+      <ul>
+        <li><a href="#react-contextcomponent-tree-中任何地方都可以拿到的值">React Context：component tree 中任何地方都可以拿到的值</a></li>
+        <li><a href="#react-redux-串連-redux-和-react"><code>react-redux</code>： 串連 redux 和 react</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div><section class="recent-posts row card component">
+  <div class="card-header">
+    <h2 class="card-title my-2 fs-4 text-surface">最近文章</h2>
+  </div>
+  <div class="card-body">
+    <ul class="post-list list-unstyled ms-1"><li class="mb-2">
+        <a href="/posts/reviews/2022-02-06-alphacamp%E6%8E%A8%E8%96%A6%E7%B3%BB%E7%B5%B1%E4%B8%8A%E8%AA%B2%E5%BF%83%E5%BE%97/">AlphaCamp 推薦系統上課心得
+</a>
+      </li><li class="mb-2">
+        <a href="/posts/notes/2021-08-22-%E4%B8%80%E7%AA%BAkafka%E5%85%A7%E9%83%A8%E5%84%B2%E5%AD%98%E8%B3%87%E6%96%99/">一窺 Kafka 內部儲存資料
+</a>
+      </li><li class="mb-2">
+        <a href="/posts/notes/2021-08-01-mongodb-5-%E4%BE%86%E4%BA%86%E6%9C%89%E4%BB%80%E9%BA%BC%E5%80%BC%E5%BE%97%E6%B3%A8%E6%84%8F%E7%9A%84%E6%9B%B4%E6%96%B0/">MongoDb 5 來了，有什麼值得注意的更新呢?
+</a>
+      </li><li class="mb-2">
+        <a href="/series/2019-ithome-ironman/day-30-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-network-%E6%9A%A8%E5%AE%8C%E8%B3%BD%E5%9B%9E%E9%A1%A7/">Day 30- 三周目 - Docker Network 暨完賽回顧
+</a>
+      </li><li class="mb-2">
+        <a href="/series/2019-ithome-ironman/day-29-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-compose%E4%B8%80%E6%AC%A1%E7%AE%A1%E7%90%86%E5%A4%9A%E5%80%8B%E5%AE%B9%E5%99%A8/">Day 29- 三周目 - Docker Compose：一次管理多個容器
+</a>
+      </li></ul>
+  </div>
+</section>
+    
+  </div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><div class="offcanvas offcanvas-bottom h-auto" tabindex="-1" id="offcanvasActionsPanel"
+  aria-labelledby="offcanvasActionsPanelLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title fs-4" id="offcanvasActionsPanelLabel">
+      <i class="fas fa-fw fa-th-large me-1"></i>
+      Actions
+    </h5>
+    <button type="button" class="btn-close ms-auto" data-bs-dismiss="offcanvas" data-bs-target="offcanvasActionsPanel" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body mt-2"><div class="social-share mb-4 d-flex overflow-auto">
+      <a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Twitter Share Button"
+      target="_blank" href="https://twitter.com/intent/tweet?title=Day%2023%20-%20%e4%ba%8c%e5%91%a8%e7%9b%ae%20-%20Redux%20%e4%b8%b2%e6%8e%a5%20React%20%e8%88%87%20Redux%20DevTools&url=%2fseries%2f2019-ithome-ironman%2fday-23-%25E4%25BA%258C%25E5%2591%25A8%25E7%259B%25AE-redux-%25E4%25B8%25B2%25E6%258E%25A5-react-%25E8%2588%2587-redux-devtools%2f">
+        <i class="fab fa-2x fa-fw fa-twitter mb-2"></i> Twitter
+      </a>
+      <a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Facebook Share Button"
+        target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=%2fseries%2f2019-ithome-ironman%2fday-23-%25E4%25BA%258C%25E5%2591%25A8%25E7%259B%25AE-redux-%25E4%25B8%25B2%25E6%258E%25A5-react-%25E8%2588%2587-redux-devtools%2f">
+        <i class="fab fa-2x fa-fw fa-facebook-f mb-2"></i> Facebook
+      </a>
+    </div>
+    <hr class="mb-4"><div class="actions d-flex overflow-auto align-items-center">
+      <a role="button" class="action action-go-back d-flex flex-column align-items-center me-3" href="javascript: window.history.back();">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-chevron-circle-down" data-fa-transform="rotate-90"></i></span> 返回
+      </a>
+      <a role="button" class="action action-reload-page d-flex flex-column align-items-center me-3">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-redo-alt"></i></span> 刷新
+      </a>
+      <a role="button" class="action action-copy-url d-flex flex-column align-items-center me-3">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-link"></i></span> 複製連結
+      </a>
+    </div>
+  </div>
+</div><nav class="social-links nav justify-content-center mb-2"><a class="nav-link social-link" href="mailto:yujiechen0514@gmail.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i></a><a class="nav-link social-link" target="_blank" href="https://github.com/eugenechen0514" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-github"></i></a><a class="nav-link social-link" target="_blank" href="https://linkedin.com/in/yuchieh-chen-37a48989" title="LinkedIn" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-linkedin-in"></i></a><a class="nav-link social-link" target="_blank" href="https://medium.com/@yujiechen0514" title="Medium" rel="noopener noreferrer">
+        <i class="fab fa-fw fa-2x fa-medium-m"></i></a><a class="nav-link social-link" target="_blank" href="/index.xml" title="RSS" rel="noopener noreferrer">
+    <i class="fas fa-fw fa-2x fa-rss"></i></a></nav>
+<div class="copyright mb-2">
+  Copyright © 2016-2022 EugeneChen. All Rights Reserved.
+</div>
+<div class="powered-by mb-2">
+  Powered by <a class="text-primary" href="https://gohugo.io" target="_blank" rel="noopener noreferrer">Hugo</a> and the <a class="text-primary" href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank" rel="noopener noreferrer">Bootstrap</a> theme.
+</div>
+<div class="sponsors">
+
+
+
+
+
+
+</div>
+</footer>
+<script src="/assets/main/bundle.min.2bc7d6952dbf38d6d2815939c58fc655e72d050b196d9fd99829d8fb23904646.js" integrity="sha256-K8fWlS2/ONbSgVk5xY/GVectBQsZbZ/ZmCnY&#43;yOQRkY=" crossorigin="anonymous" defer></script><script src="/assets/icons/bundle.min.a4bf8247f780c9bf61d579a8efe7129ec790bb98622bf4a29895eb21e689266c.js" integrity="sha256-pL&#43;CR/eAyb9h1Xmo7&#43;cSnseQu5hiK/SimJXrIeaJJmw=" crossorigin="anonymous" defer></script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('\/service-worker.min.js').then(function(reg) {
+      console.log('Successfully registered service worker', reg);
+    }).catch(function(err) {
+      console.warn('Error whilst registering service worker', err);
+    });
+  });
+}
+</script><script src="/assets/viewer/bundle.min.92d4a694e2e9a4c4d89b6998067e2f8e502dc7a951682bb5a160a3004b434908.js" integrity="sha256-ktSmlOLppMTYm2mYBn4vjlAtx6lRaCu1oWCjAEtDSQg=" crossorigin="anonymous" defer></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-ZWYL79X38Y', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+<script src="/assets/docsearch/bundle.min.c6965b5bee044b874617239932d6a7992b217f7949f895a7576980d110fb2ab1.js" integrity="sha256-xpZbW&#43;4ES4dGFyOZMtanmSshf3lJ&#43;JWnV2mA0RD7KrE=" crossorigin="anonymous" defer></script></body>
+</html>

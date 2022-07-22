@@ -1,0 +1,780 @@
+<!doctype html><html class="position-relative" itemscope itemtype="http://schema.org/WebPage" lang="zh-tw" data-theme="auto"
+  
+   data-palette="purple">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Day 3 - 一周目- 建立第一個Node.js 專案 - EugeneChen</title><link rel="apple-touch-icon" href="/images/icons/icon-180x180.png" sizes="180x180">
+<link rel="icon" href="/images/icons/icon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/images/icons/icon-16x16.png" sizes="16x16" type="image/png">
+<link rel="icon" href="/images/icons/favicon.ico">
+<link rel="manifest" href="/manifest.json">
+<meta name="keywords" content="" />
+<meta name="description" content="建立第一個Node.js 專案" /><meta name="robots" content="index, follow" /><meta itemprop="name" content="Day 3 - 一周目- 建立第一個Node.js 專案">
+<meta itemprop="description" content="建立第一個Node.js 專案"><meta itemprop="datePublished" content="2018-10-03T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2018-10-03T00:00:00+00:00" />
+<meta itemprop="wordCount" content="2652">
+<meta itemprop="keywords" content="2019 iT 邦幫忙鐵人賽,用js成為老闆心中的全端工程師," /><meta property="og:title" content="Day 3 - 一周目- 建立第一個Node.js 專案" />
+<meta property="og:description" content="建立第一個Node.js 專案" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/series/2019-ithome-ironman/day-3-%E4%B8%80%E5%91%A8%E7%9B%AE-%E5%BB%BA%E7%AB%8B-%E7%AC%AC%E4%B8%80%E5%80%8Bnode.js-%E5%B0%88%E6%A1%88/" /><meta property="article:section" content="series" />
+<meta property="article:published_time" content="2018-10-03T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-10-03T00:00:00+00:00" /><meta property="og:site_name" content="EugeneChen" />
+<meta property="og:see_also" content="/series/2019-ithome-ironman/day-30-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-network-%E6%9A%A8%E5%AE%8C%E8%B3%BD%E5%9B%9E%E9%A1%A7/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-29-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-compose%E4%B8%80%E6%AC%A1%E7%AE%A1%E7%90%86%E5%A4%9A%E5%80%8B%E5%AE%B9%E5%99%A8/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-28-%E4%B8%89%E5%91%A8%E7%9B%AE-%E8%A3%BD%E4%BD%9C%E8%87%AA%E5%B7%B1%E7%9A%84%E6%98%A0%E5%83%8F%E6%AA%94%E5%8C%85%E6%89%93%E5%89%8D%E5%BE%8C%E7%AB%AF%E6%98%A0%E5%83%8F%E6%AA%94/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-27-%E4%B8%89%E5%91%A8%E7%9B%AE-%E4%BA%94%E5%88%86%E9%90%98%E5%BB%BA%E7%AB%8B%E7%A7%81%E6%9C%89-npm-verdaccio/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-26-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E7%9C%8B%E5%AE%8C%E5%B0%B1%E6%9C%83%E6%9E%B6-docker-%E5%8C%96%E7%9A%84%E6%9C%8D%E5%8B%99/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-25-%E4%BA%8C%E5%91%A8%E7%9B%AE-react-component-%E5%A5%97%E4%BB%B6-material-ui-google-material-design-%E7%9A%84%E5%AF%A6%E4%BD%9C%E5%A5%97%E4%BB%B6/" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Day 3 - 一周目- 建立第一個Node.js 專案"/>
+<meta name="twitter:description" content="建立第一個Node.js 專案"/>
+<meta property="og:image" content="/images/logo.png"/>
+  <meta name="twitter:image" content="/images/logo.png"/><link rel="stylesheet" href="/assets/main/bundle.min.925f59d4c744cc5e99dcc7d02a6f68dff5cceaea488c7667bd947bf7aa35b649.css" integrity="sha256-kl9Z1MdEzF6Z3MfQKm9o3/XM6upIjHZnvZR796o1tkk=" crossorigin="anonymous"><link rel="stylesheet" href="/assets/viewer/bundle.min.f05183267bb952fbc8c63a7178364de2951614ab71d544ec1068ad36c7447ccc.css" integrity="sha256-8FGDJnu5UvvIxjpxeDZN4pUWFKtx1UTsEGitNsdEfMw=" crossorigin="anonymous"><link rel="stylesheet" href="/assets/docsearch/bundle.min.c165d6a127fffa285e6b89ef65362fe921bc0c1fdaefa35f6af069b962bdb50e.css" integrity="sha256-wWXWoSf/&#43;ihea4nvZTYv6SG8DB/a76NfavBpuWK9tQ4=" crossorigin="anonymous"></head>
+  <body><script>const items=["theme","palette"];items.forEach(function(e){const t=localStorage.getItem("hbs:"+e);t&&document.body.parentElement.setAttribute("data-"+e,t)})</script><header><nav class="top-app-bar shadow bg-primary text-white navbar navbar-expand-lg fixed-top">
+  <div class="container"><a class="navbar-brand flex-grow-1 flex-lg-grow-0 text-lg-start ms-2 ms-lg-0 mx-auto me-lg-3" href="/"><picture><img class="logo" alt="Logo" src="/images/logo.webp" loading="lazy"
+    
+     width="136" height="69"
+     />
+</picture>
+EugeneChen
+    </a>
+    <button class="navbar-toggler order-5" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarMenus"
+      aria-controls="navbarMenus" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-ellipsis-h"></i>
+    </button>
+    <div class="offcanvas-lg offcanvas-end flex-grow-1 bg-primary text-white" tabindex="-1" id="navbarMenus" aria-labelledby="navbarMenusLabel">
+      <div class="offcanvas-header px-4 pb-0">
+        <h5 class="offcanvas-title" id="navbarMenusLabel">EugeneChen</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" data-bs-target="#navbarMenus" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body p-4 pt-0 p-lg-0">
+        <hr class="d-lg-none">
+        <ul class="navbar-nav flex-row flex-wrap align-items-center me-auto"><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/posts/">
+              <i class="fas fa-book fa-fw"></i>文章
+            </a>
+          </li><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/series/">
+              <i class="fas fa-bars fa-fw"></i>專欄
+            </a>
+          </li><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/posts/notes/">
+              <i class="fas fa-sticky-note fa-fw"></i>隨手筆記
+            </a>
+          </li></ul>
+        <hr class="d-lg-none">
+        <form class="search-bar mx-auto my-1" action="/search" novalidate>
+  <div class="input-group input-group-sm align-items-center">
+    <span class="btn btn-search disabled position-absolute left-0 border-0">
+      <i class="fas fa-fw fa-search fa-lg"></i>
+    </span>
+    <input class="py-2 form-control rounded search-input" name="q" type="search" aria-label="Search" required>
+  </div>
+</form>
+<hr class="d-lg-none">
+        <ul class="navbar-nav flex-row flex-wrap align-items-center ms-md-auto"><li class="nav-item dropdown py-1 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-globe"></i>
+        <span class="d-lg-none">語言</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown"><li>
+        <a class="dropdown-item" href="/en/">
+            English
+        </a>
+        </li><li>
+        <a class="dropdown-item active" href="/">
+            繁體中文
+        </a>
+        </li></ul>
+</li>
+<li class="nav-item py-1 col-12 col-lg-auto">
+  <div class="vr d-none d-lg-flex h-100 mx-lg-2 text-white"></div>
+  <hr class="d-lg-none my-2">
+</li><li class="nav-item dropdown py-2 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="fontSizeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-font"></i>
+        <span class="d-lg-none">字體大小</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="fontSizeDropdown"><li>
+            <button class="font-size-item dropdown-item" data-size="xs">
+                特小號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="sm">
+                小號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item active" data-size="md">
+                中等
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="lg">
+                大號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="xl">
+                特大號
+            </button>
+        </li></ul>
+</li><li class="nav-item dropdown py-1 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="paletteDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-palette"></i>
+        <span class="d-lg-none">配色</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end px-2" aria-labelledby="paletteDropdown">
+        <div class="row"><li class="col-3 my-1">
+                <a role="button" id="palette-blue" aria-label="藍色"
+                    class="btn btn-sm w-100 palette text-bg-blue" data-palette="blue">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-blue-gray" aria-label="藍灰色"
+                    class="btn btn-sm w-100 palette text-bg-blue-gray" data-palette="blue-gray">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-brown" aria-label="棕色"
+                    class="btn btn-sm w-100 palette text-bg-brown" data-palette="brown">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-cyan" aria-label="青色"
+                    class="btn btn-sm w-100 palette text-bg-cyan" data-palette="cyan">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-green" aria-label="綠色"
+                    class="btn btn-sm w-100 palette text-bg-green" data-palette="green">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-indigo" aria-label="靛青色"
+                    class="btn btn-sm w-100 palette text-bg-indigo" data-palette="indigo">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-orange" aria-label="橙色"
+                    class="btn btn-sm w-100 palette text-bg-orange" data-palette="orange">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-pink" aria-label="粉色"
+                    class="btn btn-sm w-100 palette text-bg-pink" data-palette="pink">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-purple" aria-label="紫色"
+                    class="btn btn-sm w-100 palette text-bg-purple" data-palette="purple">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-red" aria-label="紅色"
+                    class="btn btn-sm w-100 palette text-bg-red" data-palette="red">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-teal" aria-label="藍綠色"
+                    class="btn btn-sm w-100 palette text-bg-teal" data-palette="teal">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-yellow" aria-label="黃色"
+                    class="btn btn-sm w-100 palette text-bg-yellow" data-palette="yellow">
+                </a>
+            </li></div>
+    </ul>
+</li>
+<li class="nav-item dropdown py-2 py-lg-1 col-6 col-lg-auto"><a class="nav-link px-0 px-lg-1" href="#" id="modeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="mode-icon fas fa-fw fa-adjust" id="modeIcon"></i>
+        <span class="d-lg-none">模式</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="modeDropdown"><li class="mode-item" data-color-mode="light" data-icon="sun">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-sun"></i> Light
+            </button>
+        </li><li class="mode-item" data-color-mode="dark" data-icon="moon">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-moon"></i> Dark
+            </button>
+        </li><li class="mode-item active" data-color-mode="auto" data-icon="adjust">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-adjust"></i> Auto
+            </button>
+        </li></ul>
+</li>
+</ul>
+      </div>
+    </div>
+  </div>
+</nav>
+</header>
+<main class="container">
+      <div class="row content"><noscript>
+    <div class="alert alert-danger" role="alert">你的瀏覽器不支持 JavaScript。</div>
+</noscript>
+
+<div class="col-lg-8">
+  <div class="container"><nav class="row card component" aria-label="breadcrumb">
+  <div class="card-body pb-0">
+    <ol class="breadcrumb"><li class="breadcrumb-item text-surface"><a href="/">主頁</a></li><li class="breadcrumb-item text-surface"><a href="/series/">Series</a></li><li class="breadcrumb-item active">Day 3 - 一周目- 建立第一個Node.js 專案</li></ol>
+  </div>
+</nav><div class="post-panel-wrapper position-sticky">
+  <div class="d-flex flex-column component rounded post-panel position-absolute border">
+    
+    <a class="action action-panel-toggler" role="button" title="Panel toggler">
+      <i class="fas fa-fw fa-chevron-circle-down"></i>
+    </a>
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button" title="Sidebar toggler">
+  <i class="fas fa-fw fa-expand-alt" data-fa-transform="rotate-45"></i>
+</a>
+
+    
+
+    
+    <a class="action" href="#post-copyright" role="button" aria-label="Copyright" title="Copyright">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    <a class="action" href="#post-comments" role="button" aria-label="Comments" title="Comments">
+  <i class="fas fa-fw fa-comments"></i>
+</a>
+    <a class="action" href="#postTOC" aria-controls="Table of contents" role="button" title="Table of contents">
+  <i class="fas fa-fw fa-list-alt"></i>
+</a>
+    
+  </div>
+</div>
+<article class="row card component mb-4 post">
+  <div class="card-header ">
+    <h1 class="card-title post-title my-2">Day 3 - 一周目- 建立第一個Node.js 專案
+</h1>
+  </div>
+  <div class="card-body"><div class="post-meta mb-3">
+  <span class="post-date me-1 mb-1" title="創建於 2018-10-03 08:00:00 &#43;0800 CST。">
+    2018-10-03
+  </span><span class="post-reading-time me-1 mb-1">
+    6 分鐘閱讀
+  </span><a href="/series/2019-ithome-ironman/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">用js成為老闆心中的全端工程師 - 2019 IT邦幫忙鐵人賽</a><a href="/tags/2019-it-%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">2019 IT 邦幫忙鐵人賽</a><a href="/tags/%E7%94%A8js%E6%88%90%E7%82%BA%E8%80%81%E9%97%86%E5%BF%83%E4%B8%AD%E7%9A%84%E5%85%A8%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%AB/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">用js成為老闆心中的全端工程師</a></div>
+<div class="post-content mb-3"><p>今天我們要正式使用 VSCode 來建立 Node.js 專案，未來的前後端專案都是用Node.js 專案建立的。</p>
+<h1 id="回憶">回憶<a class="anchor ms-1" href="#回憶"><i class="fas fa-link"></i></a></h1>
+<p>昨天介紹指令的使用和用Markdown 做筆記、draw.io 畫圖，這些技能可以發揮在所有專案</p>
+<h1 id="目標">目標<a class="anchor ms-1" href="#目標"><i class="fas fa-link"></i></a></h1>
+<p>今天我們要正式使用 VSCode 來建立 Node.js 專案，未來的前後端專案都是用Node.js 專案建立的。</p>
+<ol>
+<li>建立Node.js 專案及了解<code>package.json</code></li>
+<li>安裝其它套件</li>
+<li>執行腳本</li>
+<li>VSCode 執行組態</li>
+</ol>
+<h1 id="nodejs-是什麼">Node.js 是什麼<a class="anchor ms-1" href="#nodejs-是什麼"><i class="fas fa-link"></i></a></h1>
+<p><a href="https://nodejs.org/en/" target="_blank" rel="noopener noreferrer">Node.js官方網站<i class="fas fa-external-link-square-alt ms-1"></i></a>說：</p>
+<blockquote>
+<p>Node.js® is a JavaScript runtime built on Chrome&rsquo;s V8 JavaScript engine.</p>
+</blockquote>
+<p>Node.js 只是一個基於 Chrome 的 V8 engine 的 JavaScript 執行環境。程式碼寫的就是 JavaScript，也就是大部分瀏覽器執行的程式語言。因此，有了 Node.js 就也可以開發後端程式，也因為用同樣的語言，所以「某些程度上」可以共用程式，像是常用來操作資料的 <a href="https://lodash.com/" target="_blank" rel="noopener noreferrer">lodash<i class="fas fa-external-link-square-alt ms-1"></i></a>，就是前後端都可以使用的套件。</p>
+<h1 id="準備-nodejs-執行環境">準備 Node.js 執行環境<a class="anchor ms-1" href="#準備-nodejs-執行環境"><i class="fas fa-link"></i></a></h1>
+<ol>
+<li><a href="https://nodejs.org/en/" target="_blank" rel="noopener noreferrer">https://nodejs.org/en/<i class="fas fa-external-link-square-alt ms-1"></i></a>，下載 Node.js</li>
+<li>一進去會看到
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-03 at 4.49.16 PM.png" src="/series/2019-ithome-ironman/day-3-%E4%B8%80%E5%91%A8%E7%9B%AE-%E5%BB%BA%E7%AB%8B-%E7%AC%AC%E4%B8%80%E5%80%8Bnode.js-%E5%B0%88%E6%A1%88/resources/DBC2763A7900F05F5FDCE77D52E9FFC3.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+
+LTS (Long Term Support) 是長時間的維護，點擊 <a href="https://github.com/nodejs/Release#release-schedule" target="_blank" rel="noopener noreferrer"><em><strong>Long Term Support (LTS) schedule</strong></em><i class="fas fa-external-link-square-alt ms-1"></i></a> 可以查看維護時間表。想安裝哪個都可以，因為本主題用的都是精典的 Node.js 模組。我的話會選10版的，因為<a href="https://nodejs.org/dist/latest-v10.x/docs/api/n-api.html#n_api_n_api" target="_blank" rel="noopener noreferrer">N-API<i class="fas fa-external-link-square-alt ms-1"></i></a> (C++編譯出的執行程式在Node.js環境中使用，且與Node.js版本無關)正式支援，多學點不錯阿！若你考慮到長期維護可以選8版的。</li>
+<li>安裝完成後，來看看你安裝的版本。開啟 <em><strong>hello-nodejs</strong></em> 的 VSCode 專案資料夾，再開打開 terminal(需要幫助的人可以看<a href="https://ithelp.ithome.com.tw/articles/10199491" target="_blank" rel="noopener noreferrer">Day 1 - 前言／開發環境準備<i class="fas fa-external-link-square-alt ms-1"></i></a>)，輸入 <code>node --version</code>
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-03 at 7.24.11 PM.png" src="/series/2019-ithome-ironman/day-3-%E4%B8%80%E5%91%A8%E7%9B%AE-%E5%BB%BA%E7%AB%8B-%E7%AC%AC%E4%B8%80%E5%80%8Bnode.js-%E5%B0%88%E6%A1%88/resources/4A07489684FA61E3F517C7B0480C92FE.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+
+我的版本是 9.7.1。若昨天有看<a href="https://ithelp.ithome.com.tw/articles/10199703" target="_blank" rel="noopener noreferrer">Day 2 - 一輩子受用的工具<i class="fas fa-external-link-square-alt ms-1"></i></a>的人會發現這裡的 <code>node</code> 就是指令，<code>--version</code>就是選項(options)。</li>
+</ol>
+<blockquote>
+<p>題外話：Node.js 的版本釋出真快，一不小心就被超過了QQ。為了可以確保程式可以在新版執行，建議平時寫好測試保護</p>
+</blockquote>
+<hr>
+<h1 id="建立第一個-nodejs-專案">建立第一個 Node.js 專案<a class="anchor ms-1" href="#建立第一個-nodejs-專案"><i class="fas fa-link"></i></a></h1>
+<p>準備好環境後，就可以來建 Node.js 專案</p>
+<h2 id="什麼是nodejs-專案">什麼是Node.js 專案？<a class="anchor ms-1" href="#什麼是nodejs-專案"><i class="fas fa-link"></i></a></h2>
+<p>Node.js 的專案是一個資料夾，內部可以放很多檔案，像是程式、文件…等，放什麼都可以，但在根目錄一定有一個叫 <strong>package.json</strong> 的檔案，它記錄專案的基本資訊，如專案名，專案版本、專案相依的套件…等(更多的訊息見<a href="https://docs.npmjs.com/files/package.json" target="_blank" rel="noopener noreferrer">package.json<i class="fas fa-external-link-square-alt ms-1"></i></a>)，常見 package.json 如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln"> 1</span><span class="cl">{
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">  &#34;name&#34;: &#34;hello-nodejs&#34;,
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">  &#34;version&#34;: &#34;1.0.0&#34;,
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">  &#34;description&#34;: &#34;&#34;,
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">  &#34;main&#34;: &#34;index.js&#34;,
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">  &#34;scripts&#34;: { 
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">    &#34;start&#34;: &#34;node index.js&#34;
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">  },
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">  &#34;author&#34;: &#34;eugenechen&#34;,
+</span></span><span class="line"><span class="ln">10</span><span class="cl">  &#34;license&#34;: &#34;ISC&#34;,
+</span></span><span class="line"><span class="ln">11</span><span class="cl">  &#34;dependencies&#34;: {
+</span></span><span class="line"><span class="ln">12</span><span class="cl">    &#34;lodash&#34;: &#34;^4.17.5&#34;
+</span></span><span class="line"><span class="ln">13</span><span class="cl">  },
+</span></span><span class="line"><span class="ln">14</span><span class="cl">  &#34;devDependencies&#34;: {
+</span></span><span class="line"><span class="ln">15</span><span class="cl">    &#34;jest&#34;: &#34;^22.4.2&#34;
+</span></span><span class="line"><span class="ln">16</span><span class="cl">  }
+</span></span><span class="line"><span class="ln">17</span><span class="cl">}
+</span></span></code></pre></div><p>package.json 參數說明如下：</p>
+<ul>
+<li>name： 專案名</li>
+<li>version：專案版本</li>
+<li>scription：專案描述</li>
+<li>main：專案/套件程式入口</li>
+<li>scripts： shell 腳本。透過 <code>npm run &lt;腳本名&gt;</code> 執行</li>
+<li>dependencies：相依的套件。以上面的例子來說，<em><strong>hello-nodejs</strong></em> 有用到一個相依的套件 <em><strong>lodash</strong></em>， <em><strong>^4.17.5</strong></em> 指的是 <em><strong>hello-nodejs</strong></em> 需要 <em><strong>4.17.5</strong></em> 以上的版本且只支援到主版本 <em><strong>4.X.X</strong></em> , <em><strong>5.0.0</strong></em> 以上不支援。更多版本號的語義見<a href="https://docs.npmjs.com/misc/semver" target="_blank" rel="noopener noreferrer">The semantic versioner for npm<i class="fas fa-external-link-square-alt ms-1"></i></a></li>
+<li>devDependencies：開發時的相依的套件，對於 <em><strong>hello-nodejs</strong></em> 專案執行來說無關。以上面的例子來說， <em><strong>jest</strong></em> 是測試框架套件，本身跟 <em><strong>hello-nodejs</strong></em> 執行無關。版號規則跟上面一樣。</li>
+</ul>
+<h2 id="快速建立-nodejs-專案">快速建立 Node.js 專案<a class="anchor ms-1" href="#快速建立-nodejs-專案"><i class="fas fa-link"></i></a></h2>
+<p>package.json 有一堆參數，每次都要自己來嗎？不用。只要在terminal輸入</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">npm init
+</span></span></code></pre></div><p>指令就會出現初始化專案的設定提示。
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-03 at 7.58.25 PM.png" src="/series/2019-ithome-ironman/day-3-%E4%B8%80%E5%91%A8%E7%9B%AE-%E5%BB%BA%E7%AB%8B-%E7%AC%AC%E4%B8%80%E5%80%8Bnode.js-%E5%B0%88%E6%A1%88/resources/12EB5BDAD6F55010238E643963BC2FAF.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>完成後就會自動產生 <code>package.json</code>。</p>
+<p><code>npm</code> 這個指令會隨著安裝 Node.js 一併安裝，npm 是 Node.js 的 套件管理員，可以為你的專案安裝其它套件，也可以拿來初始化專案…等。還想知道更多嗎？快輸入<code>npm --help</code> 可以看到指令訊息。</p>
+<hr>
+<h1 id="套件package安裝">套件(package)安裝<a class="anchor ms-1" href="#套件package安裝"><i class="fas fa-link"></i></a></h1>
+<p>在 Node.js 的生態系中別人寫好的程式打包起來，就是所謂的套件，在別的程式語言可能有別的名稱，像C++中會叫程式庫(library)。套件可以廣為傳送給別人使用，使我們少寫不少程式。當你學的套件越多就可能做的越快，甚至可以做出自己套件(未來我們會談談怎麼用<a href="https://verdaccio.org/" target="_blank" rel="noopener noreferrer">verdaccio<i class="fas fa-external-link-square-alt ms-1"></i></a>建立自己的私有庫。</p>
+<h2 id="安裝你的第一個套件-lodash">安裝你的第一個套件 lodash<a class="anchor ms-1" href="#安裝你的第一個套件-lodash"><i class="fas fa-link"></i></a></h2>
+<p>在terminal輸入</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">npm install lodash --save
+</span></span></code></pre></div><p><picture><img class="img-fluid" alt="Screen Shot 2018-10-03 at 8.16.04 PM.png" src="/series/2019-ithome-ironman/day-3-%E4%B8%80%E5%91%A8%E7%9B%AE-%E5%BB%BA%E7%AB%8B-%E7%AC%AC%E4%B8%80%E5%80%8Bnode.js-%E5%B0%88%E6%A1%88/resources/321C61661DA2D8A42B55886AB45802E1.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+
+npm 會從 <a href="https://www.npmjs.com/" target="_blank" rel="noopener noreferrer">npmjs registry<i class="fas fa-external-link-square-alt ms-1"></i></a>下載套件，你會發現多出 <em><strong>package-lock.json</strong></em> 和 <em><strong>node_modules</strong></em> 資料夾。
+<em><strong>package-lock.json</strong></em> 用來記錄各套件的相依版本號記錄；而 <em><strong>node_modules</strong></em> 就是存放套件程式碼的資料夾，所以打開後你可以看到 lodash 套件的所有程式碼。
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-03 at 8.24.08 PM.png" src="/series/2019-ithome-ironman/day-3-%E4%B8%80%E5%91%A8%E7%9B%AE-%E5%BB%BA%E7%AB%8B-%E7%AC%AC%E4%B8%80%E5%80%8Bnode.js-%E5%B0%88%E6%A1%88/resources/918251E1FE46871FB71001792178E364.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+
+很多吧! 自己寫不知道要寫多久。</p>
+<p>除了上面多出的檔案和資料夾，<em><strong>package.json</strong></em> 也被修改了，多出</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="ln">1</span><span class="cl"><span class="s2">&#34;dependencies&#34;</span><span class="err">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">    <span class="nt">&#34;lodash&#34;</span><span class="p">:</span> <span class="s2">&#34;^4.17.11&#34;</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>表示我們的專案有一個相依的庫 <em><strong>lodash</strong></em></p>
+<h2 id="指令-npm-install-lodash---save-是什麼意思">指令 npm install lodash --save 是什麼意思？<a class="anchor ms-1" href="#指令-npm-install-lodash---save-是什麼意思"><i class="fas fa-link"></i></a></h2>
+<p>指令 <code>npm install lodash --save</code> 其實有兩個意思</p>
+<ol>
+<li><code>install lodash</code>的部份是指下載安裝 lodash (不指定版號就是最新版)到 <em><strong>node_modules</strong></em></li>
+<li><code>--save</code> 的部份加入相依資訊到 <em><strong>package.json</strong></em> 的 <strong>dependencies</strong> 中</li>
+</ol>
+<h3 id="npm-install-可以做什麼">npm install 可以做什麼？<a class="anchor ms-1" href="#npm-install-可以做什麼"><i class="fas fa-link"></i></a></h3>
+<ol>
+<li>初始化專案的所有相依套件
+若是 <code>npm install</code> 不加 <code>lodash --save</code>，就會安裝 <em><strong>package.json</strong></em> 中 <strong>dependencies</strong> 和 <strong>devDependencies</strong> 裡面的所有套件。當拿到別人的 Node.js專案 第一件事就是 <code>npm install</code> 安裝所有套件</li>
+<li>重新下載 <em><strong>package.json</strong></em> 的相依套件
+你也可以手動打<strong>dependencies</strong> 和 <strong>devDependencies</strong> 裡面的資訊，再<code>npm install</code>重新下載套件</li>
+</ol>
+<h3 id="npm-install-還有什麼祕密">npm install 還有什麼祕密？<a class="anchor ms-1" href="#npm-install-還有什麼祕密"><i class="fas fa-link"></i></a></h3>
+<ol>
+<li>簡寫 <code>install</code> 成 <code>i</code> ，如：<code>npm install</code> 改成 <code>npm i</code></li>
+<li>安裝新的shell指令
+<code>npm install jest -g</code> 可以安裝 jest 指令，我們就有 <code>jest</code>指令，下 <code>jest</code> 指令 就會找所有測試程式執行測試
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-03 at 8.57.20 PM.png" src="/series/2019-ithome-ironman/day-3-%E4%B8%80%E5%91%A8%E7%9B%AE-%E5%BB%BA%E7%AB%8B-%E7%AC%AC%E4%B8%80%E5%80%8Bnode.js-%E5%B0%88%E6%A1%88/resources/F47B5B65C179113056838E2E28C08A50.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</li>
+<li>安裝開發時相依套件
+<code>npm install jest --save-dev</code> 會安裝jest且加入 <em><strong>package.json</strong></em> 中 <strong>devDependencies</strong>中</li>
+</ol>
+<hr>
+<h1 id="在-vscode-執行-hello-nodejs">在 VSCode 執行 hello nodejs<a class="anchor ms-1" href="#在-vscode-執行-hello-nodejs"><i class="fas fa-link"></i></a></h1>
+<p>前面終於安裝好相依套件，我們要執行我們的第一隻程式</p>
+<h2 id="建立第一隻程式indexjs">建立第一隻程式：index.js<a class="anchor ms-1" href="#建立第一隻程式indexjs"><i class="fas fa-link"></i></a></h2>
+<ol>
+<li>建立名為 index.js 的檔案
+<picture><img class="img-fluid" alt="Screen Recording 2018-10-03 at 9.08.49 PM.gif" src="/series/2019-ithome-ironman/day-3-%E4%B8%80%E5%91%A8%E7%9B%AE-%E5%BB%BA%E7%AB%8B-%E7%AC%AC%E4%B8%80%E5%80%8Bnode.js-%E5%B0%88%E6%A1%88/resources/F4AFFE303B5398E67E8FD8DF4A62957B.gif" loading="lazy"
+    
+    
+     />
+</picture>
+
+</li>
+<li>輸入以下內容
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">console.log(&#39;Hello Node.js&#39;); // 在terminal 印出 Hello Node.js
+</span></span></code></pre></div></li>
+</ol>
+<h2 id="執行-indexjs">執行 index.js<a class="anchor ms-1" href="#執行-indexjs"><i class="fas fa-link"></i></a></h2>
+<p>我們介紹三種執行它的方法</p>
+<ol>
+<li>用 <code>node index.js</code> 指令執行
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-03 at 9.16.27 PM.png" src="/series/2019-ithome-ironman/day-3-%E4%B8%80%E5%91%A8%E7%9B%AE-%E5%BB%BA%E7%AB%8B-%E7%AC%AC%E4%B8%80%E5%80%8Bnode.js-%E5%B0%88%E6%A1%88/resources/FD73BCB9D250C45CE32B12E3F5978557.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</li>
+<li>透過 npm 腳本執行
+加入一個名為 <strong>start</strong> 的腳本
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="ln">1</span><span class="cl"><span class="s2">&#34;scripts&#34;</span><span class="err">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">    <span class="nt">&#34;start&#34;</span><span class="p">:</span> <span class="s2">&#34;node index.js&#34;</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="p">}</span><span class="err">,</span>
+</span></span></code></pre></div>接下來執行 <code>npm run start</code>
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-03 at 9.21.48 PM.png" src="/series/2019-ithome-ironman/day-3-%E4%B8%80%E5%91%A8%E7%9B%AE-%E5%BB%BA%E7%AB%8B-%E7%AC%AC%E4%B8%80%E5%80%8Bnode.js-%E5%B0%88%E6%A1%88/resources/CC1F08C9135BCB023272AB5BC0DCECDC.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</li>
+<li>用 VSCode 執行
+<ol>
+<li>開啟 debug 頁籤
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-03 at 9.25.32 PM.png" src="/series/2019-ithome-ironman/day-3-%E4%B8%80%E5%91%A8%E7%9B%AE-%E5%BB%BA%E7%AB%8B-%E7%AC%AC%E4%B8%80%E5%80%8Bnode.js-%E5%B0%88%E6%A1%88/resources/CB1747BA344A9190816888BA8E4C150A.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</li>
+<li>建立 VSCode 執行組態
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-03 at 9.27.47 PM.png" src="/series/2019-ithome-ironman/day-3-%E4%B8%80%E5%91%A8%E7%9B%AE-%E5%BB%BA%E7%AB%8B-%E7%AC%AC%E4%B8%80%E5%80%8Bnode.js-%E5%B0%88%E6%A1%88/resources/5CCB548B6FF7144D539E6088AB662790.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</li>
+<li>執行debug
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-03 at 9.30.21 PM.png" src="/series/2019-ithome-ironman/day-3-%E4%B8%80%E5%91%A8%E7%9B%AE-%E5%BB%BA%E7%AB%8B-%E7%AC%AC%E4%B8%80%E5%80%8Bnode.js-%E5%B0%88%E6%A1%88/resources/3BACBF3B25E556D211D5433F9E3510E8.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="vscode-執行組態">VSCode 執行組態<a class="anchor ms-1" href="#vscode-執行組態"><i class="fas fa-link"></i></a></h2>
+<p>我們之前用VSCode 執行後，會發現專案資料夾多個一個資料夾 <code>.vscode</code> 且裡面多出一個 <code>launch.json</code> 檔案。</p>
+<p><picture><img class="img-fluid" alt="Screen Shot 2018-10-03 at 9.31.55 PM.png" src="/series/2019-ithome-ironman/day-3-%E4%B8%80%E5%91%A8%E7%9B%AE-%E5%BB%BA%E7%AB%8B-%E7%AC%AC%E4%B8%80%E5%80%8Bnode.js-%E5%B0%88%E6%A1%88/resources/DAF44BA968315ABECF1827A7723D5B7B.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<h3 id="nodejs-執行組態">Node.js 執行組態<a class="anchor ms-1" href="#nodejs-執行組態"><i class="fas fa-link"></i></a></h3>
+<p>還記得我之前說的嗎？ VSCode的一個專案就是一個資料夾，然而 <code>.vscode</code> 裡面就會放 VSCode 專案的設定檔。如果你是用<a href="https://www.jetbrains.com/webstorm/" target="_blank" rel="noopener noreferrer">WebStorm<i class="fas fa-external-link-square-alt ms-1"></i></a>編輯器，編輯器的設定檔會放在<code>.idea</code>裡。</p>
+<p><code>launch.json</code> 裡面會放可以執行的組態，按小綠箭頭便會執行所選的組態。下圖
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-03 at 9.42.28 PM.png" src="/series/2019-ithome-ironman/day-3-%E4%B8%80%E5%91%A8%E7%9B%AE-%E5%BB%BA%E7%AB%8B-%E7%AC%AC%E4%B8%80%E5%80%8Bnode.js-%E5%B0%88%E6%A1%88/resources/DDCFF666C43777200A35D4BB092F03CA.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+
+就是有一個執行組態，名為 <em><strong>Launch Program</strong></em>，執行類型是<a href="https://code.visualstudio.com/docs/editor/debugging#_launchjson-attributes" target="_blank" rel="noopener noreferrer"><em><strong>node</strong></em><i class="fas fa-external-link-square-alt ms-1"></i></a> ，執行 <code>${workspaceFolder}/index.js</code> 的程式，這裡 <code>${workspaceFolder}</code> 是VSCode的變數(Variable substitution)，指向專案根目錄。更多屬性設定見<a href="https://go.microsoft.com/fwlink/?linkid=830387" target="_blank" rel="noopener noreferrer">Launch configurations<i class="fas fa-external-link-square-alt ms-1"></i></a>。</p>
+<h3 id="加入新的組態透過-npm-執行腳本">加入新的組態：透過 npm 執行腳本<a class="anchor ms-1" href="#加入新的組態透過-npm-執行腳本"><i class="fas fa-link"></i></a></h3>
+<p>VSCode 可以幫我們快速加入一個組態
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-03 at 9.53.45 PM.png" src="/series/2019-ithome-ironman/day-3-%E4%B8%80%E5%91%A8%E7%9B%AE-%E5%BB%BA%E7%AB%8B-%E7%AC%AC%E4%B8%80%E5%80%8Bnode.js-%E5%B0%88%E6%A1%88/resources/3B37E13A3B7B5D1A370C7B292DBF0A8C.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p><picture><img class="img-fluid" alt="Screen Shot 2018-10-03 at 9.53.53 PM.png" src="/series/2019-ithome-ironman/day-3-%E4%B8%80%E5%91%A8%E7%9B%AE-%E5%BB%BA%E7%AB%8B-%E7%AC%AC%E4%B8%80%E5%80%8Bnode.js-%E5%B0%88%E6%A1%88/resources/07DE03CF2184BB12F79263AA9FCA2D50.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>多出一個透過 npm 執行<code>debug</code>腳本的組態</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">  <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;node&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">  <span class="nt">&#34;request&#34;</span><span class="p">:</span> <span class="s2">&#34;launch&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">  <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;Launch via NPM&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">  <span class="nt">&#34;runtimeExecutable&#34;</span><span class="p">:</span> <span class="s2">&#34;npm&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">  <span class="nt">&#34;runtimeArgs&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">    <span class="s2">&#34;run-script&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">    <span class="s2">&#34;debug&#34;</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">  <span class="p">],</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">  <span class="nt">&#34;port&#34;</span><span class="p">:</span> <span class="mi">9229</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>可以改成我們之前設定的<code>start</code>腳本</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">  <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;node&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">  <span class="nt">&#34;request&#34;</span><span class="p">:</span> <span class="s2">&#34;launch&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">  <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;Launch via NPM&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">  <span class="nt">&#34;runtimeExecutable&#34;</span><span class="p">:</span> <span class="s2">&#34;npm&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">  <span class="nt">&#34;runtimeArgs&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">    <span class="s2">&#34;run&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">    <span class="s2">&#34;start&#34;</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">  <span class="p">],</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">  <span class="nt">&#34;port&#34;</span><span class="p">:</span> <span class="mi">9229</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>接下來，執行 <strong>Start Without Debugging</strong>，相當於在terminal執行 <code>npm run start</code>
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-03 at 10.06.37 PM.png" src="/series/2019-ithome-ironman/day-3-%E4%B8%80%E5%91%A8%E7%9B%AE-%E5%BB%BA%E7%AB%8B-%E7%AC%AC%E4%B8%80%E5%80%8Bnode.js-%E5%B0%88%E6%A1%88/resources/3015EBF6B7EAFEAE8B7BD9319CB45A14.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+
+我們沒辨法用 <strong>Start Debugging</strong>，因為npm 沒有支援debug功能。</p>
+<h1 id="總結">總結<a class="anchor ms-1" href="#總結"><i class="fas fa-link"></i></a></h1>
+<p>今天介紹了 Node.js 專案，還有如何執行 <strong>.js</strong> 程式碼。透過VSCode的執行組態我們可以更靈活、方便的執行程式，也可以用來執行特殊的工作。</p></div></div>
+  <div class="card-footer"><div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-prev">
+    <i class="fas fa-fw fa-chevron-circle-down post-prev-icon" data-fa-transform="rotate-90"></i>
+    <a href="/series/2019-ithome-ironman/day-2-%E4%B8%80%E8%BC%A9%E5%AD%90%E5%8F%97%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7/">Day 2 - 一輩子受用的工具
+</a>
+  </div><div class="post-nav post-next">
+    <a href="/series/2019-ithome-ironman/day-4-%E4%B8%80%E5%91%A8%E7%9B%AE-%E7%94%A8vscode-debug-%E6%A8%A1%E5%BC%8F%E7%8E%A9%E7%8E%A9-es6-%E5%B8%B8%E7%94%A8%E8%AA%9E%E6%B3%95/">Day 4 - 一周目- 用VSCode Debug 模式，玩玩 ES6 常用語法
+</a>
+    <i class="fas fa-fw fa-chevron-circle-down post-next-icon" data-fa-transform="rotate-270"></i>
+  </div></div></div>
+</article><div class="post-copyright mb-3 row card component" id="post-copyright">
+    <div class="card-header">
+        <h2 class="card-title fs-4 my-2 text-surface">版權</h2>
+    </div>
+    <div class="card-body"><a class="d-flex align-items-center flex-column" target="_blank" rel="license noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_TW">
+  <span><i class="fab fa-fw fa-2x fa-creative-commons"></i><i class="fab fa-fw fa-2x fa-creative-commons-by"></i><i class="fab fa-fw fa-2x fa-creative-commons-nc"></i><i class="fab fa-fw fa-2x fa-creative-commons-sa"></i></span>
+  CC BY-NC-SA 4.0 
+</a>
+
+
+    </div>
+</div><section class="related-posts row card component">
+    <div class="card-header">
+      <h2 class="card-title fs-4 my-2 text-surface">相關文章</h2>
+    </div>
+    <div class="card-body">
+      <ul class="post-list list-unstyled"><li>
+          <a href="/series/2019-ithome-ironman/day-2-%E4%B8%80%E8%BC%A9%E5%AD%90%E5%8F%97%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7/">Day 2 - 一輩子受用的工具
+</a>
+          <span class="float-end post-date">2018-10-02
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-1-%E5%89%8D%E8%A8%80%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83%E6%BA%96%E5%82%99/">Day 1 - 前言／開發環境準備
+</a>
+          <span class="float-end post-date">2018-10-01
+</span>
+        </li></ul>
+    </div>
+  </section><div class="card component row post-comments" id="post-comments">
+  <div class="card-header">
+    <h2 class="card-title my-2 fs-4 text-surface">評論</h2>
+  </div>
+  <div class="card-body"><script src="https://utteranc.es/client.js"
+  repo="eugenechen0514/eugenechen0514.github.io"
+  issue-term="pathname"
+  label="comment"
+  theme="github-light"
+  crossorigin="anonymous"
+  async>
+</script></div>
+</div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container d-flex flex-column">
+    
+    <div class="card row text-center profile component">
+  <div class="card-body">
+    <div class="col-12 d-flex align-items-center justify-content-center"><picture><img class="profile-avatar rounded-circle" alt="EugeneChen" src="/images/profile.webp" loading="lazy" data-viewer-invisible
+    
+     width="298" height="305"
+     />
+</picture>
+</div>
+    <div class="col-12 profile-meta"><div class="profile-name fw-fold fs-lg">EugeneChen</div><div class="profile-bio">軟體工程師，喜歡動手做些有的沒的專案，同時也喜愛數學、攝影、桌球，慢跑、游泳、作菜。</div><div class="profile-about"><i class="fas fa-fw fa-user"></i><a target="_blank" rel="noopener noreferrer" href="https://eugene-website.herokuapp.com">關於我</a></div><nav class="social-links nav justify-content-center"><a class="nav-link social-link" href="mailto:yujiechen0514@gmail.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i></a><a class="nav-link social-link" target="_blank" href="https://github.com/eugenechen0514" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-github"></i></a><a class="nav-link social-link" target="_blank" href="/index.xml" title="RSS" rel="noopener noreferrer">
+    <i class="fas fa-fw fa-2x fa-rss"></i></a></nav>
+</div>
+  </div>
+</div>
+<section class="taxonomies row card component">
+    <div class="card-body">
+        <ul class="nav nav-tabs" id="myTab" role="tablist"><li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="taxonomySeriesTab" data-bs-toggle="tab" data-bs-target="#taxonomySeries" 
+                        type="button" role="tab" aria-controls="專欄" aria-selected="true">
+                        專欄
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                    <button class="nav-link" id="taxonomyCategoriesTab" data-bs-toggle="tab" data-bs-target="#taxonomyCategories" 
+                        type="button" role="tab" aria-controls="分類" aria-selected="true">
+                        分類
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                    <button class="nav-link" id="taxonomyTagsTab" data-bs-toggle="tab" data-bs-target="#taxonomyTags" 
+                        type="button" role="tab" aria-controls="標籤" aria-selected="true">
+                        標籤
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                <button class="nav-link" id="taxonomyArchivesTab" data-bs-toggle="tab" data-bs-target="#taxonomyArchive" 
+                    type="button" role="tab" aria-controls="taxonomyArchives" aria-selected="true">
+                    歸檔
+                </button>
+            </li>
+        </ul>
+          
+        <div class="tab-content mt-3"><div class="tab-pane active" id="taxonomySeries" role="tabpanel" aria-labelledby="taxonomySeriesTab" tabindex="0"><a href="/series/2019-ithome-ironman/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="用js成為老闆心中的全端工程師 - 2019 iT邦幫忙鐵人賽">
+                        用js成為老闆心中的全端工程師 - 2019 iT邦幫忙鐵人賽<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a></div><div class="tab-pane" id="taxonomyCategories" role="tabpanel" aria-labelledby="taxonomyCategoriesTab" tabindex="0"><a href="/categories/%E9%9A%A8%E6%89%8B%E7%AD%86%E8%A8%98/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="隨手筆記">
+                        隨手筆記<span class="badge badge-sm text-secondary bg-white ms-1">2</span></a><a href="/categories/%E5%BF%83%E5%BE%97/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="心得">
+                        心得<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a></div><div class="tab-pane" id="taxonomyTags" role="tabpanel" aria-labelledby="taxonomyTagsTab" tabindex="0"><a href="/tags/2019-it-%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2019 iT 邦幫忙鐵人賽">
+                        2019 iT 邦幫忙鐵人賽<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a><a href="/tags/%E7%94%A8js%E6%88%90%E7%82%BA%E8%80%81%E9%97%86%E5%BF%83%E4%B8%AD%E7%9A%84%E5%85%A8%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%AB/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="用js成為老闆心中的全端工程師">
+                        用js成為老闆心中的全端工程師<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a><a href="/tags/alphacamp/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="AlphaCamp">
+                        AlphaCamp<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/kafka/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="Kafka">
+                        Kafka<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/mongodb/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="MongoDB">
+                        MongoDB<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/pandas/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="pandas">
+                        pandas<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/python/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="python">
+                        python<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/%E6%8E%A8%E8%96%A6%E7%B3%BB%E7%B5%B1/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="推薦系統">
+                        推薦系統<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a></div><div class="tab-pane" id="taxonomyArchive" role="tabpanel" aria-labelledby="taxonomyArchiveTab" tabindex="0"><a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2022">
+    2022 <span class="badge badge-sm text-secondary bg-white ms-1">1</span>
+    </a>
+<a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2021">
+    2021 <span class="badge badge-sm text-secondary bg-white ms-1">2</span>
+    </a>
+<a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2018">
+    2018 <span class="badge badge-sm text-secondary bg-white ms-1">30</span>
+    </a>
+
+</div>
+        </div>
+    </div>
+</section><div class="post-toc row mb-4 card component" id="postTOC">
+  <div class="card-header">
+    <h2 class="card-title fs-4 my-2 text-surface">目錄</h2>
+  </div>
+  <div class="card-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#什麼是nodejs-專案">什麼是Node.js 專案？</a></li>
+    <li><a href="#快速建立-nodejs-專案">快速建立 Node.js 專案</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#安裝你的第一個套件-lodash">安裝你的第一個套件 <em><strong>lodash</strong></em></a></li>
+    <li><a href="#指令-npm-install-lodash---save-是什麼意思">指令 <code>npm install lodash --save</code> 是什麼意思？</a>
+      <ul>
+        <li><a href="#npm-install-可以做什麼"><code>npm install</code> 可以做什麼？</a></li>
+        <li><a href="#npm-install-還有什麼祕密"><code>npm install</code> 還有什麼祕密？</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#建立第一隻程式indexjs">建立第一隻程式：index.js</a></li>
+    <li><a href="#執行-indexjs">執行 index.js</a></li>
+    <li><a href="#vscode-執行組態">VSCode 執行組態</a>
+      <ul>
+        <li><a href="#nodejs-執行組態">Node.js 執行組態</a></li>
+        <li><a href="#加入新的組態透過-npm-執行腳本">加入新的組態：透過 npm 執行腳本</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div><section class="recent-posts row card component">
+  <div class="card-header">
+    <h2 class="card-title my-2 fs-4 text-surface">最近文章</h2>
+  </div>
+  <div class="card-body">
+    <ul class="post-list list-unstyled ms-1"><li class="mb-2">
+        <a href="/posts/reviews/2022-02-06-alphacamp%E6%8E%A8%E8%96%A6%E7%B3%BB%E7%B5%B1%E4%B8%8A%E8%AA%B2%E5%BF%83%E5%BE%97/">AlphaCamp 推薦系統上課心得
+</a>
+      </li><li class="mb-2">
+        <a href="/posts/notes/2021-08-22-%E4%B8%80%E7%AA%BAkafka%E5%85%A7%E9%83%A8%E5%84%B2%E5%AD%98%E8%B3%87%E6%96%99/">一窺 Kafka 內部儲存資料
+</a>
+      </li><li class="mb-2">
+        <a href="/posts/notes/2021-08-01-mongodb-5-%E4%BE%86%E4%BA%86%E6%9C%89%E4%BB%80%E9%BA%BC%E5%80%BC%E5%BE%97%E6%B3%A8%E6%84%8F%E7%9A%84%E6%9B%B4%E6%96%B0/">MongoDb 5 來了，有什麼值得注意的更新呢?
+</a>
+      </li><li class="mb-2">
+        <a href="/series/2019-ithome-ironman/day-30-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-network-%E6%9A%A8%E5%AE%8C%E8%B3%BD%E5%9B%9E%E9%A1%A7/">Day 30- 三周目 - Docker Network 暨完賽回顧
+</a>
+      </li><li class="mb-2">
+        <a href="/series/2019-ithome-ironman/day-29-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-compose%E4%B8%80%E6%AC%A1%E7%AE%A1%E7%90%86%E5%A4%9A%E5%80%8B%E5%AE%B9%E5%99%A8/">Day 29- 三周目 - Docker Compose：一次管理多個容器
+</a>
+      </li></ul>
+  </div>
+</section>
+    
+  </div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><div class="offcanvas offcanvas-bottom h-auto" tabindex="-1" id="offcanvasActionsPanel"
+  aria-labelledby="offcanvasActionsPanelLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title fs-4" id="offcanvasActionsPanelLabel">
+      <i class="fas fa-fw fa-th-large me-1"></i>
+      Actions
+    </h5>
+    <button type="button" class="btn-close ms-auto" data-bs-dismiss="offcanvas" data-bs-target="offcanvasActionsPanel" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body mt-2"><div class="social-share mb-4 d-flex overflow-auto">
+      <a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Twitter Share Button"
+      target="_blank" href="https://twitter.com/intent/tweet?title=Day%203%20-%20%e4%b8%80%e5%91%a8%e7%9b%ae-%20%e5%bb%ba%e7%ab%8b%e7%ac%ac%e4%b8%80%e5%80%8bNode.js%20%e5%b0%88%e6%a1%88&url=%2fseries%2f2019-ithome-ironman%2fday-3-%25E4%25B8%2580%25E5%2591%25A8%25E7%259B%25AE-%25E5%25BB%25BA%25E7%25AB%258B-%25E7%25AC%25AC%25E4%25B8%2580%25E5%2580%258Bnode.js-%25E5%25B0%2588%25E6%25A1%2588%2f">
+        <i class="fab fa-2x fa-fw fa-twitter mb-2"></i> Twitter
+      </a>
+      <a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Facebook Share Button"
+        target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=%2fseries%2f2019-ithome-ironman%2fday-3-%25E4%25B8%2580%25E5%2591%25A8%25E7%259B%25AE-%25E5%25BB%25BA%25E7%25AB%258B-%25E7%25AC%25AC%25E4%25B8%2580%25E5%2580%258Bnode.js-%25E5%25B0%2588%25E6%25A1%2588%2f">
+        <i class="fab fa-2x fa-fw fa-facebook-f mb-2"></i> Facebook
+      </a>
+    </div>
+    <hr class="mb-4"><div class="actions d-flex overflow-auto align-items-center">
+      <a role="button" class="action action-go-back d-flex flex-column align-items-center me-3" href="javascript: window.history.back();">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-chevron-circle-down" data-fa-transform="rotate-90"></i></span> 返回
+      </a>
+      <a role="button" class="action action-reload-page d-flex flex-column align-items-center me-3">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-redo-alt"></i></span> 刷新
+      </a>
+      <a role="button" class="action action-copy-url d-flex flex-column align-items-center me-3">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-link"></i></span> 複製連結
+      </a>
+    </div>
+  </div>
+</div><nav class="social-links nav justify-content-center mb-2"><a class="nav-link social-link" href="mailto:yujiechen0514@gmail.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i></a><a class="nav-link social-link" target="_blank" href="https://github.com/eugenechen0514" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-github"></i></a><a class="nav-link social-link" target="_blank" href="https://linkedin.com/in/yuchieh-chen-37a48989" title="LinkedIn" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-linkedin-in"></i></a><a class="nav-link social-link" target="_blank" href="https://medium.com/@yujiechen0514" title="Medium" rel="noopener noreferrer">
+        <i class="fab fa-fw fa-2x fa-medium-m"></i></a><a class="nav-link social-link" target="_blank" href="/index.xml" title="RSS" rel="noopener noreferrer">
+    <i class="fas fa-fw fa-2x fa-rss"></i></a></nav>
+<div class="copyright mb-2">
+  Copyright © 2016-2022 EugeneChen. All Rights Reserved.
+</div>
+<div class="powered-by mb-2">
+  Powered by <a class="text-primary" href="https://gohugo.io" target="_blank" rel="noopener noreferrer">Hugo</a> and the <a class="text-primary" href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank" rel="noopener noreferrer">Bootstrap</a> theme.
+</div>
+<div class="sponsors">
+
+
+
+
+
+
+</div>
+</footer>
+<script src="/assets/main/bundle.min.2bc7d6952dbf38d6d2815939c58fc655e72d050b196d9fd99829d8fb23904646.js" integrity="sha256-K8fWlS2/ONbSgVk5xY/GVectBQsZbZ/ZmCnY&#43;yOQRkY=" crossorigin="anonymous" defer></script><script src="/assets/icons/bundle.min.a4bf8247f780c9bf61d579a8efe7129ec790bb98622bf4a29895eb21e689266c.js" integrity="sha256-pL&#43;CR/eAyb9h1Xmo7&#43;cSnseQu5hiK/SimJXrIeaJJmw=" crossorigin="anonymous" defer></script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('\/service-worker.min.js').then(function(reg) {
+      console.log('Successfully registered service worker', reg);
+    }).catch(function(err) {
+      console.warn('Error whilst registering service worker', err);
+    });
+  });
+}
+</script><script src="/assets/viewer/bundle.min.92d4a694e2e9a4c4d89b6998067e2f8e502dc7a951682bb5a160a3004b434908.js" integrity="sha256-ktSmlOLppMTYm2mYBn4vjlAtx6lRaCu1oWCjAEtDSQg=" crossorigin="anonymous" defer></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-ZWYL79X38Y', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+<script src="/assets/docsearch/bundle.min.c6965b5bee044b874617239932d6a7992b217f7949f895a7576980d110fb2ab1.js" integrity="sha256-xpZbW&#43;4ES4dGFyOZMtanmSshf3lJ&#43;JWnV2mA0RD7KrE=" crossorigin="anonymous" defer></script></body>
+</html>

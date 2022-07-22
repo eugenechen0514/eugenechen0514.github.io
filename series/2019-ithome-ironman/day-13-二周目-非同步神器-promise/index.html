@@ -1,0 +1,806 @@
+<!doctype html><html class="position-relative" itemscope itemtype="http://schema.org/WebPage" lang="zh-tw" data-theme="auto"
+  
+   data-palette="purple">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Day 13 - 二周目 - 非同步神器 Promise - EugeneChen</title><link rel="apple-touch-icon" href="/images/icons/icon-180x180.png" sizes="180x180">
+<link rel="icon" href="/images/icons/icon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/images/icons/icon-16x16.png" sizes="16x16" type="image/png">
+<link rel="icon" href="/images/icons/favicon.ico">
+<link rel="manifest" href="/manifest.json">
+<meta name="keywords" content="" />
+<meta name="description" content="怎麼利用計時器(timer)函式`setTimeout`做出非同步執行的函數和用 `Promise` 包裝非同步函數。" /><meta name="robots" content="index, follow" /><meta itemprop="name" content="Day 13 - 二周目 - 非同步神器 Promise">
+<meta itemprop="description" content="怎麼利用計時器(timer)函式`setTimeout`做出非同步執行的函數和用 `Promise` 包裝非同步函數。"><meta itemprop="datePublished" content="2018-10-13T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2018-10-13T00:00:00+00:00" />
+<meta itemprop="wordCount" content="3463">
+<meta itemprop="keywords" content="2019 iT 邦幫忙鐵人賽,用js成為老闆心中的全端工程師," /><meta property="og:title" content="Day 13 - 二周目 - 非同步神器 Promise" />
+<meta property="og:description" content="怎麼利用計時器(timer)函式`setTimeout`做出非同步執行的函數和用 `Promise` 包裝非同步函數。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/series/2019-ithome-ironman/day-13-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E9%9D%9E%E5%90%8C%E6%AD%A5%E7%A5%9E%E5%99%A8-promise/" /><meta property="article:section" content="series" />
+<meta property="article:published_time" content="2018-10-13T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-10-13T00:00:00+00:00" /><meta property="og:site_name" content="EugeneChen" />
+<meta property="og:see_also" content="/series/2019-ithome-ironman/day-30-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-network-%E6%9A%A8%E5%AE%8C%E8%B3%BD%E5%9B%9E%E9%A1%A7/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-29-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-compose%E4%B8%80%E6%AC%A1%E7%AE%A1%E7%90%86%E5%A4%9A%E5%80%8B%E5%AE%B9%E5%99%A8/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-28-%E4%B8%89%E5%91%A8%E7%9B%AE-%E8%A3%BD%E4%BD%9C%E8%87%AA%E5%B7%B1%E7%9A%84%E6%98%A0%E5%83%8F%E6%AA%94%E5%8C%85%E6%89%93%E5%89%8D%E5%BE%8C%E7%AB%AF%E6%98%A0%E5%83%8F%E6%AA%94/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-27-%E4%B8%89%E5%91%A8%E7%9B%AE-%E4%BA%94%E5%88%86%E9%90%98%E5%BB%BA%E7%AB%8B%E7%A7%81%E6%9C%89-npm-verdaccio/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-26-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E7%9C%8B%E5%AE%8C%E5%B0%B1%E6%9C%83%E6%9E%B6-docker-%E5%8C%96%E7%9A%84%E6%9C%8D%E5%8B%99/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-25-%E4%BA%8C%E5%91%A8%E7%9B%AE-react-component-%E5%A5%97%E4%BB%B6-material-ui-google-material-design-%E7%9A%84%E5%AF%A6%E4%BD%9C%E5%A5%97%E4%BB%B6/" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Day 13 - 二周目 - 非同步神器 Promise"/>
+<meta name="twitter:description" content="怎麼利用計時器(timer)函式`setTimeout`做出非同步執行的函數和用 `Promise` 包裝非同步函數。"/>
+<meta property="og:image" content="/images/logo.png"/>
+  <meta name="twitter:image" content="/images/logo.png"/><link rel="stylesheet" href="/assets/main/bundle.min.925f59d4c744cc5e99dcc7d02a6f68dff5cceaea488c7667bd947bf7aa35b649.css" integrity="sha256-kl9Z1MdEzF6Z3MfQKm9o3/XM6upIjHZnvZR796o1tkk=" crossorigin="anonymous"><link rel="stylesheet" href="/assets/viewer/bundle.min.f05183267bb952fbc8c63a7178364de2951614ab71d544ec1068ad36c7447ccc.css" integrity="sha256-8FGDJnu5UvvIxjpxeDZN4pUWFKtx1UTsEGitNsdEfMw=" crossorigin="anonymous"><link rel="stylesheet" href="/assets/docsearch/bundle.min.c165d6a127fffa285e6b89ef65362fe921bc0c1fdaefa35f6af069b962bdb50e.css" integrity="sha256-wWXWoSf/&#43;ihea4nvZTYv6SG8DB/a76NfavBpuWK9tQ4=" crossorigin="anonymous"></head>
+  <body><script>const items=["theme","palette"];items.forEach(function(e){const t=localStorage.getItem("hbs:"+e);t&&document.body.parentElement.setAttribute("data-"+e,t)})</script><header><nav class="top-app-bar shadow bg-primary text-white navbar navbar-expand-lg fixed-top">
+  <div class="container"><a class="navbar-brand flex-grow-1 flex-lg-grow-0 text-lg-start ms-2 ms-lg-0 mx-auto me-lg-3" href="/"><picture><img class="logo" alt="Logo" src="/images/logo.webp" loading="lazy"
+    
+     width="136" height="69"
+     />
+</picture>
+EugeneChen
+    </a>
+    <button class="navbar-toggler order-5" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarMenus"
+      aria-controls="navbarMenus" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-ellipsis-h"></i>
+    </button>
+    <div class="offcanvas-lg offcanvas-end flex-grow-1 bg-primary text-white" tabindex="-1" id="navbarMenus" aria-labelledby="navbarMenusLabel">
+      <div class="offcanvas-header px-4 pb-0">
+        <h5 class="offcanvas-title" id="navbarMenusLabel">EugeneChen</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" data-bs-target="#navbarMenus" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body p-4 pt-0 p-lg-0">
+        <hr class="d-lg-none">
+        <ul class="navbar-nav flex-row flex-wrap align-items-center me-auto"><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/posts/">
+              <i class="fas fa-book fa-fw"></i>文章
+            </a>
+          </li><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/series/">
+              <i class="fas fa-bars fa-fw"></i>專欄
+            </a>
+          </li><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/posts/notes/">
+              <i class="fas fa-sticky-note fa-fw"></i>隨手筆記
+            </a>
+          </li></ul>
+        <hr class="d-lg-none">
+        <form class="search-bar mx-auto my-1" action="/search" novalidate>
+  <div class="input-group input-group-sm align-items-center">
+    <span class="btn btn-search disabled position-absolute left-0 border-0">
+      <i class="fas fa-fw fa-search fa-lg"></i>
+    </span>
+    <input class="py-2 form-control rounded search-input" name="q" type="search" aria-label="Search" required>
+  </div>
+</form>
+<hr class="d-lg-none">
+        <ul class="navbar-nav flex-row flex-wrap align-items-center ms-md-auto"><li class="nav-item dropdown py-1 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-globe"></i>
+        <span class="d-lg-none">語言</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown"><li>
+        <a class="dropdown-item" href="/en/">
+            English
+        </a>
+        </li><li>
+        <a class="dropdown-item active" href="/">
+            繁體中文
+        </a>
+        </li></ul>
+</li>
+<li class="nav-item py-1 col-12 col-lg-auto">
+  <div class="vr d-none d-lg-flex h-100 mx-lg-2 text-white"></div>
+  <hr class="d-lg-none my-2">
+</li><li class="nav-item dropdown py-2 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="fontSizeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-font"></i>
+        <span class="d-lg-none">字體大小</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="fontSizeDropdown"><li>
+            <button class="font-size-item dropdown-item" data-size="xs">
+                特小號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="sm">
+                小號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item active" data-size="md">
+                中等
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="lg">
+                大號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="xl">
+                特大號
+            </button>
+        </li></ul>
+</li><li class="nav-item dropdown py-1 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="paletteDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-palette"></i>
+        <span class="d-lg-none">配色</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end px-2" aria-labelledby="paletteDropdown">
+        <div class="row"><li class="col-3 my-1">
+                <a role="button" id="palette-blue" aria-label="藍色"
+                    class="btn btn-sm w-100 palette text-bg-blue" data-palette="blue">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-blue-gray" aria-label="藍灰色"
+                    class="btn btn-sm w-100 palette text-bg-blue-gray" data-palette="blue-gray">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-brown" aria-label="棕色"
+                    class="btn btn-sm w-100 palette text-bg-brown" data-palette="brown">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-cyan" aria-label="青色"
+                    class="btn btn-sm w-100 palette text-bg-cyan" data-palette="cyan">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-green" aria-label="綠色"
+                    class="btn btn-sm w-100 palette text-bg-green" data-palette="green">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-indigo" aria-label="靛青色"
+                    class="btn btn-sm w-100 palette text-bg-indigo" data-palette="indigo">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-orange" aria-label="橙色"
+                    class="btn btn-sm w-100 palette text-bg-orange" data-palette="orange">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-pink" aria-label="粉色"
+                    class="btn btn-sm w-100 palette text-bg-pink" data-palette="pink">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-purple" aria-label="紫色"
+                    class="btn btn-sm w-100 palette text-bg-purple" data-palette="purple">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-red" aria-label="紅色"
+                    class="btn btn-sm w-100 palette text-bg-red" data-palette="red">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-teal" aria-label="藍綠色"
+                    class="btn btn-sm w-100 palette text-bg-teal" data-palette="teal">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-yellow" aria-label="黃色"
+                    class="btn btn-sm w-100 palette text-bg-yellow" data-palette="yellow">
+                </a>
+            </li></div>
+    </ul>
+</li>
+<li class="nav-item dropdown py-2 py-lg-1 col-6 col-lg-auto"><a class="nav-link px-0 px-lg-1" href="#" id="modeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="mode-icon fas fa-fw fa-adjust" id="modeIcon"></i>
+        <span class="d-lg-none">模式</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="modeDropdown"><li class="mode-item" data-color-mode="light" data-icon="sun">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-sun"></i> Light
+            </button>
+        </li><li class="mode-item" data-color-mode="dark" data-icon="moon">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-moon"></i> Dark
+            </button>
+        </li><li class="mode-item active" data-color-mode="auto" data-icon="adjust">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-adjust"></i> Auto
+            </button>
+        </li></ul>
+</li>
+</ul>
+      </div>
+    </div>
+  </div>
+</nav>
+</header>
+<main class="container">
+      <div class="row content"><noscript>
+    <div class="alert alert-danger" role="alert">你的瀏覽器不支持 JavaScript。</div>
+</noscript>
+
+<div class="col-lg-8">
+  <div class="container"><nav class="row card component" aria-label="breadcrumb">
+  <div class="card-body pb-0">
+    <ol class="breadcrumb"><li class="breadcrumb-item text-surface"><a href="/">主頁</a></li><li class="breadcrumb-item text-surface"><a href="/series/">Series</a></li><li class="breadcrumb-item active">Day 13 - 二周目 - 非同步神器 Promise</li></ol>
+  </div>
+</nav><div class="post-panel-wrapper position-sticky">
+  <div class="d-flex flex-column component rounded post-panel position-absolute border">
+    
+    <a class="action action-panel-toggler" role="button" title="Panel toggler">
+      <i class="fas fa-fw fa-chevron-circle-down"></i>
+    </a>
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button" title="Sidebar toggler">
+  <i class="fas fa-fw fa-expand-alt" data-fa-transform="rotate-45"></i>
+</a>
+
+    
+
+    
+    <a class="action" href="#post-copyright" role="button" aria-label="Copyright" title="Copyright">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    <a class="action" href="#post-comments" role="button" aria-label="Comments" title="Comments">
+  <i class="fas fa-fw fa-comments"></i>
+</a>
+    <a class="action" href="#postTOC" aria-controls="Table of contents" role="button" title="Table of contents">
+  <i class="fas fa-fw fa-list-alt"></i>
+</a>
+    
+  </div>
+</div>
+<article class="row card component mb-4 post">
+  <div class="card-header ">
+    <h1 class="card-title post-title my-2">Day 13 - 二周目 - 非同步神器 Promise
+</h1>
+  </div>
+  <div class="card-body"><div class="post-meta mb-3">
+  <span class="post-date me-1 mb-1" title="創建於 2018-10-13 08:00:00 &#43;0800 CST。">
+    2018-10-13
+  </span><span class="post-reading-time me-1 mb-1">
+    7 分鐘閱讀
+  </span><a href="/series/2019-ithome-ironman/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">用js成為老闆心中的全端工程師 - 2019 IT邦幫忙鐵人賽</a><a href="/tags/2019-it-%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">2019 IT 邦幫忙鐵人賽</a><a href="/tags/%E7%94%A8js%E6%88%90%E7%82%BA%E8%80%81%E9%97%86%E5%BF%83%E4%B8%AD%E7%9A%84%E5%85%A8%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%AB/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">用js成為老闆心中的全端工程師</a></div>
+<div class="post-content mb-3"><p>今天要來談怎麼利用計時器(timer)函式<code>setTimeout</code>做出非同步執行的函數和用 <code>Promise</code> 包裝非同步函數。</p>
+<h1 id="回憶">回憶<a class="anchor ms-1" href="#回憶"><i class="fas fa-link"></i></a></h1>
+<p>昨天我們提到 Node.js 非阻塞的特色，其實可以說 Node.js 到處都是非同步執行。</p>
+<h1 id="目標">目標<a class="anchor ms-1" href="#目標"><i class="fas fa-link"></i></a></h1>
+<p>今天要來談怎麼利用計時器(timer)函式<code>setTimeout</code>做出非同步執行的函數和用 <code>Promise</code> 包裝非同步函數。</p>
+<h1 id="自己做的非同步執行的函數由同步轉成非同步">自己做的非同步執行的函數：由同步轉成非同步<a class="anchor ms-1" href="#自己做的非同步執行的函數由同步轉成非同步"><i class="fas fa-link"></i></a></h1>
+<p>我們可以由同步的程式，改寫成非同步函數。</p>
+<ol>
+<li>
+<p>考慮以下同步函數，<code>addSum</code> 是累加函數</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1">// 同步
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="c1"></span><span class="kd">function</span> <span class="nx">addSum</span><span class="p">(</span><span class="nx">numbers</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">    <span class="kd">let</span> <span class="nx">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">    <span class="nx">numbers</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">number</span> <span class="p">=&gt;</span> <span class="nx">sum</span> <span class="o">=</span> <span class="nx">sum</span> <span class="o">+</span> <span class="nx">number</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">    <span class="k">return</span> <span class="nx">sum</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">7</span><span class="cl"><span class="kr">const</span> <span class="nx">numbers</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">];</span>
+</span></span><span class="line"><span class="ln">8</span><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">addSum</span><span class="p">(</span><span class="nx">numbers</span><span class="p">));</span> <span class="c1">// 3
+</span></span></span></code></pre></div></li>
+<li>
+<p>先想介面：怎麼回傳？透過一個 callback function</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1">// 同步
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="c1"></span><span class="kd">function</span> <span class="nx">addSum</span><span class="p">(</span><span class="nx">numbers</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">  <span class="kd">let</span> <span class="nx">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">  <span class="nx">numbers</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">number</span> <span class="p">=&gt;</span> <span class="nx">sum</span> <span class="o">=</span> <span class="nx">sum</span> <span class="o">+</span> <span class="nx">number</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">  <span class="nx">callback</span><span class="p">(</span><span class="nx">sum</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="kr">const</span> <span class="nx">numbers</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">];</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="nx">addSum</span><span class="p">(</span><span class="nx">numbers</span><span class="p">,</span> <span class="nx">sum</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">sum</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="p">})</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;done&#39;</span><span class="p">);</span>
+</span></span></code></pre></div><p>結果：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">3
+</span></span><span class="line"><span class="ln">2</span><span class="cl">done
+</span></span></code></pre></div><p><code>addSum(numbers, callback)</code>看起來是不是有非同步的影子了阿。但他其實還是同步函數，只是在內部呼叫 <code>callback(sum)</code>。</p>
+</li>
+<li>
+<p>調用系統計時器 <code>setTimeout()</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1">// 非同步
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="c1"></span><span class="kd">function</span> <span class="nx">addSum</span><span class="p">(</span><span class="nx">numbers</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">  <span class="nx">setTimeout</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">    <span class="kd">let</span> <span class="nx">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">    <span class="nx">numbers</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">number</span> <span class="p">=&gt;</span> <span class="nx">sum</span> <span class="o">=</span> <span class="nx">sum</span> <span class="o">+</span> <span class="nx">number</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">    <span class="nx">callback</span><span class="p">(</span><span class="nx">sum</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">  <span class="p">},</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="kr">const</span> <span class="nx">numbers</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">];</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="nx">addSum</span><span class="p">(</span><span class="nx">numbers</span><span class="p">,</span> <span class="nx">sum</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">sum</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="p">})</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;done&#39;</span><span class="p">);</span>
+</span></span></code></pre></div><p>結果：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">done
+</span></span><span class="line"><span class="ln">2</span><span class="cl">3
+</span></span></code></pre></div><p>雖然我們設定 0 秒，但不是指馬上執行，<code>setTimeout()</code> 會把裡面的 callback 放到 event loop 中的 queue (見 <a href="https://ithelp.ithome.com.tw/articles/10201085" target="_blank" rel="noopener noreferrer">Day 12 - 二周目 - 準備起程深入後端<i class="fas fa-external-link-square-alt ms-1"></i></a>)。當 <code>addSum()</code> 執行完後，<code>console.log('done')</code>印出 <code>done</code>，然後 event loop 就再迴圈一次，重新執行所有 queue 中的 callback function，發現我們有送入</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">  <span class="kd">let</span> <span class="nx">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">  <span class="nx">numbers</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">number</span> <span class="p">=&gt;</span> <span class="nx">sum</span> <span class="o">=</span> <span class="nx">sum</span> <span class="o">+</span> <span class="nx">number</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">  <span class="nx">callback</span><span class="p">(</span><span class="nx">sum</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>就開始執行，<code>callback</code> 這變數因為箭頭函數產生閉包 (見：<a href="https://ithelp.ithome.com.tw/articles/10200107" target="_blank" rel="noopener noreferrer">Day 5 - 一周目- 從VSCode debug 模式看作用域(Scope)、this、閉包(Closure)<i class="fas fa-external-link-square-alt ms-1"></i></a>)，如下圖：</p>
+<p><picture><img class="img-fluid" alt="Screen Shot 2018-10-13 at 8.24.01 PM.png" src="/series/2019-ithome-ironman/day-13-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E9%9D%9E%E5%90%8C%E6%AD%A5%E7%A5%9E%E5%99%A8-promise/resources/A2220A81958E85F4511AF5107AC80A7C.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p><code>callback</code>有值，值是我們送入的</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="nx">sum</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">sum</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>所以 <code>callback(sum)</code> 最後印出 <code>3</code></p>
+</li>
+</ol>
+<p>這樣就完成了把同步函數 <code>addSum(numbers)</code> 轉成非同步函數 <code>addSum(numbers, callback)</code>。</p>
+<blockquote>
+<p>惡搞：你可以把 <code>setTimeout()</code> 改成 <code>setInterval()</code>，<code>setInterval()</code> 會一直在指定時間內重做(直到你 <code>clearInterval()</code>)，我們改成 1000 ms，就會一直印出 3。
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-13 at 8.29.22 PM.png" src="/series/2019-ithome-ironman/day-13-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E9%9D%9E%E5%90%8C%E6%AD%A5%E7%A5%9E%E5%99%A8-promise/resources/7A37DED9F94B89DE403F08461C880D6A.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+
+你可以想想為什麼程式停不了？因為 event loop 的 timer queue 的 callback 一直在的關係，queue 永遠非空。</p>
+</blockquote>
+<p>需要自己做的非同步函數的情況，我還真的比較少發生，因為這表示你用到大量的CPU計算，這時候你應該開子行程(subprocess)處理，主行程改用非同步呼叫子行程處理，這個技巧未來會提。反而，大部分是要重新包裝非同步函數，或使用別人的非同步函數。</p>
+<blockquote>
+<p>在 Node.js 中，也提供 nextTick, setImmediate，它們都可以用來做非同步函數，可以看以下文章
+1. <a href="https://www.cnblogs.com/onepixel/articles/7605465.html" target="_blank" rel="noopener noreferrer">詳解 setTimeout、setImmediate、process.nextTick 的區別<i class="fas fa-external-link-square-alt ms-1"></i></a>
+2. <a href="https://www.jianshu.com/p/837b584e1bdd" target="_blank" rel="noopener noreferrer">Node探秘之事件循環（2）&ndash;setTimeout/setImmediate/process.nextTick的差別<i class="fas fa-external-link-square-alt ms-1"></i></a></p>
+</blockquote>
+<h1 id="包裝非同步函數">包裝非同步函數<a class="anchor ms-1" href="#包裝非同步函數"><i class="fas fa-link"></i></a></h1>
+<p>非同步操作如下(截錄自<a href="https://eyesofkids.gitbooks.io/javascript-start-es6-promise/content/contents/before_start.html" target="_blank" rel="noopener noreferrer">從Promise開始的JavaScript異步生活<i class="fas fa-external-link-square-alt ms-1"></i></a>)</p>
+<ol>
+<li>使用計時器(timer)函式: <code>setTimeout</code>, <code>setInterval</code></li>
+<li>特殊的函式: <code>nextTick</code>, <code>setImmediate</code></li>
+<li>執行I/O: 監聽網路、資料庫查詢或讀寫外部資源</li>
+<li>訂閱事件：常用 <code>on('event name', callback)</code> 訂閱</li>
+</ol>
+<p>1,2 常用來引起非同步，而 3,4 常用需要包裝非同步函數，使用我們的後端更有可讀性。</p>
+<h2 id="包裝神器-promise">包裝神器 Promise<a class="anchor ms-1" href="#包裝神器-promise"><i class="fas fa-link"></i></a></h2>
+<p><code>Promise</code> 是一個物件，它遵從<a href="https://promisesaplus.com/" target="_blank" rel="noopener noreferrer">Promises/A+<i class="fas fa-external-link-square-alt ms-1"></i></a>標準，下圖截錄自 <a href="https://eyesofkids.gitbooks.io/javascript-start-es6-promise/content/contents/promise_a_plus.html" target="_blank" rel="noopener noreferrer">Promises/A+標準定義<i class="fas fa-external-link-square-alt ms-1"></i></a>
+<picture><img class="img-fluid" alt="IMAGE" src="/series/2019-ithome-ironman/day-13-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E9%9D%9E%E5%90%8C%E6%AD%A5%E7%A5%9E%E5%99%A8-promise/resources/1E4574C0AAB49712F3141DDBB7976163.jpg" loading="lazy"
+    
+    
+     />
+</picture>
+
+
+Promise 建立時是 pending 狀態，它可收到 value (透過<code>resolve(value)</code>) 就被鎖定成 fulfilled，不然就是收到 reason  (透過<code>reject(reason)</code>, <code>reason</code> 一般是 <code>Error</code> 物件)就被鎖定成 rejected。鎖定後再也動不了。</p>
+<p><code>Promise</code>物件的建立方法如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="k">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="p">});</span>
+</span></span></code></pre></div><p><code>(resolve, reject) =&gt; {}</code> 這是 Promise 物件建立時就要立刻傳入的東西，也會立刻執行。
+這裡我們可以用 <code>resolve(value)</code> 通知此 Promise resolve，也可以用 <code>reject(error)</code> 通知此 Promise reject。</p>
+<h3 id="用-promse-包裝-addsumnumber-callback改變函數簽章-addsumpromisenumbers">用 Promse 包裝 addSum(number, callback)：改變函數簽章 addSumPromise(numbers)<a class="anchor ms-1" href="#用-promse-包裝-addsumnumber-callback改變函數簽章-addsumpromisenumbers"><i class="fas fa-link"></i></a></h3>
+<p>我們曾提過 Pomise 方便的地方在於可以用 <code>then().catch()</code> 鍊式語法，所以我們把 <code>addSum(numbers, callback)</code>包裝成 <code>addSumPromise(numbers)</code>，它回傳 Promise 物件，就可以用鍊式語法</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1">// 包裝非同步回傳 Promise
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="c1"></span><span class="kd">function</span> <span class="nx">addSum</span><span class="p">(</span><span class="nx">numbers</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">  <span class="nx">setTimeout</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">    <span class="kd">let</span> <span class="nx">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">    <span class="nx">numbers</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">number</span> <span class="p">=&gt;</span> <span class="nx">sum</span> <span class="o">=</span> <span class="nx">sum</span> <span class="o">+</span> <span class="nx">number</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">    <span class="nx">callback</span><span class="p">(</span><span class="nx">sum</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">  <span class="p">},</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="kd">function</span> <span class="nx">addSumPromise</span><span class="p">(</span><span class="nx">numbers</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">  <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">    <span class="nx">addSum</span><span class="p">(</span><span class="nx">numbers</span><span class="p">,</span> <span class="nx">sum</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">      <span class="nx">resolve</span><span class="p">(</span><span class="nx">sum</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="kr">const</span> <span class="nx">numbers</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">];</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="nx">addSumPromise</span><span class="p">(</span><span class="nx">numbers</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">sum</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">sum</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">20</span><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;done&#39;</span><span class="p">);</span>
+</span></span></code></pre></div><p>我們利用回傳 Promise 物件，可以把 callback 參數拿掉，就可以享有鍊式語法。</p>
+<h3 id="強化-addsumpromise-參數處理">強化 addSumPromise() 參數處理<a class="anchor ms-1" href="#強化-addsumpromise-參數處理"><i class="fas fa-link"></i></a></h3>
+<p>有沒有發現我們的 <code>addSum()</code> 很脆弱，可以加入一些判斷使它強健一點。例如我們要確保 numbers 是 Array，若不是的話就回傳的 reject promise</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1">// 包裝非同步回傳 Promise
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="c1"></span><span class="kd">function</span> <span class="nx">addSum</span><span class="p">(</span><span class="nx">numbers</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">  <span class="nx">setTimeout</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">    <span class="kd">let</span> <span class="nx">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">    <span class="nx">numbers</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">number</span> <span class="p">=&gt;</span> <span class="nx">sum</span> <span class="o">=</span> <span class="nx">sum</span> <span class="o">+</span> <span class="nx">number</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">    <span class="nx">callback</span><span class="p">(</span><span class="nx">sum</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">  <span class="p">},</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="kd">function</span> <span class="nx">addSumPromise</span><span class="p">(</span><span class="nx">numbers</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">  <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">numbers</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">      <span class="nx">reject</span><span class="p">(</span><span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;numbers is not a Array&#39;</span><span class="p">));</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">      <span class="k">return</span><span class="p">;</span> <span class="c1">// 這行要寫，雖然Promise 狀態不變，但下面的程式一樣會執行
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">    <span class="nx">addSum</span><span class="p">(</span><span class="nx">numbers</span><span class="p">,</span> <span class="nx">sum</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl">      <span class="nx">resolve</span><span class="p">(</span><span class="nx">sum</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="kr">const</span> <span class="nx">numbers</span> <span class="o">=</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="nx">addSumPromise</span><span class="p">(</span><span class="nx">numbers</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">22</span><span class="cl">  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">sum</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">23</span><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">sum</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">24</span><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;done&#39;</span><span class="p">);</span>
+</span></span></code></pre></div><p>就可以得到
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-13 at 9.21.54 PM.png" src="/series/2019-ithome-ironman/day-13-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E9%9D%9E%E5%90%8C%E6%AD%A5%E7%A5%9E%E5%99%A8-promise/resources/B1FDC1BCFFA2C13CEB9B5E6D0B11D044.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+
+<code>addSumPromise({})</code> 會得到一個 reject promise。我們注意以下幾點：</p>
+<ol>
+<li><code>console.log('done')</code> 一樣有執行，不會因為 reject promise。</li>
+<li>新版的Node.js 現在會告訢你有一個未處理的 Promise，且這 Error 不是例外發生，不會引起程式插斷(interrupts)，執行會一直下去。因此，你不處理的話就這錯誤就不見了。</li>
+</ol>
+<p>所以改成下面</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="nx">addSumPromise</span><span class="p">(</span><span class="nx">numbers</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">sum</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">sum</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">  <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">7</span><span class="cl">  <span class="p">})</span>
+</span></span></code></pre></div><p>這麼一來 Promise 就處理完所有的非同步的情況了。</p>
+<h3 id="小總結">小總結<a class="anchor ms-1" href="#小總結"><i class="fas fa-link"></i></a></h3>
+<p>我們舉了 <code>addSum(numbers, callback)</code>為例子，再用 Promise 包裝改成像是 <code>addSum(number)</code>。早期非同步函數中，常常有 callback function 當參數，callback 的簽章一般是<code>(err, value) =&gt; ...</code>，常會利用上述方法包裝成 Promise 的版本方便使用。另外，Node.js 也提供 <a href="https://nodejs.org/dist/latest-v10.x/docs/api/util.html#util_util_promisify_original" target="_blank" rel="noopener noreferrer">util.promisify()<i class="fas fa-external-link-square-alt ms-1"></i></a> 快速轉換。</p>
+<p>最近的套件有時也會同時提供兩種版本(callback版或回傳Promise)，像是 Node.js MongoDB Driver API 或是 <a href="https://github.com/jprichardson/node-fs-extra" target="_blank" rel="noopener noreferrer"><code>fs-extra</code><i class="fas fa-external-link-square-alt ms-1"></i></a>。 <code>fs-extra</code> 我會拿來取代原生的 <code>fs</code>，它也提供好用的函數。另外，在Node.js 10 以後，<code>fs.promises</code> 也開始支援 Promise版。</p>
+<h2 id="thencatch-鍊式語法promise-物件好用之處">then().catch() 鍊式語法：Promise 物件好用之處<a class="anchor ms-1" href="#thencatch-鍊式語法promise-物件好用之處"><i class="fas fa-link"></i></a></h2>
+<p><code>then().catch()</code> 可以說是 Promise 的核心之一，<code>then()</code> 和 <code>catch()</code>函數被 Promises/A+ 規定要回傳 Promise，他可以讓我們的非同步操作串接起來。</p>
+<h3 id="thencallbackcatchcallback的-callback-叫起與回傳">then(callback)/catch(callback)的 callback 叫起與回傳<a class="anchor ms-1" href="#thencallbackcatchcallback的-callback-叫起與回傳"><i class="fas fa-link"></i></a></h3>
+<p><code>then(callback)</code>/<code>catch(callback)</code> 中的 callback 被叫起：</p>
+<ol>
+<li><code>aPromise.then(callback)</code>：當 aPromise resolve時，resolve value 送入 callback(value)</li>
+<li><code>aPromise.catch(callback)</code>：當 aPromise reject，reject reason 送入 callback(reason)</li>
+</ol>
+<p><code>then(callback)</code>/<code>catch(callback)</code> 中的 callback 可以回傳：</p>
+<ol>
+<li>回傳 Primitive值：如undefined, object, number, string&hellip;等，<code>then()</code> 會回傳 resolve promise
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl">  <span class="p">.</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">({</span><span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Billy&#39;</span><span class="p">}))</span> <span class="c1">// resolve promise
+</span></span></span></code></pre></div></li>
+<li>回傳 Promise：<code>then()</code>會和回傳的 promise 同樣狀態
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl">  <span class="p">.</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">())</span> <span class="c1">// resolve promise
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl">  <span class="p">.</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">reject</span><span class="p">())</span> <span class="c1">// reject promise
+</span></span></span></code></pre></div></li>
+</ol>
+<blockquote>
+<p>這裡的：<code>Promise.resolve()</code> 直接回傳 reolve promise 物件；<code>Promise.reject()</code> 直接回傳 reject promise 物件</p>
+</blockquote>
+<blockquote>
+<p>其實：<code>then()</code>的完整簽章是：<code>then(resoveCallback, rejectCallback)</code>，這個我比較少用，反而常用<code>then(resoveCallback).catch(rejectCallback)</code></p>
+</blockquote>
+<h3 id="一個鍊式例子">一個鍊式例子<a class="anchor ms-1" href="#一個鍊式例子"><i class="fas fa-link"></i></a></h3>
+<p>例如，我們要查詢一個人的訂單要做兩個非同步的查詢：</p>
+<ol>
+<li><code>fetchPerson(name)</code>　－　查人</li>
+<li><code>fetchOrders(person)</code>　－　查此人的訂單</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1">// then()　鍊式
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="c1"></span><span class="kd">function</span> <span class="nx">fetchOrders</span><span class="p">(</span><span class="nx">person</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">  <span class="kr">const</span> <span class="nx">orders</span> <span class="o">=</span> <span class="nx">person</span><span class="p">.</span><span class="nx">orderIds</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">id</span> <span class="p">=&gt;</span> <span class="p">({</span> <span class="nx">id</span> <span class="p">}));</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">  <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">orders</span><span class="p">);</span> <span class="c1">// 直接回傳 reolve promise 物件
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="kd">function</span> <span class="nx">fetchPerson</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">  <span class="c1">// return Promise.reject(new Error(&#39;name is not string&#39;)); // 直接回傳 reject promise 物件
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="c1"></span>  <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">({</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">    <span class="nx">name</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">    <span class="nx">orderIds</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">
+</span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="nx">fetchPerson</span><span class="p">(</span><span class="s1">&#39;Billy&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl">    <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">fetchOrders</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">    <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">orders</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">      <span class="nx">orders</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">order</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">order</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">20</span><span class="cl">      <span class="p">})</span>
+</span></span><span class="line"><span class="ln">21</span><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="ln">22</span><span class="cl">    <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">);</span>
+</span></span></code></pre></div><p><picture><img class="img-fluid" alt="Screen Shot 2018-10-13 at 10.20.34 PM.png" src="/series/2019-ithome-ironman/day-13-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E9%9D%9E%E5%90%8C%E6%AD%A5%E7%A5%9E%E5%99%A8-promise/resources/A4512ADFF19A9D00D47631D1EC44358B.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>我們利用 <code>then()</code> 把非同步操作串接起來，且 <code>fetchPerson()</code>、<code>fetchOrders()</code>任一個Promise 發生 reject 才會引起 <code>.catch()</code> 發生。若前面的任一個Promise reject，後面的 <code>then()</code> 都不會發生直到 <code>catch()</code>。（你可以把解開註解看看 <code>// return Promise.reject(new Error('name is not string'));</code>）</p>
+<h3 id="catch常犯的錯catchcallback-可能是回傳-resolve-promise">.catch()常犯的錯：.catch(callback) 可能是回傳 resolve promise<a class="anchor ms-1" href="#catch常犯的錯catchcallback-可能是回傳-resolve-promise"><i class="fas fa-link"></i></a></h3>
+<p>在用鍊式時你可能會想要截斷某個reject，查看結果，常會寫以下的程式</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">  <span class="p">.</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">reject</span><span class="p">(</span><span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;error 1&#39;</span><span class="p">)))</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">  <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">  <span class="p">.</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl">  <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">)</span>
+</span></span></code></pre></div><p>這結果是</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">Error: error 1
+</span></span><span class="line"><span class="ln">2</span><span class="cl">2
+</span></span></code></pre></div><p>這是因為 <code>.catch(console.error)</code> 寫清楚一點就是</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="kd">function</span> <span class="k">catch</span><span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">  <span class="k">return</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span> <span class="c1">// console.error() 回傳 undefined
+</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><p>因為回傳 undefined，所以 <code>.catch()</code> 的回傳是 resolve promise，這使下一行的 <code>.then(() =&gt; Promise.resolve(2))</code>執行。因此，你若要保持 reject 往下傳，要用 <code>Promise.reject()</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">  <span class="p">.</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">reject</span><span class="p">(</span><span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;error 1&#39;</span><span class="p">)))</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">  <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">    <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">reject</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="ln">7</span><span class="cl">  <span class="p">.</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+</span></span><span class="line"><span class="ln">8</span><span class="cl">  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">9</span><span class="cl">  <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">)</span>
+</span></span></code></pre></div><p>才會得到</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">Error: error 1
+</span></span><span class="line"><span class="ln">2</span><span class="cl">Error: error 1
+</span></span></code></pre></div><h3 id="promise-的例發發生會導致-reject">Promise 的例發發生會導致 reject<a class="anchor ms-1" href="#promise-的例發發生會導致-reject"><i class="fas fa-link"></i></a></h3>
+<p>一但進入 Promise後在內部的執行不論在哪丟出例外都會導致 promise reject</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1">// Promise 的例外發生
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="c1"></span><span class="kd">function</span> <span class="nx">somePromise</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">  <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">    <span class="c1">// throw new Error(&#39;constructor error&#39;);
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="c1"></span>    <span class="nx">resolve</span><span class="p">();</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="nx">somePromise</span><span class="p">()</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">sum</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">    <span class="c1">// throw new Error(&#39;resolve error&#39;);
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="c1"></span>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;done&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">  <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">  <span class="p">});</span>
+</span></span></code></pre></div><p>你可以解開註解看看，都是會產生 reject promise。</p>
+<p>這事實可以看成是，Promise 幫我們包住了所有例外，某方面降低了程式當掉的可能。</p>
+<h1 id="總結">總結<a class="anchor ms-1" href="#總結"><i class="fas fa-link"></i></a></h1>
+<p>今天如何利用 <code>setTimeout()</code> 做非同步函數，還用 Promise 包裝它，且介紹 <code>then().catch()</code>鍊式語法。</p></div></div>
+  <div class="card-footer"><div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-prev">
+    <i class="fas fa-fw fa-chevron-circle-down post-prev-icon" data-fa-transform="rotate-90"></i>
+    <a href="/series/2019-ithome-ironman/day-12-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E6%BA%96%E5%82%99%E8%B5%B7%E7%A8%8B%E6%B7%B1%E5%85%A5%E5%BE%8C%E7%AB%AF/">Day 12 - 二周目 - 準備起程深入後端
+</a>
+  </div><div class="post-nav post-next">
+    <a href="/series/2019-ithome-ironman/day-14-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E5%BE%9Epromise-%E6%98%87%E8%8F%AF%E5%88%B0-asyncawait/">Day 14 - 二周目 - 從Promise 昇華到 Async:await
+</a>
+    <i class="fas fa-fw fa-chevron-circle-down post-next-icon" data-fa-transform="rotate-270"></i>
+  </div></div></div>
+</article><div class="post-copyright mb-3 row card component" id="post-copyright">
+    <div class="card-header">
+        <h2 class="card-title fs-4 my-2 text-surface">版權</h2>
+    </div>
+    <div class="card-body"><a class="d-flex align-items-center flex-column" target="_blank" rel="license noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_TW">
+  <span><i class="fab fa-fw fa-2x fa-creative-commons"></i><i class="fab fa-fw fa-2x fa-creative-commons-by"></i><i class="fab fa-fw fa-2x fa-creative-commons-nc"></i><i class="fab fa-fw fa-2x fa-creative-commons-sa"></i></span>
+  CC BY-NC-SA 4.0 
+</a>
+
+
+    </div>
+</div><section class="related-posts row card component">
+    <div class="card-header">
+      <h2 class="card-title fs-4 my-2 text-surface">相關文章</h2>
+    </div>
+    <div class="card-body">
+      <ul class="post-list list-unstyled"><li>
+          <a href="/series/2019-ithome-ironman/day-12-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E6%BA%96%E5%82%99%E8%B5%B7%E7%A8%8B%E6%B7%B1%E5%85%A5%E5%BE%8C%E7%AB%AF/">Day 12 - 二周目 - 準備起程深入後端
+</a>
+          <span class="float-end post-date">2018-10-12
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-11-%E4%B8%80%E5%91%A8%E7%9B%AE-%E9%96%8B%E5%A7%8B%E7%8E%A9%E8%BD%89%E5%89%8D%E7%AB%AF%E4%BA%8C/">Day 11 - 一周目- 開始玩轉前端(二)
+</a>
+          <span class="float-end post-date">2018-10-11
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-10-%E4%B8%80%E5%91%A8%E7%9B%AE-%E9%96%8B%E5%A7%8B%E7%8E%A9%E8%BD%89%E5%89%8D%E7%AB%AF%E4%B8%80/">Day 10- 一周目- 開始玩轉前端(一)
+</a>
+          <span class="float-end post-date">2018-10-10
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-9-%E4%B8%80%E5%91%A8%E7%9B%AE-%E9%96%8B%E5%A7%8B%E7%8E%A9%E8%BD%89%E5%BE%8C%E7%AB%AF%E4%BA%8C/">Day 9 - 一周目- 開始玩轉後端(二)
+</a>
+          <span class="float-end post-date">2018-10-09
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-8-%E4%B8%80%E5%91%A8%E7%9B%AE-%E9%96%8B%E5%A7%8B%E7%8E%A9%E8%BD%89%E5%BE%8C%E7%AB%AF%E4%B8%80/">Day 8 - 一周目- 開始玩轉後端(一)
+</a>
+          <span class="float-end post-date">2018-10-08
+</span>
+        </li></ul>
+    </div>
+  </section><div class="card component row post-comments" id="post-comments">
+  <div class="card-header">
+    <h2 class="card-title my-2 fs-4 text-surface">評論</h2>
+  </div>
+  <div class="card-body"><script src="https://utteranc.es/client.js"
+  repo="eugenechen0514/eugenechen0514.github.io"
+  issue-term="pathname"
+  label="comment"
+  theme="github-light"
+  crossorigin="anonymous"
+  async>
+</script></div>
+</div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container d-flex flex-column">
+    
+    <div class="card row text-center profile component">
+  <div class="card-body">
+    <div class="col-12 d-flex align-items-center justify-content-center"><picture><img class="profile-avatar rounded-circle" alt="EugeneChen" src="/images/profile.webp" loading="lazy" data-viewer-invisible
+    
+     width="298" height="305"
+     />
+</picture>
+</div>
+    <div class="col-12 profile-meta"><div class="profile-name fw-fold fs-lg">EugeneChen</div><div class="profile-bio">軟體工程師，喜歡動手做些有的沒的專案，同時也喜愛數學、攝影、桌球，慢跑、游泳、作菜。</div><div class="profile-about"><i class="fas fa-fw fa-user"></i><a target="_blank" rel="noopener noreferrer" href="https://eugene-website.herokuapp.com">關於我</a></div><nav class="social-links nav justify-content-center"><a class="nav-link social-link" href="mailto:yujiechen0514@gmail.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i></a><a class="nav-link social-link" target="_blank" href="https://github.com/eugenechen0514" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-github"></i></a><a class="nav-link social-link" target="_blank" href="/index.xml" title="RSS" rel="noopener noreferrer">
+    <i class="fas fa-fw fa-2x fa-rss"></i></a></nav>
+</div>
+  </div>
+</div>
+<section class="taxonomies row card component">
+    <div class="card-body">
+        <ul class="nav nav-tabs" id="myTab" role="tablist"><li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="taxonomySeriesTab" data-bs-toggle="tab" data-bs-target="#taxonomySeries" 
+                        type="button" role="tab" aria-controls="專欄" aria-selected="true">
+                        專欄
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                    <button class="nav-link" id="taxonomyCategoriesTab" data-bs-toggle="tab" data-bs-target="#taxonomyCategories" 
+                        type="button" role="tab" aria-controls="分類" aria-selected="true">
+                        分類
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                    <button class="nav-link" id="taxonomyTagsTab" data-bs-toggle="tab" data-bs-target="#taxonomyTags" 
+                        type="button" role="tab" aria-controls="標籤" aria-selected="true">
+                        標籤
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                <button class="nav-link" id="taxonomyArchivesTab" data-bs-toggle="tab" data-bs-target="#taxonomyArchive" 
+                    type="button" role="tab" aria-controls="taxonomyArchives" aria-selected="true">
+                    歸檔
+                </button>
+            </li>
+        </ul>
+          
+        <div class="tab-content mt-3"><div class="tab-pane active" id="taxonomySeries" role="tabpanel" aria-labelledby="taxonomySeriesTab" tabindex="0"><a href="/series/2019-ithome-ironman/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="用js成為老闆心中的全端工程師 - 2019 iT邦幫忙鐵人賽">
+                        用js成為老闆心中的全端工程師 - 2019 iT邦幫忙鐵人賽<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a></div><div class="tab-pane" id="taxonomyCategories" role="tabpanel" aria-labelledby="taxonomyCategoriesTab" tabindex="0"><a href="/categories/%E9%9A%A8%E6%89%8B%E7%AD%86%E8%A8%98/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="隨手筆記">
+                        隨手筆記<span class="badge badge-sm text-secondary bg-white ms-1">2</span></a><a href="/categories/%E5%BF%83%E5%BE%97/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="心得">
+                        心得<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a></div><div class="tab-pane" id="taxonomyTags" role="tabpanel" aria-labelledby="taxonomyTagsTab" tabindex="0"><a href="/tags/2019-it-%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2019 iT 邦幫忙鐵人賽">
+                        2019 iT 邦幫忙鐵人賽<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a><a href="/tags/%E7%94%A8js%E6%88%90%E7%82%BA%E8%80%81%E9%97%86%E5%BF%83%E4%B8%AD%E7%9A%84%E5%85%A8%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%AB/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="用js成為老闆心中的全端工程師">
+                        用js成為老闆心中的全端工程師<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a><a href="/tags/alphacamp/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="AlphaCamp">
+                        AlphaCamp<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/kafka/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="Kafka">
+                        Kafka<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/mongodb/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="MongoDB">
+                        MongoDB<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/pandas/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="pandas">
+                        pandas<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/python/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="python">
+                        python<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/%E6%8E%A8%E8%96%A6%E7%B3%BB%E7%B5%B1/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="推薦系統">
+                        推薦系統<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a></div><div class="tab-pane" id="taxonomyArchive" role="tabpanel" aria-labelledby="taxonomyArchiveTab" tabindex="0"><a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2022">
+    2022 <span class="badge badge-sm text-secondary bg-white ms-1">1</span>
+    </a>
+<a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2021">
+    2021 <span class="badge badge-sm text-secondary bg-white ms-1">2</span>
+    </a>
+<a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2018">
+    2018 <span class="badge badge-sm text-secondary bg-white ms-1">30</span>
+    </a>
+
+</div>
+        </div>
+    </div>
+</section><div class="post-toc row mb-4 card component" id="postTOC">
+  <div class="card-header">
+    <h2 class="card-title fs-4 my-2 text-surface">目錄</h2>
+  </div>
+  <div class="card-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#包裝神器-promise">包裝神器 <code>Promise</code></a>
+      <ul>
+        <li><a href="#用-promse-包裝-addsumnumber-callback改變函數簽章-addsumpromisenumbers">用 Promse 包裝 <code>addSum(number, callback)</code>：改變函數簽章 <code>addSumPromise(numbers)</code></a></li>
+        <li><a href="#強化-addsumpromise-參數處理">強化 <code>addSumPromise()</code> 參數處理</a></li>
+        <li><a href="#小總結">小總結</a></li>
+      </ul>
+    </li>
+    <li><a href="#thencatch-鍊式語法promise-物件好用之處"><code>then().catch()</code> 鍊式語法：Promise 物件好用之處</a>
+      <ul>
+        <li><a href="#thencallbackcatchcallback的-callback-叫起與回傳"><code>then(callback)</code>/<code>catch(callback)</code>的 callback 叫起與回傳</a></li>
+        <li><a href="#一個鍊式例子">一個鍊式例子</a></li>
+        <li><a href="#catch常犯的錯catchcallback-可能是回傳-resolve-promise"><code>.catch()</code>常犯的錯：<code>.catch(callback)</code> 可能是回傳 resolve promise</a></li>
+        <li><a href="#promise-的例發發生會導致-reject">Promise 的例發發生會導致 reject</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div><section class="recent-posts row card component">
+  <div class="card-header">
+    <h2 class="card-title my-2 fs-4 text-surface">最近文章</h2>
+  </div>
+  <div class="card-body">
+    <ul class="post-list list-unstyled ms-1"><li class="mb-2">
+        <a href="/posts/reviews/2022-02-06-alphacamp%E6%8E%A8%E8%96%A6%E7%B3%BB%E7%B5%B1%E4%B8%8A%E8%AA%B2%E5%BF%83%E5%BE%97/">AlphaCamp 推薦系統上課心得
+</a>
+      </li><li class="mb-2">
+        <a href="/posts/notes/2021-08-22-%E4%B8%80%E7%AA%BAkafka%E5%85%A7%E9%83%A8%E5%84%B2%E5%AD%98%E8%B3%87%E6%96%99/">一窺 Kafka 內部儲存資料
+</a>
+      </li><li class="mb-2">
+        <a href="/posts/notes/2021-08-01-mongodb-5-%E4%BE%86%E4%BA%86%E6%9C%89%E4%BB%80%E9%BA%BC%E5%80%BC%E5%BE%97%E6%B3%A8%E6%84%8F%E7%9A%84%E6%9B%B4%E6%96%B0/">MongoDb 5 來了，有什麼值得注意的更新呢?
+</a>
+      </li><li class="mb-2">
+        <a href="/series/2019-ithome-ironman/day-30-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-network-%E6%9A%A8%E5%AE%8C%E8%B3%BD%E5%9B%9E%E9%A1%A7/">Day 30- 三周目 - Docker Network 暨完賽回顧
+</a>
+      </li><li class="mb-2">
+        <a href="/series/2019-ithome-ironman/day-29-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-compose%E4%B8%80%E6%AC%A1%E7%AE%A1%E7%90%86%E5%A4%9A%E5%80%8B%E5%AE%B9%E5%99%A8/">Day 29- 三周目 - Docker Compose：一次管理多個容器
+</a>
+      </li></ul>
+  </div>
+</section>
+    
+  </div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><div class="offcanvas offcanvas-bottom h-auto" tabindex="-1" id="offcanvasActionsPanel"
+  aria-labelledby="offcanvasActionsPanelLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title fs-4" id="offcanvasActionsPanelLabel">
+      <i class="fas fa-fw fa-th-large me-1"></i>
+      Actions
+    </h5>
+    <button type="button" class="btn-close ms-auto" data-bs-dismiss="offcanvas" data-bs-target="offcanvasActionsPanel" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body mt-2"><div class="social-share mb-4 d-flex overflow-auto">
+      <a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Twitter Share Button"
+      target="_blank" href="https://twitter.com/intent/tweet?title=Day%2013%20-%20%e4%ba%8c%e5%91%a8%e7%9b%ae%20-%20%e9%9d%9e%e5%90%8c%e6%ad%a5%e7%a5%9e%e5%99%a8%20Promise&url=%2fseries%2f2019-ithome-ironman%2fday-13-%25E4%25BA%258C%25E5%2591%25A8%25E7%259B%25AE-%25E9%259D%259E%25E5%2590%258C%25E6%25AD%25A5%25E7%25A5%259E%25E5%2599%25A8-promise%2f">
+        <i class="fab fa-2x fa-fw fa-twitter mb-2"></i> Twitter
+      </a>
+      <a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Facebook Share Button"
+        target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=%2fseries%2f2019-ithome-ironman%2fday-13-%25E4%25BA%258C%25E5%2591%25A8%25E7%259B%25AE-%25E9%259D%259E%25E5%2590%258C%25E6%25AD%25A5%25E7%25A5%259E%25E5%2599%25A8-promise%2f">
+        <i class="fab fa-2x fa-fw fa-facebook-f mb-2"></i> Facebook
+      </a>
+    </div>
+    <hr class="mb-4"><div class="actions d-flex overflow-auto align-items-center">
+      <a role="button" class="action action-go-back d-flex flex-column align-items-center me-3" href="javascript: window.history.back();">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-chevron-circle-down" data-fa-transform="rotate-90"></i></span> 返回
+      </a>
+      <a role="button" class="action action-reload-page d-flex flex-column align-items-center me-3">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-redo-alt"></i></span> 刷新
+      </a>
+      <a role="button" class="action action-copy-url d-flex flex-column align-items-center me-3">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-link"></i></span> 複製連結
+      </a>
+    </div>
+  </div>
+</div><nav class="social-links nav justify-content-center mb-2"><a class="nav-link social-link" href="mailto:yujiechen0514@gmail.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i></a><a class="nav-link social-link" target="_blank" href="https://github.com/eugenechen0514" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-github"></i></a><a class="nav-link social-link" target="_blank" href="https://linkedin.com/in/yuchieh-chen-37a48989" title="LinkedIn" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-linkedin-in"></i></a><a class="nav-link social-link" target="_blank" href="https://medium.com/@yujiechen0514" title="Medium" rel="noopener noreferrer">
+        <i class="fab fa-fw fa-2x fa-medium-m"></i></a><a class="nav-link social-link" target="_blank" href="/index.xml" title="RSS" rel="noopener noreferrer">
+    <i class="fas fa-fw fa-2x fa-rss"></i></a></nav>
+<div class="copyright mb-2">
+  Copyright © 2016-2022 EugeneChen. All Rights Reserved.
+</div>
+<div class="powered-by mb-2">
+  Powered by <a class="text-primary" href="https://gohugo.io" target="_blank" rel="noopener noreferrer">Hugo</a> and the <a class="text-primary" href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank" rel="noopener noreferrer">Bootstrap</a> theme.
+</div>
+<div class="sponsors">
+
+
+
+
+
+
+</div>
+</footer>
+<script src="/assets/main/bundle.min.2bc7d6952dbf38d6d2815939c58fc655e72d050b196d9fd99829d8fb23904646.js" integrity="sha256-K8fWlS2/ONbSgVk5xY/GVectBQsZbZ/ZmCnY&#43;yOQRkY=" crossorigin="anonymous" defer></script><script src="/assets/icons/bundle.min.a4bf8247f780c9bf61d579a8efe7129ec790bb98622bf4a29895eb21e689266c.js" integrity="sha256-pL&#43;CR/eAyb9h1Xmo7&#43;cSnseQu5hiK/SimJXrIeaJJmw=" crossorigin="anonymous" defer></script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('\/service-worker.min.js').then(function(reg) {
+      console.log('Successfully registered service worker', reg);
+    }).catch(function(err) {
+      console.warn('Error whilst registering service worker', err);
+    });
+  });
+}
+</script><script src="/assets/viewer/bundle.min.92d4a694e2e9a4c4d89b6998067e2f8e502dc7a951682bb5a160a3004b434908.js" integrity="sha256-ktSmlOLppMTYm2mYBn4vjlAtx6lRaCu1oWCjAEtDSQg=" crossorigin="anonymous" defer></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-ZWYL79X38Y', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+<script src="/assets/docsearch/bundle.min.c6965b5bee044b874617239932d6a7992b217f7949f895a7576980d110fb2ab1.js" integrity="sha256-xpZbW&#43;4ES4dGFyOZMtanmSshf3lJ&#43;JWnV2mA0RD7KrE=" crossorigin="anonymous" defer></script></body>
+</html>

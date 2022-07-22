@@ -1,0 +1,769 @@
+<!doctype html><html class="position-relative" itemscope itemtype="http://schema.org/WebPage" lang="zh-tw" data-theme="auto"
+  
+   data-palette="purple">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Day 10- 一周目- 開始玩轉前端(一) - EugeneChen</title><link rel="apple-touch-icon" href="/images/icons/icon-180x180.png" sizes="180x180">
+<link rel="icon" href="/images/icons/icon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/images/icons/icon-16x16.png" sizes="16x16" type="image/png">
+<link rel="icon" href="/images/icons/favicon.ico">
+<link rel="manifest" href="/manifest.json">
+<meta name="keywords" content="" />
+<meta name="description" content="介紹 React、用`create-react-app` 建立，我們第一個前端網頁" /><meta name="robots" content="index, follow" /><meta itemprop="name" content="Day 10- 一周目- 開始玩轉前端(一)">
+<meta itemprop="description" content="介紹 React、用`create-react-app` 建立，我們第一個前端網頁"><meta itemprop="datePublished" content="2018-10-10T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2018-10-10T00:00:00+00:00" />
+<meta itemprop="wordCount" content="2781">
+<meta itemprop="keywords" content="2019 iT 邦幫忙鐵人賽,用js成為老闆心中的全端工程師," /><meta property="og:title" content="Day 10- 一周目- 開始玩轉前端(一)" />
+<meta property="og:description" content="介紹 React、用`create-react-app` 建立，我們第一個前端網頁" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/series/2019-ithome-ironman/day-10-%E4%B8%80%E5%91%A8%E7%9B%AE-%E9%96%8B%E5%A7%8B%E7%8E%A9%E8%BD%89%E5%89%8D%E7%AB%AF%E4%B8%80/" /><meta property="article:section" content="series" />
+<meta property="article:published_time" content="2018-10-10T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-10-10T00:00:00+00:00" /><meta property="og:site_name" content="EugeneChen" />
+<meta property="og:see_also" content="/series/2019-ithome-ironman/day-30-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-network-%E6%9A%A8%E5%AE%8C%E8%B3%BD%E5%9B%9E%E9%A1%A7/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-29-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-compose%E4%B8%80%E6%AC%A1%E7%AE%A1%E7%90%86%E5%A4%9A%E5%80%8B%E5%AE%B9%E5%99%A8/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-28-%E4%B8%89%E5%91%A8%E7%9B%AE-%E8%A3%BD%E4%BD%9C%E8%87%AA%E5%B7%B1%E7%9A%84%E6%98%A0%E5%83%8F%E6%AA%94%E5%8C%85%E6%89%93%E5%89%8D%E5%BE%8C%E7%AB%AF%E6%98%A0%E5%83%8F%E6%AA%94/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-27-%E4%B8%89%E5%91%A8%E7%9B%AE-%E4%BA%94%E5%88%86%E9%90%98%E5%BB%BA%E7%AB%8B%E7%A7%81%E6%9C%89-npm-verdaccio/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-26-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E7%9C%8B%E5%AE%8C%E5%B0%B1%E6%9C%83%E6%9E%B6-docker-%E5%8C%96%E7%9A%84%E6%9C%8D%E5%8B%99/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-25-%E4%BA%8C%E5%91%A8%E7%9B%AE-react-component-%E5%A5%97%E4%BB%B6-material-ui-google-material-design-%E7%9A%84%E5%AF%A6%E4%BD%9C%E5%A5%97%E4%BB%B6/" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Day 10- 一周目- 開始玩轉前端(一)"/>
+<meta name="twitter:description" content="介紹 React、用`create-react-app` 建立，我們第一個前端網頁"/>
+<meta property="og:image" content="/images/logo.png"/>
+  <meta name="twitter:image" content="/images/logo.png"/><link rel="stylesheet" href="/assets/main/bundle.min.925f59d4c744cc5e99dcc7d02a6f68dff5cceaea488c7667bd947bf7aa35b649.css" integrity="sha256-kl9Z1MdEzF6Z3MfQKm9o3/XM6upIjHZnvZR796o1tkk=" crossorigin="anonymous"><link rel="stylesheet" href="/assets/viewer/bundle.min.f05183267bb952fbc8c63a7178364de2951614ab71d544ec1068ad36c7447ccc.css" integrity="sha256-8FGDJnu5UvvIxjpxeDZN4pUWFKtx1UTsEGitNsdEfMw=" crossorigin="anonymous"><link rel="stylesheet" href="/assets/docsearch/bundle.min.c165d6a127fffa285e6b89ef65362fe921bc0c1fdaefa35f6af069b962bdb50e.css" integrity="sha256-wWXWoSf/&#43;ihea4nvZTYv6SG8DB/a76NfavBpuWK9tQ4=" crossorigin="anonymous"></head>
+  <body><script>const items=["theme","palette"];items.forEach(function(e){const t=localStorage.getItem("hbs:"+e);t&&document.body.parentElement.setAttribute("data-"+e,t)})</script><header><nav class="top-app-bar shadow bg-primary text-white navbar navbar-expand-lg fixed-top">
+  <div class="container"><a class="navbar-brand flex-grow-1 flex-lg-grow-0 text-lg-start ms-2 ms-lg-0 mx-auto me-lg-3" href="/"><picture><img class="logo" alt="Logo" src="/images/logo.webp" loading="lazy"
+    
+     width="136" height="69"
+     />
+</picture>
+EugeneChen
+    </a>
+    <button class="navbar-toggler order-5" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarMenus"
+      aria-controls="navbarMenus" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-ellipsis-h"></i>
+    </button>
+    <div class="offcanvas-lg offcanvas-end flex-grow-1 bg-primary text-white" tabindex="-1" id="navbarMenus" aria-labelledby="navbarMenusLabel">
+      <div class="offcanvas-header px-4 pb-0">
+        <h5 class="offcanvas-title" id="navbarMenusLabel">EugeneChen</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" data-bs-target="#navbarMenus" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body p-4 pt-0 p-lg-0">
+        <hr class="d-lg-none">
+        <ul class="navbar-nav flex-row flex-wrap align-items-center me-auto"><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/posts/">
+              <i class="fas fa-book fa-fw"></i>文章
+            </a>
+          </li><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/series/">
+              <i class="fas fa-bars fa-fw"></i>專欄
+            </a>
+          </li><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/posts/notes/">
+              <i class="fas fa-sticky-note fa-fw"></i>隨手筆記
+            </a>
+          </li></ul>
+        <hr class="d-lg-none">
+        <form class="search-bar mx-auto my-1" action="/search" novalidate>
+  <div class="input-group input-group-sm align-items-center">
+    <span class="btn btn-search disabled position-absolute left-0 border-0">
+      <i class="fas fa-fw fa-search fa-lg"></i>
+    </span>
+    <input class="py-2 form-control rounded search-input" name="q" type="search" aria-label="Search" required>
+  </div>
+</form>
+<hr class="d-lg-none">
+        <ul class="navbar-nav flex-row flex-wrap align-items-center ms-md-auto"><li class="nav-item dropdown py-1 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-globe"></i>
+        <span class="d-lg-none">語言</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown"><li>
+        <a class="dropdown-item" href="/en/">
+            English
+        </a>
+        </li><li>
+        <a class="dropdown-item active" href="/">
+            繁體中文
+        </a>
+        </li></ul>
+</li>
+<li class="nav-item py-1 col-12 col-lg-auto">
+  <div class="vr d-none d-lg-flex h-100 mx-lg-2 text-white"></div>
+  <hr class="d-lg-none my-2">
+</li><li class="nav-item dropdown py-2 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="fontSizeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-font"></i>
+        <span class="d-lg-none">字體大小</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="fontSizeDropdown"><li>
+            <button class="font-size-item dropdown-item" data-size="xs">
+                特小號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="sm">
+                小號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item active" data-size="md">
+                中等
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="lg">
+                大號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="xl">
+                特大號
+            </button>
+        </li></ul>
+</li><li class="nav-item dropdown py-1 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="paletteDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-palette"></i>
+        <span class="d-lg-none">配色</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end px-2" aria-labelledby="paletteDropdown">
+        <div class="row"><li class="col-3 my-1">
+                <a role="button" id="palette-blue" aria-label="藍色"
+                    class="btn btn-sm w-100 palette text-bg-blue" data-palette="blue">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-blue-gray" aria-label="藍灰色"
+                    class="btn btn-sm w-100 palette text-bg-blue-gray" data-palette="blue-gray">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-brown" aria-label="棕色"
+                    class="btn btn-sm w-100 palette text-bg-brown" data-palette="brown">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-cyan" aria-label="青色"
+                    class="btn btn-sm w-100 palette text-bg-cyan" data-palette="cyan">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-green" aria-label="綠色"
+                    class="btn btn-sm w-100 palette text-bg-green" data-palette="green">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-indigo" aria-label="靛青色"
+                    class="btn btn-sm w-100 palette text-bg-indigo" data-palette="indigo">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-orange" aria-label="橙色"
+                    class="btn btn-sm w-100 palette text-bg-orange" data-palette="orange">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-pink" aria-label="粉色"
+                    class="btn btn-sm w-100 palette text-bg-pink" data-palette="pink">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-purple" aria-label="紫色"
+                    class="btn btn-sm w-100 palette text-bg-purple" data-palette="purple">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-red" aria-label="紅色"
+                    class="btn btn-sm w-100 palette text-bg-red" data-palette="red">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-teal" aria-label="藍綠色"
+                    class="btn btn-sm w-100 palette text-bg-teal" data-palette="teal">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-yellow" aria-label="黃色"
+                    class="btn btn-sm w-100 palette text-bg-yellow" data-palette="yellow">
+                </a>
+            </li></div>
+    </ul>
+</li>
+<li class="nav-item dropdown py-2 py-lg-1 col-6 col-lg-auto"><a class="nav-link px-0 px-lg-1" href="#" id="modeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="mode-icon fas fa-fw fa-adjust" id="modeIcon"></i>
+        <span class="d-lg-none">模式</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="modeDropdown"><li class="mode-item" data-color-mode="light" data-icon="sun">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-sun"></i> Light
+            </button>
+        </li><li class="mode-item" data-color-mode="dark" data-icon="moon">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-moon"></i> Dark
+            </button>
+        </li><li class="mode-item active" data-color-mode="auto" data-icon="adjust">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-adjust"></i> Auto
+            </button>
+        </li></ul>
+</li>
+</ul>
+      </div>
+    </div>
+  </div>
+</nav>
+</header>
+<main class="container">
+      <div class="row content"><noscript>
+    <div class="alert alert-danger" role="alert">你的瀏覽器不支持 JavaScript。</div>
+</noscript>
+
+<div class="col-lg-8">
+  <div class="container"><nav class="row card component" aria-label="breadcrumb">
+  <div class="card-body pb-0">
+    <ol class="breadcrumb"><li class="breadcrumb-item text-surface"><a href="/">主頁</a></li><li class="breadcrumb-item text-surface"><a href="/series/">Series</a></li><li class="breadcrumb-item active">Day 10- 一周目- 開始玩轉前端(一)</li></ol>
+  </div>
+</nav><div class="post-panel-wrapper position-sticky">
+  <div class="d-flex flex-column component rounded post-panel position-absolute border">
+    
+    <a class="action action-panel-toggler" role="button" title="Panel toggler">
+      <i class="fas fa-fw fa-chevron-circle-down"></i>
+    </a>
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button" title="Sidebar toggler">
+  <i class="fas fa-fw fa-expand-alt" data-fa-transform="rotate-45"></i>
+</a>
+
+    
+
+    
+    <a class="action" href="#post-copyright" role="button" aria-label="Copyright" title="Copyright">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    <a class="action" href="#post-comments" role="button" aria-label="Comments" title="Comments">
+  <i class="fas fa-fw fa-comments"></i>
+</a>
+    <a class="action" href="#postTOC" aria-controls="Table of contents" role="button" title="Table of contents">
+  <i class="fas fa-fw fa-list-alt"></i>
+</a>
+    
+  </div>
+</div>
+<article class="row card component mb-4 post">
+  <div class="card-header ">
+    <h1 class="card-title post-title my-2">Day 10- 一周目- 開始玩轉前端(一)
+</h1>
+  </div>
+  <div class="card-body"><div class="post-meta mb-3">
+  <span class="post-date me-1 mb-1" title="創建於 2018-10-10 08:00:00 &#43;0800 CST。">
+    2018-10-10
+  </span><span class="post-reading-time me-1 mb-1">
+    6 分鐘閱讀
+  </span><a href="/series/2019-ithome-ironman/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">用js成為老闆心中的全端工程師 - 2019 IT邦幫忙鐵人賽</a><a href="/tags/2019-it-%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">2019 IT 邦幫忙鐵人賽</a><a href="/tags/%E7%94%A8js%E6%88%90%E7%82%BA%E8%80%81%E9%97%86%E5%BF%83%E4%B8%AD%E7%9A%84%E5%85%A8%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%AB/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">用js成為老闆心中的全端工程師</a></div>
+<div class="post-content mb-3"><p>介紹 React、用<code>create-react-app</code> 建立，我們第一個前端網頁</p>
+<h1 id="回憶">回憶<a class="anchor ms-1" href="#回憶"><i class="fas fa-link"></i></a></h1>
+<p>昨天後端完成了二隻api<code>GET /api/asyHi</code> 和 <code>POST /api/echo</code>，以及用 POSTMAN 發出 request 到後端並得到回應。 同時，也提到可以用 Chrome devTools 來監控網路 request。</p>
+<h1 id="目標">目標<a class="anchor ms-1" href="#目標"><i class="fas fa-link"></i></a></h1>
+<ol>
+<li>介紹 React</li>
+<li>用<code>create-react-app</code> 建立，我們第一個前端網頁</li>
+</ol>
+<h1 id="react-是什麼">React 是什麼？<a class="anchor ms-1" href="#react-是什麼"><i class="fas fa-link"></i></a></h1>
+<p>React 是 Facebook 所開發的一個專案，現在能如此風行有很大的原因是開放社群，開發出以React 為基礎/相關的套件，然而之前有暴出 license 的問題，使人想要退出 React。2017/09/25 正式的改成 <a href="http://lucien.cc/20080117-the-mit-license-mit%E6%8E%88%E6%AC%8A%E6%A2%9D%E6%AC%BE%E4%B8%8D%E8%B2%A0%E8%B2%AC%E4%BB%BB%E4%B8%AD%E8%AD%AF%E7%89%88/" target="_blank" rel="noopener noreferrer">MIT license<i class="fas fa-external-link-square-alt ms-1"></i></a>，license 的問題得到了解決(參考：<a href="https://medium.com/@lovenery/%E7%82%BA%E4%BB%80%E9%BA%BCfacebook%E6%9B%B4%E6%94%B9%E4%BA%86react-js%E7%9A%84%E6%8E%88%E6%AC%8A-a0ba6a2ef97f" target="_blank" rel="noopener noreferrer">為什麼Facebook更改了React.js的授權？<i class="fas fa-external-link-square-alt ms-1"></i></a>、<a href="http://inspiregate.com/internet/trends/74-comparison-of-five-kinds-of-standard-open-source-license-bsd-apache-gpl-lgpl-mit.html" target="_blank" rel="noopener noreferrer">五種開源授權規範的比較 (BSD, Apache, GPL, LGPL, MIT)<i class="fas fa-external-link-square-alt ms-1"></i></a> )</p>
+<p>React 是用來建立使用者介面(UI, user interface)的 javascript 程式庫/套件，它讓我們可以用 <code>Component</code> 組成復雜的 UI。看以下<a href="https://reactjs.org/tutorial/tutorial.html#what-is-react" target="_blank" rel="noopener noreferrer">官方<i class="fas fa-external-link-square-alt ms-1"></i></a>例子：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kr">class</span> <span class="nx">ShoppingList</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">    <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">      <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">&#34;shopping-list&#34;</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">        <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">Shopping</span> <span class="nx">List</span> <span class="k">for</span> <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">name</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/h1&gt;</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">        <span class="o">&lt;</span><span class="nx">ul</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">          <span class="o">&lt;</span><span class="nx">li</span><span class="o">&gt;</span><span class="nx">Instagram</span><span class="o">&lt;</span><span class="err">/li&gt;</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">          <span class="o">&lt;</span><span class="nx">li</span><span class="o">&gt;</span><span class="nx">WhatsApp</span><span class="o">&lt;</span><span class="err">/li&gt;</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">          <span class="o">&lt;</span><span class="nx">li</span><span class="o">&gt;</span><span class="nx">Oculus</span><span class="o">&lt;</span><span class="err">/li&gt;</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">        <span class="o">&lt;</span><span class="err">/ul&gt;</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">      <span class="o">&lt;</span><span class="err">/div&gt;</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">    <span class="p">);</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">
+</span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="c1">// Example usage: &lt;ShoppingList name=&#34;Mark&#34; /&gt;
+</span></span></span></code></pre></div><h2 id="用jsx-語法建立-component">用JSX 語法建立 Component<a class="anchor ms-1" href="#用jsx-語法建立-component"><i class="fas fa-link"></i></a></h2>
+<p>首先，<code>&lt;ShoppingList/&gt;</code> 就是一個 Component，他是由「像是」 html tag 的 <code>&lt;div/&gt;</code>、<code>&lt;hi/&gt;</code>、<code>&lt;ul/&gt;</code>、<code>&lt;li/&gt;</code> 組成的。怎麼說「像是」，有注意嗎？我們 <strong>不是</strong> 寫文字的 <code>&quot;&lt;div&gt;...&lt;/div&gt;&quot;</code>，反是直接寫 <code>&lt;div&gt;...&lt;/div&gt;</code> 這類 XML-like，這就是 <a href="https://blog.techbridge.cc/2016/04/21/react-jsx-introduction/" target="_blank" rel="noopener noreferrer"><code>JSX語法</code><i class="fas fa-external-link-square-alt ms-1"></i></a>，它是個語法糖衣(<a href="https://en.wikipedia.org/wiki/Syntactic_sugar" target="_blank" rel="noopener noreferrer">Syntatic Sugar<i class="fas fa-external-link-square-alt ms-1"></i></a>)，它會被轉譯器(transpiler)轉成 javascript</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kr">class</span> <span class="nx">ShoppingList</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">    <span class="k">return</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">      <span class="s2">&#34;div&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">      <span class="p">{</span> <span class="nx">className</span><span class="o">:</span> <span class="s2">&#34;shopping-list&#34;</span> <span class="p">},</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">      <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">        <span class="s2">&#34;h1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">        <span class="kc">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">        <span class="s2">&#34;Shopping List for &#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">        <span class="nx">props</span><span class="p">.</span><span class="nx">name</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">      <span class="p">),</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">      <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">        <span class="s2">&#34;ul&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">        <span class="kc">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">        <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl">          <span class="s2">&#34;li&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">          <span class="kc">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">          <span class="s2">&#34;Instagram&#34;</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl">        <span class="p">),</span>
+</span></span><span class="line"><span class="ln">20</span><span class="cl">        <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span>
+</span></span><span class="line"><span class="ln">21</span><span class="cl">          <span class="s2">&#34;li&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">22</span><span class="cl">          <span class="kc">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">23</span><span class="cl">          <span class="s2">&#34;WhatsApp&#34;</span>
+</span></span><span class="line"><span class="ln">24</span><span class="cl">        <span class="p">),</span>
+</span></span><span class="line"><span class="ln">25</span><span class="cl">        <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span>
+</span></span><span class="line"><span class="ln">26</span><span class="cl">          <span class="s2">&#34;li&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">27</span><span class="cl">          <span class="kc">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">28</span><span class="cl">          <span class="s2">&#34;Oculus&#34;</span>
+</span></span><span class="line"><span class="ln">29</span><span class="cl">        <span class="p">)</span>
+</span></span><span class="line"><span class="ln">30</span><span class="cl">      <span class="p">)</span>
+</span></span><span class="line"><span class="ln">31</span><span class="cl">    <span class="p">);</span>
+</span></span><span class="line"><span class="ln">32</span><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="ln">33</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><code>React.createElement()</code> 會回傳 <a href="https://reactjs.org/docs/rendering-elements.html" target="_blank" rel="noopener noreferrer">React element<i class="fas fa-external-link-square-alt ms-1"></i></a>，它們是組成 React app 最小的區塊，在 React 會維護自己的虛擬 DOM (React DOM)，可以想像成如同 HTML DOM tree 一樣，然後 React DOM 會比較 tree 的差異，進而更新 HTML DOM。</p>
+<blockquote>
+<p>React 沒有規定一定要用 JSX 語法，只是推薦使用，畢竟最後還是轉成 javascript <code>React.createElement()</code>。</p>
+</blockquote>
+<h2 id="shoppinglist-component-類別">ShoppingList component 類別<a class="anchor ms-1" href="#shoppinglist-component-類別"><i class="fas fa-link"></i></a></h2>
+<p>接下來，<code>ShoppingList</code> 他是一個 <code>Class</code>，他繼承 <code>React.Component</code>，所以就享有 <code>Component</code> 的功能，像是、Props、State 和 生命周期(Lifecycle)。</p>
+<p>建立 instance(即 React element) 不是用直接 <code>new ShoppingList()</code>，而是透過 JSX 語法建立：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="o">&lt;</span><span class="nx">ShoppingList</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&#34;Mark&#34;</span> <span class="o">/&gt;</span><span class="p">;</span>
+</span></span></code></pre></div><p>將會轉譯</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="nx">ShoppingList</span><span class="p">,</span> <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;Mark&#34;</span> <span class="p">});</span>
+</span></span></code></pre></div><p>他會把 <code>ShoppingList</code> class 送入，交給 React 建立 <code>ShoppingList</code> instance 和遞迴地建立  <code>render()</code> 裡面的所有 <code>&lt;XXX /&gt;</code>。</p>
+<h2 id="誰是入口點">誰是入口點？<a class="anchor ms-1" href="#誰是入口點"><i class="fas fa-link"></i></a></h2>
+<p>最後的問題是：誰來用 <code>&lt;ShoppingList name=&quot;Mark&quot; /&gt;</code>？誰是 React app 的入口點？</p>
+<p>在網頁讀取完後，一般會立刻執行 <code>ReactDOM.render()</code>，引發進入 React app 的渲染(render)，而更新 HTML DOM。 類似下面</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="ln">1</span><span class="cl"><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#39;root&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">  <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">    <span class="kr">const</span> <span class="nx">element</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nx">ShoppingList</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&#34;Mark&#34;</span> <span class="o">/&gt;</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl">    <span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;root&#39;</span><span class="p">));</span>
+</span></span><span class="line"><span class="ln">7</span><span class="cl">  <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="ln">8</span><span class="cl"><span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="ln">9</span><span class="cl"><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</span></span></code></pre></div><p><code>ReactDOM.render()</code> 會渲染 <strong>react element</strong> 進 HTML DOM 中的 <code>&lt;div id='root' &gt;</code> 容器內，把 React app 和 HTML DOM 串連起來。</p>
+<h2 id="誰來轉譯-jsx">誰來轉譯 JSX?<a class="anchor ms-1" href="#誰來轉譯-jsx"><i class="fas fa-link"></i></a></h2>
+<p>轉譯器有很多（見 <a href="https://facebook.github.io/jsx/#transpilers" target="_blank" rel="noopener noreferrer">Transpilers <i class="fas fa-external-link-square-alt ms-1"></i></a>），較常見的是 <a href="https://babeljs.io/" target="_blank" rel="noopener noreferrer">babel<i class="fas fa-external-link-square-alt ms-1"></i></a>，它可以把 JSX 語法轉成 javascript。</p>
+<p>先等等，為什麼 babel 會知道
+<code>&lt;ShoppingList name=&quot;Mark&quot; /&gt;</code> 轉成 <code>React.createElement(ShoppingList, { name: &quot;Mark&quot; })</code>，<code>React.createElement()</code> 是哪設定的，以後有 <code>MIT.createElement()</code> 可不可以？這是因為在轉譯前有設定 babel 的 <code>preset</code>，見下圖
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-10 at 11.13.28 AM.png" src="/series/2019-ithome-ironman/day-10-%E4%B8%80%E5%91%A8%E7%9B%AE-%E9%96%8B%E5%A7%8B%E7%8E%A9%E8%BD%89%E5%89%8D%E7%AB%AF%E4%B8%80/resources/1D32D5AD248DE023A8F999624123C8DF.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+
+preset 選擇 <code>react</code> ，所以 babel 才知道要怎麼轉譯。再存細看一下，還有看到其它的 preset, es20XX 之類的，這表示 babel 可以認得的語法更多更新，都可以轉成更廣範使用/更低階/更原生的 javascript 語法，像是我們用的 ES6 語法中的 <code>Class</code>，可以用 babel 轉換成 更原生 javascript
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-10 at 1.14.03 PM.png" src="/series/2019-ithome-ironman/day-10-%E4%B8%80%E5%91%A8%E7%9B%AE-%E9%96%8B%E5%A7%8B%E7%8E%A9%E8%BD%89%E5%89%8D%E7%AB%AF%E4%B8%80/resources/98A851947554B2F99984D0DED7D7FE76.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+
+這表示 <strong>在當代瀏覽器就算沒支援太新的語法，還是可以透過轉譯器轉換成當代支援的 javascript</strong>。早期 ES6 語法未被瀏覽器支援前就是如此，開發者使用較方便的語法開發，再轉換成可以支援javascript。</p>
+<blockquote>
+<p>轉譯器也可以說是 <strong>編譯器(compiler)</strong>，因為它的行為就是從一個語言換成另一個語言，就像 C++ 的編譯器一樣把原始碼轉轉二進碼。</p>
+</blockquote>
+<hr>
+<h1 id="第一個前端-react-網頁">第一個前端 React 網頁<a class="anchor ms-1" href="#第一個前端-react-網頁"><i class="fas fa-link"></i></a></h1>
+<p>經過前一章的解釋有沒有發現，建立一個 React app 很不容易？要準備 component 原始碼、轉譯器、還要連結 React 和 DOM…等，一堆設定會使人怯步。</p>
+<p>拜很多大神所賜，我們現在開發 React app 只要專注在 component，其它的有人會幫你設好。我們採用 <a href="https://github.com/facebook/create-react-app" target="_blank" rel="noopener noreferrer"><code>create-react-app</code><i class="fas fa-external-link-square-alt ms-1"></i></a>，這也是 Facebook 的專案，使得 React app 的建立更方便。</p>
+<h2 id="用-create-react-app-建立-hello-react">用 create-react-app 建立 hello-react<a class="anchor ms-1" href="#用-create-react-app-建立-hello-react"><i class="fas fa-link"></i></a></h2>
+<ol>
+<li>
+<p>安裝 <code>create-react-app</code> 指令</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">sudo npm install -g create-react-app
+</span></span></code></pre></div></li>
+<li>
+<p>開一個 <code>hello-react</code> 的資料夾，並移入</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">mkdir hello-react
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="nb">cd</span> hello-react
+</span></span></code></pre></div></li>
+<li>
+<p>建立 <code>hello-react</code> 的 React app 專案</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">create-react-app .
+</span></span></code></pre></div><p><picture><img class="img-fluid" alt="Screen Shot 2018-10-10 at 1.44.46 PM.png" src="/series/2019-ithome-ironman/day-10-%E4%B8%80%E5%91%A8%E7%9B%AE-%E9%96%8B%E5%A7%8B%E7%8E%A9%E8%BD%89%E5%89%8D%E7%AB%AF%E4%B8%80/resources/61717E0DB8D73499B2E8DB978D8CA4D3.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>會建立以下的檔案
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-10 at 1.46.36 PM.png" src="/series/2019-ithome-ironman/day-10-%E4%B8%80%E5%91%A8%E7%9B%AE-%E9%96%8B%E5%A7%8B%E7%8E%A9%E8%BD%89%E5%89%8D%E7%AB%AF%E4%B8%80/resources/4FDEE00233C5D67C458D4F0C2D61531B.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>這就是 Node.js 的專案，<code>src</code> 資料夾放的就是前端的 React 程式碼。</p>
+</li>
+<li>
+<p>執行開發用伺服器</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">npm start
+</span></span></code></pre></div><p>這時開啟開發伺服器，自動開啟一個網頁 <code>http://localhost:3000/</code>
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-10 at 1.52.40 PM.png" src="/series/2019-ithome-ironman/day-10-%E4%B8%80%E5%91%A8%E7%9B%AE-%E9%96%8B%E5%A7%8B%E7%8E%A9%E8%BD%89%E5%89%8D%E7%AB%AF%E4%B8%80/resources/2DE7709B8566EB3247DF984B2657589A.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+
+會看到這結果，就是一個 React app。</p>
+</li>
+</ol>
+<h2 id="create-react-app-幫我們設定了什麼">create-react-app 幫我們設定了什麼？<a class="anchor ms-1" href="#create-react-app-幫我們設定了什麼"><i class="fas fa-link"></i></a></h2>
+<p>除了基本的 React app 專案的設定，還設定了一些開發時實用的東西</p>
+<ol>
+<li>開發用網頁伺服器</li>
+<li>程式碼異動監控</li>
+<li>語法檢查</li>
+<li>網頁除錯模式</li>
+<li>測試模式</li>
+<li>發佈靜態檔案</li>
+<li>脫離 <code>create-react-app</code> 提供的開發環境</li>
+</ol>
+<h3 id="開發用網頁伺服器">開發用網頁伺服器<a class="anchor ms-1" href="#開發用網頁伺服器"><i class="fas fa-link"></i></a></h3>
+<p>當執行 <code>npm start</code> 就可以執行開發伺服器。因為單單只有網頁原始碥是沒法在網頁看到結果，所以執行開發伺服器會進行之前所提的轉譯…等，並自動的開啟 React app 的網頁。</p>
+<h3 id="程式碼異動監控">程式碼異動監控<a class="anchor ms-1" href="#程式碼異動監控"><i class="fas fa-link"></i></a></h3>
+<p>不只如此，當程式碼發生異動時，還會自動重讀網頁</p>
+<p>把 <code>.src/App.js</code> 改成如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kr">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="kr">import</span> <span class="s1">&#39;./App.css&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="kr">class</span> <span class="nx">App</span> <span class="kr">extends</span> <span class="nx">Component</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">    <span class="kr">const</span> <span class="nx">foo</span> <span class="o">=</span> <span class="s1">&#39;foo&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">    <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">      <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">&#34;App&#34;</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">        <span class="nx">Hello</span> <span class="nx">React</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">      <span class="o">&lt;</span><span class="err">/div&gt;</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">    <span class="p">);</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">
+</span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="kr">export</span> <span class="k">default</span> <span class="nx">App</span><span class="p">;</span>
+</span></span></code></pre></div><p>存檔後回到網頁上看，網頁會自動重新整理</p>
+<p><picture><img class="img-fluid" alt="Screen Shot 2018-10-10 at 2.02.42 PM.png" src="/series/2019-ithome-ironman/day-10-%E4%B8%80%E5%91%A8%E7%9B%AE-%E9%96%8B%E5%A7%8B%E7%8E%A9%E8%BD%89%E5%89%8D%E7%AB%AF%E4%B8%80/resources/F995E3680FCFAA1444DB5C027EB83DC5.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<h3 id="語法檢查">語法檢查<a class="anchor ms-1" href="#語法檢查"><i class="fas fa-link"></i></a></h3>
+<p>也設定了 ESLint，就如同我們在 <a href="https://ithelp.ithome.com.tw/articles/10200208" target="_blank" rel="noopener noreferrer">Day 6 - 一周目- 程式碼品質工具ESLint，照顧程式碼風格<i class="fas fa-external-link-square-alt ms-1"></i></a> 中設定 Node.js 專案的程式碼品質監控。</p>
+<p><picture><img class="img-fluid" alt="Screen Shot 2018-10-10 at 2.40.15 PM.png" src="/series/2019-ithome-ironman/day-10-%E4%B8%80%E5%91%A8%E7%9B%AE-%E9%96%8B%E5%A7%8B%E7%8E%A9%E8%BD%89%E5%89%8D%E7%AB%AF%E4%B8%80/resources/0BE41C153E8249BC0A8E682319BD9F38.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>只是把 ESLint 組態設定放在 <code>package.json</code> 裡的 <code>eslintConfig</code>。這裡 ESLint 也可以找的到組態設定。
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-10 at 2.44.35 PM.png" src="/series/2019-ithome-ironman/day-10-%E4%B8%80%E5%91%A8%E7%9B%AE-%E9%96%8B%E5%A7%8B%E7%8E%A9%E8%BD%89%E5%89%8D%E7%AB%AF%E4%B8%80/resources/507B523F5972DB9F197F58BACB54F03C.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<h3 id="網頁除錯模式">網頁除錯模式<a class="anchor ms-1" href="#網頁除錯模式"><i class="fas fa-link"></i></a></h3>
+<p>它也幫我們設定可以在 Chrome devTools 裡進行除錯。</p>
+<p>打開 Chrome devTools 後，選 Source 頁籤，按下 command + p (Mac) / ctrl + p(windows)，輸入 <code>App</code> 過濾找到 App.js 源始碼。接下來你就可以像 VSCode debug 模式一樣下中斷點除錯。記得下完中斷點要重讀網頁才會觸發網頁 javascript 重新執行。</p>
+<p><picture><img class="img-fluid" alt="Screen Recording 2018-10-10 at 2.49.10 PM.gif" src="/series/2019-ithome-ironman/day-10-%E4%B8%80%E5%91%A8%E7%9B%AE-%E9%96%8B%E5%A7%8B%E7%8E%A9%E8%BD%89%E5%89%8D%E7%AB%AF%E4%B8%80/resources/97BC936E4343967E8F2187A988BDE960.gif" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<h3 id="測試模式">測試模式<a class="anchor ms-1" href="#測試模式"><i class="fas fa-link"></i></a></h3>
+<p>另開啟一個 ternimal 執行 <code>npm run test</code> ，就可以開啟測試監控。它會掃描專案中的所有測式檔案並執行測試，當程式異動時它還會自動重新執行測試。未來我們會在二周目再做說明。</p>
+<h3 id="發佈靜態檔案">發佈靜態檔案<a class="anchor ms-1" href="#發佈靜態檔案"><i class="fas fa-link"></i></a></h3>
+<p>寫好的 React app 透過 <code>npm run build</code>，就會把原始碼轉譯、打包成少數js檔案，產生 <code>build</code> 資料夾，裡面就是純前端網頁的所有靜態檔案，把它們放在任何網頁伺服器(ex: nginx) 就可以透過瀏覽器讀取。</p>
+<p><picture><img class="img-fluid" alt="Screen Shot 2018-10-10 at 3.09.15 PM.png" src="/series/2019-ithome-ironman/day-10-%E4%B8%80%E5%91%A8%E7%9B%AE-%E9%96%8B%E5%A7%8B%E7%8E%A9%E8%BD%89%E5%89%8D%E7%AB%AF%E4%B8%80/resources/0B8180604FE30F4EB899FB05508E05D3.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<h3 id="脫離-create-react-app-提供的開發環境">脫離 create-react-app 提供的開發環境<a class="anchor ms-1" href="#脫離-create-react-app-提供的開發環境"><i class="fas fa-link"></i></a></h3>
+<p>不喜歡它提供的開發環境嗎？ <code>npm run eject</code> 脫離他的開發環境。
+會專案會變成
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-10 at 3.25.56 PM.png" src="/series/2019-ithome-ironman/day-10-%E4%B8%80%E5%91%A8%E7%9B%AE-%E9%96%8B%E5%A7%8B%E7%8E%A9%E8%BD%89%E5%89%8D%E7%AB%AF%E4%B8%80/resources/D4835650E37F433A1EEBB51670314EE7.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+
+這就是他的開發環境本來的面貌：用到 <a href="https://webpack.js.org/" target="_blank" rel="noopener noreferrer">Webpack<i class="fas fa-external-link-square-alt ms-1"></i></a>, <a href="https://babeljs.io/" target="_blank" rel="noopener noreferrer">Babel<i class="fas fa-external-link-square-alt ms-1"></i></a>, <a href="https://eslint.org/" target="_blank" rel="noopener noreferrer">ESLint<i class="fas fa-external-link-square-alt ms-1"></i></a>, <a href="https://jestjs.io/" target="_blank" rel="noopener noreferrer">Jest<i class="fas fa-external-link-square-alt ms-1"></i></a>，和腳本…等。所有的工具都是要安裝、設定才能用在開發環境，對於新手來說超不友善，所以 <code>create-react-app</code> 幫我們省去了不少麻煩，專心開發 React app。</p>
+<p>本主題不會脫離 <code>create-react-app</code> 的開發環境，所以不需要執行<code>npm run eject</code>。</p>
+<blockquote>
+<p>這過程是不可還原的，所以用之前確認清楚。</p>
+</blockquote>
+<blockquote>
+<p>我自己測試時發現，<code>create-react-app</code> 在建立 React app 時有開 local git repository，如果沒 commit 的異動檔案，<code>npm run eject</code> 不能運作。
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-10 at 3.24.06 PM.png" src="/series/2019-ithome-ironman/day-10-%E4%B8%80%E5%91%A8%E7%9B%AE-%E9%96%8B%E5%A7%8B%E7%8E%A9%E8%BD%89%E5%89%8D%E7%AB%AF%E4%B8%80/resources/F9B14BCA2B7F4D3D1E256980C4A05FA5.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+</blockquote>
+<h1 id="總結">總結<a class="anchor ms-1" href="#總結"><i class="fas fa-link"></i></a></h1>
+<p>今天我們介紹了 React 和使用在裡面的 JSX 語法，也用 <code>create-react-app</code> 建立了第一個 React app並說明他提供的開發環境。</p></div></div>
+  <div class="card-footer"><div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-prev">
+    <i class="fas fa-fw fa-chevron-circle-down post-prev-icon" data-fa-transform="rotate-90"></i>
+    <a href="/series/2019-ithome-ironman/day-9-%E4%B8%80%E5%91%A8%E7%9B%AE-%E9%96%8B%E5%A7%8B%E7%8E%A9%E8%BD%89%E5%BE%8C%E7%AB%AF%E4%BA%8C/">Day 9 - 一周目- 開始玩轉後端(二)
+</a>
+  </div><div class="post-nav post-next">
+    <a href="/series/2019-ithome-ironman/day-11-%E4%B8%80%E5%91%A8%E7%9B%AE-%E9%96%8B%E5%A7%8B%E7%8E%A9%E8%BD%89%E5%89%8D%E7%AB%AF%E4%BA%8C/">Day 11 - 一周目- 開始玩轉前端(二)
+</a>
+    <i class="fas fa-fw fa-chevron-circle-down post-next-icon" data-fa-transform="rotate-270"></i>
+  </div></div></div>
+</article><div class="post-copyright mb-3 row card component" id="post-copyright">
+    <div class="card-header">
+        <h2 class="card-title fs-4 my-2 text-surface">版權</h2>
+    </div>
+    <div class="card-body"><a class="d-flex align-items-center flex-column" target="_blank" rel="license noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_TW">
+  <span><i class="fab fa-fw fa-2x fa-creative-commons"></i><i class="fab fa-fw fa-2x fa-creative-commons-by"></i><i class="fab fa-fw fa-2x fa-creative-commons-nc"></i><i class="fab fa-fw fa-2x fa-creative-commons-sa"></i></span>
+  CC BY-NC-SA 4.0 
+</a>
+
+
+    </div>
+</div><section class="related-posts row card component">
+    <div class="card-header">
+      <h2 class="card-title fs-4 my-2 text-surface">相關文章</h2>
+    </div>
+    <div class="card-body">
+      <ul class="post-list list-unstyled"><li>
+          <a href="/series/2019-ithome-ironman/day-9-%E4%B8%80%E5%91%A8%E7%9B%AE-%E9%96%8B%E5%A7%8B%E7%8E%A9%E8%BD%89%E5%BE%8C%E7%AB%AF%E4%BA%8C/">Day 9 - 一周目- 開始玩轉後端(二)
+</a>
+          <span class="float-end post-date">2018-10-09
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-8-%E4%B8%80%E5%91%A8%E7%9B%AE-%E9%96%8B%E5%A7%8B%E7%8E%A9%E8%BD%89%E5%BE%8C%E7%AB%AF%E4%B8%80/">Day 8 - 一周目- 開始玩轉後端(一)
+</a>
+          <span class="float-end post-date">2018-10-08
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-7-%E4%B8%80%E5%91%A8%E7%9B%AE-es6-%E8%AE%93%E4%BA%BA%E6%AC%B2%E7%BD%B7%E4%B8%8D%E8%83%BD%E7%9A%84%E8%AA%9E%E6%B3%95/">Day 7 - 一周目- ES6 讓人欲罷不能的語法
+</a>
+          <span class="float-end post-date">2018-10-07
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-6-%E4%B8%80%E5%91%A8%E7%9B%AE-%E7%A8%8B%E5%BC%8F%E7%A2%BC%E5%93%81%E8%B3%AA%E5%B7%A5%E5%85%B7eslint%E7%85%A7%E9%A1%A7%E7%A8%8B%E5%BC%8F%E7%A2%BC%E9%A2%A8%E6%A0%BC/">Day 6 - 一周目- 程式碼品質工具ESLint，照顧程式碼風格
+</a>
+          <span class="float-end post-date">2018-10-06
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-5-%E4%B8%80%E5%91%A8%E7%9B%AE-%E5%BE%9Evscode-debug-%E6%A8%A1%E5%BC%8F%E7%9C%8B%E4%BD%9C%E7%94%A8%E5%9F%9Fscopethis%E9%96%89%E5%8C%85closure/">Day 5 - 一周目- 從VSCode Debug 模式看作用域(Scope)、this、閉包(Closure)
+</a>
+          <span class="float-end post-date">2018-10-05
+</span>
+        </li></ul>
+    </div>
+  </section><div class="card component row post-comments" id="post-comments">
+  <div class="card-header">
+    <h2 class="card-title my-2 fs-4 text-surface">評論</h2>
+  </div>
+  <div class="card-body"><script src="https://utteranc.es/client.js"
+  repo="eugenechen0514/eugenechen0514.github.io"
+  issue-term="pathname"
+  label="comment"
+  theme="github-light"
+  crossorigin="anonymous"
+  async>
+</script></div>
+</div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container d-flex flex-column">
+    
+    <div class="card row text-center profile component">
+  <div class="card-body">
+    <div class="col-12 d-flex align-items-center justify-content-center"><picture><img class="profile-avatar rounded-circle" alt="EugeneChen" src="/images/profile.webp" loading="lazy" data-viewer-invisible
+    
+     width="298" height="305"
+     />
+</picture>
+</div>
+    <div class="col-12 profile-meta"><div class="profile-name fw-fold fs-lg">EugeneChen</div><div class="profile-bio">軟體工程師，喜歡動手做些有的沒的專案，同時也喜愛數學、攝影、桌球，慢跑、游泳、作菜。</div><div class="profile-about"><i class="fas fa-fw fa-user"></i><a target="_blank" rel="noopener noreferrer" href="https://eugene-website.herokuapp.com">關於我</a></div><nav class="social-links nav justify-content-center"><a class="nav-link social-link" href="mailto:yujiechen0514@gmail.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i></a><a class="nav-link social-link" target="_blank" href="https://github.com/eugenechen0514" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-github"></i></a><a class="nav-link social-link" target="_blank" href="/index.xml" title="RSS" rel="noopener noreferrer">
+    <i class="fas fa-fw fa-2x fa-rss"></i></a></nav>
+</div>
+  </div>
+</div>
+<section class="taxonomies row card component">
+    <div class="card-body">
+        <ul class="nav nav-tabs" id="myTab" role="tablist"><li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="taxonomySeriesTab" data-bs-toggle="tab" data-bs-target="#taxonomySeries" 
+                        type="button" role="tab" aria-controls="專欄" aria-selected="true">
+                        專欄
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                    <button class="nav-link" id="taxonomyCategoriesTab" data-bs-toggle="tab" data-bs-target="#taxonomyCategories" 
+                        type="button" role="tab" aria-controls="分類" aria-selected="true">
+                        分類
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                    <button class="nav-link" id="taxonomyTagsTab" data-bs-toggle="tab" data-bs-target="#taxonomyTags" 
+                        type="button" role="tab" aria-controls="標籤" aria-selected="true">
+                        標籤
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                <button class="nav-link" id="taxonomyArchivesTab" data-bs-toggle="tab" data-bs-target="#taxonomyArchive" 
+                    type="button" role="tab" aria-controls="taxonomyArchives" aria-selected="true">
+                    歸檔
+                </button>
+            </li>
+        </ul>
+          
+        <div class="tab-content mt-3"><div class="tab-pane active" id="taxonomySeries" role="tabpanel" aria-labelledby="taxonomySeriesTab" tabindex="0"><a href="/series/2019-ithome-ironman/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="用js成為老闆心中的全端工程師 - 2019 iT邦幫忙鐵人賽">
+                        用js成為老闆心中的全端工程師 - 2019 iT邦幫忙鐵人賽<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a></div><div class="tab-pane" id="taxonomyCategories" role="tabpanel" aria-labelledby="taxonomyCategoriesTab" tabindex="0"><a href="/categories/%E9%9A%A8%E6%89%8B%E7%AD%86%E8%A8%98/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="隨手筆記">
+                        隨手筆記<span class="badge badge-sm text-secondary bg-white ms-1">2</span></a><a href="/categories/%E5%BF%83%E5%BE%97/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="心得">
+                        心得<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a></div><div class="tab-pane" id="taxonomyTags" role="tabpanel" aria-labelledby="taxonomyTagsTab" tabindex="0"><a href="/tags/2019-it-%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2019 iT 邦幫忙鐵人賽">
+                        2019 iT 邦幫忙鐵人賽<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a><a href="/tags/%E7%94%A8js%E6%88%90%E7%82%BA%E8%80%81%E9%97%86%E5%BF%83%E4%B8%AD%E7%9A%84%E5%85%A8%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%AB/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="用js成為老闆心中的全端工程師">
+                        用js成為老闆心中的全端工程師<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a><a href="/tags/alphacamp/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="AlphaCamp">
+                        AlphaCamp<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/kafka/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="Kafka">
+                        Kafka<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/mongodb/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="MongoDB">
+                        MongoDB<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/pandas/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="pandas">
+                        pandas<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/python/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="python">
+                        python<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/%E6%8E%A8%E8%96%A6%E7%B3%BB%E7%B5%B1/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="推薦系統">
+                        推薦系統<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a></div><div class="tab-pane" id="taxonomyArchive" role="tabpanel" aria-labelledby="taxonomyArchiveTab" tabindex="0"><a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2022">
+    2022 <span class="badge badge-sm text-secondary bg-white ms-1">1</span>
+    </a>
+<a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2021">
+    2021 <span class="badge badge-sm text-secondary bg-white ms-1">2</span>
+    </a>
+<a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2018">
+    2018 <span class="badge badge-sm text-secondary bg-white ms-1">30</span>
+    </a>
+
+</div>
+        </div>
+    </div>
+</section><div class="post-toc row mb-4 card component" id="postTOC">
+  <div class="card-header">
+    <h2 class="card-title fs-4 my-2 text-surface">目錄</h2>
+  </div>
+  <div class="card-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#用jsx-語法建立-component">用JSX 語法建立 Component</a></li>
+    <li><a href="#shoppinglist-component-類別"><code>ShoppingList</code> component 類別</a></li>
+    <li><a href="#誰是入口點">誰是入口點？</a></li>
+    <li><a href="#誰來轉譯-jsx">誰來轉譯 JSX?</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#用-create-react-app-建立-hello-react">用 <code>create-react-app</code> 建立 <code>hello-react</code></a></li>
+    <li><a href="#create-react-app-幫我們設定了什麼"><code>create-react-app</code> 幫我們設定了什麼？</a>
+      <ul>
+        <li><a href="#開發用網頁伺服器">開發用網頁伺服器</a></li>
+        <li><a href="#程式碼異動監控">程式碼異動監控</a></li>
+        <li><a href="#語法檢查">語法檢查</a></li>
+        <li><a href="#網頁除錯模式">網頁除錯模式</a></li>
+        <li><a href="#測試模式">測試模式</a></li>
+        <li><a href="#發佈靜態檔案">發佈靜態檔案</a></li>
+        <li><a href="#脫離-create-react-app-提供的開發環境">脫離 <code>create-react-app</code> 提供的開發環境</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div><section class="recent-posts row card component">
+  <div class="card-header">
+    <h2 class="card-title my-2 fs-4 text-surface">最近文章</h2>
+  </div>
+  <div class="card-body">
+    <ul class="post-list list-unstyled ms-1"><li class="mb-2">
+        <a href="/posts/reviews/2022-02-06-alphacamp%E6%8E%A8%E8%96%A6%E7%B3%BB%E7%B5%B1%E4%B8%8A%E8%AA%B2%E5%BF%83%E5%BE%97/">AlphaCamp 推薦系統上課心得
+</a>
+      </li><li class="mb-2">
+        <a href="/posts/notes/2021-08-22-%E4%B8%80%E7%AA%BAkafka%E5%85%A7%E9%83%A8%E5%84%B2%E5%AD%98%E8%B3%87%E6%96%99/">一窺 Kafka 內部儲存資料
+</a>
+      </li><li class="mb-2">
+        <a href="/posts/notes/2021-08-01-mongodb-5-%E4%BE%86%E4%BA%86%E6%9C%89%E4%BB%80%E9%BA%BC%E5%80%BC%E5%BE%97%E6%B3%A8%E6%84%8F%E7%9A%84%E6%9B%B4%E6%96%B0/">MongoDb 5 來了，有什麼值得注意的更新呢?
+</a>
+      </li><li class="mb-2">
+        <a href="/series/2019-ithome-ironman/day-30-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-network-%E6%9A%A8%E5%AE%8C%E8%B3%BD%E5%9B%9E%E9%A1%A7/">Day 30- 三周目 - Docker Network 暨完賽回顧
+</a>
+      </li><li class="mb-2">
+        <a href="/series/2019-ithome-ironman/day-29-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-compose%E4%B8%80%E6%AC%A1%E7%AE%A1%E7%90%86%E5%A4%9A%E5%80%8B%E5%AE%B9%E5%99%A8/">Day 29- 三周目 - Docker Compose：一次管理多個容器
+</a>
+      </li></ul>
+  </div>
+</section>
+    
+  </div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><div class="offcanvas offcanvas-bottom h-auto" tabindex="-1" id="offcanvasActionsPanel"
+  aria-labelledby="offcanvasActionsPanelLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title fs-4" id="offcanvasActionsPanelLabel">
+      <i class="fas fa-fw fa-th-large me-1"></i>
+      Actions
+    </h5>
+    <button type="button" class="btn-close ms-auto" data-bs-dismiss="offcanvas" data-bs-target="offcanvasActionsPanel" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body mt-2"><div class="social-share mb-4 d-flex overflow-auto">
+      <a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Twitter Share Button"
+      target="_blank" href="https://twitter.com/intent/tweet?title=Day%2010-%20%e4%b8%80%e5%91%a8%e7%9b%ae-%20%e9%96%8b%e5%a7%8b%e7%8e%a9%e8%bd%89%e5%89%8d%e7%ab%af%28%e4%b8%80%29&url=%2fseries%2f2019-ithome-ironman%2fday-10-%25E4%25B8%2580%25E5%2591%25A8%25E7%259B%25AE-%25E9%2596%258B%25E5%25A7%258B%25E7%258E%25A9%25E8%25BD%2589%25E5%2589%258D%25E7%25AB%25AF%25E4%25B8%2580%2f">
+        <i class="fab fa-2x fa-fw fa-twitter mb-2"></i> Twitter
+      </a>
+      <a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Facebook Share Button"
+        target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=%2fseries%2f2019-ithome-ironman%2fday-10-%25E4%25B8%2580%25E5%2591%25A8%25E7%259B%25AE-%25E9%2596%258B%25E5%25A7%258B%25E7%258E%25A9%25E8%25BD%2589%25E5%2589%258D%25E7%25AB%25AF%25E4%25B8%2580%2f">
+        <i class="fab fa-2x fa-fw fa-facebook-f mb-2"></i> Facebook
+      </a>
+    </div>
+    <hr class="mb-4"><div class="actions d-flex overflow-auto align-items-center">
+      <a role="button" class="action action-go-back d-flex flex-column align-items-center me-3" href="javascript: window.history.back();">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-chevron-circle-down" data-fa-transform="rotate-90"></i></span> 返回
+      </a>
+      <a role="button" class="action action-reload-page d-flex flex-column align-items-center me-3">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-redo-alt"></i></span> 刷新
+      </a>
+      <a role="button" class="action action-copy-url d-flex flex-column align-items-center me-3">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-link"></i></span> 複製連結
+      </a>
+    </div>
+  </div>
+</div><nav class="social-links nav justify-content-center mb-2"><a class="nav-link social-link" href="mailto:yujiechen0514@gmail.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i></a><a class="nav-link social-link" target="_blank" href="https://github.com/eugenechen0514" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-github"></i></a><a class="nav-link social-link" target="_blank" href="https://linkedin.com/in/yuchieh-chen-37a48989" title="LinkedIn" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-linkedin-in"></i></a><a class="nav-link social-link" target="_blank" href="https://medium.com/@yujiechen0514" title="Medium" rel="noopener noreferrer">
+        <i class="fab fa-fw fa-2x fa-medium-m"></i></a><a class="nav-link social-link" target="_blank" href="/index.xml" title="RSS" rel="noopener noreferrer">
+    <i class="fas fa-fw fa-2x fa-rss"></i></a></nav>
+<div class="copyright mb-2">
+  Copyright © 2016-2022 EugeneChen. All Rights Reserved.
+</div>
+<div class="powered-by mb-2">
+  Powered by <a class="text-primary" href="https://gohugo.io" target="_blank" rel="noopener noreferrer">Hugo</a> and the <a class="text-primary" href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank" rel="noopener noreferrer">Bootstrap</a> theme.
+</div>
+<div class="sponsors">
+
+
+
+
+
+
+</div>
+</footer>
+<script src="/assets/main/bundle.min.2bc7d6952dbf38d6d2815939c58fc655e72d050b196d9fd99829d8fb23904646.js" integrity="sha256-K8fWlS2/ONbSgVk5xY/GVectBQsZbZ/ZmCnY&#43;yOQRkY=" crossorigin="anonymous" defer></script><script src="/assets/icons/bundle.min.a4bf8247f780c9bf61d579a8efe7129ec790bb98622bf4a29895eb21e689266c.js" integrity="sha256-pL&#43;CR/eAyb9h1Xmo7&#43;cSnseQu5hiK/SimJXrIeaJJmw=" crossorigin="anonymous" defer></script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('\/service-worker.min.js').then(function(reg) {
+      console.log('Successfully registered service worker', reg);
+    }).catch(function(err) {
+      console.warn('Error whilst registering service worker', err);
+    });
+  });
+}
+</script><script src="/assets/viewer/bundle.min.92d4a694e2e9a4c4d89b6998067e2f8e502dc7a951682bb5a160a3004b434908.js" integrity="sha256-ktSmlOLppMTYm2mYBn4vjlAtx6lRaCu1oWCjAEtDSQg=" crossorigin="anonymous" defer></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-ZWYL79X38Y', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+<script src="/assets/docsearch/bundle.min.c6965b5bee044b874617239932d6a7992b217f7949f895a7576980d110fb2ab1.js" integrity="sha256-xpZbW&#43;4ES4dGFyOZMtanmSshf3lJ&#43;JWnV2mA0RD7KrE=" crossorigin="anonymous" defer></script></body>
+</html>

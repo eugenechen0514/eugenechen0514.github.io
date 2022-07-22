@@ -1,0 +1,787 @@
+<!doctype html><html class="position-relative" itemscope itemtype="http://schema.org/WebPage" lang="zh-tw" data-theme="auto"
+  
+   data-palette="purple">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Day 5 - 一周目- 從VSCode debug 模式看作用域(Scope)、this、閉包(Closure) - EugeneChen</title><link rel="apple-touch-icon" href="/images/icons/icon-180x180.png" sizes="180x180">
+<link rel="icon" href="/images/icons/icon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/images/icons/icon-16x16.png" sizes="16x16" type="image/png">
+<link rel="icon" href="/images/icons/favicon.ico">
+<link rel="manifest" href="/manifest.json">
+<meta name="keywords" content="" />
+<meta name="description" content="以 VSCode dubug 模式來看，經典的觀念：作用域(Scope)、this、閉包(Closure)" /><meta name="robots" content="index, follow" /><meta itemprop="name" content="Day 5 - 一周目- 從VSCode debug 模式看作用域(Scope)、this、閉包(Closure)">
+<meta itemprop="description" content="以 VSCode dubug 模式來看，經典的觀念：作用域(Scope)、this、閉包(Closure)"><meta itemprop="datePublished" content="2018-10-05T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2018-10-05T00:00:00+00:00" />
+<meta itemprop="wordCount" content="2327">
+<meta itemprop="keywords" content="2019 iT 邦幫忙鐵人賽,用js成為老闆心中的全端工程師," /><meta property="og:title" content="Day 5 - 一周目- 從VSCode debug 模式看作用域(Scope)、this、閉包(Closure)" />
+<meta property="og:description" content="以 VSCode dubug 模式來看，經典的觀念：作用域(Scope)、this、閉包(Closure)" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/series/2019-ithome-ironman/day-5-%E4%B8%80%E5%91%A8%E7%9B%AE-%E5%BE%9Evscode-debug-%E6%A8%A1%E5%BC%8F%E7%9C%8B%E4%BD%9C%E7%94%A8%E5%9F%9Fscopethis%E9%96%89%E5%8C%85closure/" /><meta property="article:section" content="series" />
+<meta property="article:published_time" content="2018-10-05T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-10-05T00:00:00+00:00" /><meta property="og:site_name" content="EugeneChen" />
+<meta property="og:see_also" content="/series/2019-ithome-ironman/day-30-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-network-%E6%9A%A8%E5%AE%8C%E8%B3%BD%E5%9B%9E%E9%A1%A7/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-29-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-compose%E4%B8%80%E6%AC%A1%E7%AE%A1%E7%90%86%E5%A4%9A%E5%80%8B%E5%AE%B9%E5%99%A8/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-28-%E4%B8%89%E5%91%A8%E7%9B%AE-%E8%A3%BD%E4%BD%9C%E8%87%AA%E5%B7%B1%E7%9A%84%E6%98%A0%E5%83%8F%E6%AA%94%E5%8C%85%E6%89%93%E5%89%8D%E5%BE%8C%E7%AB%AF%E6%98%A0%E5%83%8F%E6%AA%94/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-27-%E4%B8%89%E5%91%A8%E7%9B%AE-%E4%BA%94%E5%88%86%E9%90%98%E5%BB%BA%E7%AB%8B%E7%A7%81%E6%9C%89-npm-verdaccio/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-26-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E7%9C%8B%E5%AE%8C%E5%B0%B1%E6%9C%83%E6%9E%B6-docker-%E5%8C%96%E7%9A%84%E6%9C%8D%E5%8B%99/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-25-%E4%BA%8C%E5%91%A8%E7%9B%AE-react-component-%E5%A5%97%E4%BB%B6-material-ui-google-material-design-%E7%9A%84%E5%AF%A6%E4%BD%9C%E5%A5%97%E4%BB%B6/" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Day 5 - 一周目- 從VSCode debug 模式看作用域(Scope)、this、閉包(Closure)"/>
+<meta name="twitter:description" content="以 VSCode dubug 模式來看，經典的觀念：作用域(Scope)、this、閉包(Closure)"/>
+<meta property="og:image" content="/images/logo.png"/>
+  <meta name="twitter:image" content="/images/logo.png"/><link rel="stylesheet" href="/assets/main/bundle.min.925f59d4c744cc5e99dcc7d02a6f68dff5cceaea488c7667bd947bf7aa35b649.css" integrity="sha256-kl9Z1MdEzF6Z3MfQKm9o3/XM6upIjHZnvZR796o1tkk=" crossorigin="anonymous"><link rel="stylesheet" href="/assets/viewer/bundle.min.f05183267bb952fbc8c63a7178364de2951614ab71d544ec1068ad36c7447ccc.css" integrity="sha256-8FGDJnu5UvvIxjpxeDZN4pUWFKtx1UTsEGitNsdEfMw=" crossorigin="anonymous"><link rel="stylesheet" href="/assets/docsearch/bundle.min.c165d6a127fffa285e6b89ef65362fe921bc0c1fdaefa35f6af069b962bdb50e.css" integrity="sha256-wWXWoSf/&#43;ihea4nvZTYv6SG8DB/a76NfavBpuWK9tQ4=" crossorigin="anonymous"></head>
+  <body><script>const items=["theme","palette"];items.forEach(function(e){const t=localStorage.getItem("hbs:"+e);t&&document.body.parentElement.setAttribute("data-"+e,t)})</script><header><nav class="top-app-bar shadow bg-primary text-white navbar navbar-expand-lg fixed-top">
+  <div class="container"><a class="navbar-brand flex-grow-1 flex-lg-grow-0 text-lg-start ms-2 ms-lg-0 mx-auto me-lg-3" href="/"><picture><img class="logo" alt="Logo" src="/images/logo.webp" loading="lazy"
+    
+     width="136" height="69"
+     />
+</picture>
+EugeneChen
+    </a>
+    <button class="navbar-toggler order-5" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarMenus"
+      aria-controls="navbarMenus" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-ellipsis-h"></i>
+    </button>
+    <div class="offcanvas-lg offcanvas-end flex-grow-1 bg-primary text-white" tabindex="-1" id="navbarMenus" aria-labelledby="navbarMenusLabel">
+      <div class="offcanvas-header px-4 pb-0">
+        <h5 class="offcanvas-title" id="navbarMenusLabel">EugeneChen</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" data-bs-target="#navbarMenus" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body p-4 pt-0 p-lg-0">
+        <hr class="d-lg-none">
+        <ul class="navbar-nav flex-row flex-wrap align-items-center me-auto"><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/posts/">
+              <i class="fas fa-book fa-fw"></i>文章
+            </a>
+          </li><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/series/">
+              <i class="fas fa-bars fa-fw"></i>專欄
+            </a>
+          </li><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/posts/notes/">
+              <i class="fas fa-sticky-note fa-fw"></i>隨手筆記
+            </a>
+          </li></ul>
+        <hr class="d-lg-none">
+        <form class="search-bar mx-auto my-1" action="/search" novalidate>
+  <div class="input-group input-group-sm align-items-center">
+    <span class="btn btn-search disabled position-absolute left-0 border-0">
+      <i class="fas fa-fw fa-search fa-lg"></i>
+    </span>
+    <input class="py-2 form-control rounded search-input" name="q" type="search" aria-label="Search" required>
+  </div>
+</form>
+<hr class="d-lg-none">
+        <ul class="navbar-nav flex-row flex-wrap align-items-center ms-md-auto"><li class="nav-item dropdown py-1 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-globe"></i>
+        <span class="d-lg-none">語言</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown"><li>
+        <a class="dropdown-item" href="/en/">
+            English
+        </a>
+        </li><li>
+        <a class="dropdown-item active" href="/">
+            繁體中文
+        </a>
+        </li></ul>
+</li>
+<li class="nav-item py-1 col-12 col-lg-auto">
+  <div class="vr d-none d-lg-flex h-100 mx-lg-2 text-white"></div>
+  <hr class="d-lg-none my-2">
+</li><li class="nav-item dropdown py-2 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="fontSizeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-font"></i>
+        <span class="d-lg-none">字體大小</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="fontSizeDropdown"><li>
+            <button class="font-size-item dropdown-item" data-size="xs">
+                特小號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="sm">
+                小號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item active" data-size="md">
+                中等
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="lg">
+                大號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="xl">
+                特大號
+            </button>
+        </li></ul>
+</li><li class="nav-item dropdown py-1 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="paletteDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-palette"></i>
+        <span class="d-lg-none">配色</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end px-2" aria-labelledby="paletteDropdown">
+        <div class="row"><li class="col-3 my-1">
+                <a role="button" id="palette-blue" aria-label="藍色"
+                    class="btn btn-sm w-100 palette text-bg-blue" data-palette="blue">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-blue-gray" aria-label="藍灰色"
+                    class="btn btn-sm w-100 palette text-bg-blue-gray" data-palette="blue-gray">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-brown" aria-label="棕色"
+                    class="btn btn-sm w-100 palette text-bg-brown" data-palette="brown">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-cyan" aria-label="青色"
+                    class="btn btn-sm w-100 palette text-bg-cyan" data-palette="cyan">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-green" aria-label="綠色"
+                    class="btn btn-sm w-100 palette text-bg-green" data-palette="green">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-indigo" aria-label="靛青色"
+                    class="btn btn-sm w-100 palette text-bg-indigo" data-palette="indigo">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-orange" aria-label="橙色"
+                    class="btn btn-sm w-100 palette text-bg-orange" data-palette="orange">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-pink" aria-label="粉色"
+                    class="btn btn-sm w-100 palette text-bg-pink" data-palette="pink">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-purple" aria-label="紫色"
+                    class="btn btn-sm w-100 palette text-bg-purple" data-palette="purple">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-red" aria-label="紅色"
+                    class="btn btn-sm w-100 palette text-bg-red" data-palette="red">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-teal" aria-label="藍綠色"
+                    class="btn btn-sm w-100 palette text-bg-teal" data-palette="teal">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-yellow" aria-label="黃色"
+                    class="btn btn-sm w-100 palette text-bg-yellow" data-palette="yellow">
+                </a>
+            </li></div>
+    </ul>
+</li>
+<li class="nav-item dropdown py-2 py-lg-1 col-6 col-lg-auto"><a class="nav-link px-0 px-lg-1" href="#" id="modeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="mode-icon fas fa-fw fa-adjust" id="modeIcon"></i>
+        <span class="d-lg-none">模式</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="modeDropdown"><li class="mode-item" data-color-mode="light" data-icon="sun">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-sun"></i> Light
+            </button>
+        </li><li class="mode-item" data-color-mode="dark" data-icon="moon">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-moon"></i> Dark
+            </button>
+        </li><li class="mode-item active" data-color-mode="auto" data-icon="adjust">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-adjust"></i> Auto
+            </button>
+        </li></ul>
+</li>
+</ul>
+      </div>
+    </div>
+  </div>
+</nav>
+</header>
+<main class="container">
+      <div class="row content"><noscript>
+    <div class="alert alert-danger" role="alert">你的瀏覽器不支持 JavaScript。</div>
+</noscript>
+
+<div class="col-lg-8">
+  <div class="container"><nav class="row card component" aria-label="breadcrumb">
+  <div class="card-body pb-0">
+    <ol class="breadcrumb"><li class="breadcrumb-item text-surface"><a href="/">主頁</a></li><li class="breadcrumb-item text-surface"><a href="/series/">Series</a></li><li class="breadcrumb-item active">Day 5 - 一周目- 從VSCode Debug 模式看作用域(Scope)、this、閉包(Closure)</li></ol>
+  </div>
+</nav><div class="post-panel-wrapper position-sticky">
+  <div class="d-flex flex-column component rounded post-panel position-absolute border">
+    
+    <a class="action action-panel-toggler" role="button" title="Panel toggler">
+      <i class="fas fa-fw fa-chevron-circle-down"></i>
+    </a>
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button" title="Sidebar toggler">
+  <i class="fas fa-fw fa-expand-alt" data-fa-transform="rotate-45"></i>
+</a>
+
+    
+
+    
+    <a class="action" href="#post-copyright" role="button" aria-label="Copyright" title="Copyright">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    <a class="action" href="#post-comments" role="button" aria-label="Comments" title="Comments">
+  <i class="fas fa-fw fa-comments"></i>
+</a>
+    <a class="action" href="#postTOC" aria-controls="Table of contents" role="button" title="Table of contents">
+  <i class="fas fa-fw fa-list-alt"></i>
+</a>
+    
+  </div>
+</div>
+<article class="row card component mb-4 post">
+  <div class="card-header ">
+    <h1 class="card-title post-title my-2">Day 5 - 一周目- 從VSCode Debug 模式看作用域(Scope)、this、閉包(Closure)
+</h1>
+  </div>
+  <div class="card-body"><div class="post-meta mb-3">
+  <span class="post-date me-1 mb-1" title="創建於 2018-10-05 08:00:00 &#43;0800 CST。">
+    2018-10-05
+  </span><span class="post-reading-time me-1 mb-1">
+    5 分鐘閱讀
+  </span><a href="/series/2019-ithome-ironman/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">用js成為老闆心中的全端工程師 - 2019 IT邦幫忙鐵人賽</a><a href="/tags/2019-it-%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">2019 IT 邦幫忙鐵人賽</a><a href="/tags/%E7%94%A8js%E6%88%90%E7%82%BA%E8%80%81%E9%97%86%E5%BF%83%E4%B8%AD%E7%9A%84%E5%85%A8%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%AB/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">用js成為老闆心中的全端工程師</a></div>
+<div class="post-content mb-3"><p>以 VSCode dubug 模式來看，經典的觀念：作用域(Scope)、this、閉包(Closure)</p>
+<h1 id="回憶">回憶<a class="anchor ms-1" href="#回憶"><i class="fas fa-link"></i></a></h1>
+<p>昨天提到了用 debug 模式玩ES6的基本語法。</p>
+<h1 id="目標">目標<a class="anchor ms-1" href="#目標"><i class="fas fa-link"></i></a></h1>
+<p>以 VSCode dubug 模式來看，經典的觀念：作用域(Scope)、this、閉包(Closure)</p>
+<h1 id="函數function">函數(function)<a class="anchor ms-1" href="#函數function"><i class="fas fa-link"></i></a></h1>
+<p>函數可看成一群程式碼的集合，可以幫我們包裝 routine 的工作 (可以重複呼叫)，命名後可以增加程式碼可讀性。
+函數也引發了變數作用域、閉包、this 的問題。</p>
+<h2 id="基本宣告">基本宣告<a class="anchor ms-1" href="#基本宣告"><i class="fas fa-link"></i></a></h2>
+<p>有兩種方法可以宣告函數</p>
+<ol>
+<li>函數物件
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">function sayHi() {
+</span></span><span class="line"><span class="ln">2</span><span class="cl">    console.log(&#39;Hi!)&#39;);
+</span></span><span class="line"><span class="ln">3</span><span class="cl">}
+</span></span></code></pre></div></li>
+<li>箭頭函數arrow function
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">const sayHi = () =&gt; {
+</span></span><span class="line"><span class="ln">2</span><span class="cl">    console.log(&#39;Hi!&#39;);
+</span></span><span class="line"><span class="ln">3</span><span class="cl">}
+</span></span></code></pre></div></li>
+</ol>
+<h2 id="varletconst-作用域scope-變數生存的空間">var/let/const 作用域(Scope): 變數生存的空間<a class="anchor ms-1" href="#varletconst-作用域scope-變數生存的空間"><i class="fas fa-link"></i></a></h2>
+<p>接下來會用 debug 模式，觀察 <code>var/let</code> 的特性。</p>
+<p>在 ES6 出來以前只有 <code>var</code> 可以用，這是指在宣告在函數內的變數，在這函數的執行過程中會一直在，不管包幾層區塊。</p>
+<h3 id="在區塊--內宣告的變數可以在區塊外使用嗎">在區塊 ({…}) 內宣告的變數可以在區塊外使用嗎？<a class="anchor ms-1" href="#在區塊--內宣告的變數可以在區塊外使用嗎"><i class="fas fa-link"></i></a></h3>
+<p>我們觀察以下程式碼：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1">// var/let in global
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">runIf</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="k">if</span><span class="p">(</span><span class="nx">runIf</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">    <span class="kd">var</span> <span class="nx">ifVar</span> <span class="o">=</span> <span class="s1">&#39;ifVar&#39;</span><span class="p">;</span> <span class="c1">// if 執行完會留下
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="c1"></span>    <span class="kd">let</span> <span class="nx">ifLet</span> <span class="o">=</span> <span class="s1">&#39;ifLet&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">ifVar</span><span class="p">);</span> <span class="c1">// 執行到這行，可存取到 ifVar，因為 ifVar 是在主程式函數中宣告的
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="c1">// console.log(ifLet); // ReferenceError: ifLet is not defined
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">
+</span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="c1">// var/let in function
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="c1"></span><span class="kd">function</span> <span class="nx">fun1</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">    <span class="kd">var</span> <span class="nx">innerVar</span> <span class="o">=</span> <span class="s1">&#39;fun1Let&#39;</span><span class="p">;</span> <span class="c1">// fun1()執行完不會留下
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="c1"></span>    <span class="kd">let</span> <span class="nx">innerLet</span> <span class="o">=</span> <span class="s1">&#39;fun1Let&#39;</span><span class="p">;</span> <span class="c1">// fun1()執行完不會留下
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="nx">fun1</span><span class="p">();</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="c1">// console.log(innerVar);　// ReferenceError: innerVar is not defined
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="c1">// console.log(innerLet); // ReferenceError: innerLet is not defined
+</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="c1"></span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;bye&#39;</span><span class="p">);</span>
+</span></span></code></pre></div><p>在第2,5,13,19行下中斷點，執行 debug，如下圖：
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-05 at 4.48.08 PM.png" src="/series/2019-ithome-ironman/day-5-%E4%B8%80%E5%91%A8%E7%9B%AE-%E5%BE%9Evscode-debug-%E6%A8%A1%E5%BC%8F%E7%9C%8B%E4%BD%9C%E7%94%A8%E5%9F%9Fscopethis%E9%96%89%E5%8C%85closure/resources/18EAD31E8DE84BF84A2E8F8B915361EC.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+
+停在第2行後，看看 <em><strong>CALL STACK</strong></em> ，目前執行在匿名函數中 (anonymous function)中，也就是，當程式執行時，我們可以假想它們被包在某個函數中且立刻被執行，像是：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="p">(</span><span class="nx">anonymousFunction</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">  <span class="c1">// …上面程式碼…
+</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="c1"></span><span class="p">})()</span>
+</span></span></code></pre></div><p>此外， <em><strong>VARIABLES-&gt;Local</strong></em> 中有在函數內可以存取的變數，但會發現 <em><strong>沒有 <code>ifLet</code></strong></em> ，也就是第8行不能讀到<code>ifLet</code>的原因。</p>
+<p>再往下執行到第5行，
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-05 at 4.48.15 PM.png" src="/series/2019-ithome-ironman/day-5-%E4%B8%80%E5%91%A8%E7%9B%AE-%E5%BE%9Evscode-debug-%E6%A8%A1%E5%BC%8F%E7%9C%8B%E4%BD%9C%E7%94%A8%E5%9F%9Fscopethis%E9%96%89%E5%8C%85closure/resources/056ECD2EF5CD5EC948AA1D2BDC92159D.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+
+多出 <em><strong>VARIABLES-&gt;Block</strong></em> ，裡面有<code>ifLet</code>，而 <em><strong>VARIABLES-&gt;Local</strong></em> 還留著。</p>
+<p>再往下執行到第13行，
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-05 at 4.48.22 PM.png" src="/series/2019-ithome-ironman/day-5-%E4%B8%80%E5%91%A8%E7%9B%AE-%E5%BE%9Evscode-debug-%E6%A8%A1%E5%BC%8F%E7%9C%8B%E4%BD%9C%E7%94%A8%E5%9F%9Fscopethis%E9%96%89%E5%8C%85closure/resources/64477F4C2C4C30B767580E28C0F9B7CB.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+
+<em><strong>CALL STACK</strong></em> 現在進入到 <code>fun1</code> 中， <em><strong>CALL STACK</strong></em> 自然就只剩下 <code>innerLet</code> 和 <code>innerVar</code> ( <strong>this</strong> 晚點說)</p>
+<p>再往下執行到第19行，
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-05 at 4.48.39 PM.png" src="/series/2019-ithome-ironman/day-5-%E4%B8%80%E5%91%A8%E7%9B%AE-%E5%BE%9Evscode-debug-%E6%A8%A1%E5%BC%8F%E7%9C%8B%E4%BD%9C%E7%94%A8%E5%9F%9Fscopethis%E9%96%89%E5%8C%85closure/resources/D4E4371364D34E3ED3E49784106CB95F.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+
+離開 <code>fun1()</code> 後 <code>innerLet</code> 和 <code>innerVar</code>就會被消毀，當再次回到「進來前的函數空間」， <code>innerLet</code> 和 <code>innerVar</code> 當然就存取不到了，也就是第17,18行不能讀到他們。</p>
+<blockquote>
+<p>可以試試把第 8, 17, 18註解拿掉，會丟出例外</p>
+</blockquote>
+<p>我們整理結論：</p>
+<ol>
+<li><code>var</code> 是屬於函數作用域(function scope)，活在函數中，出現在 <em><strong>VARIABLES-&gt;Local</strong></em> 中</li>
+<li><code>let</code> 是屬於區塊作用域(block scope)，活在 <code>{…}</code> (curly brackets)，出現在 <em><strong>VARIABLES-&gt;Block</strong></em> 中</li>
+</ol>
+<p>那…<code>const</code> 呢？ 它跟 <code>let</code> 一樣，只是變數不能再次被賦值(<code>=</code>)。
+所以結論：</p>
+<ol>
+<li><code>var</code> 是屬於函數作用域(function scope)，活在函數中，出現在 <em><strong>VARIABLES-&gt;Local</strong></em> 中</li>
+<li><code>let/const</code> 是屬於區塊作用域(block scope)，活在 <code>{…}</code> (curly brackets)，出現在 <em><strong>VARIABLES-&gt;Block</strong></em> 中</li>
+</ol>
+<h3 id="要怎麼選用它們">要怎麼選用它們？<a class="anchor ms-1" href="#要怎麼選用它們"><i class="fas fa-link"></i></a></h3>
+<p>我的做法是變儘量限制它們的 scope，以降低無法預期的效果，像是：var 變數生存太久佔用記憶體、本應該是常數的東西不小心執行時被改到、存取到本不應該存在的變數…等</p>
+<ol>
+<li>能用 <code>const</code> 儘量用</li>
+<li>可能要改值，就用 <code>let</code></li>
+<li>最後才用 <code>var</code></li>
+</ol>
+<h2 id="this呼叫函數的人">this：呼叫函數的人<a class="anchor ms-1" href="#this呼叫函數的人"><i class="fas fa-link"></i></a></h2>
+<p><code>this</code> 在OO(物件導向)技術被用來當做實例(instance)的代理變數。在 javascript 也有類似的功用，但 <code>this</code> 是可以被我們動態替換的，所以可以做的更多，見：<a href="https://ithelp.ithome.com.tw/articles/10195896" target="_blank" rel="noopener noreferrer">JavaScript - call，apply，bind<i class="fas fa-external-link-square-alt ms-1"></i></a>。現階段只要了解：<strong>this就是呼叫函數的人</strong></p>
+<p>看以下的程式，下中斷點觀察</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kr">const</span> <span class="nx">funA</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="kd">function</span> <span class="nx">funF</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="kr">const</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">    <span class="nx">funA</span><span class="o">:</span> <span class="nx">funA</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">    <span class="nx">funF</span><span class="o">:</span> <span class="nx">funF</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">
+</span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="nx">funA</span><span class="p">();</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="nx">funF</span><span class="p">();</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">
+</span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="nx">obj</span><span class="p">.</span><span class="nx">funA</span><span class="p">();</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="nx">obj</span><span class="p">.</span><span class="nx">funF</span><span class="p">();</span>
+</span></span></code></pre></div><p>下面這張圖，程式是從第14行進入至第3行，呼就叫的人是誰？因為沒有指明人，就會拿最上層的人(物件)，所以就叫 <code>global</code>，此時 <code>this</code> 是 <code>global</code>
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-05 at 5.23.30 PM.png" src="/series/2019-ithome-ironman/day-5-%E4%B8%80%E5%91%A8%E7%9B%AE-%E5%BE%9Evscode-debug-%E6%A8%A1%E5%BC%8F%E7%9C%8B%E4%BD%9C%E7%94%A8%E5%9F%9Fscopethis%E9%96%89%E5%8C%85closure/resources/BB0C7A4D0E853E8321076FFF7B5178C0.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>下面這張圖，程式是從第17行進入至第3行，呼就叫的人是誰？是 <code>obj</code>，所以 <code>this</code> 是 <code>obj</code> 且它的型別是 <code>Object</code>，打開來看看真的是它
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-05 at 5.26.24 PM.png" src="/series/2019-ithome-ironman/day-5-%E4%B8%80%E5%91%A8%E7%9B%AE-%E5%BE%9Evscode-debug-%E6%A8%A1%E5%BC%8F%E7%9C%8B%E4%BD%9C%E7%94%A8%E5%9F%9Fscopethis%E9%96%89%E5%8C%85closure/resources/A332C7A6EC8A3FA0921634CBCC5A4C9B.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<h2 id="閉包closure把外面的變數關在函數中使用">閉包(Closure)：把外面的變數關在函數中使用<a class="anchor ms-1" href="#閉包closure把外面的變數關在函數中使用"><i class="fas fa-link"></i></a></h2>
+<p>我們考慮以下問題：</p>
+<ol>
+<li>函數外宣告的變數，能不能在函數內使用？</li>
+<li>函數內如何使用外部變數的值？</li>
+<li>閉包域中的外部變數值可以被修改嗎？</li>
+</ol>
+<p>回答這些問題</p>
+<ol>
+<li>可以，每個建立一個函數物件時，會會有一個閉包域產生。當函數物件執行時可以存取外部變數</li>
+<li>一般有兩個方法
+<ol>
+<li>用參數，把值傳入
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="kr">const</span> <span class="nx">outer</span> <span class="o">=</span> <span class="s1">&#39;outer&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="kd">function</span> <span class="nx">fun</span><span class="p">(</span><span class="nx">a</span><span class="p">){</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="nx">fun</span><span class="p">(</span><span class="nx">outer</span><span class="p">);</span>
+</span></span></code></pre></div></li>
+<li>透過閉包，把外部變數包入閉包域
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="kr">const</span> <span class="nx">outer</span> <span class="o">=</span> <span class="s1">&#39;outer&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="kd">function</span> <span class="nx">fun</span><span class="p">(){</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">outer</span><span class="p">);</span> <span class="c1">// 引用到外部變數，所以會放到 fun()函數中的閉包域
+</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="nx">fun</span><span class="p">();</span>
+</span></span></code></pre></div></li>
+</ol>
+</li>
+<li>可以，因為閉包域中的變數和外部變數是相同的記憶體位置，所以可以被修改。見下面說明。</li>
+</ol>
+<p>執行以下程式，並下中斷點，為了看的更清楚我們很刻意的放到 <strong>main()</strong> 中執行，</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kd">function</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">    <span class="kd">let</span> <span class="nx">outer</span> <span class="o">=</span> <span class="s1">&#39;outer&#39;</span><span class="p">;</span> <span class="c1">// 外部變數
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="c1"></span>    <span class="kd">function</span> <span class="nx">funA</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">outer</span><span class="p">);</span>　<span class="c1">// 讀取到外部變數
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="c1"></span>    <span class="p">};</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">    <span class="kd">function</span> <span class="nx">funB</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">        <span class="kr">const</span> <span class="nx">inner</span> <span class="o">=</span> <span class="nx">outer</span><span class="p">;</span>　<span class="c1">// 內部變數，指向 outer 的值
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="c1"></span>        <span class="nx">outer</span> <span class="o">=</span> <span class="nx">outer</span> <span class="o">+</span> <span class="s1">&#39;-fix&#39;</span><span class="p">;</span> <span class="c1">// 修改 outer 的值
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="c1"></span>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">inner</span><span class="p">,</span> <span class="nx">outer</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">
+</span></span><span class="line"><span class="ln">13</span><span class="cl">    <span class="nx">funA</span><span class="p">();</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">    <span class="nx">funB</span><span class="p">();</span> <span class="c1">// outer 值被修改
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="c1"></span>    <span class="nx">funA</span><span class="p">();</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">
+</span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="nx">main</span><span class="p">();</span>
+</span></span></code></pre></div><p>下圖中，<code>outer</code> 放入  <em><strong>VARIABLES-&gt;Closure</strong></em> 閉包域中，使我們可以存取它的值。
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-05 at 8.57.12 PM.png" src="/series/2019-ithome-ironman/day-5-%E4%B8%80%E5%91%A8%E7%9B%AE-%E5%BE%9Evscode-debug-%E6%A8%A1%E5%BC%8F%E7%9C%8B%E4%BD%9C%E7%94%A8%E5%9F%9Fscopethis%E9%96%89%E5%8C%85closure/resources/57505E4D075D4D4FA5F537581F0CBC9C.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>下圖中，因為宣告了 <code>const inner</code>，它是屬於 <em><strong>VARIABLES-&gt;Local</strong></em> ，並設定成<code>outer</code>的值，所以 <code>inner = 'outer'</code>。然而，<code>outer = outer + '-fix'</code>，把 <code>outer</code> 改成了 <code>outer-fix</code>的值。此外，<code>outer</code> 也被放入 <em><strong>VARIABLES-&gt;Closure</strong></em> 閉包域中。
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-05 at 8.57.19 PM.png" src="/series/2019-ithome-ironman/day-5-%E4%B8%80%E5%91%A8%E7%9B%AE-%E5%BE%9Evscode-debug-%E6%A8%A1%E5%BC%8F%E7%9C%8B%E4%BD%9C%E7%94%A8%E5%9F%9Fscopethis%E9%96%89%E5%8C%85closure/resources/E7238EFAF967E922B289E4CC3CB3D855.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+
+用記憶體圖示來說，就會很清楚了，白正方形是記憶體空間，裡面會放字串值。
+<picture><img class="img-fluid" alt="Untitled Diagram.png" src="/series/2019-ithome-ironman/day-5-%E4%B8%80%E5%91%A8%E7%9B%AE-%E5%BE%9Evscode-debug-%E6%A8%A1%E5%BC%8F%E7%9C%8B%E4%BD%9C%E7%94%A8%E5%9F%9Fscopethis%E9%96%89%E5%8C%85closure/resources/386E8EC1A4E5114ED813C5DBF07FFA9A.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>最後在呼叫一次 <code>funA()</code>，得到 <code>outer</code> 被修改後的結果。
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-05 at 8.57.33 PM.png" src="/series/2019-ithome-ironman/day-5-%E4%B8%80%E5%91%A8%E7%9B%AE-%E5%BE%9Evscode-debug-%E6%A8%A1%E5%BC%8F%E7%9C%8B%E4%BD%9C%E7%94%A8%E5%9F%9Fscopethis%E9%96%89%E5%8C%85closure/resources/08EE751ADCE3CEA7D02DE28C1F261136.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<h3 id="什麼時候用">什麼時候用？<a class="anchor ms-1" href="#什麼時候用"><i class="fas fa-link"></i></a></h3>
+<p>可以用閉包包入定值，但很煩，ES6 引入的 let 可以簡化不少。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1">// i, j loop 完，變成定值
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="c1"></span><span class="kd">let</span> <span class="nx">funs</span> <span class="o">=</span> <span class="p">[];</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">    <span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="nx">i</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">    <span class="nx">funs</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">j</span><span class="p">);</span> <span class="c1">// loop 完才用到 i, j
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="c1"></span>    <span class="p">});</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="nx">funs</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">fun</span> <span class="p">=&gt;</span> <span class="nx">fun</span><span class="p">());</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">
+</span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="c1">// 用閉包
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="c1"></span><span class="nx">funs</span> <span class="o">=</span> <span class="p">[];</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">    <span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">        <span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="nx">i</span><span class="p">;</span> <span class="c1">// 把值存入一個匿名函數的閉包
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="c1"></span>        <span class="nx">funs</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">j</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">        <span class="p">});</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl">    <span class="p">})();</span>
+</span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="nx">funs</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">fun</span> <span class="p">=&gt;</span> <span class="nx">fun</span><span class="p">());</span>
+</span></span><span class="line"><span class="ln">22</span><span class="cl">
+</span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="c1">// 用 let
+</span></span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="c1"></span><span class="nx">funs</span> <span class="o">=</span> <span class="p">[];</span>
+</span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">26</span><span class="cl">    <span class="kd">let</span> <span class="nx">j</span> <span class="o">=</span> <span class="nx">i</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">27</span><span class="cl">    <span class="nx">funs</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">28</span><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">j</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">29</span><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="ln">30</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">31</span><span class="cl"><span class="nx">funs</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">fun</span> <span class="p">=&gt;</span> <span class="nx">fun</span><span class="p">());</span>
+</span></span></code></pre></div><p>結果：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">3 2
+</span></span><span class="line"><span class="ln">2</span><span class="cl">3 2
+</span></span><span class="line"><span class="ln">3</span><span class="cl">3 2
+</span></span><span class="line"><span class="ln">4</span><span class="cl">3 0
+</span></span><span class="line"><span class="ln">5</span><span class="cl">3 1
+</span></span><span class="line"><span class="ln">6</span><span class="cl">3 2
+</span></span><span class="line"><span class="ln">7</span><span class="cl">3 0
+</span></span><span class="line"><span class="ln">8</span><span class="cl">3 1
+</span></span><span class="line"><span class="ln">9</span><span class="cl">3 2
+</span></span></code></pre></div><p>只有後面兩種寫法會正確。</p>
+<h3 id="復雜習題">復雜習題<a class="anchor ms-1" href="#復雜習題"><i class="fas fa-link"></i></a></h3>
+<p>可以猜看看下面的結果：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kr">const</span> <span class="nx">funs</span> <span class="o">=</span> <span class="p">[];</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">    <span class="kr">const</span> <span class="nx">j</span> <span class="o">=</span> <span class="nx">i</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">    <span class="nx">funs</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">        <span class="kr">const</span> <span class="nx">inner</span> <span class="o">=</span> <span class="nx">i</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">inner</span><span class="p">,</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">j</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">
+</span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="nx">funs</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">fun</span> <span class="p">=&gt;</span> <span class="nx">fun</span><span class="p">());</span>
+</span></span></code></pre></div><h1 id="總結">總結<a class="anchor ms-1" href="#總結"><i class="fas fa-link"></i></a></h1>
+<p>今天用 debug 模式，觀察作用域(Scope)、this、閉包(Closure)的例子，並發現下面的關連性。
+<em><strong>VARIABLES-&gt;Local</strong></em>  - var
+<em><strong>VARIABLES-&gt;Block</strong></em>  -  let/const
+<em><strong>VARIABLES-&gt;Closure</strong></em>   - 閉包</p>
+<h1 id="參考連結">參考連結<a class="anchor ms-1" href="#參考連結"><i class="fas fa-link"></i></a></h1>
+<ul>
+<li><a href="https://medium.com/@josephcardillo/the-difference-between-function-and-block-scope-in-javascript-4296b2322abe" target="_blank" rel="noopener noreferrer">The Difference Between Function and Block Scope in JavaScript<i class="fas fa-external-link-square-alt ms-1"></i></a>)</li>
+<li><a href="https://segmentfault.com/a/1190000003818163" target="_blank" rel="noopener noreferrer">用9種辦法解決 JS 閉包經典面試題之 for 循環取 i<i class="fas fa-external-link-square-alt ms-1"></i></a></li>
+</ul></div></div>
+  <div class="card-footer"><div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-prev">
+    <i class="fas fa-fw fa-chevron-circle-down post-prev-icon" data-fa-transform="rotate-90"></i>
+    <a href="/series/2019-ithome-ironman/day-4-%E4%B8%80%E5%91%A8%E7%9B%AE-%E7%94%A8vscode-debug-%E6%A8%A1%E5%BC%8F%E7%8E%A9%E7%8E%A9-es6-%E5%B8%B8%E7%94%A8%E8%AA%9E%E6%B3%95/">Day 4 - 一周目- 用VSCode Debug 模式，玩玩 ES6 常用語法
+</a>
+  </div><div class="post-nav post-next">
+    <a href="/series/2019-ithome-ironman/day-6-%E4%B8%80%E5%91%A8%E7%9B%AE-%E7%A8%8B%E5%BC%8F%E7%A2%BC%E5%93%81%E8%B3%AA%E5%B7%A5%E5%85%B7eslint%E7%85%A7%E9%A1%A7%E7%A8%8B%E5%BC%8F%E7%A2%BC%E9%A2%A8%E6%A0%BC/">Day 6 - 一周目- 程式碼品質工具ESLint，照顧程式碼風格
+</a>
+    <i class="fas fa-fw fa-chevron-circle-down post-next-icon" data-fa-transform="rotate-270"></i>
+  </div></div></div>
+</article><div class="post-copyright mb-3 row card component" id="post-copyright">
+    <div class="card-header">
+        <h2 class="card-title fs-4 my-2 text-surface">版權</h2>
+    </div>
+    <div class="card-body"><a class="d-flex align-items-center flex-column" target="_blank" rel="license noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_TW">
+  <span><i class="fab fa-fw fa-2x fa-creative-commons"></i><i class="fab fa-fw fa-2x fa-creative-commons-by"></i><i class="fab fa-fw fa-2x fa-creative-commons-nc"></i><i class="fab fa-fw fa-2x fa-creative-commons-sa"></i></span>
+  CC BY-NC-SA 4.0 
+</a>
+
+
+    </div>
+</div><section class="related-posts row card component">
+    <div class="card-header">
+      <h2 class="card-title fs-4 my-2 text-surface">相關文章</h2>
+    </div>
+    <div class="card-body">
+      <ul class="post-list list-unstyled"><li>
+          <a href="/series/2019-ithome-ironman/day-4-%E4%B8%80%E5%91%A8%E7%9B%AE-%E7%94%A8vscode-debug-%E6%A8%A1%E5%BC%8F%E7%8E%A9%E7%8E%A9-es6-%E5%B8%B8%E7%94%A8%E8%AA%9E%E6%B3%95/">Day 4 - 一周目- 用VSCode Debug 模式，玩玩 ES6 常用語法
+</a>
+          <span class="float-end post-date">2018-10-04
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-3-%E4%B8%80%E5%91%A8%E7%9B%AE-%E5%BB%BA%E7%AB%8B-%E7%AC%AC%E4%B8%80%E5%80%8Bnode.js-%E5%B0%88%E6%A1%88/">Day 3 - 一周目- 建立第一個Node.js 專案
+</a>
+          <span class="float-end post-date">2018-10-03
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-2-%E4%B8%80%E8%BC%A9%E5%AD%90%E5%8F%97%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7/">Day 2 - 一輩子受用的工具
+</a>
+          <span class="float-end post-date">2018-10-02
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-1-%E5%89%8D%E8%A8%80%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83%E6%BA%96%E5%82%99/">Day 1 - 前言／開發環境準備
+</a>
+          <span class="float-end post-date">2018-10-01
+</span>
+        </li></ul>
+    </div>
+  </section><div class="card component row post-comments" id="post-comments">
+  <div class="card-header">
+    <h2 class="card-title my-2 fs-4 text-surface">評論</h2>
+  </div>
+  <div class="card-body"><script src="https://utteranc.es/client.js"
+  repo="eugenechen0514/eugenechen0514.github.io"
+  issue-term="pathname"
+  label="comment"
+  theme="github-light"
+  crossorigin="anonymous"
+  async>
+</script></div>
+</div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container d-flex flex-column">
+    
+    <div class="card row text-center profile component">
+  <div class="card-body">
+    <div class="col-12 d-flex align-items-center justify-content-center"><picture><img class="profile-avatar rounded-circle" alt="EugeneChen" src="/images/profile.webp" loading="lazy" data-viewer-invisible
+    
+     width="298" height="305"
+     />
+</picture>
+</div>
+    <div class="col-12 profile-meta"><div class="profile-name fw-fold fs-lg">EugeneChen</div><div class="profile-bio">軟體工程師，喜歡動手做些有的沒的專案，同時也喜愛數學、攝影、桌球，慢跑、游泳、作菜。</div><div class="profile-about"><i class="fas fa-fw fa-user"></i><a target="_blank" rel="noopener noreferrer" href="https://eugene-website.herokuapp.com">關於我</a></div><nav class="social-links nav justify-content-center"><a class="nav-link social-link" href="mailto:yujiechen0514@gmail.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i></a><a class="nav-link social-link" target="_blank" href="https://github.com/eugenechen0514" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-github"></i></a><a class="nav-link social-link" target="_blank" href="/index.xml" title="RSS" rel="noopener noreferrer">
+    <i class="fas fa-fw fa-2x fa-rss"></i></a></nav>
+</div>
+  </div>
+</div>
+<section class="taxonomies row card component">
+    <div class="card-body">
+        <ul class="nav nav-tabs" id="myTab" role="tablist"><li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="taxonomySeriesTab" data-bs-toggle="tab" data-bs-target="#taxonomySeries" 
+                        type="button" role="tab" aria-controls="專欄" aria-selected="true">
+                        專欄
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                    <button class="nav-link" id="taxonomyCategoriesTab" data-bs-toggle="tab" data-bs-target="#taxonomyCategories" 
+                        type="button" role="tab" aria-controls="分類" aria-selected="true">
+                        分類
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                    <button class="nav-link" id="taxonomyTagsTab" data-bs-toggle="tab" data-bs-target="#taxonomyTags" 
+                        type="button" role="tab" aria-controls="標籤" aria-selected="true">
+                        標籤
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                <button class="nav-link" id="taxonomyArchivesTab" data-bs-toggle="tab" data-bs-target="#taxonomyArchive" 
+                    type="button" role="tab" aria-controls="taxonomyArchives" aria-selected="true">
+                    歸檔
+                </button>
+            </li>
+        </ul>
+          
+        <div class="tab-content mt-3"><div class="tab-pane active" id="taxonomySeries" role="tabpanel" aria-labelledby="taxonomySeriesTab" tabindex="0"><a href="/series/2019-ithome-ironman/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="用js成為老闆心中的全端工程師 - 2019 iT邦幫忙鐵人賽">
+                        用js成為老闆心中的全端工程師 - 2019 iT邦幫忙鐵人賽<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a></div><div class="tab-pane" id="taxonomyCategories" role="tabpanel" aria-labelledby="taxonomyCategoriesTab" tabindex="0"><a href="/categories/%E9%9A%A8%E6%89%8B%E7%AD%86%E8%A8%98/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="隨手筆記">
+                        隨手筆記<span class="badge badge-sm text-secondary bg-white ms-1">2</span></a><a href="/categories/%E5%BF%83%E5%BE%97/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="心得">
+                        心得<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a></div><div class="tab-pane" id="taxonomyTags" role="tabpanel" aria-labelledby="taxonomyTagsTab" tabindex="0"><a href="/tags/2019-it-%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2019 iT 邦幫忙鐵人賽">
+                        2019 iT 邦幫忙鐵人賽<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a><a href="/tags/%E7%94%A8js%E6%88%90%E7%82%BA%E8%80%81%E9%97%86%E5%BF%83%E4%B8%AD%E7%9A%84%E5%85%A8%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%AB/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="用js成為老闆心中的全端工程師">
+                        用js成為老闆心中的全端工程師<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a><a href="/tags/alphacamp/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="AlphaCamp">
+                        AlphaCamp<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/kafka/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="Kafka">
+                        Kafka<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/mongodb/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="MongoDB">
+                        MongoDB<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/pandas/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="pandas">
+                        pandas<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/python/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="python">
+                        python<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/%E6%8E%A8%E8%96%A6%E7%B3%BB%E7%B5%B1/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="推薦系統">
+                        推薦系統<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a></div><div class="tab-pane" id="taxonomyArchive" role="tabpanel" aria-labelledby="taxonomyArchiveTab" tabindex="0"><a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2022">
+    2022 <span class="badge badge-sm text-secondary bg-white ms-1">1</span>
+    </a>
+<a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2021">
+    2021 <span class="badge badge-sm text-secondary bg-white ms-1">2</span>
+    </a>
+<a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2018">
+    2018 <span class="badge badge-sm text-secondary bg-white ms-1">30</span>
+    </a>
+
+</div>
+        </div>
+    </div>
+</section><div class="post-toc row mb-4 card component" id="postTOC">
+  <div class="card-header">
+    <h2 class="card-title fs-4 my-2 text-surface">目錄</h2>
+  </div>
+  <div class="card-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#基本宣告">基本宣告</a></li>
+    <li><a href="#varletconst-作用域scope-變數生存的空間"><code>var/let/const</code> 作用域(Scope): 變數生存的空間</a>
+      <ul>
+        <li><a href="#在區塊--內宣告的變數可以在區塊外使用嗎">在區塊 (<code>{…}</code>) 內宣告的變數可以在區塊外使用嗎？</a></li>
+        <li><a href="#要怎麼選用它們">要怎麼選用它們？</a></li>
+      </ul>
+    </li>
+    <li><a href="#this呼叫函數的人">this：呼叫函數的人</a></li>
+    <li><a href="#閉包closure把外面的變數關在函數中使用">閉包(Closure)：把外面的變數關在函數中使用</a>
+      <ul>
+        <li><a href="#什麼時候用">什麼時候用？</a></li>
+        <li><a href="#復雜習題">復雜習題</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div><section class="recent-posts row card component">
+  <div class="card-header">
+    <h2 class="card-title my-2 fs-4 text-surface">最近文章</h2>
+  </div>
+  <div class="card-body">
+    <ul class="post-list list-unstyled ms-1"><li class="mb-2">
+        <a href="/posts/reviews/2022-02-06-alphacamp%E6%8E%A8%E8%96%A6%E7%B3%BB%E7%B5%B1%E4%B8%8A%E8%AA%B2%E5%BF%83%E5%BE%97/">AlphaCamp 推薦系統上課心得
+</a>
+      </li><li class="mb-2">
+        <a href="/posts/notes/2021-08-22-%E4%B8%80%E7%AA%BAkafka%E5%85%A7%E9%83%A8%E5%84%B2%E5%AD%98%E8%B3%87%E6%96%99/">一窺 Kafka 內部儲存資料
+</a>
+      </li><li class="mb-2">
+        <a href="/posts/notes/2021-08-01-mongodb-5-%E4%BE%86%E4%BA%86%E6%9C%89%E4%BB%80%E9%BA%BC%E5%80%BC%E5%BE%97%E6%B3%A8%E6%84%8F%E7%9A%84%E6%9B%B4%E6%96%B0/">MongoDb 5 來了，有什麼值得注意的更新呢?
+</a>
+      </li><li class="mb-2">
+        <a href="/series/2019-ithome-ironman/day-30-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-network-%E6%9A%A8%E5%AE%8C%E8%B3%BD%E5%9B%9E%E9%A1%A7/">Day 30- 三周目 - Docker Network 暨完賽回顧
+</a>
+      </li><li class="mb-2">
+        <a href="/series/2019-ithome-ironman/day-29-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-compose%E4%B8%80%E6%AC%A1%E7%AE%A1%E7%90%86%E5%A4%9A%E5%80%8B%E5%AE%B9%E5%99%A8/">Day 29- 三周目 - Docker Compose：一次管理多個容器
+</a>
+      </li></ul>
+  </div>
+</section>
+    
+  </div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><div class="offcanvas offcanvas-bottom h-auto" tabindex="-1" id="offcanvasActionsPanel"
+  aria-labelledby="offcanvasActionsPanelLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title fs-4" id="offcanvasActionsPanelLabel">
+      <i class="fas fa-fw fa-th-large me-1"></i>
+      Actions
+    </h5>
+    <button type="button" class="btn-close ms-auto" data-bs-dismiss="offcanvas" data-bs-target="offcanvasActionsPanel" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body mt-2"><div class="social-share mb-4 d-flex overflow-auto">
+      <a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Twitter Share Button"
+      target="_blank" href="https://twitter.com/intent/tweet?title=Day%205%20-%20%e4%b8%80%e5%91%a8%e7%9b%ae-%20%e5%be%9eVSCode%20debug%20%e6%a8%a1%e5%bc%8f%e7%9c%8b%e4%bd%9c%e7%94%a8%e5%9f%9f%28Scope%29%e3%80%81this%e3%80%81%e9%96%89%e5%8c%85%28Closure%29&url=%2fseries%2f2019-ithome-ironman%2fday-5-%25E4%25B8%2580%25E5%2591%25A8%25E7%259B%25AE-%25E5%25BE%259Evscode-debug-%25E6%25A8%25A1%25E5%25BC%258F%25E7%259C%258B%25E4%25BD%259C%25E7%2594%25A8%25E5%259F%259Fscopethis%25E9%2596%2589%25E5%258C%2585closure%2f">
+        <i class="fab fa-2x fa-fw fa-twitter mb-2"></i> Twitter
+      </a>
+      <a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Facebook Share Button"
+        target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=%2fseries%2f2019-ithome-ironman%2fday-5-%25E4%25B8%2580%25E5%2591%25A8%25E7%259B%25AE-%25E5%25BE%259Evscode-debug-%25E6%25A8%25A1%25E5%25BC%258F%25E7%259C%258B%25E4%25BD%259C%25E7%2594%25A8%25E5%259F%259Fscopethis%25E9%2596%2589%25E5%258C%2585closure%2f">
+        <i class="fab fa-2x fa-fw fa-facebook-f mb-2"></i> Facebook
+      </a>
+    </div>
+    <hr class="mb-4"><div class="actions d-flex overflow-auto align-items-center">
+      <a role="button" class="action action-go-back d-flex flex-column align-items-center me-3" href="javascript: window.history.back();">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-chevron-circle-down" data-fa-transform="rotate-90"></i></span> 返回
+      </a>
+      <a role="button" class="action action-reload-page d-flex flex-column align-items-center me-3">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-redo-alt"></i></span> 刷新
+      </a>
+      <a role="button" class="action action-copy-url d-flex flex-column align-items-center me-3">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-link"></i></span> 複製連結
+      </a>
+    </div>
+  </div>
+</div><nav class="social-links nav justify-content-center mb-2"><a class="nav-link social-link" href="mailto:yujiechen0514@gmail.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i></a><a class="nav-link social-link" target="_blank" href="https://github.com/eugenechen0514" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-github"></i></a><a class="nav-link social-link" target="_blank" href="https://linkedin.com/in/yuchieh-chen-37a48989" title="LinkedIn" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-linkedin-in"></i></a><a class="nav-link social-link" target="_blank" href="https://medium.com/@yujiechen0514" title="Medium" rel="noopener noreferrer">
+        <i class="fab fa-fw fa-2x fa-medium-m"></i></a><a class="nav-link social-link" target="_blank" href="/index.xml" title="RSS" rel="noopener noreferrer">
+    <i class="fas fa-fw fa-2x fa-rss"></i></a></nav>
+<div class="copyright mb-2">
+  Copyright © 2016-2022 EugeneChen. All Rights Reserved.
+</div>
+<div class="powered-by mb-2">
+  Powered by <a class="text-primary" href="https://gohugo.io" target="_blank" rel="noopener noreferrer">Hugo</a> and the <a class="text-primary" href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank" rel="noopener noreferrer">Bootstrap</a> theme.
+</div>
+<div class="sponsors">
+
+
+
+
+
+
+</div>
+</footer>
+<script src="/assets/main/bundle.min.2bc7d6952dbf38d6d2815939c58fc655e72d050b196d9fd99829d8fb23904646.js" integrity="sha256-K8fWlS2/ONbSgVk5xY/GVectBQsZbZ/ZmCnY&#43;yOQRkY=" crossorigin="anonymous" defer></script><script src="/assets/icons/bundle.min.a4bf8247f780c9bf61d579a8efe7129ec790bb98622bf4a29895eb21e689266c.js" integrity="sha256-pL&#43;CR/eAyb9h1Xmo7&#43;cSnseQu5hiK/SimJXrIeaJJmw=" crossorigin="anonymous" defer></script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('\/service-worker.min.js').then(function(reg) {
+      console.log('Successfully registered service worker', reg);
+    }).catch(function(err) {
+      console.warn('Error whilst registering service worker', err);
+    });
+  });
+}
+</script><script src="/assets/viewer/bundle.min.92d4a694e2e9a4c4d89b6998067e2f8e502dc7a951682bb5a160a3004b434908.js" integrity="sha256-ktSmlOLppMTYm2mYBn4vjlAtx6lRaCu1oWCjAEtDSQg=" crossorigin="anonymous" defer></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-ZWYL79X38Y', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+<script src="/assets/docsearch/bundle.min.c6965b5bee044b874617239932d6a7992b217f7949f895a7576980d110fb2ab1.js" integrity="sha256-xpZbW&#43;4ES4dGFyOZMtanmSshf3lJ&#43;JWnV2mA0RD7KrE=" crossorigin="anonymous" defer></script></body>
+</html>

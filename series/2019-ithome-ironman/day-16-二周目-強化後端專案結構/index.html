@@ -1,0 +1,968 @@
+<!doctype html><html class="position-relative" itemscope itemtype="http://schema.org/WebPage" lang="zh-tw" data-theme="auto"
+  
+   data-palette="purple">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Day 16 - 二周目 - 強化後端專案結構 - EugeneChen</title><link rel="apple-touch-icon" href="/images/icons/icon-180x180.png" sizes="180x180">
+<link rel="icon" href="/images/icons/icon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/images/icons/icon-16x16.png" sizes="16x16" type="image/png">
+<link rel="icon" href="/images/icons/favicon.ico">
+<link rel="manifest" href="/manifest.json">
+<meta name="keywords" content="" />
+<meta name="description" content="專案結構介紹、了解如何重構，將商務邏輯拆的更細" /><meta name="robots" content="index, follow" /><meta itemprop="name" content="Day 16 - 二周目 - 強化後端專案結構">
+<meta itemprop="description" content="專案結構介紹、了解如何重構，將商務邏輯拆的更細"><meta itemprop="datePublished" content="2018-10-16T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2018-10-16T00:00:00+00:00" />
+<meta itemprop="wordCount" content="3040">
+<meta itemprop="keywords" content="2019 iT 邦幫忙鐵人賽,用js成為老闆心中的全端工程師," /><meta property="og:title" content="Day 16 - 二周目 - 強化後端專案結構" />
+<meta property="og:description" content="專案結構介紹、了解如何重構，將商務邏輯拆的更細" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/series/2019-ithome-ironman/day-16-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E5%BC%B7%E5%8C%96%E5%BE%8C%E7%AB%AF%E5%B0%88%E6%A1%88%E7%B5%90%E6%A7%8B/" /><meta property="article:section" content="series" />
+<meta property="article:published_time" content="2018-10-16T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-10-16T00:00:00+00:00" /><meta property="og:site_name" content="EugeneChen" />
+<meta property="og:see_also" content="/series/2019-ithome-ironman/day-30-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-network-%E6%9A%A8%E5%AE%8C%E8%B3%BD%E5%9B%9E%E9%A1%A7/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-29-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-compose%E4%B8%80%E6%AC%A1%E7%AE%A1%E7%90%86%E5%A4%9A%E5%80%8B%E5%AE%B9%E5%99%A8/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-28-%E4%B8%89%E5%91%A8%E7%9B%AE-%E8%A3%BD%E4%BD%9C%E8%87%AA%E5%B7%B1%E7%9A%84%E6%98%A0%E5%83%8F%E6%AA%94%E5%8C%85%E6%89%93%E5%89%8D%E5%BE%8C%E7%AB%AF%E6%98%A0%E5%83%8F%E6%AA%94/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-27-%E4%B8%89%E5%91%A8%E7%9B%AE-%E4%BA%94%E5%88%86%E9%90%98%E5%BB%BA%E7%AB%8B%E7%A7%81%E6%9C%89-npm-verdaccio/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-26-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E7%9C%8B%E5%AE%8C%E5%B0%B1%E6%9C%83%E6%9E%B6-docker-%E5%8C%96%E7%9A%84%E6%9C%8D%E5%8B%99/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-25-%E4%BA%8C%E5%91%A8%E7%9B%AE-react-component-%E5%A5%97%E4%BB%B6-material-ui-google-material-design-%E7%9A%84%E5%AF%A6%E4%BD%9C%E5%A5%97%E4%BB%B6/" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Day 16 - 二周目 - 強化後端專案結構"/>
+<meta name="twitter:description" content="專案結構介紹、了解如何重構，將商務邏輯拆的更細"/>
+<meta property="og:image" content="/images/logo.png"/>
+  <meta name="twitter:image" content="/images/logo.png"/><link rel="stylesheet" href="/assets/main/bundle.min.925f59d4c744cc5e99dcc7d02a6f68dff5cceaea488c7667bd947bf7aa35b649.css" integrity="sha256-kl9Z1MdEzF6Z3MfQKm9o3/XM6upIjHZnvZR796o1tkk=" crossorigin="anonymous"><link rel="stylesheet" href="/assets/viewer/bundle.min.f05183267bb952fbc8c63a7178364de2951614ab71d544ec1068ad36c7447ccc.css" integrity="sha256-8FGDJnu5UvvIxjpxeDZN4pUWFKtx1UTsEGitNsdEfMw=" crossorigin="anonymous"><link rel="stylesheet" href="/assets/docsearch/bundle.min.c165d6a127fffa285e6b89ef65362fe921bc0c1fdaefa35f6af069b962bdb50e.css" integrity="sha256-wWXWoSf/&#43;ihea4nvZTYv6SG8DB/a76NfavBpuWK9tQ4=" crossorigin="anonymous"></head>
+  <body><script>const items=["theme","palette"];items.forEach(function(e){const t=localStorage.getItem("hbs:"+e);t&&document.body.parentElement.setAttribute("data-"+e,t)})</script><header><nav class="top-app-bar shadow bg-primary text-white navbar navbar-expand-lg fixed-top">
+  <div class="container"><a class="navbar-brand flex-grow-1 flex-lg-grow-0 text-lg-start ms-2 ms-lg-0 mx-auto me-lg-3" href="/"><picture><img class="logo" alt="Logo" src="/images/logo.webp" loading="lazy"
+    
+     width="136" height="69"
+     />
+</picture>
+EugeneChen
+    </a>
+    <button class="navbar-toggler order-5" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarMenus"
+      aria-controls="navbarMenus" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-ellipsis-h"></i>
+    </button>
+    <div class="offcanvas-lg offcanvas-end flex-grow-1 bg-primary text-white" tabindex="-1" id="navbarMenus" aria-labelledby="navbarMenusLabel">
+      <div class="offcanvas-header px-4 pb-0">
+        <h5 class="offcanvas-title" id="navbarMenusLabel">EugeneChen</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" data-bs-target="#navbarMenus" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body p-4 pt-0 p-lg-0">
+        <hr class="d-lg-none">
+        <ul class="navbar-nav flex-row flex-wrap align-items-center me-auto"><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/posts/">
+              <i class="fas fa-book fa-fw"></i>文章
+            </a>
+          </li><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/series/">
+              <i class="fas fa-bars fa-fw"></i>專欄
+            </a>
+          </li><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/posts/notes/">
+              <i class="fas fa-sticky-note fa-fw"></i>隨手筆記
+            </a>
+          </li></ul>
+        <hr class="d-lg-none">
+        <form class="search-bar mx-auto my-1" action="/search" novalidate>
+  <div class="input-group input-group-sm align-items-center">
+    <span class="btn btn-search disabled position-absolute left-0 border-0">
+      <i class="fas fa-fw fa-search fa-lg"></i>
+    </span>
+    <input class="py-2 form-control rounded search-input" name="q" type="search" aria-label="Search" required>
+  </div>
+</form>
+<hr class="d-lg-none">
+        <ul class="navbar-nav flex-row flex-wrap align-items-center ms-md-auto"><li class="nav-item dropdown py-1 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-globe"></i>
+        <span class="d-lg-none">語言</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown"><li>
+        <a class="dropdown-item" href="/en/">
+            English
+        </a>
+        </li><li>
+        <a class="dropdown-item active" href="/">
+            繁體中文
+        </a>
+        </li></ul>
+</li>
+<li class="nav-item py-1 col-12 col-lg-auto">
+  <div class="vr d-none d-lg-flex h-100 mx-lg-2 text-white"></div>
+  <hr class="d-lg-none my-2">
+</li><li class="nav-item dropdown py-2 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="fontSizeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-font"></i>
+        <span class="d-lg-none">字體大小</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="fontSizeDropdown"><li>
+            <button class="font-size-item dropdown-item" data-size="xs">
+                特小號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="sm">
+                小號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item active" data-size="md">
+                中等
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="lg">
+                大號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="xl">
+                特大號
+            </button>
+        </li></ul>
+</li><li class="nav-item dropdown py-1 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="paletteDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-palette"></i>
+        <span class="d-lg-none">配色</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end px-2" aria-labelledby="paletteDropdown">
+        <div class="row"><li class="col-3 my-1">
+                <a role="button" id="palette-blue" aria-label="藍色"
+                    class="btn btn-sm w-100 palette text-bg-blue" data-palette="blue">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-blue-gray" aria-label="藍灰色"
+                    class="btn btn-sm w-100 palette text-bg-blue-gray" data-palette="blue-gray">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-brown" aria-label="棕色"
+                    class="btn btn-sm w-100 palette text-bg-brown" data-palette="brown">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-cyan" aria-label="青色"
+                    class="btn btn-sm w-100 palette text-bg-cyan" data-palette="cyan">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-green" aria-label="綠色"
+                    class="btn btn-sm w-100 palette text-bg-green" data-palette="green">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-indigo" aria-label="靛青色"
+                    class="btn btn-sm w-100 palette text-bg-indigo" data-palette="indigo">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-orange" aria-label="橙色"
+                    class="btn btn-sm w-100 palette text-bg-orange" data-palette="orange">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-pink" aria-label="粉色"
+                    class="btn btn-sm w-100 palette text-bg-pink" data-palette="pink">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-purple" aria-label="紫色"
+                    class="btn btn-sm w-100 palette text-bg-purple" data-palette="purple">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-red" aria-label="紅色"
+                    class="btn btn-sm w-100 palette text-bg-red" data-palette="red">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-teal" aria-label="藍綠色"
+                    class="btn btn-sm w-100 palette text-bg-teal" data-palette="teal">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-yellow" aria-label="黃色"
+                    class="btn btn-sm w-100 palette text-bg-yellow" data-palette="yellow">
+                </a>
+            </li></div>
+    </ul>
+</li>
+<li class="nav-item dropdown py-2 py-lg-1 col-6 col-lg-auto"><a class="nav-link px-0 px-lg-1" href="#" id="modeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="mode-icon fas fa-fw fa-adjust" id="modeIcon"></i>
+        <span class="d-lg-none">模式</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="modeDropdown"><li class="mode-item" data-color-mode="light" data-icon="sun">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-sun"></i> Light
+            </button>
+        </li><li class="mode-item" data-color-mode="dark" data-icon="moon">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-moon"></i> Dark
+            </button>
+        </li><li class="mode-item active" data-color-mode="auto" data-icon="adjust">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-adjust"></i> Auto
+            </button>
+        </li></ul>
+</li>
+</ul>
+      </div>
+    </div>
+  </div>
+</nav>
+</header>
+<main class="container">
+      <div class="row content"><noscript>
+    <div class="alert alert-danger" role="alert">你的瀏覽器不支持 JavaScript。</div>
+</noscript>
+
+<div class="col-lg-8">
+  <div class="container"><nav class="row card component" aria-label="breadcrumb">
+  <div class="card-body pb-0">
+    <ol class="breadcrumb"><li class="breadcrumb-item text-surface"><a href="/">主頁</a></li><li class="breadcrumb-item text-surface"><a href="/series/">Series</a></li><li class="breadcrumb-item active">Day 16 - 二周目 - 強化後端專案結構</li></ol>
+  </div>
+</nav><div class="post-panel-wrapper position-sticky">
+  <div class="d-flex flex-column component rounded post-panel position-absolute border">
+    
+    <a class="action action-panel-toggler" role="button" title="Panel toggler">
+      <i class="fas fa-fw fa-chevron-circle-down"></i>
+    </a>
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button" title="Sidebar toggler">
+  <i class="fas fa-fw fa-expand-alt" data-fa-transform="rotate-45"></i>
+</a>
+
+    
+
+    
+    <a class="action" href="#post-copyright" role="button" aria-label="Copyright" title="Copyright">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    <a class="action" href="#post-comments" role="button" aria-label="Comments" title="Comments">
+  <i class="fas fa-fw fa-comments"></i>
+</a>
+    <a class="action" href="#postTOC" aria-controls="Table of contents" role="button" title="Table of contents">
+  <i class="fas fa-fw fa-list-alt"></i>
+</a>
+    
+  </div>
+</div>
+<article class="row card component mb-4 post">
+  <div class="card-header ">
+    <h1 class="card-title post-title my-2">Day 16 - 二周目 - 強化後端專案結構
+</h1>
+  </div>
+  <div class="card-body"><div class="post-meta mb-3">
+  <span class="post-date me-1 mb-1" title="創建於 2018-10-16 08:00:00 &#43;0800 CST。">
+    2018-10-16
+  </span><span class="post-reading-time me-1 mb-1">
+    7 分鐘閱讀
+  </span><a href="/series/2019-ithome-ironman/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">用js成為老闆心中的全端工程師 - 2019 IT邦幫忙鐵人賽</a><a href="/tags/2019-it-%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">2019 IT 邦幫忙鐵人賽</a><a href="/tags/%E7%94%A8js%E6%88%90%E7%82%BA%E8%80%81%E9%97%86%E5%BF%83%E4%B8%AD%E7%9A%84%E5%85%A8%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%AB/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">用js成為老闆心中的全端工程師</a></div>
+<div class="post-content mb-3"><p>專案結構介紹、了解如何重構，將商務邏輯拆的更細</p>
+<h1 id="回憶">回憶<a class="anchor ms-1" href="#回憶"><i class="fas fa-link"></i></a></h1>
+<p>昨天我們使用Node.js Driver 操作 MongoDB，寫出下面的程式</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kr">const</span> <span class="nx">MongoClient</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;mongodb&#39;</span><span class="p">).</span><span class="nx">MongoClient</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="c1">// 建立連線
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;mongodb://localhost:27017&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="kr">const</span> <span class="nx">dbName</span> <span class="o">=</span> <span class="s1">&#39;myproject&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="kr">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MongoClient</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="p">{</span><span class="nx">useNewUrlParser</span><span class="o">:</span> <span class="kc">true</span><span class="p">});</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="nx">client</span><span class="p">.</span><span class="nx">connect</span><span class="p">()</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">connectedClient</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;mongodb is connected&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">  <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">
+</span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="c1">// GET /api/mongo
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="c1"></span><span class="nx">router</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/api/mongo&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">  <span class="c1">// 回應
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="c1"></span>  <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">({</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl">    <span class="nx">isConnected</span><span class="o">:</span> <span class="nx">client</span><span class="p">.</span><span class="nx">isConnected</span><span class="p">(),</span>
+</span></span><span class="line"><span class="ln">20</span><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="ln">22</span><span class="cl">
+</span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="c1">// GET /api/echo
+</span></span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="c1"></span><span class="nx">router</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">&#39;/api/echo&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">25</span><span class="cl">  <span class="kr">const</span> <span class="nx">body</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">26</span><span class="cl">
+</span></span><span class="line"><span class="ln">27</span><span class="cl">  <span class="c1">// 處理
+</span></span></span><span class="line"><span class="ln">28</span><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">worker</span> <span class="o">=</span> <span class="p">(</span><span class="kr">async</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">29</span><span class="cl">    <span class="kr">const</span> <span class="nx">db</span> <span class="o">=</span> <span class="nx">client</span><span class="p">.</span><span class="nx">db</span><span class="p">(</span><span class="nx">dbName</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">30</span><span class="cl">    <span class="kr">const</span> <span class="nx">collection</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">collection</span><span class="p">(</span><span class="s1">&#39;echo&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">31</span><span class="cl">    <span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">collection</span><span class="p">.</span><span class="nx">insertOne</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">32</span><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">33</span><span class="cl">    <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">34</span><span class="cl">  <span class="p">})(</span><span class="nx">body</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">35</span><span class="cl">
+</span></span><span class="line"><span class="ln">36</span><span class="cl">  <span class="c1">// 回應
+</span></span></span><span class="line"><span class="ln">37</span><span class="cl"><span class="c1"></span>  <span class="nx">worker</span><span class="p">.</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">38</span><span class="cl">    <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">(</span><span class="nx">body</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">39</span><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="ln">40</span><span class="cl">    <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">next</span><span class="p">);</span> 
+</span></span><span class="line"><span class="ln">41</span><span class="cl"><span class="p">});</span>
+</span></span></code></pre></div><p>會出現以下問題：</p>
+<ul>
+<li>萬一我們的 client，要在別的地方用怎麼辨？</li>
+<li>明明是 <code>.src/router/index.js</code> 路由的程式，為什麼會放資料庫連線邏輯？</li>
+<li>這種混雜的各種邏輯的程式要怎麼寫測試、維護？</li>
+</ul>
+<h1 id="目標">目標<a class="anchor ms-1" href="#目標"><i class="fas fa-link"></i></a></h1>
+<p>要解決以上問題需要從專案結構下手，跟程式語言沒什麼關係。</p>
+<ol>
+<li>專案結構介紹</li>
+<li>了解如何重構，將商務邏輯拆的更細</li>
+</ol>
+<blockquote>
+<p>因為後端的目地、功能的見解、認知不同，每個人做出的專案結構一定會不一樣，這是正常的。</p>
+</blockquote>
+<h1 id="express-的專案結構">express 的專案結構<a class="anchor ms-1" href="#express-的專案結構"><i class="fas fa-link"></i></a></h1>
+<p>打開 <code>hello-mongo</code>，我們先來看看 express 給我們預設的專案結構</p>
+<p><picture><img class="img-fluid" alt="Screen Shot 2018-10-15 at 10.40.51 PM.png" src="/series/2019-ithome-ironman/day-16-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E5%BC%B7%E5%8C%96%E5%BE%8C%E7%AB%AF%E5%B0%88%E6%A1%88%E7%B5%90%E6%A7%8B/resources/1C4AB9D30FDD908C254ED355741F71D5.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<ul>
+<li><strong>bin</strong> : Node.js 入口程式資料夾
+<ul>
+<li><strong>www</strong> : Web Server 的入口</li>
+</ul>
+</li>
+<li><strong>public</strong> : 存放靜態的檔案資料夾</li>
+<li><strong>routes</strong> : 路由資料夾
+<ul>
+<li><strong>index.js</strong> :  <code>/</code> 路由的根目路</li>
+<li><strong>users.js</strong> : 其它路由的範例程式</li>
+</ul>
+</li>
+<li><strong>views</strong> : 網頁樣版 (我們的後端是 application server，不太用的到，不理它)
+<ul>
+<li><strong>error.hbs</strong> : 錯誤發生的網頁樣版</li>
+<li><strong>index.hbs</strong> : 首頁的網頁樣版</li>
+<li><strong>layout.hbs</strong> : 網頁的 layout</li>
+</ul>
+</li>
+<li><strong>app.js</strong> : 應用程式的初始化設定</li>
+</ul>
+<p>express 提供基本的 Web Server 應該要有的目錄，但我們的後端顯然不夠，我們修改成以下</p>
+<ul>
+<li><strong>bin</strong> : Node.js 入口程式資料夾
+<ul>
+<li><strong>www</strong> : Web Server 的入口</li>
+</ul>
+</li>
+<li><strong>public</strong> : 存放靜態的檔案資料夾</li>
+<li><strong>middlewares</strong> : 中間件(middleware)資料夾</li>
+<li><strong>routes</strong> : 跟它同義的有 controller。路由資料夾
+<ul>
+<li><strong>index.js</strong> :  <code>/</code> 路由的根目路</li>
+<li><strong>users.js</strong> : 其它路由的範例程式</li>
+</ul>
+</li>
+<li><strong>app.js</strong> : 應用程式的初始化設定</li>
+<li><strong>services</strong> : 服務模組資料夾</li>
+<li><strong>daos</strong> : 資料存取模組資料夾</li>
+<li><strong>utilities</strong> : 共用工具資料夾</li>
+</ul>
+<p>我們多出了，middlewares、services、daos、utilities，</p>
+<p>middlewares、services、daos、utilities 的職責概述：</p>
+<ul>
+<li><strong>middlewares</strong> : 提供 router 使用的中間件</li>
+<li><strong>services</strong> : 提供 router 使用的模組，函數定義時常會 Web API 有關。可以使用其它 service 和 dao。</li>
+<li><strong>daos</strong> : data acess object，跟它同義的有 repositories / models(mongoose常用)。提供資料存取用，要跟資料庫互動。</li>
+<li><strong>utilities</strong> : 常用的工具庫，整個專案都有可能使用，所以應該要減少相依。常是一些小工具，像是：<code>formatDate(date)</code>。</li>
+</ul>
+<p>我們依照職責概述重構程式</p>
+<h2 id="重構-get-apimongo">重構 GET /api/mongo<a class="anchor ms-1" href="#重構-get-apimongo"><i class="fas fa-link"></i></a></h2>
+<p>重構過程見 <a href="https://github.com/eugenechen0514/ithelp-30dayfullstack-Day16/tree/master/" target="_blank" rel="noopener noreferrer">ithelp-30dayfullstack-Day16<i class="fas fa-external-link-square-alt ms-1"></i></a>
+<a href="https://codesandbox.io/s/github/eugenechen0514/ithelp-30dayfullstack-Day16" target="_blank" rel="noopener noreferrer">網頁版專案 codesandbox(只能看檔案，不能執行)<i class="fas fa-external-link-square-alt ms-1"></i></a>
+我們約定：</p>
+<ol>
+<li>類別為 <code>MongoClient</code> 時，建立的物件會取為 <code>mongoClient</code>，依些類推</li>
+</ol>
+<h3 id="把資料庫連線放到-appjs">把資料庫連線放到 app.js<a class="anchor ms-1" href="#把資料庫連線放到-appjs"><i class="fas fa-link"></i></a></h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kr">const</span> <span class="nx">MongoClient</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;mongodb&#39;</span><span class="p">).</span><span class="nx">MongoClient</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="kr">const</span> <span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;mongodb://localhost:27017&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="kr">const</span> <span class="nx">dbName</span> <span class="o">=</span> <span class="s1">&#39;myproject&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="kr">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MongoClient</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="p">{</span> <span class="nx">useNewUrlParser</span><span class="o">:</span> <span class="kc">true</span> <span class="p">});</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="nx">client</span><span class="p">.</span><span class="nx">connect</span><span class="p">()</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">  <span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">connectedClient</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;mongodb is connected&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">  <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">  <span class="p">});</span>
+</span></span></code></pre></div><p>資料庫連線放在 <strong>app.js</strong> ，因為後端一啟動就一定要連上，不然就後面都不用玩了。</p>
+<h3 id="routersindexjs-控制反轉inversion-of-control">./routers/index.js 控制反轉(Inversion of Control)<a class="anchor ms-1" href="#routersindexjs-控制反轉inversion-of-control"><i class="fas fa-link"></i></a></h3>
+<p>我們用 <code>createRouter(dependencies)</code> 包住整個程式碼，給外界注入相依後才建立 router 物件。</p>
+<p><code>./routers/index.js</code> 相依的是 <code>client</code>，改成在 <code>app.js</code> 中才用 <code>createRouter({client})</code> 注入</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="cm"> * 
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="cm"> * @param {MongoClient} client 
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="kd">function</span> <span class="nx">createRouter</span><span class="p">(</span><span class="nx">dependencies</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">  <span class="c1">// Get dependencies
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="p">{</span><span class="nx">client</span><span class="p">}</span> <span class="o">=</span> <span class="nx">dependencies</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">  <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">client</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">    <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;client is empty&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">
+</span></span><span class="line"><span class="ln">12</span><span class="cl">  <span class="c1">// Create a router
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="c1"></span>  <span class="kd">var</span> <span class="nx">router</span> <span class="o">=</span> <span class="nx">express</span><span class="p">.</span><span class="nx">Router</span><span class="p">();</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">
+</span></span><span class="line"><span class="ln">15</span><span class="cl">  <span class="cm">/* GET home page. */</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl">  <span class="nx">router</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">    <span class="p">...</span><span class="nx">略</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl">
+</span></span><span class="line"><span class="ln">20</span><span class="cl">  <span class="nx">router</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/api/sayHi&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">21</span><span class="cl">    <span class="p">...</span><span class="nx">略</span>
+</span></span><span class="line"><span class="ln">22</span><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="ln">23</span><span class="cl">
+</span></span><span class="line"><span class="ln">24</span><span class="cl">  <span class="nx">router</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">&#39;/api/echo&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">25</span><span class="cl">    <span class="p">...</span><span class="nx">略</span>
+</span></span><span class="line"><span class="ln">26</span><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="ln">27</span><span class="cl">
+</span></span><span class="line"><span class="ln">28</span><span class="cl">  <span class="nx">router</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/api/mongo&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">29</span><span class="cl">    <span class="p">...</span><span class="nx">略</span>
+</span></span><span class="line"><span class="ln">30</span><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="ln">31</span><span class="cl">
+</span></span><span class="line"><span class="ln">32</span><span class="cl">  <span class="kr">const</span> <span class="nx">mongoose</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;mongoose&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">33</span><span class="cl">  <span class="nx">router</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/api/mongoose&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">34</span><span class="cl">    <span class="p">...</span><span class="nx">略</span>
+</span></span><span class="line"><span class="ln">35</span><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="ln">36</span><span class="cl">
+</span></span><span class="line"><span class="ln">37</span><span class="cl">  <span class="k">return</span> <span class="nx">router</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">38</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">39</span><span class="cl">
+</span></span><span class="line"><span class="ln">40</span><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">41</span><span class="cl">  <span class="nx">createRouter</span>
+</span></span><span class="line"><span class="ln">42</span><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><p>然後修改使用<code>./routers/index.js</code> 的 <code>app.js</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="p">...</span><span class="nx">略</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="kr">const</span> <span class="nx">indexRouter</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./routes/index&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="p">...</span><span class="nx">略</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="nx">indexRouter</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="p">...</span><span class="nx">略</span>
+</span></span></code></pre></div><p>改成</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="p">...</span><span class="nx">略</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="kr">const</span> <span class="p">{</span><span class="nx">createRouter</span><span class="o">:</span> <span class="nx">createRootRouter</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./routes/index&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="kr">const</span> <span class="nx">indexRouter</span> <span class="o">=</span> <span class="nx">createRootRouter</span><span class="p">({</span><span class="nx">client</span><span class="p">});</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="p">...</span><span class="nx">略</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="nx">indexRouter</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="p">...</span><span class="nx">略</span>
+</span></span></code></pre></div><h3 id="建立-mongosevice-class放在-servicesmongosevicejs">建立 MongoSevice class，放在 ./services/MongoSevice.js<a class="anchor ms-1" href="#建立-mongosevice-class放在-servicesmongosevicejs"><i class="fas fa-link"></i></a></h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kr">class</span> <span class="nx">MongoService</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="cm">     * 
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="cm">     * @param {MongoClient} mongoClient
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">    <span class="nx">constructor</span><span class="p">({</span><span class="nx">mongoClient</span><span class="p">})</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="nx">mongoClient</span> <span class="o">=</span> <span class="nx">mongoClient</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">
+</span></span><span class="line"><span class="ln">10</span><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="cm">     * 
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="cm">     * @returns Promise&lt;bool&gt;
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">    <span class="nx">isConnected</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">        <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">mongoClient</span><span class="p">.</span><span class="nx">isConnected</span><span class="p">())</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">MongoService</span><span class="p">;</span>
+</span></span></code></pre></div><p>我們把 <code>GET /api/mongo</code> 的實作放在 <code>MongoService</code> 的 <code>isConnected()</code>。</p>
+<h3 id="routersindexjs-使用-mongoservice-物件">./routers/index.js 使用 MongoService 物件<a class="anchor ms-1" href="#routersindexjs-使用-mongoservice-物件"><i class="fas fa-link"></i></a></h3>
+<p>多增加一個 <code>MongoService</code>的依賴項，<code>mongoService</code> 是 <code>MongoService</code> 物件。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="cm"> * 
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="cm"> * @param {object} dependencies
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="cm"> * @param {MongoService} dependencies.mongoService 
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="cm"> * @param {MongoClient} dependencies.client 
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="kd">function</span> <span class="nx">createRouter</span><span class="p">(</span><span class="nx">dependencies</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">  <span class="c1">// Get dependencies
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="p">{</span> <span class="nx">client</span><span class="p">,</span> <span class="nx">mongoService</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">dependencies</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">client</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">    <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;client is empty&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">  <span class="p">...</span><span class="nx">略</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><code>GET /api/mongo</code> 改成使用 <code>MongoService</code> 物件</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"> <span class="nx">router</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/api/mongo&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">    <span class="nx">mongoService</span><span class="p">.</span><span class="nx">isConnected</span><span class="p">()</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">      <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">isConnected</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">        <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">({</span><span class="nx">isConnected</span><span class="p">});</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">      <span class="p">})</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl">      <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">next</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">7</span><span class="cl">  <span class="p">});</span>
+</span></span></code></pre></div><p>最後，在 <code>app.js</code> 建立 <code>MongoService</code> 物件並注入</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="kr">const</span> <span class="nx">MongoService</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./services/MongoService&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="kr">const</span> <span class="nx">mongoService</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MongoService</span><span class="p">({</span><span class="nx">mongoClient</span><span class="o">:</span> <span class="nx">client</span><span class="p">});</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="kr">const</span> <span class="p">{</span><span class="nx">createRouter</span><span class="o">:</span> <span class="nx">createRootRouter</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./routes/index&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="kr">const</span> <span class="nx">indexRouter</span> <span class="o">=</span> <span class="nx">createRootRouter</span><span class="p">({</span><span class="nx">client</span><span class="p">,</span> <span class="nx">mongoService</span><span class="p">});</span>
+</span></span></code></pre></div><p>我們總結一下，我們所做的事</p>
+<ol>
+<li>建立了 <code>MongoService</code> 物件，router 會使用 <code>MongoService</code> 物件完成實作(ex: <code>isConnected()</code>)而不是把實作留在 router，router 因該專心對付 web api的介接</li>
+<li>所有物件的建立被我們移到了 <code>app.js</code>，它們的相依性如下圖(注：這不是UML class diagram，只是表達關係)
+<picture><img class="img-fluid" alt="30天鐵人-Day16-backend-dependencies.png" src="/series/2019-ithome-ironman/day-16-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E5%BC%B7%E5%8C%96%E5%BE%8C%E7%AB%AF%E5%B0%88%E6%A1%88%E7%B5%90%E6%A7%8B/resources/64AB800AFC904187AFE23A01AA856C89.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</li>
+</ol>
+<p>接下來我們可以更進一步重構 <code>POST /api/echo</code>，這樣我們就可以把 <code>./routers/index.js</code> 對 <code>client</code> 的相依拿掉，讓它只面對 <code>MongoService</code>，之後的相依關係就更單純了。
+<picture><img class="img-fluid" alt="30天鐵人-Day16-backend-dependencies-v2.png" src="/series/2019-ithome-ironman/day-16-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E5%BC%B7%E5%8C%96%E5%BE%8C%E7%AB%AF%E5%B0%88%E6%A1%88%E7%B5%90%E6%A7%8B/resources/AF02BBFD81A4D7906BB917D88417DAA3.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<h2 id="重構-post-apiecho">重構 POST /api/echo<a class="anchor ms-1" href="#重構-post-apiecho"><i class="fas fa-link"></i></a></h2>
+<h3 id="把-post-apiecho-的資料庫操作移到-mongoservice-的-insertecho">把 POST /api/echo 的資料庫操作移到 MongoService 的 insertEcho()<a class="anchor ms-1" href="#把-post-apiecho-的資料庫操作移到-mongoservice-的-insertecho"><i class="fas fa-link"></i></a></h3>
+<p>加入 <code>insertEcho()</code>後，移除 <code>POST /api/echo</code> 資料庫操作，且改成使用 <code>MongoService</code> 的 <code>insertEcho()</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kr">class</span> <span class="nx">MongoService</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">    <span class="p">...</span><span class="nx">略</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="cm">     * 
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="cm">     * @param {*} data 
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="cm">     * @returns Promise
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">    <span class="kr">async</span> <span class="nx">insertEcho</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">        <span class="kr">const</span> <span class="nx">dbName</span> <span class="o">=</span> <span class="s1">&#39;myproject&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">        <span class="kr">const</span> <span class="nx">db</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">mongoClient</span><span class="p">.</span><span class="nx">db</span><span class="p">(</span><span class="nx">dbName</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">        <span class="kr">const</span> <span class="nx">collection</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">collection</span><span class="p">(</span><span class="s1">&#39;echo&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">        <span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">collection</span><span class="p">.</span><span class="nx">insertOne</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">        <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><code>./routers/index.js</code> 的 <code>POST /api/echo</code> 變成</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl">  <span class="nx">router</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">&#39;/api/echo&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">    <span class="kr">const</span> <span class="nx">body</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">
+</span></span><span class="line"><span class="ln">4</span><span class="cl">    <span class="nx">mongoService</span><span class="p">.</span><span class="nx">insertEcho</span><span class="p">(</span><span class="nx">body</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">      <span class="p">.</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl">        <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">(</span><span class="nx">body</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">7</span><span class="cl">      <span class="p">})</span>
+</span></span><span class="line"><span class="ln">8</span><span class="cl">      <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">next</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">9</span><span class="cl">  <span class="p">});</span>
+</span></span></code></pre></div><h3 id="移除-routersindexjs-對-client-的相依">移除 ./routers/index.js 對 client 的相依<a class="anchor ms-1" href="#移除-routersindexjs-對-client-的相依"><i class="fas fa-link"></i></a></h3>
+<p>因為 <code>./routers/index.js</code> 沒有用到 client，可以移除了，且<code>app.js</code>中也不用注入 clinet了</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="kr">const</span> <span class="p">{</span><span class="nx">createRouter</span><span class="o">:</span> <span class="nx">createRootRouter</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./routes/index&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="kr">const</span> <span class="nx">indexRouter</span> <span class="o">=</span> <span class="nx">createRootRouter</span><span class="p">({</span><span class="nx">mongoService</span><span class="p">});</span>
+</span></span></code></pre></div><p>我們完成了，得到更單純的關係
+<picture><img class="img-fluid" alt="30天鐵人-Day16-backend-dependencies-v2.png" src="/series/2019-ithome-ironman/day-16-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E5%BC%B7%E5%8C%96%E5%BE%8C%E7%AB%AF%E5%B0%88%E6%A1%88%E7%B5%90%E6%A7%8B/resources/AF02BBFD81A4D7906BB917D88417DAA3.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<h2 id="提出-dao">提出 DAO<a class="anchor ms-1" href="#提出-dao"><i class="fas fa-link"></i></a></h2>
+<p>我自可以更進一步重構出更底層的 DAO 出來，例如 EchoDao</p>
+<h3 id="建立-echodao">建立 EchoDao<a class="anchor ms-1" href="#建立-echodao"><i class="fas fa-link"></i></a></h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kr">class</span> <span class="nx">EchoDao</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="cm">     * 
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="cm">     * @param {MongoClient} mongoClient
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">    <span class="nx">constructor</span><span class="p">({</span> <span class="nx">mongoClient</span> <span class="p">})</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="nx">mongoClient</span> <span class="o">=</span> <span class="nx">mongoClient</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">
+</span></span><span class="line"><span class="ln">10</span><span class="cl">    <span class="nx">insert</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">
+</span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">EchoDao</span><span class="p">;</span>
+</span></span></code></pre></div><h3 id="把-mongoservice-的資料章操作移到-insertecho">把 MongoService 的資料章操作移到 insertEcho()<a class="anchor ms-1" href="#把-mongoservice-的資料章操作移到-insertecho"><i class="fas fa-link"></i></a></h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kr">class</span> <span class="nx">EchoDao</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="cm">     * 
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="cm">     * @param {MongoClient} mongoClient
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">    <span class="nx">constructor</span><span class="p">({</span> <span class="nx">mongoClient</span> <span class="p">})</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="nx">mongoClient</span> <span class="o">=</span> <span class="nx">mongoClient</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">
+</span></span><span class="line"><span class="ln">10</span><span class="cl">    <span class="nx">insert</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">        <span class="kr">const</span> <span class="nx">dbName</span> <span class="o">=</span> <span class="s1">&#39;myproject&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">        <span class="kr">const</span> <span class="nx">db</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">mongoClient</span><span class="p">.</span><span class="nx">db</span><span class="p">(</span><span class="nx">dbName</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">        <span class="kr">const</span> <span class="nx">collection</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">collection</span><span class="p">(</span><span class="s1">&#39;echo&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">        <span class="k">return</span> <span class="kr">await</span> <span class="nx">collection</span><span class="p">.</span><span class="nx">insertOne</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">
+</span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">EchoDao</span><span class="p">;</span>
+</span></span></code></pre></div><h3 id="mongoservice-使用-echodao">MongoService 使用 EchoDao<a class="anchor ms-1" href="#mongoservice-使用-echodao"><i class="fas fa-link"></i></a></h3>
+<p>加入相依</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kr">class</span> <span class="nx">MongoService</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="cm">     * 
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="cm">     * @param {MongoClient} mongoClient
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="cm">     * @param {EchoDao} echoDao
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">    <span class="nx">constructor</span><span class="p">({</span> <span class="nx">mongoClient</span><span class="p">,</span> <span class="nx">echoDao</span> <span class="p">})</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="nx">mongoClient</span> <span class="o">=</span> <span class="nx">mongoClient</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="nx">echoDao</span> <span class="o">=</span> <span class="nx">echoDao</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">    <span class="p">...</span><span class="nx">略</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">
+</span></span><span class="line"><span class="ln">13</span><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="cm">     * 
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="cm">     * @param {*} data 
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="cm">     * @returns Promise
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">    <span class="kr">async</span> <span class="nx">insertEcho</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl">        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">echoDao</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">20</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">22</span><span class="cl">
+</span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">MongoService</span><span class="p">;</span>
+</span></span></code></pre></div><h3 id="修改-appjs-中-mongoservice-的建立">修改 app.js 中 MongoService 的建立<a class="anchor ms-1" href="#修改-appjs-中-mongoservice-的建立"><i class="fas fa-link"></i></a></h3>
+<p>加入 <code>echoDao</code> 的相依</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="kr">const</span> <span class="nx">EchoDao</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./daos/EchoDao&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="kr">const</span> <span class="nx">echoDao</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">EchoDao</span><span class="p">({</span><span class="nx">mongoClient</span><span class="o">:</span> <span class="nx">client</span><span class="p">});</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="kr">const</span> <span class="nx">mongoService</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MongoService</span><span class="p">({</span><span class="nx">mongoClient</span><span class="o">:</span> <span class="nx">client</span><span class="p">,</span> <span class="nx">echoDao</span><span class="p">});</span>
+</span></span></code></pre></div><h2 id="重構總結">重構總結<a class="anchor ms-1" href="#重構總結"><i class="fas fa-link"></i></a></h2>
+<p>經過重構 <code>GET /api/mongo</code> 和 <code>POST /api/echo</code>，我們完成了最後的樣子</p>
+<p><picture><img class="img-fluid" alt="30天鐵人-Day16-backend-dependencies-v３.png" src="/series/2019-ithome-ironman/day-16-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E5%BC%B7%E5%8C%96%E5%BE%8C%E7%AB%AF%E5%B0%88%E6%A1%88%E7%B5%90%E6%A7%8B/resources/F4E66F70CBF39E7C13734DAD1A02965F.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>這結構有什麼好處</p>
+<ol>
+<li>商業邏輯依照職責做分割，加強可維護性</li>
+<li>易於加入新功能，例如：當使用者打 <code>POST /api/echo</code> 時輸入物件時要帶入 <code>token</code> 屬性值，才可寫入資料庫，我們就可以在<code> MongoService</code> 加入這種邏輯。
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="kr">async</span> <span class="nx">insertEcho</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">  <span class="kr">const</span> <span class="p">{</span><span class="nx">token</span><span class="p">}</span> <span class="o">=</span> <span class="nx">data</span><span class="p">;</span> <span class="c1">// 省略了值型別的驗証
+</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="c1"></span>  <span class="k">if</span><span class="p">(</span><span class="nx">token</span> <span class="o">!==</span> <span class="s1">&#39;hello-mongo&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">    <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">reject</span><span class="p">(</span><span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;缺少 token&#39;</span><span class="p">));</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl">  <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">echoDao</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">7</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div></li>
+<li>因為切割了更多檔案，所以容易多人合作且合併程式碼比較不會衝突</li>
+<li>這種依賴注入的結構，更方便寫測試</li>
+</ol>
+<p>但也有缺點</p>
+<ol>
+<li>過度設計(Over design)，增加程式的複雜度</li>
+<li>合作時要學習更多的程式碼，過多的類別可能要花時間了解</li>
+<li>更容易出現過渡函數，像是只把值 by-pass 往下送
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="kr">class</span> <span class="nx">EchoService</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">  <span class="nx">constructor</span><span class="p">({</span> <span class="nx">echoDao</span> <span class="p">})</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">echoDao</span> <span class="o">=</span> <span class="nx">echoDao</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">  <span class="kr">async</span> <span class="nx">insertEcho</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl">    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">echoDao</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">7</span><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="ln">8</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>但可以改成
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="kr">class</span> <span class="nx">EchoService</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">  <span class="nx">constructor</span><span class="p">({</span> <span class="nx">echoDao</span> <span class="p">})</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">echoDao</span> <span class="o">=</span> <span class="nx">echoDao</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">insertEcho</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">echoDao</span><span class="p">.</span><span class="nx">insert</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div></li>
+</ol>
+<p>總結一句話</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">當介面越多，越有彈性、但越複雜；彈性不夠，就抽一個介面
+</span></span></code></pre></div><h2 id="mongoose-重構的注意事項">mongoose 重構的注意事項<a class="anchor ms-1" href="#mongoose-重構的注意事項"><i class="fas fa-link"></i></a></h2>
+<p>mongoose 也可以進行這類似的重構，doa 可以直接用 <a href="https://mongoosejs.com/docs/api.html#Model" target="_blank" rel="noopener noreferrer">model<i class="fas fa-external-link-square-alt ms-1"></i></a> 替換，但有幾點要注意：</p>
+<ol>
+<li><code>const Cat = mongoose.model('Cat', { name: String })</code> 是和 mongoose 註冊 model(只需執行一次就可以)，跟 mongoose 有沒有 connection 沒關西，只當送出資料庫操作(ex: <code>.save()</code>)才會使用到 connection</li>
+<li>要小心 resolve data 的型態。很可能是 model，有時可能要 <code>model.toObject()</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl">  <span class="kr">const</span> <span class="nx">Cat</span> <span class="o">=</span> <span class="nx">mongoose</span><span class="p">.</span><span class="nx">model</span><span class="p">(</span><span class="s1">&#39;Cat&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="nb">String</span> <span class="p">});</span> <span class="c1">// 註冊 Cat model
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="c1"></span>  <span class="nx">router</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">&#39;/api/cat&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">    <span class="kr">const</span> <span class="p">{</span> <span class="nx">name</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">    <span class="kr">const</span> <span class="nx">worker</span> <span class="o">=</span> <span class="p">(</span><span class="kr">async</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">      <span class="kr">const</span> <span class="nx">kitty</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Cat</span><span class="p">({</span> <span class="nx">name</span> <span class="p">});</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">      <span class="c1">// 測試一
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="c1"></span>      <span class="k">return</span> <span class="kr">await</span> <span class="nx">kitty</span><span class="p">.</span><span class="nx">save</span><span class="p">();</span> <span class="c1">// 回傳 model 型態
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">      <span class="c1">// 測試二
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="c1"></span>      <span class="c1">// const result =  await kitty.save();
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="c1"></span>      <span class="c1">// return result.toObject(); // 回傳 ojbect 型態
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="c1"></span>    <span class="p">})();</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">
+</span></span><span class="line"><span class="ln">15</span><span class="cl">    <span class="nx">worker</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl">      <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">data</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">        <span class="nx">data</span><span class="p">.</span><span class="nx">_dirty</span> <span class="o">=</span> <span class="s1">&#39;hi&#39;</span><span class="p">;</span> <span class="c1">// 動態放髒東西
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="c1"></span>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">));</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl">        <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">20</span><span class="cl">      <span class="p">})</span>
+</span></span><span class="line"><span class="ln">21</span><span class="cl">      <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">next</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">22</span><span class="cl">  <span class="p">});</span>
+</span></span></code></pre></div></li>
+<li>若把 mongoose 的 Model 當相依注入給 service 使用，service 就要認識 mongoose 的 api (指 mongoose 的類別、函數)。萬一，有人要換別的 ORM(應該不常發生拉)，就要所有 service 的實作都要換。因此，自己寫 dao 雖然麻煩，但還是有優點的。</li>
+</ol>
+<h1 id="總結">總結<a class="anchor ms-1" href="#總結"><i class="fas fa-link"></i></a></h1>
+<p>今天我們引入了專案結構，並實際重構 <code>GET /api/mongo</code> 和 <code>POST /api/echo</code>， 讓我們的程式碼更有結構性。</p></div></div>
+  <div class="card-footer"><div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-prev">
+    <i class="fas fa-fw fa-chevron-circle-down post-prev-icon" data-fa-transform="rotate-90"></i>
+    <a href="/series/2019-ithome-ironman/day-15-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E7%94%A8-docker-%E7%8E%A9%E8%BD%89-mongodb/">Day 15 - 二周目 - 用 Docker 玩轉 MongoDB
+</a>
+  </div><div class="post-nav post-next">
+    <a href="/series/2019-ithome-ironman/day-17-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E4%BE%9D%E8%B3%B4%E6%B3%A8%E5%85%A5%E8%88%87%E7%B5%84%E6%85%8B%E5%8C%96%E5%B0%88%E6%A1%88/">Day 17 - 二周目 - 依賴注入與組態化專案
+</a>
+    <i class="fas fa-fw fa-chevron-circle-down post-next-icon" data-fa-transform="rotate-270"></i>
+  </div></div></div>
+</article><div class="post-copyright mb-3 row card component" id="post-copyright">
+    <div class="card-header">
+        <h2 class="card-title fs-4 my-2 text-surface">版權</h2>
+    </div>
+    <div class="card-body"><a class="d-flex align-items-center flex-column" target="_blank" rel="license noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_TW">
+  <span><i class="fab fa-fw fa-2x fa-creative-commons"></i><i class="fab fa-fw fa-2x fa-creative-commons-by"></i><i class="fab fa-fw fa-2x fa-creative-commons-nc"></i><i class="fab fa-fw fa-2x fa-creative-commons-sa"></i></span>
+  CC BY-NC-SA 4.0 
+</a>
+
+
+    </div>
+</div><section class="related-posts row card component">
+    <div class="card-header">
+      <h2 class="card-title fs-4 my-2 text-surface">相關文章</h2>
+    </div>
+    <div class="card-body">
+      <ul class="post-list list-unstyled"><li>
+          <a href="/series/2019-ithome-ironman/day-15-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E7%94%A8-docker-%E7%8E%A9%E8%BD%89-mongodb/">Day 15 - 二周目 - 用 Docker 玩轉 MongoDB
+</a>
+          <span class="float-end post-date">2018-10-15
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-14-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E5%BE%9Epromise-%E6%98%87%E8%8F%AF%E5%88%B0-asyncawait/">Day 14 - 二周目 - 從Promise 昇華到 Async:await
+</a>
+          <span class="float-end post-date">2018-10-14
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-13-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E9%9D%9E%E5%90%8C%E6%AD%A5%E7%A5%9E%E5%99%A8-promise/">Day 13 - 二周目 - 非同步神器 Promise
+</a>
+          <span class="float-end post-date">2018-10-13
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-12-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E6%BA%96%E5%82%99%E8%B5%B7%E7%A8%8B%E6%B7%B1%E5%85%A5%E5%BE%8C%E7%AB%AF/">Day 12 - 二周目 - 準備起程深入後端
+</a>
+          <span class="float-end post-date">2018-10-12
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-11-%E4%B8%80%E5%91%A8%E7%9B%AE-%E9%96%8B%E5%A7%8B%E7%8E%A9%E8%BD%89%E5%89%8D%E7%AB%AF%E4%BA%8C/">Day 11 - 一周目- 開始玩轉前端(二)
+</a>
+          <span class="float-end post-date">2018-10-11
+</span>
+        </li></ul>
+    </div>
+  </section><div class="card component row post-comments" id="post-comments">
+  <div class="card-header">
+    <h2 class="card-title my-2 fs-4 text-surface">評論</h2>
+  </div>
+  <div class="card-body"><script src="https://utteranc.es/client.js"
+  repo="eugenechen0514/eugenechen0514.github.io"
+  issue-term="pathname"
+  label="comment"
+  theme="github-light"
+  crossorigin="anonymous"
+  async>
+</script></div>
+</div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container d-flex flex-column">
+    
+    <div class="card row text-center profile component">
+  <div class="card-body">
+    <div class="col-12 d-flex align-items-center justify-content-center"><picture><img class="profile-avatar rounded-circle" alt="EugeneChen" src="/images/profile.webp" loading="lazy" data-viewer-invisible
+    
+     width="298" height="305"
+     />
+</picture>
+</div>
+    <div class="col-12 profile-meta"><div class="profile-name fw-fold fs-lg">EugeneChen</div><div class="profile-bio">軟體工程師，喜歡動手做些有的沒的專案，同時也喜愛數學、攝影、桌球，慢跑、游泳、作菜。</div><div class="profile-about"><i class="fas fa-fw fa-user"></i><a target="_blank" rel="noopener noreferrer" href="https://eugene-website.herokuapp.com">關於我</a></div><nav class="social-links nav justify-content-center"><a class="nav-link social-link" href="mailto:yujiechen0514@gmail.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i></a><a class="nav-link social-link" target="_blank" href="https://github.com/eugenechen0514" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-github"></i></a><a class="nav-link social-link" target="_blank" href="/index.xml" title="RSS" rel="noopener noreferrer">
+    <i class="fas fa-fw fa-2x fa-rss"></i></a></nav>
+</div>
+  </div>
+</div>
+<section class="taxonomies row card component">
+    <div class="card-body">
+        <ul class="nav nav-tabs" id="myTab" role="tablist"><li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="taxonomySeriesTab" data-bs-toggle="tab" data-bs-target="#taxonomySeries" 
+                        type="button" role="tab" aria-controls="專欄" aria-selected="true">
+                        專欄
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                    <button class="nav-link" id="taxonomyCategoriesTab" data-bs-toggle="tab" data-bs-target="#taxonomyCategories" 
+                        type="button" role="tab" aria-controls="分類" aria-selected="true">
+                        分類
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                    <button class="nav-link" id="taxonomyTagsTab" data-bs-toggle="tab" data-bs-target="#taxonomyTags" 
+                        type="button" role="tab" aria-controls="標籤" aria-selected="true">
+                        標籤
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                <button class="nav-link" id="taxonomyArchivesTab" data-bs-toggle="tab" data-bs-target="#taxonomyArchive" 
+                    type="button" role="tab" aria-controls="taxonomyArchives" aria-selected="true">
+                    歸檔
+                </button>
+            </li>
+        </ul>
+          
+        <div class="tab-content mt-3"><div class="tab-pane active" id="taxonomySeries" role="tabpanel" aria-labelledby="taxonomySeriesTab" tabindex="0"><a href="/series/2019-ithome-ironman/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="用js成為老闆心中的全端工程師 - 2019 iT邦幫忙鐵人賽">
+                        用js成為老闆心中的全端工程師 - 2019 iT邦幫忙鐵人賽<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a></div><div class="tab-pane" id="taxonomyCategories" role="tabpanel" aria-labelledby="taxonomyCategoriesTab" tabindex="0"><a href="/categories/%E9%9A%A8%E6%89%8B%E7%AD%86%E8%A8%98/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="隨手筆記">
+                        隨手筆記<span class="badge badge-sm text-secondary bg-white ms-1">2</span></a><a href="/categories/%E5%BF%83%E5%BE%97/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="心得">
+                        心得<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a></div><div class="tab-pane" id="taxonomyTags" role="tabpanel" aria-labelledby="taxonomyTagsTab" tabindex="0"><a href="/tags/2019-it-%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2019 iT 邦幫忙鐵人賽">
+                        2019 iT 邦幫忙鐵人賽<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a><a href="/tags/%E7%94%A8js%E6%88%90%E7%82%BA%E8%80%81%E9%97%86%E5%BF%83%E4%B8%AD%E7%9A%84%E5%85%A8%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%AB/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="用js成為老闆心中的全端工程師">
+                        用js成為老闆心中的全端工程師<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a><a href="/tags/alphacamp/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="AlphaCamp">
+                        AlphaCamp<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/kafka/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="Kafka">
+                        Kafka<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/mongodb/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="MongoDB">
+                        MongoDB<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/pandas/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="pandas">
+                        pandas<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/python/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="python">
+                        python<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/%E6%8E%A8%E8%96%A6%E7%B3%BB%E7%B5%B1/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="推薦系統">
+                        推薦系統<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a></div><div class="tab-pane" id="taxonomyArchive" role="tabpanel" aria-labelledby="taxonomyArchiveTab" tabindex="0"><a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2022">
+    2022 <span class="badge badge-sm text-secondary bg-white ms-1">1</span>
+    </a>
+<a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2021">
+    2021 <span class="badge badge-sm text-secondary bg-white ms-1">2</span>
+    </a>
+<a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2018">
+    2018 <span class="badge badge-sm text-secondary bg-white ms-1">30</span>
+    </a>
+
+</div>
+        </div>
+    </div>
+</section><div class="post-toc row mb-4 card component" id="postTOC">
+  <div class="card-header">
+    <h2 class="card-title fs-4 my-2 text-surface">目錄</h2>
+  </div>
+  <div class="card-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#重構-get-apimongo">重構 <code>GET /api/mongo</code></a>
+      <ul>
+        <li><a href="#把資料庫連線放到-appjs">把資料庫連線放到 <code>app.js</code></a></li>
+        <li><a href="#routersindexjs-控制反轉inversion-of-control"><code>./routers/index.js</code> 控制反轉(Inversion of Control)</a></li>
+        <li><a href="#建立-mongosevice-class放在-servicesmongosevicejs">建立 <code>MongoSevice</code> class，放在 <code>./services/MongoSevice.js</code></a></li>
+        <li><a href="#routersindexjs-使用-mongoservice-物件"><code>./routers/index.js</code> 使用 <code>MongoService</code> 物件</a></li>
+      </ul>
+    </li>
+    <li><a href="#重構-post-apiecho">重構 <code>POST /api/echo</code></a>
+      <ul>
+        <li><a href="#把-post-apiecho-的資料庫操作移到-mongoservice-的-insertecho">把 <code>POST /api/echo</code> 的資料庫操作移到 <code>MongoService</code> 的 <code>insertEcho()</code></a></li>
+        <li><a href="#移除-routersindexjs-對-client-的相依">移除 <code>./routers/index.js</code> 對 client 的相依</a></li>
+      </ul>
+    </li>
+    <li><a href="#提出-dao">提出 DAO</a>
+      <ul>
+        <li><a href="#建立-echodao">建立 <code>EchoDao</code></a></li>
+        <li><a href="#把-mongoservice-的資料章操作移到-insertecho">把 <code>MongoService</code> 的資料章操作移到 <code>insertEcho()</code></a></li>
+        <li><a href="#mongoservice-使用-echodao"><code>MongoService</code> 使用 <code>EchoDao</code></a></li>
+        <li><a href="#修改-appjs-中-mongoservice-的建立">修改 <code>app.js</code> 中 <code>MongoService</code> 的建立</a></li>
+      </ul>
+    </li>
+    <li><a href="#重構總結">重構總結</a></li>
+    <li><a href="#mongoose-重構的注意事項">mongoose 重構的注意事項</a></li>
+  </ul>
+</nav>
+  </div>
+</div><section class="recent-posts row card component">
+  <div class="card-header">
+    <h2 class="card-title my-2 fs-4 text-surface">最近文章</h2>
+  </div>
+  <div class="card-body">
+    <ul class="post-list list-unstyled ms-1"><li class="mb-2">
+        <a href="/posts/reviews/2022-02-06-alphacamp%E6%8E%A8%E8%96%A6%E7%B3%BB%E7%B5%B1%E4%B8%8A%E8%AA%B2%E5%BF%83%E5%BE%97/">AlphaCamp 推薦系統上課心得
+</a>
+      </li><li class="mb-2">
+        <a href="/posts/notes/2021-08-22-%E4%B8%80%E7%AA%BAkafka%E5%85%A7%E9%83%A8%E5%84%B2%E5%AD%98%E8%B3%87%E6%96%99/">一窺 Kafka 內部儲存資料
+</a>
+      </li><li class="mb-2">
+        <a href="/posts/notes/2021-08-01-mongodb-5-%E4%BE%86%E4%BA%86%E6%9C%89%E4%BB%80%E9%BA%BC%E5%80%BC%E5%BE%97%E6%B3%A8%E6%84%8F%E7%9A%84%E6%9B%B4%E6%96%B0/">MongoDb 5 來了，有什麼值得注意的更新呢?
+</a>
+      </li><li class="mb-2">
+        <a href="/series/2019-ithome-ironman/day-30-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-network-%E6%9A%A8%E5%AE%8C%E8%B3%BD%E5%9B%9E%E9%A1%A7/">Day 30- 三周目 - Docker Network 暨完賽回顧
+</a>
+      </li><li class="mb-2">
+        <a href="/series/2019-ithome-ironman/day-29-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-compose%E4%B8%80%E6%AC%A1%E7%AE%A1%E7%90%86%E5%A4%9A%E5%80%8B%E5%AE%B9%E5%99%A8/">Day 29- 三周目 - Docker Compose：一次管理多個容器
+</a>
+      </li></ul>
+  </div>
+</section>
+    
+  </div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><div class="offcanvas offcanvas-bottom h-auto" tabindex="-1" id="offcanvasActionsPanel"
+  aria-labelledby="offcanvasActionsPanelLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title fs-4" id="offcanvasActionsPanelLabel">
+      <i class="fas fa-fw fa-th-large me-1"></i>
+      Actions
+    </h5>
+    <button type="button" class="btn-close ms-auto" data-bs-dismiss="offcanvas" data-bs-target="offcanvasActionsPanel" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body mt-2"><div class="social-share mb-4 d-flex overflow-auto">
+      <a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Twitter Share Button"
+      target="_blank" href="https://twitter.com/intent/tweet?title=Day%2016%20-%20%e4%ba%8c%e5%91%a8%e7%9b%ae%20-%20%e5%bc%b7%e5%8c%96%e5%be%8c%e7%ab%af%e5%b0%88%e6%a1%88%e7%b5%90%e6%a7%8b&url=%2fseries%2f2019-ithome-ironman%2fday-16-%25E4%25BA%258C%25E5%2591%25A8%25E7%259B%25AE-%25E5%25BC%25B7%25E5%258C%2596%25E5%25BE%258C%25E7%25AB%25AF%25E5%25B0%2588%25E6%25A1%2588%25E7%25B5%2590%25E6%25A7%258B%2f">
+        <i class="fab fa-2x fa-fw fa-twitter mb-2"></i> Twitter
+      </a>
+      <a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Facebook Share Button"
+        target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=%2fseries%2f2019-ithome-ironman%2fday-16-%25E4%25BA%258C%25E5%2591%25A8%25E7%259B%25AE-%25E5%25BC%25B7%25E5%258C%2596%25E5%25BE%258C%25E7%25AB%25AF%25E5%25B0%2588%25E6%25A1%2588%25E7%25B5%2590%25E6%25A7%258B%2f">
+        <i class="fab fa-2x fa-fw fa-facebook-f mb-2"></i> Facebook
+      </a>
+    </div>
+    <hr class="mb-4"><div class="actions d-flex overflow-auto align-items-center">
+      <a role="button" class="action action-go-back d-flex flex-column align-items-center me-3" href="javascript: window.history.back();">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-chevron-circle-down" data-fa-transform="rotate-90"></i></span> 返回
+      </a>
+      <a role="button" class="action action-reload-page d-flex flex-column align-items-center me-3">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-redo-alt"></i></span> 刷新
+      </a>
+      <a role="button" class="action action-copy-url d-flex flex-column align-items-center me-3">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-link"></i></span> 複製連結
+      </a>
+    </div>
+  </div>
+</div><nav class="social-links nav justify-content-center mb-2"><a class="nav-link social-link" href="mailto:yujiechen0514@gmail.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i></a><a class="nav-link social-link" target="_blank" href="https://github.com/eugenechen0514" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-github"></i></a><a class="nav-link social-link" target="_blank" href="https://linkedin.com/in/yuchieh-chen-37a48989" title="LinkedIn" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-linkedin-in"></i></a><a class="nav-link social-link" target="_blank" href="https://medium.com/@yujiechen0514" title="Medium" rel="noopener noreferrer">
+        <i class="fab fa-fw fa-2x fa-medium-m"></i></a><a class="nav-link social-link" target="_blank" href="/index.xml" title="RSS" rel="noopener noreferrer">
+    <i class="fas fa-fw fa-2x fa-rss"></i></a></nav>
+<div class="copyright mb-2">
+  Copyright © 2016-2022 EugeneChen. All Rights Reserved.
+</div>
+<div class="powered-by mb-2">
+  Powered by <a class="text-primary" href="https://gohugo.io" target="_blank" rel="noopener noreferrer">Hugo</a> and the <a class="text-primary" href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank" rel="noopener noreferrer">Bootstrap</a> theme.
+</div>
+<div class="sponsors">
+
+
+
+
+
+
+</div>
+</footer>
+<script src="/assets/main/bundle.min.2bc7d6952dbf38d6d2815939c58fc655e72d050b196d9fd99829d8fb23904646.js" integrity="sha256-K8fWlS2/ONbSgVk5xY/GVectBQsZbZ/ZmCnY&#43;yOQRkY=" crossorigin="anonymous" defer></script><script src="/assets/icons/bundle.min.a4bf8247f780c9bf61d579a8efe7129ec790bb98622bf4a29895eb21e689266c.js" integrity="sha256-pL&#43;CR/eAyb9h1Xmo7&#43;cSnseQu5hiK/SimJXrIeaJJmw=" crossorigin="anonymous" defer></script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('\/service-worker.min.js').then(function(reg) {
+      console.log('Successfully registered service worker', reg);
+    }).catch(function(err) {
+      console.warn('Error whilst registering service worker', err);
+    });
+  });
+}
+</script><script src="/assets/viewer/bundle.min.92d4a694e2e9a4c4d89b6998067e2f8e502dc7a951682bb5a160a3004b434908.js" integrity="sha256-ktSmlOLppMTYm2mYBn4vjlAtx6lRaCu1oWCjAEtDSQg=" crossorigin="anonymous" defer></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-ZWYL79X38Y', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+<script src="/assets/docsearch/bundle.min.c6965b5bee044b874617239932d6a7992b217f7949f895a7576980d110fb2ab1.js" integrity="sha256-xpZbW&#43;4ES4dGFyOZMtanmSshf3lJ&#43;JWnV2mA0RD7KrE=" crossorigin="anonymous" defer></script></body>
+</html>

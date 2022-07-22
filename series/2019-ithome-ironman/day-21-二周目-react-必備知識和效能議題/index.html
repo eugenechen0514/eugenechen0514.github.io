@@ -1,0 +1,934 @@
+<!doctype html><html class="position-relative" itemscope itemtype="http://schema.org/WebPage" lang="zh-tw" data-theme="auto"
+  
+   data-palette="purple">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Day 21 - 二周目 - React 必備知識和效能議題 - EugeneChen</title><link rel="apple-touch-icon" href="/images/icons/icon-180x180.png" sizes="180x180">
+<link rel="icon" href="/images/icons/icon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/images/icons/icon-16x16.png" sizes="16x16" type="image/png">
+<link rel="icon" href="/images/icons/favicon.ico">
+<link rel="manifest" href="/manifest.json">
+<meta name="keywords" content="" />
+<meta name="description" content="React 快速入門" /><meta name="robots" content="index, follow" /><meta itemprop="name" content="Day 21 - 二周目 - React 必備知識和效能議題">
+<meta itemprop="description" content="React 快速入門"><meta itemprop="datePublished" content="2018-10-21T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2018-10-21T00:00:00+00:00" />
+<meta itemprop="wordCount" content="3066">
+<meta itemprop="keywords" content="2019 iT 邦幫忙鐵人賽,用js成為老闆心中的全端工程師," /><meta property="og:title" content="Day 21 - 二周目 - React 必備知識和效能議題" />
+<meta property="og:description" content="React 快速入門" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/series/2019-ithome-ironman/day-21-%E4%BA%8C%E5%91%A8%E7%9B%AE-react-%E5%BF%85%E5%82%99%E7%9F%A5%E8%AD%98%E5%92%8C%E6%95%88%E8%83%BD%E8%AD%B0%E9%A1%8C/" /><meta property="article:section" content="series" />
+<meta property="article:published_time" content="2018-10-21T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-10-21T00:00:00+00:00" /><meta property="og:site_name" content="EugeneChen" />
+<meta property="og:see_also" content="/series/2019-ithome-ironman/day-30-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-network-%E6%9A%A8%E5%AE%8C%E8%B3%BD%E5%9B%9E%E9%A1%A7/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-29-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-compose%E4%B8%80%E6%AC%A1%E7%AE%A1%E7%90%86%E5%A4%9A%E5%80%8B%E5%AE%B9%E5%99%A8/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-28-%E4%B8%89%E5%91%A8%E7%9B%AE-%E8%A3%BD%E4%BD%9C%E8%87%AA%E5%B7%B1%E7%9A%84%E6%98%A0%E5%83%8F%E6%AA%94%E5%8C%85%E6%89%93%E5%89%8D%E5%BE%8C%E7%AB%AF%E6%98%A0%E5%83%8F%E6%AA%94/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-27-%E4%B8%89%E5%91%A8%E7%9B%AE-%E4%BA%94%E5%88%86%E9%90%98%E5%BB%BA%E7%AB%8B%E7%A7%81%E6%9C%89-npm-verdaccio/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-26-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E7%9C%8B%E5%AE%8C%E5%B0%B1%E6%9C%83%E6%9E%B6-docker-%E5%8C%96%E7%9A%84%E6%9C%8D%E5%8B%99/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-25-%E4%BA%8C%E5%91%A8%E7%9B%AE-react-component-%E5%A5%97%E4%BB%B6-material-ui-google-material-design-%E7%9A%84%E5%AF%A6%E4%BD%9C%E5%A5%97%E4%BB%B6/" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Day 21 - 二周目 - React 必備知識和效能議題"/>
+<meta name="twitter:description" content="React 快速入門"/>
+<meta property="og:image" content="/images/logo.png"/>
+  <meta name="twitter:image" content="/images/logo.png"/><link rel="stylesheet" href="/assets/main/bundle.min.925f59d4c744cc5e99dcc7d02a6f68dff5cceaea488c7667bd947bf7aa35b649.css" integrity="sha256-kl9Z1MdEzF6Z3MfQKm9o3/XM6upIjHZnvZR796o1tkk=" crossorigin="anonymous"><link rel="stylesheet" href="/assets/viewer/bundle.min.f05183267bb952fbc8c63a7178364de2951614ab71d544ec1068ad36c7447ccc.css" integrity="sha256-8FGDJnu5UvvIxjpxeDZN4pUWFKtx1UTsEGitNsdEfMw=" crossorigin="anonymous"><link rel="stylesheet" href="/assets/docsearch/bundle.min.c165d6a127fffa285e6b89ef65362fe921bc0c1fdaefa35f6af069b962bdb50e.css" integrity="sha256-wWXWoSf/&#43;ihea4nvZTYv6SG8DB/a76NfavBpuWK9tQ4=" crossorigin="anonymous"></head>
+  <body><script>const items=["theme","palette"];items.forEach(function(e){const t=localStorage.getItem("hbs:"+e);t&&document.body.parentElement.setAttribute("data-"+e,t)})</script><header><nav class="top-app-bar shadow bg-primary text-white navbar navbar-expand-lg fixed-top">
+  <div class="container"><a class="navbar-brand flex-grow-1 flex-lg-grow-0 text-lg-start ms-2 ms-lg-0 mx-auto me-lg-3" href="/"><picture><img class="logo" alt="Logo" src="/images/logo.webp" loading="lazy"
+    
+     width="136" height="69"
+     />
+</picture>
+EugeneChen
+    </a>
+    <button class="navbar-toggler order-5" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarMenus"
+      aria-controls="navbarMenus" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-ellipsis-h"></i>
+    </button>
+    <div class="offcanvas-lg offcanvas-end flex-grow-1 bg-primary text-white" tabindex="-1" id="navbarMenus" aria-labelledby="navbarMenusLabel">
+      <div class="offcanvas-header px-4 pb-0">
+        <h5 class="offcanvas-title" id="navbarMenusLabel">EugeneChen</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" data-bs-target="#navbarMenus" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body p-4 pt-0 p-lg-0">
+        <hr class="d-lg-none">
+        <ul class="navbar-nav flex-row flex-wrap align-items-center me-auto"><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/posts/">
+              <i class="fas fa-book fa-fw"></i>文章
+            </a>
+          </li><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/series/">
+              <i class="fas fa-bars fa-fw"></i>專欄
+            </a>
+          </li><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/posts/notes/">
+              <i class="fas fa-sticky-note fa-fw"></i>隨手筆記
+            </a>
+          </li></ul>
+        <hr class="d-lg-none">
+        <form class="search-bar mx-auto my-1" action="/search" novalidate>
+  <div class="input-group input-group-sm align-items-center">
+    <span class="btn btn-search disabled position-absolute left-0 border-0">
+      <i class="fas fa-fw fa-search fa-lg"></i>
+    </span>
+    <input class="py-2 form-control rounded search-input" name="q" type="search" aria-label="Search" required>
+  </div>
+</form>
+<hr class="d-lg-none">
+        <ul class="navbar-nav flex-row flex-wrap align-items-center ms-md-auto"><li class="nav-item dropdown py-1 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-globe"></i>
+        <span class="d-lg-none">語言</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown"><li>
+        <a class="dropdown-item" href="/en/">
+            English
+        </a>
+        </li><li>
+        <a class="dropdown-item active" href="/">
+            繁體中文
+        </a>
+        </li></ul>
+</li>
+<li class="nav-item py-1 col-12 col-lg-auto">
+  <div class="vr d-none d-lg-flex h-100 mx-lg-2 text-white"></div>
+  <hr class="d-lg-none my-2">
+</li><li class="nav-item dropdown py-2 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="fontSizeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-font"></i>
+        <span class="d-lg-none">字體大小</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="fontSizeDropdown"><li>
+            <button class="font-size-item dropdown-item" data-size="xs">
+                特小號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="sm">
+                小號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item active" data-size="md">
+                中等
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="lg">
+                大號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="xl">
+                特大號
+            </button>
+        </li></ul>
+</li><li class="nav-item dropdown py-1 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="paletteDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-palette"></i>
+        <span class="d-lg-none">配色</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end px-2" aria-labelledby="paletteDropdown">
+        <div class="row"><li class="col-3 my-1">
+                <a role="button" id="palette-blue" aria-label="藍色"
+                    class="btn btn-sm w-100 palette text-bg-blue" data-palette="blue">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-blue-gray" aria-label="藍灰色"
+                    class="btn btn-sm w-100 palette text-bg-blue-gray" data-palette="blue-gray">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-brown" aria-label="棕色"
+                    class="btn btn-sm w-100 palette text-bg-brown" data-palette="brown">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-cyan" aria-label="青色"
+                    class="btn btn-sm w-100 palette text-bg-cyan" data-palette="cyan">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-green" aria-label="綠色"
+                    class="btn btn-sm w-100 palette text-bg-green" data-palette="green">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-indigo" aria-label="靛青色"
+                    class="btn btn-sm w-100 palette text-bg-indigo" data-palette="indigo">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-orange" aria-label="橙色"
+                    class="btn btn-sm w-100 palette text-bg-orange" data-palette="orange">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-pink" aria-label="粉色"
+                    class="btn btn-sm w-100 palette text-bg-pink" data-palette="pink">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-purple" aria-label="紫色"
+                    class="btn btn-sm w-100 palette text-bg-purple" data-palette="purple">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-red" aria-label="紅色"
+                    class="btn btn-sm w-100 palette text-bg-red" data-palette="red">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-teal" aria-label="藍綠色"
+                    class="btn btn-sm w-100 palette text-bg-teal" data-palette="teal">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-yellow" aria-label="黃色"
+                    class="btn btn-sm w-100 palette text-bg-yellow" data-palette="yellow">
+                </a>
+            </li></div>
+    </ul>
+</li>
+<li class="nav-item dropdown py-2 py-lg-1 col-6 col-lg-auto"><a class="nav-link px-0 px-lg-1" href="#" id="modeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="mode-icon fas fa-fw fa-adjust" id="modeIcon"></i>
+        <span class="d-lg-none">模式</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="modeDropdown"><li class="mode-item" data-color-mode="light" data-icon="sun">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-sun"></i> Light
+            </button>
+        </li><li class="mode-item" data-color-mode="dark" data-icon="moon">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-moon"></i> Dark
+            </button>
+        </li><li class="mode-item active" data-color-mode="auto" data-icon="adjust">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-adjust"></i> Auto
+            </button>
+        </li></ul>
+</li>
+</ul>
+      </div>
+    </div>
+  </div>
+</nav>
+</header>
+<main class="container">
+      <div class="row content"><noscript>
+    <div class="alert alert-danger" role="alert">你的瀏覽器不支持 JavaScript。</div>
+</noscript>
+
+<div class="col-lg-8">
+  <div class="container"><nav class="row card component" aria-label="breadcrumb">
+  <div class="card-body pb-0">
+    <ol class="breadcrumb"><li class="breadcrumb-item text-surface"><a href="/">主頁</a></li><li class="breadcrumb-item text-surface"><a href="/series/">Series</a></li><li class="breadcrumb-item active">Day 21 - 二周目 - React 必備知識和效能議題</li></ol>
+  </div>
+</nav><div class="post-panel-wrapper position-sticky">
+  <div class="d-flex flex-column component rounded post-panel position-absolute border">
+    
+    <a class="action action-panel-toggler" role="button" title="Panel toggler">
+      <i class="fas fa-fw fa-chevron-circle-down"></i>
+    </a>
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button" title="Sidebar toggler">
+  <i class="fas fa-fw fa-expand-alt" data-fa-transform="rotate-45"></i>
+</a>
+
+    
+
+    
+    <a class="action" href="#post-copyright" role="button" aria-label="Copyright" title="Copyright">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    <a class="action" href="#post-comments" role="button" aria-label="Comments" title="Comments">
+  <i class="fas fa-fw fa-comments"></i>
+</a>
+    <a class="action" href="#postTOC" aria-controls="Table of contents" role="button" title="Table of contents">
+  <i class="fas fa-fw fa-list-alt"></i>
+</a>
+    
+  </div>
+</div>
+<article class="row card component mb-4 post">
+  <div class="card-header ">
+    <h1 class="card-title post-title my-2">Day 21 - 二周目 - React 必備知識和效能議題
+</h1>
+  </div>
+  <div class="card-body"><div class="post-meta mb-3">
+  <span class="post-date me-1 mb-1" title="創建於 2018-10-21 08:00:00 &#43;0800 CST。">
+    2018-10-21
+  </span><span class="post-reading-time me-1 mb-1">
+    7 分鐘閱讀
+  </span><a href="/series/2019-ithome-ironman/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">用js成為老闆心中的全端工程師 - 2019 IT邦幫忙鐵人賽</a><a href="/tags/2019-it-%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">2019 IT 邦幫忙鐵人賽</a><a href="/tags/%E7%94%A8js%E6%88%90%E7%82%BA%E8%80%81%E9%97%86%E5%BF%83%E4%B8%AD%E7%9A%84%E5%85%A8%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%AB/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">用js成為老闆心中的全端工程師</a></div>
+<div class="post-content mb-3"><p>React 快速入門</p>
+<h1 id="回憶">回憶<a class="anchor ms-1" href="#回憶"><i class="fas fa-link"></i></a></h1>
+<p>昨天我們以非同步函數測試的例子說明單元測試/整合測試的差異，到目前為止後端的部分打算先到這。之後的幾天，我們開始進入研究前端。</p>
+<h1 id="目標">目標<a class="anchor ms-1" href="#目標"><i class="fas fa-link"></i></a></h1>
+<p>在 <a href="https://ithelp.ithome.com.tw/articles/10200933" target="_blank" rel="noopener noreferrer">Day 11 - 一周目- 開始玩轉前端(二)<i class="fas fa-external-link-square-alt ms-1"></i></a> 中，我們用 <code>create-react-app</code> 建立了前端專案，並打出非同步的 request 向後端索取資料。</p>
+<ol>
+<li>如何找專案結構</li>
+<li>React 必需知道的事
+<ol>
+<li><code>state</code> 和 <code>prop</code> 的差異</li>
+<li>React component lifecycle (生命周期)</li>
+</ol>
+</li>
+<li>React 的效能議題
+<ol>
+<li>小心的在 <code>render()</code> 中用箭頭函數</li>
+<li><code>key</code> 屬性在動態的 react element array 應該要使用</li>
+</ol>
+</li>
+</ol>
+<h1 id="如何找專案結構">如何找專案結構？<a class="anchor ms-1" href="#如何找專案結構"><i class="fas fa-link"></i></a></h1>
+<p>我們用 <code>create-react-app</code> 建立了前端專案，它幫我們產生了專案，資料夾如下：
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-21 at 1.55.18 PM.png" src="/series/2019-ithome-ironman/day-21-%E4%BA%8C%E5%91%A8%E7%9B%AE-react-%E5%BF%85%E5%82%99%E7%9F%A5%E8%AD%98%E5%92%8C%E6%95%88%E8%83%BD%E8%AD%B0%E9%A1%8C/resources/757AA78CE48DC5B1623C5980214E9448.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+
+顯然只有基本的結構，我們未來要組織出自己的結構。</p>
+<p>除了自己組識，上網找別人做好的也是個不錯的選擇，很多人會把初始專案結構放在 github 之類的，不過你得先知道你想要的組合套餐</p>
+<p>Bundle tool： <a href="https://webpack.js.org/" target="_blank" rel="noopener noreferrer">webpack<i class="fas fa-external-link-square-alt ms-1"></i></a> / <a href="https://gulpjs.com/" target="_blank" rel="noopener noreferrer">gulp<i class="fas fa-external-link-square-alt ms-1"></i></a>
+UI framework: <a href="https://reactjs.org/" target="_blank" rel="noopener noreferrer">React<i class="fas fa-external-link-square-alt ms-1"></i></a> / <a href="https://vuejs.org/" target="_blank" rel="noopener noreferrer">Vue.js<i class="fas fa-external-link-square-alt ms-1"></i></a>
+State container: <a href="https://redux.js.org/" target="_blank" rel="noopener noreferrer">Redux<i class="fas fa-external-link-square-alt ms-1"></i></a> / <a href="https://vuejs.org/" target="_blank" rel="noopener noreferrer">Vue.js<i class="fas fa-external-link-square-alt ms-1"></i></a>
+Asynchronous flow: <a href="https://redux-observable.js.org/" target="_blank" rel="noopener noreferrer">redux-observable<i class="fas fa-external-link-square-alt ms-1"></i></a>(<a href="https://rxjs-dev.firebaseapp.com/" target="_blank" rel="noopener noreferrer">rxjs<i class="fas fa-external-link-square-alt ms-1"></i></a>) / <a href="https://redux-saga.js.org/" target="_blank" rel="noopener noreferrer">redux-saga<i class="fas fa-external-link-square-alt ms-1"></i></a>
+CSS extension: <a href="https://sass-lang.com/" target="_blank" rel="noopener noreferrer">sass<i class="fas fa-external-link-square-alt ms-1"></i></a> / <a href="http://lesscss.org/" target="_blank" rel="noopener noreferrer">less<i class="fas fa-external-link-square-alt ms-1"></i></a></p>
+<p>每個套件都有自己的特色、能不能搭配的問題、全部套件怎麼串起來、串起來的資料夾要怎麼組織…等問題，所以只能按照自己的需求查。</p>
+<p>例如，上 google 查 <code>webpack react redux sass</code>，會看到</p>
+<p><picture><img class="img-fluid" alt="Screen Shot 2018-10-21 at 2.19.06 PM.png" src="/series/2019-ithome-ironman/day-21-%E4%BA%8C%E5%91%A8%E7%9B%AE-react-%E5%BF%85%E5%82%99%E7%9F%A5%E8%AD%98%E5%92%8C%E6%95%88%E8%83%BD%E8%AD%B0%E9%A1%8C/resources/0735A48B08ABC8DF3D5FBBF653B367C2.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>把它們下載看看，它們怎麼組織專案的
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-21 at 2.22.47 PM.png" src="/series/2019-ithome-ironman/day-21-%E4%BA%8C%E5%91%A8%E7%9B%AE-react-%E5%BF%85%E5%82%99%E7%9F%A5%E8%AD%98%E5%92%8C%E6%95%88%E8%83%BD%E8%AD%B0%E9%A1%8C/resources/95CCF8CA9B156FF62BF7F71D23621A99.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-21 at 2.24.13 PM.png" src="/series/2019-ithome-ironman/day-21-%E4%BA%8C%E5%91%A8%E7%9B%AE-react-%E5%BF%85%E5%82%99%E7%9F%A5%E8%AD%98%E5%92%8C%E6%95%88%E8%83%BD%E8%AD%B0%E9%A1%8C/resources/93A0AFC13A234B6A540B5329E37B2FFE.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>學習最快的方法就是模仿，從別人做好的專案架構學習、查文件資料，會學的很快的。</p>
+<p>不過我們目前還是用 <code>create-react-app</code> 建立前端專案，沒有要下載別人的，未來會慢慢的建立起自己的專案架構。</p>
+<h1 id="網頁基本知識">網頁基本知識<a class="anchor ms-1" href="#網頁基本知識"><i class="fas fa-link"></i></a></h1>
+<p>HTML 和　CSS 基本知識可以自行上網查，但有點東西我覺得要了解才可以：</p>
+<ul>
+<li>HTML Tags： <code>&lt;div /&gt;</code>、<code>&lt;input&gt;</code></li>
+<li>HTML Attributes：<code>style</code>, <code>class</code></li>
+<li>HTML Event Attributes: <code>onClick</code></li>
+<li>CSS: Box Model (圖來自<a href="https://www.w3schools.com/css/css_boxmodel.asp" target="_blank" rel="noopener noreferrer">CSS Box Model<i class="fas fa-external-link-square-alt ms-1"></i></a>)
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-21 at 2.36.19 PM.png" src="/series/2019-ithome-ironman/day-21-%E4%BA%8C%E5%91%A8%E7%9B%AE-react-%E5%BF%85%E5%82%99%E7%9F%A5%E8%AD%98%E5%92%8C%E6%95%88%E8%83%BD%E8%AD%B0%E9%A1%8C/resources/D4988BB703B33924BB6A317DC513AA36.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</li>
+</ul>
+<p>剩下的東西我覺得想要什麼再查就可以了。</p>
+<p>下接來，我們要回到 javascript 的部分：前端框架 React</p>
+<h1 id="react-必需知道的事">React 必需知道的事<a class="anchor ms-1" href="#react-必需知道的事"><i class="fas fa-link"></i></a></h1>
+<p>我們已經在 <a href="https://ithelp.ithome.com.tw/articles/10200734" target="_blank" rel="noopener noreferrer">Day 10- 一周目- 開始玩轉前端(一)<i class="fas fa-external-link-square-alt ms-1"></i></a>介紹過 React，之後會針對一些重要的概念說明。</p>
+<h2 id="每個-react-component-class-都有-state-prop-propschildren">每個 React component class 都有 state. prop (props.children)<a class="anchor ms-1" href="#每個-react-component-class-都有-state-prop-propschildren"><i class="fas fa-link"></i></a></h2>
+<p>我們舉個例子：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kr">class</span> <span class="nx">LoginBox</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">    <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">        <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">            <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">                <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">onClickButton</span><span class="p">}</span><span class="o">&gt;</span><span class="nx">送出</span><span class="o">&lt;</span><span class="err">/button&gt;</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">            <span class="o">&lt;</span><span class="err">/div&gt;</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">
+</span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="kr">class</span> <span class="nx">App</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">  <span class="nx">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">    <span class="kr">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">handleClick</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">handleClick</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span> <span class="c1">// 讓 handleClick() 裡的 this 是 App 自已
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="c1"></span>  <span class="p">}</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl">  
+</span></span><span class="line"><span class="ln">17</span><span class="cl">  <span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">    <span class="nx">message</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="ln">20</span><span class="cl">  
+</span></span><span class="line"><span class="ln">21</span><span class="cl">  <span class="nx">handleClick</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">22</span><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span>
+</span></span><span class="line"><span class="ln">23</span><span class="cl">      <span class="nx">message</span><span class="o">:</span> <span class="s1">&#39;hi&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">24</span><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="ln">25</span><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="ln">26</span><span class="cl">  
+</span></span><span class="line"><span class="ln">27</span><span class="cl">  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">28</span><span class="cl">    <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="ln">29</span><span class="cl">      <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="ln">30</span><span class="cl">        <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">message</span><span class="p">}</span>
+</span></span><span class="line"><span class="ln">31</span><span class="cl">        <span class="o">&lt;</span><span class="nx">LoginBox</span> <span class="nx">onClickButton</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleClick</span><span class="p">}</span> <span class="o">/&gt;</span>
+</span></span><span class="line"><span class="ln">32</span><span class="cl">      <span class="o">&lt;</span><span class="err">/div&gt;</span>
+</span></span><span class="line"><span class="ln">33</span><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="ln">34</span><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="ln">35</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><a href="https://jsfiddle.net/eugenechen/f5j3zo0p/25/" target="_blank" rel="noopener noreferrer">Live Demo<i class="fas fa-external-link-square-alt ms-1"></i></a></p>
+<blockquote>
+<p>請特別注意 <code>this.handleClick = this.handleClick.bind(this)</code> 這行，它一定要寫，因為引起 <code>this.props.onClickButton</code>(或者說 <code>this.handleClick</code>) 執行的人不是 <code>App</code>，所以 <code>handleClick</code> 裡面的 <code>this</code> 不是指向 <code>App</code>。因此，在 <code>constructor()</code> 中用 <code>bind(this)</code>，可以把 <code>this</code> 綁定成 <code>App</code>，如此 <code>this.setState()</code> 才能使用。</p>
+</blockquote>
+<p><code>LobinBox</code> 和 <code>App</code>  它們各自有兩個一定有的屬性：</p>
+<ol>
+<li><code>props</code>： 是由呼叫者(caller)所送入元件中。例如 <code>LobinBox</code> 的 <code>onClickButton</code> 的值是由 <code>App</code> 在 <code>render()</code>時送入。<code>props</code> 在 <code>LoginBox</code> 中不會改變，從 <code>LoginBox</code> 角度看，<code>props</code> 就像是常數。</li>
+<li><code>state</code>： 是元件本身的狀態，它會隨著時間或行為改變。例如 <code>App</code> 的 <code>state.message</code> 點擊 <code>&lt;button /&gt;</code> 後會執行 <code>this.props.onClickButton</code>，又因為其值是 <code>App</code> 中的 <code>handleClick</code>，所以 <code>handleClick()</code> 會執行，導致 <code>setState()</code>執行使  <code>App</code> 的 <code>state.message</code> 改變。</li>
+</ol>
+<p><picture><img class="img-fluid" alt="30天鐵人-Day21-props-state.png" src="/series/2019-ithome-ironman/day-21-%E4%BA%8C%E5%91%A8%E7%9B%AE-react-%E5%BF%85%E5%82%99%E7%9F%A5%E8%AD%98%E5%92%8C%E6%95%88%E8%83%BD%E8%AD%B0%E9%A1%8C/resources/08F209F384572A56B67113F9BE596442.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>另外，<code>props.children</code> 這個很特別，它指向被 component 包著的內容，見下面</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kr">class</span> <span class="nx">LoginBox</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">    <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">        <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">            <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">                <span class="o">&lt;</span><span class="nx">h3</span><span class="o">&gt;</span><span class="k">in</span> <span class="nx">LoginBox</span><span class="o">&lt;</span><span class="err">/h3&gt;</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">                <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">children</span><span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">                <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">onClickButton</span><span class="p">}</span><span class="o">&gt;</span><span class="nx">送出</span><span class="o">&lt;</span><span class="err">/button&gt;</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">            <span class="o">&lt;</span><span class="err">/div&gt;</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">
+</span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="kr">class</span> <span class="nx">App</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">  <span class="p">...</span><span class="nx">略</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl">    <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">      <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">        <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">message</span><span class="p">}</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl">        <span class="o">&lt;</span><span class="nx">LoginBox</span> <span class="nx">onClickButton</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleClick</span><span class="p">}</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="ln">20</span><span class="cl">          <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">message</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/div&gt;</span>
+</span></span><span class="line"><span class="ln">21</span><span class="cl">        <span class="o">&lt;</span><span class="err">/LoginBox&gt;</span>
+</span></span><span class="line"><span class="ln">22</span><span class="cl">      <span class="o">&lt;</span><span class="err">/div&gt;</span>
+</span></span><span class="line"><span class="ln">23</span><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="ln">24</span><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><a href="https://jsfiddle.net/eugenechen/hzo93qs4/5/" target="_blank" rel="noopener noreferrer">Live Demo<i class="fas fa-external-link-square-alt ms-1"></i></a></p>
+<p><code>LoginBox</code> 裡面的 <code>this.props.children</code> 等於在 <code>App</code> 中被 <code>LoginBox</code> 標籤包著的所有內容。因此，為了渲染被 <code>LoginBox</code> 包著的內容，必需在 <code>LoginBox</code> 的 <code>render</code> 中 <code>{this.props.children}</code> 渲染，不然就看不到裡面的東西。</p>
+<h2 id="react-component-lifecycle-生命周期">React component lifecycle (生命周期)<a class="anchor ms-1" href="#react-component-lifecycle-生命周期"><i class="fas fa-link"></i></a></h2>
+<p>它們是 component 的在建立和渲染的過程 (見官方文件：<a href="https://reactjs.org/docs/react-component.html#the-component-lifecycle" target="_blank" rel="noopener noreferrer">Component lifecycle<i class="fas fa-external-link-square-alt ms-1"></i></a>)，以 component class 出發，react 會做以下的過程：
+<picture><img class="img-fluid" alt="30天鐵人-Day21-component.png" src="/series/2019-ithome-ironman/day-21-%E4%BA%8C%E5%91%A8%E7%9B%AE-react-%E5%BF%85%E5%82%99%E7%9F%A5%E8%AD%98%E5%92%8C%E6%95%88%E8%83%BD%E8%AD%B0%E9%A1%8C/resources/F568B18253FD2F069C8062652F2F17E7.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>依照 component 被掛入 DOM 的過程分類，過程中會依序執行 component 的函數如下：</p>
+<ul>
+<li>Mounting：component 被建立實體(即 react element)後，渲染到 DOM 的過程
+<ol>
+<li><code>constructor()</code></li>
+<li><code>static getDerivedStateFromProps()</code></li>
+<li><code>render()</code></li>
+<li><code>componentDidMount()</code></li>
+</ol>
+</li>
+<li>Updating：當 component 收到新的 props 時，更新狀態(state)，再重渲染到 DOM 的過程
+<ol>
+<li><code>static getDerivedStateFromProps()</code></li>
+<li><code>shouldComponentUpdate()</code></li>
+<li><code>render()</code></li>
+<li><code>getSnapshotBeforeUpdate()</code></li>
+<li><code>componentDidUpdate()</code></li>
+</ol>
+</li>
+<li>Unmounting：當 component 不被使用，從 DOM 移除的過程
+<ol>
+<li><code>componentWillUnmount()</code></li>
+</ol>
+</li>
+<li>Error Handling：當 component 錯誤發生時
+<ol>
+<li><code>componentDidCatch()</code></li>
+</ol>
+</li>
+</ul>
+<p><a href="https://codesandbox.io/s/8k9k5zm060" target="_blank" rel="noopener noreferrer">Live Demo - React lifecycle<i class="fas fa-external-link-square-alt ms-1"></i></a>
+範列中把所有的過程都印了出來，可以去看看
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-21 at 4.43.18 PM.png" src="/series/2019-ithome-ironman/day-21-%E4%BA%8C%E5%91%A8%E7%9B%AE-react-%E5%BF%85%E5%82%99%E7%9F%A5%E8%AD%98%E5%92%8C%E6%95%88%E8%83%BD%E8%AD%B0%E9%A1%8C/resources/4DF9C9385FD1AF5C90253B0946E0E8F2.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>當你按下 <strong>toggle</strong>，就會看到 <strong>Updating</strong> 的過程
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-21 at 4.44.16 PM.png" src="/series/2019-ithome-ironman/day-21-%E4%BA%8C%E5%91%A8%E7%9B%AE-react-%E5%BF%85%E5%82%99%E7%9F%A5%E8%AD%98%E5%92%8C%E6%95%88%E8%83%BD%E8%AD%B0%E9%A1%8C/resources/3FCB2694B424A7573FCFE4937A34ECD2.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>我們雖然不會一一解釋它們，但有東西要釐清一下：</p>
+<ol>
+<li><code>getDerivedStateFromProps(props, state)</code> 是指由使用者送入的 <code>props</code>(可能是Mounting 或 Updating 發生) 和目前 compoent 的 <code>state</code> 產生新的 <code>state</code>。我們之前過 <code>state</code> 是 compoent 本身的狀態，當有新 <code>props</code> 來到時自然需要改變。</li>
+<li><a href="https://reactjs.org/docs/react-component.html#render" target="_blank" rel="noopener noreferrer"><code>render()</code><i class="fas fa-external-link-square-alt ms-1"></i></a>
+<ul>
+<li>不單只能回傳一個 react element，它可以回傳更多型態(見<a href="https://reactjs.org/docs/react-component.html#render" target="_blank" rel="noopener noreferrer"><code>render()</code><i class="fas fa-external-link-square-alt ms-1"></i></a>。不過，比較常回傳一個 react element 或 react element array。</li>
+<li>一般而言，<code>render()</code> 回傳的 react element，只能有最上層的標籤
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">  <span class="nx">reutrn</span> <span class="o">&lt;</span><span class="nx">root</span><span class="o">&gt;</span><span class="p">{...}</span><span class="o">&lt;</span><span class="err">/root&gt;</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>但 <code>React.Fragment</code> 可以讓你放更多 react element
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">  <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">    <span class="o">&lt;</span><span class="nx">React</span><span class="p">.</span><span class="nx">Fragment</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">      <span class="o">&lt;</span><span class="nx">ChildA</span> <span class="o">/&gt;</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">      <span class="o">&lt;</span><span class="nx">ChildB</span> <span class="o">/&gt;</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl">      <span class="o">&lt;</span><span class="nx">ChildC</span> <span class="o">/&gt;</span>
+</span></span><span class="line"><span class="ln">7</span><span class="cl">    <span class="o">&lt;</span><span class="err">/React.Fragment&gt;</span>
+</span></span><span class="line"><span class="ln">8</span><span class="cl">  <span class="p">);</span>
+</span></span><span class="line"><span class="ln">9</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div></li>
+</ul>
+</li>
+<li><code>componentDidMount()</code> 是react element 掛入 DOM 後才會被執行，適合拿來做為要求後端資料的觸發點</li>
+<li><code>getSnapshotBeforeUpdate()</code> 回傳的值，會在 <code>componentDidUpdate(prevProps, prevState, snapshot)</code> 的參數拿到。可以拿來保留畫面更新前的資料。</li>
+</ol>
+<h2 id="react-的效能議題">React 的效能議題<a class="anchor ms-1" href="#react-的效能議題"><i class="fas fa-link"></i></a></h2>
+<h3 id="在-render-中用箭頭函數每次都有新的函數">在 render() 中用箭頭函數：每次都有新的函數<a class="anchor ms-1" href="#在-render-中用箭頭函數每次都有新的函數"><i class="fas fa-link"></i></a></h3>
+<p>以前面的例子：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="o">&lt;</span><span class="nx">LoginBox</span> <span class="nx">onClickButton</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleClick</span><span class="p">}</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">  <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">message</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/div&gt;</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="o">&lt;</span><span class="err">/LoginBox&gt;</span>
+</span></span></code></pre></div><p>你可以寫成</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="o">&lt;</span><span class="nx">LoginBox</span> <span class="nx">onClickButton</span><span class="o">=</span><span class="p">{()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">      <span class="nx">message</span><span class="o">:</span> <span class="s1">&#39;hi&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="p">}}</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl">  <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">message</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/div&gt;</span>
+</span></span><span class="line"><span class="ln">7</span><span class="cl"><span class="o">&lt;</span><span class="err">/LoginBox&gt;</span>
+</span></span></code></pre></div><p>是可以這樣做，也不用 <code>.bind(this)</code> 了，但要知道每次 <code>render()</code> 都會重新產生一個新的函數，有時對效能不是很好。因此，可以使用 <code>this.handleClick</code> 這個成員函數，這個就只有一個實體。記得! 若在<code>this.handleClick</code>實作中要用到 <code>this</code>，要記得 <code>.bind(this)</code>。</p>
+<h3 id="key-attribute-會用在-react-virtual-dom-比較動態-react-element-array-要加-key">Key Attribute 會用在 React Virtual DOM 比較：動態 react element array 要加 key<a class="anchor ms-1" href="#key-attribute-會用在-react-virtual-dom-比較動態-react-element-array-要加-key"><i class="fas fa-link"></i></a></h3>
+<p>我們考慮 react element 放在 array 中，React Virtual DOM 在進行比較(新舊React Virtual DOM 比較)決定是否要更新 DOM 時，它可能會參考屬性 key，這東西很特別。</p>
+<h4 id="沒有用-key-的-react-element">沒有用 key 的 react element<a class="anchor ms-1" href="#沒有用-key-的-react-element"><i class="fas fa-link"></i></a></h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl">          <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">toggle</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">            <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">              <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">                <span class="o">&lt;</span><span class="nx">Child</span> <span class="nx">text</span><span class="o">=</span><span class="s2">&#34;3&#34;</span> <span class="o">/&gt;</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">                <span class="o">&lt;</span><span class="nx">Child</span> <span class="nx">text</span><span class="o">=</span><span class="s2">&#34;4&#34;</span> <span class="o">/&gt;</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">                <span class="o">&lt;</span><span class="nx">Child</span> <span class="nx">text</span><span class="o">=</span><span class="s2">&#34;5&#34;</span> <span class="o">/&gt;</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">              <span class="o">&lt;</span><span class="err">/div&gt;</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">            <span class="p">);</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">          <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">            <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">              <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">                <span class="o">&lt;</span><span class="nx">Child</span> <span class="nx">text</span><span class="o">=</span><span class="s2">&#34;3&#34;</span> <span class="o">/&gt;</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">                <span class="o">&lt;</span><span class="nx">Child</span> <span class="nx">text</span><span class="o">=</span><span class="s2">&#34;5&#34;</span> <span class="o">/&gt;</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">              <span class="o">&lt;</span><span class="err">/div&gt;</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">            <span class="p">);</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl">          <span class="p">}</span>
+</span></span></code></pre></div><p>React Virtual DOM比較時是按照順序，若 toggle 從 false 到 true：</p>
+<table>
+<thead>
+<tr>
+<th>false -&gt; true</th>
+<th>false</th>
+<th>true</th>
+<th>true -&gt; false</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>updating</td>
+<td><code>&lt;Child text=&quot;3&quot; /&gt;</code></td>
+<td><code>&lt;Child text=&quot;3&quot; /&gt;</code></td>
+<td>updating</td>
+</tr>
+<tr>
+<td>updating</td>
+<td><code>&lt;Child text=&quot;5&quot; /&gt;</code></td>
+<td><code>&lt;Child text=&quot;4&quot; /&gt;</code></td>
+<td>updating</td>
+</tr>
+<tr>
+<td>mounting</td>
+<td>null</td>
+<td><code>&lt;Child text=&quot;5&quot; /&gt;</code></td>
+<td>unmounting</td>
+</tr>
+</tbody>
+</table>
+<p>一開始<code>toggle = false</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">Child =&gt; 3 constructor 
+</span></span><span class="line"><span class="ln">2</span><span class="cl">Child =&gt; 3 getDerivedStateFromProps 
+</span></span><span class="line"><span class="ln">3</span><span class="cl">Child =&gt; 3 render 
+</span></span><span class="line"><span class="ln">4</span><span class="cl">Child =&gt; 5 constructor 
+</span></span><span class="line"><span class="ln">5</span><span class="cl">Child =&gt; 5 getDerivedStateFromProps 
+</span></span><span class="line"><span class="ln">6</span><span class="cl">Child =&gt; 5 render 
+</span></span><span class="line"><span class="ln">7</span><span class="cl">Child =&gt; 3 componentDidMount 
+</span></span><span class="line"><span class="ln">8</span><span class="cl">Child =&gt; 5 componentDidMount 
+</span></span></code></pre></div><p>由 <code>false</code> -&gt; <code>true</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln"> 1</span><span class="cl">Child =&gt; 3 getDerivedStateFromProps 
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">Child =&gt; 3 shouldComponentUpdate 
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">Child =&gt; 3 render 
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">Child =&gt; 4 getDerivedStateFromProps 
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">Child =&gt; 5 shouldComponentUpdate 
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">Child =&gt; 4 render 
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">Child =&gt; 5 constructor 
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">Child =&gt; 5 getDerivedStateFromProps 
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">Child =&gt; 5 render 
+</span></span><span class="line"><span class="ln">10</span><span class="cl">Child =&gt; 3 getSnapshotBeforeUpdate prev =3       -&gt; updating, 一樣留著
+</span></span><span class="line"><span class="ln">11</span><span class="cl">Child =&gt; 4 getSnapshotBeforeUpdate prev =5       -&gt; updating, 之前是 5 
+</span></span><span class="line"><span class="ln">12</span><span class="cl">Child =&gt; 3 componentDidUpdate 
+</span></span><span class="line"><span class="ln">13</span><span class="cl">Child =&gt; 4 componentDidUpdate 
+</span></span><span class="line"><span class="ln">14</span><span class="cl">Child =&gt; 5 componentDidMount                     -&gt; mounting, 5
+</span></span></code></pre></div><p>由 <code>true</code> -&gt; <code>false</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln"> 1</span><span class="cl">Child =&gt; 3 getDerivedStateFromProps 
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">Child =&gt; 3 shouldComponentUpdate 
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">Child =&gt; 3 render 
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">Child =&gt; 5 getDerivedStateFromProps 
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">Child =&gt; 4 shouldComponentUpdate 
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">Child =&gt; 5 render 
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">Child =&gt; 3 getSnapshotBeforeUpdate prev =3       -&gt; updating, 一樣留著
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">Child =&gt; 5 getSnapshotBeforeUpdate prev =4       -&gt; updating, 之前是 4 
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">Child =&gt; 5 componentWillUnmount                  -&gt; unmounting, 5
+</span></span><span class="line"><span class="ln">10</span><span class="cl">Child =&gt; 3 componentDidUpdate 
+</span></span><span class="line"><span class="ln">11</span><span class="cl">Child =&gt; 5 componentDidUpdate 
+</span></span></code></pre></div><h4 id="當有-key-的-react-element">當有 key 的 react element<a class="anchor ms-1" href="#當有-key-的-react-element"><i class="fas fa-link"></i></a></h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl">          <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">toggle</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">            <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">              <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">                <span class="o">&lt;</span><span class="nx">Child</span> <span class="nx">key</span><span class="o">=</span><span class="s2">&#34;b3&#34;</span> <span class="nx">text</span><span class="o">=</span><span class="s2">&#34;b3&#34;</span> <span class="o">/&gt;</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">                <span class="o">&lt;</span><span class="nx">Child</span> <span class="nx">key</span><span class="o">=</span><span class="s2">&#34;b4&#34;</span> <span class="nx">text</span><span class="o">=</span><span class="s2">&#34;b4&#34;</span> <span class="o">/&gt;</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">                <span class="o">&lt;</span><span class="nx">Child</span> <span class="nx">key</span><span class="o">=</span><span class="s2">&#34;b5&#34;</span> <span class="nx">text</span><span class="o">=</span><span class="s2">&#34;b5&#34;</span> <span class="o">/&gt;</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">              <span class="o">&lt;</span><span class="err">/div&gt;</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">            <span class="p">);</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">          <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">            <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">              <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">                <span class="o">&lt;</span><span class="nx">Child</span> <span class="nx">key</span><span class="o">=</span><span class="s2">&#34;b3&#34;</span> <span class="nx">text</span><span class="o">=</span><span class="s2">&#34;b3&#34;</span> <span class="o">/&gt;</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">                <span class="o">&lt;</span><span class="nx">Child</span> <span class="nx">key</span><span class="o">=</span><span class="s2">&#34;b5&#34;</span> <span class="nx">text</span><span class="o">=</span><span class="s2">&#34;b5&#34;</span> <span class="o">/&gt;</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">              <span class="o">&lt;</span><span class="err">/div&gt;</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">            <span class="p">);</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl">          <span class="p">}</span>
+</span></span></code></pre></div><p>當 react element key 新舊 key 都一樣，表示 DOM element 存在，只要進行 DOM element 更新
+當 react element key 新出現，表示要進行插入新的 DOM element。
+當 react element key 在新的 React Virtual DOM 消失，表示移除 DOM element。</p>
+<table>
+<thead>
+<tr>
+<th>false -&gt; true</th>
+<th>false</th>
+<th>true</th>
+<th>true -&gt; false</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>updating</td>
+<td><code>&lt;Child key=&quot;b3&quot;　text=&quot;3&quot; /&gt;</code></td>
+<td><code>&lt;Child key=&quot;b3&quot; text=&quot;3&quot; /&gt;</code></td>
+<td>updating</td>
+</tr>
+<tr>
+<td>mounting</td>
+<td>　null</td>
+<td><code>&lt;Child key=&quot;b4&quot; text=&quot;4&quot; /&gt;</code></td>
+<td>unmounting</td>
+</tr>
+<tr>
+<td>updating</td>
+<td><code>&lt;Child key=&quot;b5&quot;　text=&quot;5&quot; /&gt;</code></td>
+<td><code>&lt;Child　key=&quot;b5&quot; text=&quot;5&quot; /&gt;</code></td>
+<td>updating</td>
+</tr>
+</tbody>
+</table>
+<p>一開始<code>toggle = false</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">Child =&gt; b3 constructor 
+</span></span><span class="line"><span class="ln">2</span><span class="cl">Child =&gt; b3 getDerivedStateFromProps 
+</span></span><span class="line"><span class="ln">3</span><span class="cl">Child =&gt; b3 render 
+</span></span><span class="line"><span class="ln">4</span><span class="cl">Child =&gt; b5 constructor 
+</span></span><span class="line"><span class="ln">5</span><span class="cl">Child =&gt; b5 getDerivedStateFromProps 
+</span></span><span class="line"><span class="ln">6</span><span class="cl">Child =&gt; b5 render 
+</span></span><span class="line"><span class="ln">7</span><span class="cl">Child =&gt; b3 componentDidMount 
+</span></span><span class="line"><span class="ln">8</span><span class="cl">Child =&gt; b5 componentDidMount 
+</span></span></code></pre></div><p>由 <code>false</code> -&gt; <code>true</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln"> 1</span><span class="cl">Child =&gt; b3 getDerivedStateFromProps 
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">Child =&gt; b3 shouldComponentUpdate 
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">Child =&gt; b3 render 
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">Child =&gt; b4 constructor 
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">Child =&gt; b4 getDerivedStateFromProps 
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">Child =&gt; b4 render 
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">Child =&gt; b5 getDerivedStateFromProps 
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">Child =&gt; b5 shouldComponentUpdate 
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">Child =&gt; b5 render 
+</span></span><span class="line"><span class="ln">10</span><span class="cl">Child =&gt; b3 getSnapshotBeforeUpdate prev =b3             -&gt; updating, 一樣留著
+</span></span><span class="line"><span class="ln">11</span><span class="cl">Child =&gt; b5 getSnapshotBeforeUpdate prev =b5             -&gt; updating, 一樣留著
+</span></span><span class="line"><span class="ln">12</span><span class="cl">Child =&gt; b3 componentDidUpdate 
+</span></span><span class="line"><span class="ln">13</span><span class="cl">Child =&gt; b4 componentDidMount                            -&gt; mounting, 4
+</span></span><span class="line"><span class="ln">14</span><span class="cl">Child =&gt; b5 componentDidUpdate
+</span></span></code></pre></div><p>由 <code>true</code> -&gt; <code>false</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln"> 1</span><span class="cl">Child =&gt; b3 getDerivedStateFromProps 
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">Child =&gt; b3 shouldComponentUpdate 
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">Child =&gt; b3 render 
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">Child =&gt; b5 getDerivedStateFromProps 
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">Child =&gt; b5 shouldComponentUpdate 
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">Child =&gt; b5 render
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">Child =&gt; b3 getSnapshotBeforeUpdate prev =b3             -&gt; updating, 一樣留著
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">Child =&gt; b5 getSnapshotBeforeUpdate prev =b5             -&gt; updating, 一樣留著
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">Child =&gt; b4 componentWillUnmount                         -&gt; unmounting, 4
+</span></span><span class="line"><span class="ln">10</span><span class="cl">Child =&gt; b3 componentDidUpdate 
+</span></span><span class="line"><span class="ln">11</span><span class="cl">Child =&gt; b5 componentDidUpdate 
+</span></span></code></pre></div><p><a href="https://codesandbox.io/s/x235rwqzq4" target="_blank" rel="noopener noreferrer">完整的程式見 Live Dome<i class="fas fa-external-link-square-alt ms-1"></i></a></p>
+<h4 id="key-attribute-小總結">Key Attribute 小總結<a class="anchor ms-1" href="#key-attribute-小總結"><i class="fas fa-link"></i></a></h4>
+<ol>
+<li>一般我們不用刻意的設定 key 值，React 會儘量的重新使用 DOM element，但</li>
+<li>若你的 react element array 是會動態改動的，最好加入 <code>key</code>。React 也會對沒加 <code>key</code> 的  react element array 發出警告，因為不加key可能會使舊的 react element 留下來，它可能會有殘留的 <code>prop/state</code> 導致畫面殘留。</li>
+</ol>
+<h1 id="總結">總結<a class="anchor ms-1" href="#總結"><i class="fas fa-link"></i></a></h1>
+<p>今天我們先談了如何找前端專案結構，再深入談 React 的 <code>state</code> 和 <code>prop</code> ，以及生命周期。最後以箭頭函數和 <code>key</code> 屬性的效能議題做為結尾。</p></div></div>
+  <div class="card-footer"><div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-prev">
+    <i class="fas fa-fw fa-chevron-circle-down post-prev-icon" data-fa-transform="rotate-90"></i>
+    <a href="/series/2019-ithome-ironman/day-20-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E8%BB%9F%E9%AB%94%E6%B8%AC%E8%A9%A6testing%E6%B8%AC%E8%A9%A6%E9%9D%9E%E5%90%8C%E6%AD%A5%E5%87%BD%E6%95%B8/">Day 20 - 二周目 - 軟體測試(Testing)：測試非同步函數
+</a>
+  </div><div class="post-nav post-next">
+    <a href="/series/2019-ithome-ironman/day-22-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E8%A7%A3%E9%96%8B-stateprop-%E7%9A%84%E6%B7%B7%E4%BA%82flux-%E5%96%AE%E5%90%91%E8%B3%87%E6%96%99%E6%B5%81%E6%9A%A8-redux-%E9%AB%94%E9%A9%97/">Day 22 - 二周目 - 解開 State:prop 的混亂：Flux 單向資料流暨 Redux 體驗
+</a>
+    <i class="fas fa-fw fa-chevron-circle-down post-next-icon" data-fa-transform="rotate-270"></i>
+  </div></div></div>
+</article><div class="post-copyright mb-3 row card component" id="post-copyright">
+    <div class="card-header">
+        <h2 class="card-title fs-4 my-2 text-surface">版權</h2>
+    </div>
+    <div class="card-body"><a class="d-flex align-items-center flex-column" target="_blank" rel="license noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_TW">
+  <span><i class="fab fa-fw fa-2x fa-creative-commons"></i><i class="fab fa-fw fa-2x fa-creative-commons-by"></i><i class="fab fa-fw fa-2x fa-creative-commons-nc"></i><i class="fab fa-fw fa-2x fa-creative-commons-sa"></i></span>
+  CC BY-NC-SA 4.0 
+</a>
+
+
+    </div>
+</div><section class="related-posts row card component">
+    <div class="card-header">
+      <h2 class="card-title fs-4 my-2 text-surface">相關文章</h2>
+    </div>
+    <div class="card-body">
+      <ul class="post-list list-unstyled"><li>
+          <a href="/series/2019-ithome-ironman/day-20-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E8%BB%9F%E9%AB%94%E6%B8%AC%E8%A9%A6testing%E6%B8%AC%E8%A9%A6%E9%9D%9E%E5%90%8C%E6%AD%A5%E5%87%BD%E6%95%B8/">Day 20 - 二周目 - 軟體測試(Testing)：測試非同步函數
+</a>
+          <span class="float-end post-date">2018-10-20
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-19-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E5%B8%B3%E5%AF%86%E8%AA%8D%E8%A8%BC%E8%88%87jwt-json-web-token%E5%82%B3%E9%81%9E/">Day 19 - 二周目 - 帳密認証與JWT (JSON Web Token)傳遞
+</a>
+          <span class="float-end post-date">2018-10-19
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-18-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E5%89%96%E6%9E%90-express-%E8%B7%AF%E7%94%B1router-%E4%B8%89%E6%A6%82%E5%BF%B5%E4%B8%AD%E9%96%93%E4%BB%B6middleware%E8%B7%AF%E7%94%B1routing%E6%B5%81stream/">Day 18 - 二周目 - 剖析 Express 路由(router) 三概念：中間件(middleware)、路由(routing)、流(stream)
+</a>
+          <span class="float-end post-date">2018-10-18
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-17-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E4%BE%9D%E8%B3%B4%E6%B3%A8%E5%85%A5%E8%88%87%E7%B5%84%E6%85%8B%E5%8C%96%E5%B0%88%E6%A1%88/">Day 17 - 二周目 - 依賴注入與組態化專案
+</a>
+          <span class="float-end post-date">2018-10-17
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-16-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E5%BC%B7%E5%8C%96%E5%BE%8C%E7%AB%AF%E5%B0%88%E6%A1%88%E7%B5%90%E6%A7%8B/">Day 16 - 二周目 - 強化後端專案結構
+</a>
+          <span class="float-end post-date">2018-10-16
+</span>
+        </li></ul>
+    </div>
+  </section><div class="card component row post-comments" id="post-comments">
+  <div class="card-header">
+    <h2 class="card-title my-2 fs-4 text-surface">評論</h2>
+  </div>
+  <div class="card-body"><script src="https://utteranc.es/client.js"
+  repo="eugenechen0514/eugenechen0514.github.io"
+  issue-term="pathname"
+  label="comment"
+  theme="github-light"
+  crossorigin="anonymous"
+  async>
+</script></div>
+</div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container d-flex flex-column">
+    
+    <div class="card row text-center profile component">
+  <div class="card-body">
+    <div class="col-12 d-flex align-items-center justify-content-center"><picture><img class="profile-avatar rounded-circle" alt="EugeneChen" src="/images/profile.webp" loading="lazy" data-viewer-invisible
+    
+     width="298" height="305"
+     />
+</picture>
+</div>
+    <div class="col-12 profile-meta"><div class="profile-name fw-fold fs-lg">EugeneChen</div><div class="profile-bio">軟體工程師，喜歡動手做些有的沒的專案，同時也喜愛數學、攝影、桌球，慢跑、游泳、作菜。</div><div class="profile-about"><i class="fas fa-fw fa-user"></i><a target="_blank" rel="noopener noreferrer" href="https://eugene-website.herokuapp.com">關於我</a></div><nav class="social-links nav justify-content-center"><a class="nav-link social-link" href="mailto:yujiechen0514@gmail.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i></a><a class="nav-link social-link" target="_blank" href="https://github.com/eugenechen0514" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-github"></i></a><a class="nav-link social-link" target="_blank" href="/index.xml" title="RSS" rel="noopener noreferrer">
+    <i class="fas fa-fw fa-2x fa-rss"></i></a></nav>
+</div>
+  </div>
+</div>
+<section class="taxonomies row card component">
+    <div class="card-body">
+        <ul class="nav nav-tabs" id="myTab" role="tablist"><li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="taxonomySeriesTab" data-bs-toggle="tab" data-bs-target="#taxonomySeries" 
+                        type="button" role="tab" aria-controls="專欄" aria-selected="true">
+                        專欄
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                    <button class="nav-link" id="taxonomyCategoriesTab" data-bs-toggle="tab" data-bs-target="#taxonomyCategories" 
+                        type="button" role="tab" aria-controls="分類" aria-selected="true">
+                        分類
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                    <button class="nav-link" id="taxonomyTagsTab" data-bs-toggle="tab" data-bs-target="#taxonomyTags" 
+                        type="button" role="tab" aria-controls="標籤" aria-selected="true">
+                        標籤
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                <button class="nav-link" id="taxonomyArchivesTab" data-bs-toggle="tab" data-bs-target="#taxonomyArchive" 
+                    type="button" role="tab" aria-controls="taxonomyArchives" aria-selected="true">
+                    歸檔
+                </button>
+            </li>
+        </ul>
+          
+        <div class="tab-content mt-3"><div class="tab-pane active" id="taxonomySeries" role="tabpanel" aria-labelledby="taxonomySeriesTab" tabindex="0"><a href="/series/2019-ithome-ironman/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="用js成為老闆心中的全端工程師 - 2019 iT邦幫忙鐵人賽">
+                        用js成為老闆心中的全端工程師 - 2019 iT邦幫忙鐵人賽<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a></div><div class="tab-pane" id="taxonomyCategories" role="tabpanel" aria-labelledby="taxonomyCategoriesTab" tabindex="0"><a href="/categories/%E9%9A%A8%E6%89%8B%E7%AD%86%E8%A8%98/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="隨手筆記">
+                        隨手筆記<span class="badge badge-sm text-secondary bg-white ms-1">2</span></a><a href="/categories/%E5%BF%83%E5%BE%97/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="心得">
+                        心得<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a></div><div class="tab-pane" id="taxonomyTags" role="tabpanel" aria-labelledby="taxonomyTagsTab" tabindex="0"><a href="/tags/2019-it-%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2019 iT 邦幫忙鐵人賽">
+                        2019 iT 邦幫忙鐵人賽<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a><a href="/tags/%E7%94%A8js%E6%88%90%E7%82%BA%E8%80%81%E9%97%86%E5%BF%83%E4%B8%AD%E7%9A%84%E5%85%A8%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%AB/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="用js成為老闆心中的全端工程師">
+                        用js成為老闆心中的全端工程師<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a><a href="/tags/alphacamp/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="AlphaCamp">
+                        AlphaCamp<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/kafka/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="Kafka">
+                        Kafka<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/mongodb/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="MongoDB">
+                        MongoDB<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/pandas/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="pandas">
+                        pandas<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/python/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="python">
+                        python<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/%E6%8E%A8%E8%96%A6%E7%B3%BB%E7%B5%B1/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="推薦系統">
+                        推薦系統<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a></div><div class="tab-pane" id="taxonomyArchive" role="tabpanel" aria-labelledby="taxonomyArchiveTab" tabindex="0"><a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2022">
+    2022 <span class="badge badge-sm text-secondary bg-white ms-1">1</span>
+    </a>
+<a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2021">
+    2021 <span class="badge badge-sm text-secondary bg-white ms-1">2</span>
+    </a>
+<a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2018">
+    2018 <span class="badge badge-sm text-secondary bg-white ms-1">30</span>
+    </a>
+
+</div>
+        </div>
+    </div>
+</section><div class="post-toc row mb-4 card component" id="postTOC">
+  <div class="card-header">
+    <h2 class="card-title fs-4 my-2 text-surface">目錄</h2>
+  </div>
+  <div class="card-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#每個-react-component-class-都有-state-prop-propschildren">每個 React component class 都有 state. prop (props.children)</a></li>
+    <li><a href="#react-component-lifecycle-生命周期">React component lifecycle (生命周期)</a></li>
+    <li><a href="#react-的效能議題">React 的效能議題</a>
+      <ul>
+        <li><a href="#在-render-中用箭頭函數每次都有新的函數">在 <code>render()</code> 中用箭頭函數：每次都有新的函數</a></li>
+        <li><a href="#key-attribute-會用在-react-virtual-dom-比較動態-react-element-array-要加-key">Key Attribute 會用在 React Virtual DOM 比較：動態 react element array 要加 <code>key</code></a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div><section class="recent-posts row card component">
+  <div class="card-header">
+    <h2 class="card-title my-2 fs-4 text-surface">最近文章</h2>
+  </div>
+  <div class="card-body">
+    <ul class="post-list list-unstyled ms-1"><li class="mb-2">
+        <a href="/posts/reviews/2022-02-06-alphacamp%E6%8E%A8%E8%96%A6%E7%B3%BB%E7%B5%B1%E4%B8%8A%E8%AA%B2%E5%BF%83%E5%BE%97/">AlphaCamp 推薦系統上課心得
+</a>
+      </li><li class="mb-2">
+        <a href="/posts/notes/2021-08-22-%E4%B8%80%E7%AA%BAkafka%E5%85%A7%E9%83%A8%E5%84%B2%E5%AD%98%E8%B3%87%E6%96%99/">一窺 Kafka 內部儲存資料
+</a>
+      </li><li class="mb-2">
+        <a href="/posts/notes/2021-08-01-mongodb-5-%E4%BE%86%E4%BA%86%E6%9C%89%E4%BB%80%E9%BA%BC%E5%80%BC%E5%BE%97%E6%B3%A8%E6%84%8F%E7%9A%84%E6%9B%B4%E6%96%B0/">MongoDb 5 來了，有什麼值得注意的更新呢?
+</a>
+      </li><li class="mb-2">
+        <a href="/series/2019-ithome-ironman/day-30-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-network-%E6%9A%A8%E5%AE%8C%E8%B3%BD%E5%9B%9E%E9%A1%A7/">Day 30- 三周目 - Docker Network 暨完賽回顧
+</a>
+      </li><li class="mb-2">
+        <a href="/series/2019-ithome-ironman/day-29-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-compose%E4%B8%80%E6%AC%A1%E7%AE%A1%E7%90%86%E5%A4%9A%E5%80%8B%E5%AE%B9%E5%99%A8/">Day 29- 三周目 - Docker Compose：一次管理多個容器
+</a>
+      </li></ul>
+  </div>
+</section>
+    
+  </div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><div class="offcanvas offcanvas-bottom h-auto" tabindex="-1" id="offcanvasActionsPanel"
+  aria-labelledby="offcanvasActionsPanelLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title fs-4" id="offcanvasActionsPanelLabel">
+      <i class="fas fa-fw fa-th-large me-1"></i>
+      Actions
+    </h5>
+    <button type="button" class="btn-close ms-auto" data-bs-dismiss="offcanvas" data-bs-target="offcanvasActionsPanel" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body mt-2"><div class="social-share mb-4 d-flex overflow-auto">
+      <a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Twitter Share Button"
+      target="_blank" href="https://twitter.com/intent/tweet?title=Day%2021%20-%20%e4%ba%8c%e5%91%a8%e7%9b%ae%20-%20React%20%e5%bf%85%e5%82%99%e7%9f%a5%e8%ad%98%e5%92%8c%e6%95%88%e8%83%bd%e8%ad%b0%e9%a1%8c&url=%2fseries%2f2019-ithome-ironman%2fday-21-%25E4%25BA%258C%25E5%2591%25A8%25E7%259B%25AE-react-%25E5%25BF%2585%25E5%2582%2599%25E7%259F%25A5%25E8%25AD%2598%25E5%2592%258C%25E6%2595%2588%25E8%2583%25BD%25E8%25AD%25B0%25E9%25A1%258C%2f">
+        <i class="fab fa-2x fa-fw fa-twitter mb-2"></i> Twitter
+      </a>
+      <a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Facebook Share Button"
+        target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=%2fseries%2f2019-ithome-ironman%2fday-21-%25E4%25BA%258C%25E5%2591%25A8%25E7%259B%25AE-react-%25E5%25BF%2585%25E5%2582%2599%25E7%259F%25A5%25E8%25AD%2598%25E5%2592%258C%25E6%2595%2588%25E8%2583%25BD%25E8%25AD%25B0%25E9%25A1%258C%2f">
+        <i class="fab fa-2x fa-fw fa-facebook-f mb-2"></i> Facebook
+      </a>
+    </div>
+    <hr class="mb-4"><div class="actions d-flex overflow-auto align-items-center">
+      <a role="button" class="action action-go-back d-flex flex-column align-items-center me-3" href="javascript: window.history.back();">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-chevron-circle-down" data-fa-transform="rotate-90"></i></span> 返回
+      </a>
+      <a role="button" class="action action-reload-page d-flex flex-column align-items-center me-3">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-redo-alt"></i></span> 刷新
+      </a>
+      <a role="button" class="action action-copy-url d-flex flex-column align-items-center me-3">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-link"></i></span> 複製連結
+      </a>
+    </div>
+  </div>
+</div><nav class="social-links nav justify-content-center mb-2"><a class="nav-link social-link" href="mailto:yujiechen0514@gmail.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i></a><a class="nav-link social-link" target="_blank" href="https://github.com/eugenechen0514" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-github"></i></a><a class="nav-link social-link" target="_blank" href="https://linkedin.com/in/yuchieh-chen-37a48989" title="LinkedIn" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-linkedin-in"></i></a><a class="nav-link social-link" target="_blank" href="https://medium.com/@yujiechen0514" title="Medium" rel="noopener noreferrer">
+        <i class="fab fa-fw fa-2x fa-medium-m"></i></a><a class="nav-link social-link" target="_blank" href="/index.xml" title="RSS" rel="noopener noreferrer">
+    <i class="fas fa-fw fa-2x fa-rss"></i></a></nav>
+<div class="copyright mb-2">
+  Copyright © 2016-2022 EugeneChen. All Rights Reserved.
+</div>
+<div class="powered-by mb-2">
+  Powered by <a class="text-primary" href="https://gohugo.io" target="_blank" rel="noopener noreferrer">Hugo</a> and the <a class="text-primary" href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank" rel="noopener noreferrer">Bootstrap</a> theme.
+</div>
+<div class="sponsors">
+
+
+
+
+
+
+</div>
+</footer>
+<script src="/assets/main/bundle.min.2bc7d6952dbf38d6d2815939c58fc655e72d050b196d9fd99829d8fb23904646.js" integrity="sha256-K8fWlS2/ONbSgVk5xY/GVectBQsZbZ/ZmCnY&#43;yOQRkY=" crossorigin="anonymous" defer></script><script src="/assets/icons/bundle.min.a4bf8247f780c9bf61d579a8efe7129ec790bb98622bf4a29895eb21e689266c.js" integrity="sha256-pL&#43;CR/eAyb9h1Xmo7&#43;cSnseQu5hiK/SimJXrIeaJJmw=" crossorigin="anonymous" defer></script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('\/service-worker.min.js').then(function(reg) {
+      console.log('Successfully registered service worker', reg);
+    }).catch(function(err) {
+      console.warn('Error whilst registering service worker', err);
+    });
+  });
+}
+</script><script src="/assets/viewer/bundle.min.92d4a694e2e9a4c4d89b6998067e2f8e502dc7a951682bb5a160a3004b434908.js" integrity="sha256-ktSmlOLppMTYm2mYBn4vjlAtx6lRaCu1oWCjAEtDSQg=" crossorigin="anonymous" defer></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-ZWYL79X38Y', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+<script src="/assets/docsearch/bundle.min.c6965b5bee044b874617239932d6a7992b217f7949f895a7576980d110fb2ab1.js" integrity="sha256-xpZbW&#43;4ES4dGFyOZMtanmSshf3lJ&#43;JWnV2mA0RD7KrE=" crossorigin="anonymous" defer></script></body>
+</html>

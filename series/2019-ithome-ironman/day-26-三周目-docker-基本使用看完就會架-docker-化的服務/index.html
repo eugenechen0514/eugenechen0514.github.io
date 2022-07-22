@@ -1,0 +1,989 @@
+<!doctype html><html class="position-relative" itemscope itemtype="http://schema.org/WebPage" lang="zh-tw" data-theme="auto"
+  
+   data-palette="purple">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Day 26 - 三周目 - Docker 基本使用：看完就會架 docker 化的服務 - EugeneChen</title><link rel="apple-touch-icon" href="/images/icons/icon-180x180.png" sizes="180x180">
+<link rel="icon" href="/images/icons/icon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/images/icons/icon-16x16.png" sizes="16x16" type="image/png">
+<link rel="icon" href="/images/icons/favicon.ico">
+<link rel="manifest" href="/manifest.json">
+<meta name="keywords" content="" />
+<meta name="description" content="快速入門 Docker 的操作" /><meta name="robots" content="index, follow" /><meta itemprop="name" content="Day 26 - 三周目 - Docker 基本使用：看完就會架 docker 化的服務">
+<meta itemprop="description" content="快速入門 Docker 的操作"><meta itemprop="datePublished" content="2018-10-26T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2018-10-26T00:00:00+00:00" />
+<meta itemprop="wordCount" content="4065">
+<meta itemprop="keywords" content="2019 iT 邦幫忙鐵人賽,用js成為老闆心中的全端工程師," /><meta property="og:title" content="Day 26 - 三周目 - Docker 基本使用：看完就會架 docker 化的服務" />
+<meta property="og:description" content="快速入門 Docker 的操作" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/series/2019-ithome-ironman/day-26-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E7%9C%8B%E5%AE%8C%E5%B0%B1%E6%9C%83%E6%9E%B6-docker-%E5%8C%96%E7%9A%84%E6%9C%8D%E5%8B%99/" /><meta property="article:section" content="series" />
+<meta property="article:published_time" content="2018-10-26T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-10-26T00:00:00+00:00" /><meta property="og:site_name" content="EugeneChen" />
+<meta property="og:see_also" content="/series/2019-ithome-ironman/day-30-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-network-%E6%9A%A8%E5%AE%8C%E8%B3%BD%E5%9B%9E%E9%A1%A7/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-29-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-compose%E4%B8%80%E6%AC%A1%E7%AE%A1%E7%90%86%E5%A4%9A%E5%80%8B%E5%AE%B9%E5%99%A8/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-28-%E4%B8%89%E5%91%A8%E7%9B%AE-%E8%A3%BD%E4%BD%9C%E8%87%AA%E5%B7%B1%E7%9A%84%E6%98%A0%E5%83%8F%E6%AA%94%E5%8C%85%E6%89%93%E5%89%8D%E5%BE%8C%E7%AB%AF%E6%98%A0%E5%83%8F%E6%AA%94/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-27-%E4%B8%89%E5%91%A8%E7%9B%AE-%E4%BA%94%E5%88%86%E9%90%98%E5%BB%BA%E7%AB%8B%E7%A7%81%E6%9C%89-npm-verdaccio/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-25-%E4%BA%8C%E5%91%A8%E7%9B%AE-react-component-%E5%A5%97%E4%BB%B6-material-ui-google-material-design-%E7%9A%84%E5%AF%A6%E4%BD%9C%E5%A5%97%E4%BB%B6/" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Day 26 - 三周目 - Docker 基本使用：看完就會架 docker 化的服務"/>
+<meta name="twitter:description" content="快速入門 Docker 的操作"/>
+<meta property="og:image" content="/images/logo.png"/>
+  <meta name="twitter:image" content="/images/logo.png"/><link rel="stylesheet" href="/assets/main/bundle.min.925f59d4c744cc5e99dcc7d02a6f68dff5cceaea488c7667bd947bf7aa35b649.css" integrity="sha256-kl9Z1MdEzF6Z3MfQKm9o3/XM6upIjHZnvZR796o1tkk=" crossorigin="anonymous"><link rel="stylesheet" href="/assets/viewer/bundle.min.f05183267bb952fbc8c63a7178364de2951614ab71d544ec1068ad36c7447ccc.css" integrity="sha256-8FGDJnu5UvvIxjpxeDZN4pUWFKtx1UTsEGitNsdEfMw=" crossorigin="anonymous"><link rel="stylesheet" href="/assets/docsearch/bundle.min.c165d6a127fffa285e6b89ef65362fe921bc0c1fdaefa35f6af069b962bdb50e.css" integrity="sha256-wWXWoSf/&#43;ihea4nvZTYv6SG8DB/a76NfavBpuWK9tQ4=" crossorigin="anonymous"></head>
+  <body><script>const items=["theme","palette"];items.forEach(function(e){const t=localStorage.getItem("hbs:"+e);t&&document.body.parentElement.setAttribute("data-"+e,t)})</script><header><nav class="top-app-bar shadow bg-primary text-white navbar navbar-expand-lg fixed-top">
+  <div class="container"><a class="navbar-brand flex-grow-1 flex-lg-grow-0 text-lg-start ms-2 ms-lg-0 mx-auto me-lg-3" href="/"><picture><img class="logo" alt="Logo" src="/images/logo.webp" loading="lazy"
+    
+     width="136" height="69"
+     />
+</picture>
+EugeneChen
+    </a>
+    <button class="navbar-toggler order-5" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarMenus"
+      aria-controls="navbarMenus" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-ellipsis-h"></i>
+    </button>
+    <div class="offcanvas-lg offcanvas-end flex-grow-1 bg-primary text-white" tabindex="-1" id="navbarMenus" aria-labelledby="navbarMenusLabel">
+      <div class="offcanvas-header px-4 pb-0">
+        <h5 class="offcanvas-title" id="navbarMenusLabel">EugeneChen</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" data-bs-target="#navbarMenus" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body p-4 pt-0 p-lg-0">
+        <hr class="d-lg-none">
+        <ul class="navbar-nav flex-row flex-wrap align-items-center me-auto"><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/posts/">
+              <i class="fas fa-book fa-fw"></i>文章
+            </a>
+          </li><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/series/">
+              <i class="fas fa-bars fa-fw"></i>專欄
+            </a>
+          </li><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/posts/notes/">
+              <i class="fas fa-sticky-note fa-fw"></i>隨手筆記
+            </a>
+          </li></ul>
+        <hr class="d-lg-none">
+        <form class="search-bar mx-auto my-1" action="/search" novalidate>
+  <div class="input-group input-group-sm align-items-center">
+    <span class="btn btn-search disabled position-absolute left-0 border-0">
+      <i class="fas fa-fw fa-search fa-lg"></i>
+    </span>
+    <input class="py-2 form-control rounded search-input" name="q" type="search" aria-label="Search" required>
+  </div>
+</form>
+<hr class="d-lg-none">
+        <ul class="navbar-nav flex-row flex-wrap align-items-center ms-md-auto"><li class="nav-item dropdown py-1 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-globe"></i>
+        <span class="d-lg-none">語言</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown"><li>
+        <a class="dropdown-item" href="/en/">
+            English
+        </a>
+        </li><li>
+        <a class="dropdown-item active" href="/">
+            繁體中文
+        </a>
+        </li></ul>
+</li>
+<li class="nav-item py-1 col-12 col-lg-auto">
+  <div class="vr d-none d-lg-flex h-100 mx-lg-2 text-white"></div>
+  <hr class="d-lg-none my-2">
+</li><li class="nav-item dropdown py-2 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="fontSizeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-font"></i>
+        <span class="d-lg-none">字體大小</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="fontSizeDropdown"><li>
+            <button class="font-size-item dropdown-item" data-size="xs">
+                特小號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="sm">
+                小號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item active" data-size="md">
+                中等
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="lg">
+                大號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="xl">
+                特大號
+            </button>
+        </li></ul>
+</li><li class="nav-item dropdown py-1 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="paletteDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-palette"></i>
+        <span class="d-lg-none">配色</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end px-2" aria-labelledby="paletteDropdown">
+        <div class="row"><li class="col-3 my-1">
+                <a role="button" id="palette-blue" aria-label="藍色"
+                    class="btn btn-sm w-100 palette text-bg-blue" data-palette="blue">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-blue-gray" aria-label="藍灰色"
+                    class="btn btn-sm w-100 palette text-bg-blue-gray" data-palette="blue-gray">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-brown" aria-label="棕色"
+                    class="btn btn-sm w-100 palette text-bg-brown" data-palette="brown">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-cyan" aria-label="青色"
+                    class="btn btn-sm w-100 palette text-bg-cyan" data-palette="cyan">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-green" aria-label="綠色"
+                    class="btn btn-sm w-100 palette text-bg-green" data-palette="green">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-indigo" aria-label="靛青色"
+                    class="btn btn-sm w-100 palette text-bg-indigo" data-palette="indigo">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-orange" aria-label="橙色"
+                    class="btn btn-sm w-100 palette text-bg-orange" data-palette="orange">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-pink" aria-label="粉色"
+                    class="btn btn-sm w-100 palette text-bg-pink" data-palette="pink">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-purple" aria-label="紫色"
+                    class="btn btn-sm w-100 palette text-bg-purple" data-palette="purple">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-red" aria-label="紅色"
+                    class="btn btn-sm w-100 palette text-bg-red" data-palette="red">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-teal" aria-label="藍綠色"
+                    class="btn btn-sm w-100 palette text-bg-teal" data-palette="teal">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-yellow" aria-label="黃色"
+                    class="btn btn-sm w-100 palette text-bg-yellow" data-palette="yellow">
+                </a>
+            </li></div>
+    </ul>
+</li>
+<li class="nav-item dropdown py-2 py-lg-1 col-6 col-lg-auto"><a class="nav-link px-0 px-lg-1" href="#" id="modeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="mode-icon fas fa-fw fa-adjust" id="modeIcon"></i>
+        <span class="d-lg-none">模式</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="modeDropdown"><li class="mode-item" data-color-mode="light" data-icon="sun">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-sun"></i> Light
+            </button>
+        </li><li class="mode-item" data-color-mode="dark" data-icon="moon">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-moon"></i> Dark
+            </button>
+        </li><li class="mode-item active" data-color-mode="auto" data-icon="adjust">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-adjust"></i> Auto
+            </button>
+        </li></ul>
+</li>
+</ul>
+      </div>
+    </div>
+  </div>
+</nav>
+</header>
+<main class="container">
+      <div class="row content"><noscript>
+    <div class="alert alert-danger" role="alert">你的瀏覽器不支持 JavaScript。</div>
+</noscript>
+
+<div class="col-lg-8">
+  <div class="container"><nav class="row card component" aria-label="breadcrumb">
+  <div class="card-body pb-0">
+    <ol class="breadcrumb"><li class="breadcrumb-item text-surface"><a href="/">主頁</a></li><li class="breadcrumb-item text-surface"><a href="/series/">Series</a></li><li class="breadcrumb-item active">Day 26 - 三周目 - Docker 基本使用：看完就會架 Docker 化的服務</li></ol>
+  </div>
+</nav><div class="post-panel-wrapper position-sticky">
+  <div class="d-flex flex-column component rounded post-panel position-absolute border">
+    
+    <a class="action action-panel-toggler" role="button" title="Panel toggler">
+      <i class="fas fa-fw fa-chevron-circle-down"></i>
+    </a>
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button" title="Sidebar toggler">
+  <i class="fas fa-fw fa-expand-alt" data-fa-transform="rotate-45"></i>
+</a>
+
+    
+
+    
+    <a class="action" href="#post-copyright" role="button" aria-label="Copyright" title="Copyright">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    <a class="action" href="#post-comments" role="button" aria-label="Comments" title="Comments">
+  <i class="fas fa-fw fa-comments"></i>
+</a>
+    <a class="action" href="#postTOC" aria-controls="Table of contents" role="button" title="Table of contents">
+  <i class="fas fa-fw fa-list-alt"></i>
+</a>
+    
+  </div>
+</div>
+<article class="row card component mb-4 post">
+  <div class="card-header ">
+    <h1 class="card-title post-title my-2">Day 26 - 三周目 - Docker 基本使用：看完就會架 Docker 化的服務
+</h1>
+  </div>
+  <div class="card-body"><div class="post-meta mb-3">
+  <span class="post-date me-1 mb-1" title="創建於 2018-10-26 08:00:00 &#43;0800 CST。">
+    2018-10-26
+  </span><span class="post-reading-time me-1 mb-1">
+    9 分鐘閱讀
+  </span><a href="/series/2019-ithome-ironman/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">用js成為老闆心中的全端工程師 - 2019 IT邦幫忙鐵人賽</a><a href="/tags/2019-it-%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">2019 IT 邦幫忙鐵人賽</a><a href="/tags/%E7%94%A8js%E6%88%90%E7%82%BA%E8%80%81%E9%97%86%E5%BF%83%E4%B8%AD%E7%9A%84%E5%85%A8%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%AB/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">用js成為老闆心中的全端工程師</a></div>
+<div class="post-content mb-3"><p>快速入門 Docker 的操作</p>
+<h1 id="回憶">回憶<a class="anchor ms-1" href="#回憶"><i class="fas fa-link"></i></a></h1>
+<p>昨天介紹完了 Material-UI 後，整個二周目深入前後端也告一段落了，接下來我們要進到第三周目：發佈、維運篇。</p>
+<h1 id="目標">目標<a class="anchor ms-1" href="#目標"><i class="fas fa-link"></i></a></h1>
+<p>今天的文章看完後我預期你就會：在本機端安裝並執行任何映像檔，可以架任何 dockerize (docker 化) 的服務，像 mysql, mongodb, nginx, apache …等。</p>
+<p>我們曾在 <a href="https://ithelp.ithome.com.tw/articles/10201657" target="_blank" rel="noopener noreferrer">Day 15 - 二周目 - 用 Docker 玩轉 MongoDB<i class="fas fa-external-link-square-alt ms-1"></i></a> 簡單的介紹 docker 及用它來架設 MongoDB。開始前我們假設你已經安裝 <a href="https://www.docker.com/products/docker-desktop" target="_blank" rel="noopener noreferrer">Docer Desktop<i class="fas fa-external-link-square-alt ms-1"></i></a>，它的功能比較多。</p>
+<p>今天就來深入 Docker 的操作。</p>
+<p>下列的問題是我在學習 docker 時想問的問題，它們有順序性，由淺入深。</p>
+<ol>
+<li>怎麼執行執映像檔？</li>
+<li>怎麼開啟 port？</li>
+<li>怎麼留下資料？</li>
+<li>怎麼做自己的映像檔？</li>
+<li>怎麼同時啟動多個服務？</li>
+<li>多個服務之間怎麼通訊？它們的 IP 是什麼？</li>
+</ol>
+<p>你可以先想一下，我馬上就給出簡單的回答</p>
+<ol>
+<li>怎麼執行執映像檔？ <code>docker run</code></li>
+<li>怎麼開啟 port？ Compose file: <code>port:</code>, Container: <code>-p XXXX:XXXX</code></li>
+<li>怎麼留下資料？ Compose file: <code>volumes:</code>, Container: <code>-v</code></li>
+<li>怎麼做自己的映像檔？ <code>Dockerfile</code></li>
+<li>怎麼同時啟動多個服務？<code>docker-compose</code></li>
+<li>多個服務之間怎麼通訊？它們的 IP 是什麼？Compose file: <code>networks:</code>, Container: <code>--network</code></li>
+</ol>
+<blockquote>
+<p>完整的 <a href="https://docs.docker.com/" target="_blank" rel="noopener noreferrer">docker 文件<i class="fas fa-external-link-square-alt ms-1"></i></a>真的很龐大又難讀，所以我們只能介紹常用的東西。有了基本的認識和操作，再來自己深入研究。這也符合邊做邊學的原則。</p>
+</blockquote>
+<h1 id="docker-是什麼">Docker 是什麼<a class="anchor ms-1" href="#docker-是什麼"><i class="fas fa-link"></i></a></h1>
+<p>Docker 的架構圖如下：
+<picture><img class="img-fluid" alt="docker-infa.png" src="/series/2019-ithome-ironman/day-26-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E7%9C%8B%E5%AE%8C%E5%B0%B1%E6%9C%83%E6%9E%B6-docker-%E5%8C%96%E7%9A%84%E6%9C%8D%E5%8B%99/resources/C5D2980B3F15C7ED5C78B166C55330C6.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+
+上圖截取自 <a href="https://success.docker.com/article/networking" target="_blank" rel="noopener noreferrer">Docker Reference Architecture: Designing Scalable, Portable Docker Container Networks<i class="fas fa-external-link-square-alt ms-1"></i></a></p>
+<h2 id="容器container">容器(container)<a class="anchor ms-1" href="#容器container"><i class="fas fa-link"></i></a></h2>
+<p>Docker 關鍵的技術是 <strong>容器(container)</strong>。 容器像是個沒有硬體環境的輕量虛擬機器，但與虛擬機器不同，它就像是執行在 host 的行程(process)，可能獨立網路、共享單一/多個網路或活在 host 的網路空間。容器的運作跟作業系統無關，因為它是運作在 Docker Engine上，不同的作業系統都有對應的 Docker Engine。 容器是映像檔的實際執行單位，它可以 run(建立並執行)/start(執行)/restart(重新執行)/stop(停止)/rm(移除)。</p>
+<p>當容器建立時，它會執行在一個沙箱環境，可以想像他有自己的檔案系統。另外，我們還可以為它裝上 network, volume。</p>
+<p>network 是讓我們從此容器外部存取容器內的服務，可能是從 host (我們執行 docker engine 的環境，一般直接開 ternimal 的環境就是 host)，也可能是來自別的 container。</p>
+<p>volume 是容器與別人共享的資料區，我們可以把資料放在裡面，可以：</p>
+<ol>
+<li>供在 host 存取</li>
+<li>供其它 container 掛載(mount)使用，共享同樣的資料區</li>
+<li>它是獨立於 container，當 container 移除時，volume 裡的資料一樣留下來。</li>
+</ol>
+<h2 id="映像檔image">映像檔(image)<a class="anchor ms-1" href="#映像檔image"><i class="fas fa-link"></i></a></h2>
+<p>映像檔打包著相關程式碼、函式庫、環境配置檔。總之，就是一群檔案集合。</p>
+<p>當要建立並執行 container 時一定要指定「唯一」的一個映像檔，如下格式</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">docker run &lt;IMAGE&gt;
+</span></span></code></pre></div><p>其它的設定全部是可選，而有些本來就預設值，像 network 預設是 <a href="https://docs.docker.com/network/#network-drivers" target="_blank" rel="noopener noreferrer">bridge<i class="fas fa-external-link-square-alt ms-1"></i></a>。</p>
+<blockquote>
+<p><code>docker run --help</code> 可以看到一堆嚇人的設定
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-24 at 11.27.49 PM.png" src="/series/2019-ithome-ironman/day-26-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E7%9C%8B%E5%AE%8C%E5%B0%B1%E6%9C%83%E6%9E%B6-docker-%E5%8C%96%E7%9A%84%E6%9C%8D%E5%8B%99/resources/8BE622C51D785C4F7FF628EC9E925EC4.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+</blockquote>
+<h2 id="所以最基本的-docker-有什麼單元">所以最基本的 Docker 有什麼單元?<a class="anchor ms-1" href="#所以最基本的-docker-有什麼單元"><i class="fas fa-link"></i></a></h2>
+<p>由執行 container 出發，跟它有關的單元(包含自己)如下：</p>
+<ol>
+<li>container</li>
+<li>image</li>
+<li>network</li>
+<li>volume</li>
+</ol>
+<p>用 class diagram 來表達如下：
+<picture><img class="img-fluid" alt="30天鐵人-Day25-docker.png" src="/series/2019-ithome-ironman/day-26-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E7%9C%8B%E5%AE%8C%E5%B0%B1%E6%9C%83%E6%9E%B6-docker-%E5%8C%96%E7%9A%84%E6%9C%8D%E5%8B%99/resources/E5B2F623282823847B4335B7B3033331.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>每個單元都可以獨立管理，一但被 container 關連就無法輕易刪除。你可以 <code>docker --help</code> 查看 <strong>Management Commands</strong> 有哪此單元可以管理。
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-25 at 12.07.56 AM.png" src="/series/2019-ithome-ironman/day-26-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E7%9C%8B%E5%AE%8C%E5%B0%B1%E6%9C%83%E6%9E%B6-docker-%E5%8C%96%E7%9A%84%E6%9C%8D%E5%8B%99/resources/9F54336001E32858F57B124F70FAB40F.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>若你要管理 container，鍵入 <code>docker container --help</code> 查看有哪些指令
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-25 at 12.10.50 AM.png" src="/series/2019-ithome-ironman/day-26-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E7%9C%8B%E5%AE%8C%E5%B0%B1%E6%9C%83%E6%9E%B6-docker-%E5%8C%96%E7%9A%84%E6%9C%8D%E5%8B%99/resources/BBDB148529B21B753D5511E80F29DB0B.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>更進一步，假如要建立 container， <code>docker container create --help</code> 查看指令怎麼使用
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-25 at 12.12.54 AM.png" src="/series/2019-ithome-ironman/day-26-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E7%9C%8B%E5%AE%8C%E5%B0%B1%E6%9C%83%E6%9E%B6-docker-%E5%8C%96%E7%9A%84%E6%9C%8D%E5%8B%99/resources/1C967E45C75D66AC475912DF4BABF111.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>一般而言，不同的單元(針對實體)都有以下指令：<code>ls</code>、<code>create</code>、<code>rm</code>、<code>prune</code>、<code>inspect</code>。</p>
+<ul>
+<li><code>ls</code>：列出所有單元實體</li>
+<li><code>create</code>：建立單元實體</li>
+<li><code>rm</code>：刪除單元實體</li>
+<li><code>prune</code>：刪除未被(容器)使用的單元實體</li>
+<li><code>inspect</code>：這個很推薦用看看，查看單元實體的描述，例如用在容器就可以看到，它用的 network, volume之類的資訊</li>
+</ul>
+<h2 id="下載映像檔image-nginx">下載映像檔(image): nginx<a class="anchor ms-1" href="#下載映像檔image-nginx"><i class="fas fa-link"></i></a></h2>
+<p>nginx 是用來架設網頁伺服器，我們以它為例子。</p>
+<p>在使用容器前一定要有映像檔(image)，你有以下方法可以取得：</p>
+<ol>
+<li>
+<p><a href="https://hub.docker.com/" target="_blank" rel="noopener noreferrer">Docker Hub<i class="fas fa-external-link-square-alt ms-1"></i></a>下載：
+你可以想像它和 <a href="https://npmjs.com" target="_blank" rel="noopener noreferrer">NPM<i class="fas fa-external-link-square-alt ms-1"></i></a> 類似，它就是個公開(public)的 Repository 的集合，所有人都可以上傳下載某個 Repository 裡面的映像檔。假如你在 docker hub 找到 <a href="https://hub.docker.com/_/nginx/" target="_blank" rel="noopener noreferrer">nginx repository<i class="fas fa-external-link-square-alt ms-1"></i></a>，想要下載它們的映像檔，只要下指令 <code>docker pull nginx</code> (等於 <code>docker pull nginx:latest</code>) 就會下載 nginx 的映像檔。
+完整個映像檔的格式是 <code>&lt;image&gt;:&lt;tag&gt;</code> ，你可以指定下載的版本號 <code>docker pull nginx:1.15</code>。若沒有指定映像檔版本號就會下載最新版本 <strong>nginx:latest</strong> ，但要小心每個人的 <strong>latest 都不一樣</strong>，所以能的話還是指定一下版本號。</p>
+</li>
+<li>
+<p>自己做：這個 <strong>Day 28</strong> 再說</p>
+</li>
+</ol>
+<p>我們實際下載 <code>nginx:1.15</code> 看看：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">docker pull nginx:1.15
+</span></span></code></pre></div><p><picture><img class="img-fluid" alt="Screen Shot 2018-10-25 at 10.54.16 AM.png" src="/series/2019-ithome-ironman/day-26-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E7%9C%8B%E5%AE%8C%E5%B0%B1%E6%9C%83%E6%9E%B6-docker-%E5%8C%96%E7%9A%84%E6%9C%8D%E5%8B%99/resources/3EE83554F439FBF324F3730F46206B6B.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+
+就完成了</p>
+<p>下載完的映像檔是由 docker 統一管理，要用 <code>docker</code> 指令才能管理</p>
+<h3 id="常用映像檔管理">常用映像檔管理<a class="anchor ms-1" href="#常用映像檔管理"><i class="fas fa-link"></i></a></h3>
+<ul>
+<li>查看 docker 中所有映像檔： <code>docker images</code> ，它是 <code>docker image ls</code> 短語。可以用它查看是否下載映像檔。
+<picture><img class="img-fluid" alt="dockerimages.png" src="/series/2019-ithome-ironman/day-26-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E7%9C%8B%E5%AE%8C%E5%B0%B1%E6%9C%83%E6%9E%B6-docker-%E5%8C%96%E7%9A%84%E6%9C%8D%E5%8B%99/resources/2E492EB4573225B46B4DF65CDD2C3824.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</li>
+<li>刪除不要用的映像檔：<code>docker rmi &lt;id or image_name&gt;</code>，它是 <code>docker image rm</code> 短語</li>
+</ul>
+<h2 id="建立並執行容器-nginx_1">建立並執行容器: nginx_1<a class="anchor ms-1" href="#建立並執行容器-nginx_1"><i class="fas fa-link"></i></a></h2>
+<h3 id="建立並執行容器指令-docker-run">建立並執行容器指令: docker run<a class="anchor ms-1" href="#建立並執行容器指令-docker-run"><i class="fas fa-link"></i></a></h3>
+<p>我們已經下載了 <code>nginx:1.15</code> 映像檔，接來來要建立容器並執行它。只要 <code>docker run nginx:1.15</code> 即可，但建立起來的容器名稱是 docker 亂數取名的，所以我們要加入 <code>--name</code> 參數(參數值用 &ldquo;=&rdquo; 或空白區隔)：<code>docker run --name nginx_1 nginx:1.15</code>，指令是指：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">用 nginx:1.15 映像檔建立名為 nginx_1 的容器
+</span></span></code></pre></div><blockquote>
+<p>建議容器要取名字，讓自己辨別</p>
+</blockquote>
+<p>但我們還是沒辨法訪問它，因為目前網路結構：
+<picture><img class="img-fluid" alt="30天鐵人-Day25-docker-net1.png" src="/series/2019-ithome-ironman/day-26-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E7%9C%8B%E5%AE%8C%E5%B0%B1%E6%9C%83%E6%9E%B6-docker-%E5%8C%96%E7%9A%84%E6%9C%8D%E5%8B%99/resources/2E7B50316C187D741C63FA3D404715B0.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>我們沒連入容器的方法，就像是沒辨法訪問監聽某個 port 的 process，因此要指定 port 號 (建立一個連通的 <strong>EndPoint</strong>)。因此，</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">docker run --name nginx_1 -p 8080:80 nginx:1.15
+</span></span></code></pre></div><p><code>8080:80</code> 就好像把 <code>8080 port</code> 放到 <strong>network(host)</strong> 中，當外部流量來的時後就從 <code>8080 port</code> 流到容器內的 <code>80 port</code>，所以外界不會察覺 容器 <code>80 port</code> 的存在。
+<picture><img class="img-fluid" alt="30天鐵人-Day25-docker-net2.png" src="/series/2019-ithome-ironman/day-26-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E7%9C%8B%E5%AE%8C%E5%B0%B1%E6%9C%83%E6%9E%B6-docker-%E5%8C%96%E7%9A%84%E6%9C%8D%E5%8B%99/resources/3BC086B018623B70E33DD477156422F1.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>接下來，打開瀏覽器，訪問 <code>http://localhost:8080/</code>，就會看到以下畫面：
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-25 at 12.19.59 PM.png" src="/series/2019-ithome-ironman/day-26-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E7%9C%8B%E5%AE%8C%E5%B0%B1%E6%9C%83%E6%9E%B6-docker-%E5%8C%96%E7%9A%84%E6%9C%8D%E5%8B%99/resources/12B3C202D2F99253250D42C3BD471B2F.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>訪問後，會看到 terminal 出現：
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-25 at 12.21.06 PM.png" src="/series/2019-ithome-ironman/day-26-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E7%9C%8B%E5%AE%8C%E5%B0%B1%E6%9C%83%E6%9E%B6-docker-%E5%8C%96%E7%9A%84%E6%9C%8D%E5%8B%99/resources/3130B9A297E2756F5EB7E455620A3A3E.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+
+這是 nginex 的 <strong>console log</strong>。</p>
+<p>先等等，我怎麼會知道 <code>nginx_1</code> 容器內是開 <code>80 port</code>，每個映像檔的實現方法 (Dockerfile 內會寫 <code>EXPOSE &lt;port&gt;</code>)不一樣，使用方法也不一樣，要看映像檔的 docker hub repository 說明。</p>
+<p>到目前為止，我們建立了一個 nginx container，並執行它啟動網頁伺服器。</p>
+<h3 id="移除容器">移除容器<a class="anchor ms-1" href="#移除容器"><i class="fas fa-link"></i></a></h3>
+<p>只需要把 ternimal 關掉(<code>ctrl + c</code>)後，<code>http://localhost:8080/</code> 就訪問不到了。</p>
+<p>你可以用 <code>docker ps</code>(它是 <code>docker container ls</code> 短語)查看正在執行的容器，會發現 <code>nginx_1</code> 不在執行中的 container 中。若也要列出停止執行的容器，要加 <code>--all</code> (<code>-a</code>)，如 <code>docker ps --all</code> 或 <code>docker container ls --all</code>，才會看到它。</p>
+<p>當你不要 <code>nginx_1</code> 時，輸入</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">docker rm nginx_1
+</span></span></code></pre></div><p>就可以刪除(它要先停止它才能移除)。</p>
+<h3 id="讓容器在背景執行">讓容器在背景執行<a class="anchor ms-1" href="#讓容器在背景執行"><i class="fas fa-link"></i></a></h3>
+<p>若你已經建立好容器且假設它已經停止，如：
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-25 at 2.10.05 PM.png" src="/series/2019-ithome-ironman/day-26-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E7%9C%8B%E5%AE%8C%E5%B0%B1%E6%9C%83%E6%9E%B6-docker-%E5%8C%96%E7%9A%84%E6%9C%8D%E5%8B%99/resources/99D1EE564D3D4854C82B9D1A98C50D5E.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+
+<code>STATUS</code> 欄位中說他已經 <strong>exited</strong> 了。</p>
+<p>若你要讓容器再次執行 <code>docker start &lt;id or container_name&gt;</code>，</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">docker start nginx_1
+</span></span></code></pre></div><p>之後再 <code>docker ps</code>，就會看到它 <strong>Up</strong> (running)。
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-25 at 2.14.43 PM.png" src="/series/2019-ithome-ironman/day-26-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E7%9C%8B%E5%AE%8C%E5%B0%B1%E6%9C%83%E6%9E%B6-docker-%E5%8C%96%E7%9A%84%E6%9C%8D%E5%8B%99/resources/AB48B99D4EF8E7AA32343D896CEA5FCF.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<blockquote>
+<p>容器的生命周期和指令關係如下圖(來自<a href="https://medium.com/@nagarwal/lifecycle-of-docker-container-d2da9f85959" target="_blank" rel="noopener noreferrer">Lifecycle of Docker Container<i class="fas fa-external-link-square-alt ms-1"></i></a>)
+<picture><img class="img-fluid" alt="docker-container-state.png" src="/series/2019-ithome-ironman/day-26-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E7%9C%8B%E5%AE%8C%E5%B0%B1%E6%9C%83%E6%9E%B6-docker-%E5%8C%96%E7%9A%84%E6%9C%8D%E5%8B%99/resources/06B72A0A1F5971FC55A814C6A84412CD.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+</blockquote>
+<p>這時的容器就會在背景執行。可是這樣很麻煩阿!</p>
+<p>我們還有其它辨法，可以在建立並執行容器時脫離(detach) console log，只要加入 <code>-d</code> (<code>--detach</code>) 參數：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">docker run --name nginx_1 -d -p 8080:80 -d nginx:1.15
+</span></span></code></pre></div><p>因此我們有兩個方法可以讓容器在背景執行：</p>
+<ol>
+<li>建立好容器後，再次執行容器  <code>docker start &lt;id or container_name&gt;</code>。</li>
+<li>建立並執行容器時立刻脫離。</li>
+</ol>
+<blockquote>
+<p>若你希望在停止容器後自動刪除容器要加入 <code>--rm</code> 參數，如：<code>docker run --name nginx_1 -d --rm -p 8080:80 nginx:1.15</code>，就會在停止後自己刪除。</p>
+</blockquote>
+<h3 id="常用容器管理">常用容器管理<a class="anchor ms-1" href="#常用容器管理"><i class="fas fa-link"></i></a></h3>
+<p>我們整理一下常用容器管理指令：</p>
+<table>
+<thead>
+<tr>
+<th>用途</th>
+<th>指令</th>
+<th>常用可選參數</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>建立並執行容器</td>
+<td><code>docker run</code></td>
+<td><code>--name</code>, <code>-d</code>, <code>-rm</code>, <code>-p</code></td>
+</tr>
+<tr>
+<td>查看容器</td>
+<td><code>docker ps</code></td>
+<td><code>--all</code></td>
+</tr>
+<tr>
+<td>執行容器</td>
+<td><code>docker start</code></td>
+<td></td>
+</tr>
+<tr>
+<td>停止容器</td>
+<td><code>docker stop</code></td>
+<td></td>
+</tr>
+<tr>
+<td>刪除容器</td>
+<td><code>docker rm</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="volume獨立於容器的檔案空間">Volume：獨立於容器的檔案空間<a class="anchor ms-1" href="#volume獨立於容器的檔案空間"><i class="fas fa-link"></i></a></h1>
+<p>我們有時會希望：</p>
+<ol>
+<li>容器移除時檔案可以留下   -  資料庫類型的容器常會需要</li>
+<li>host 的檔案可以在容器存取到   -  常用於共享 host 和 容器檔案</li>
+<li>同個檔案可以在不同容器間共享 - 容器間可以用共用的組態檔</li>
+</ol>
+<p>總之就是為了 「共用」和「留下」的目地，此時就要想到 : <strong>Volume</strong></p>
+<p>volume 在容器內要指定要掛入目標(target)，然後就可以在容器內使用。</p>
+<p>Docker 提供三種掛載類型(mount types)：</p>
+<ol>
+<li>bind mount：掛入現有的 host filesystem，用在容器 與 host 共享資料夾或檔案</li>
+<li>volume：掛入 volume 實體</li>
+<li>tmpfs mount：從 memory 掛載
+<picture><img class="img-fluid" alt="IMAGE" src="/series/2019-ithome-ironman/day-26-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E7%9C%8B%E5%AE%8C%E5%B0%B1%E6%9C%83%E6%9E%B6-docker-%E5%8C%96%E7%9A%84%E6%9C%8D%E5%8B%99/resources/2E5CA11626256730C27C6F2215F921F8.jpg" loading="lazy"
+    
+    
+     />
+</picture>
+
+
+上圖來自 <a href="https://docs.docker.com/storage/#more-details-about-mount-types" target="_blank" rel="noopener noreferrer">Manage data in Docker<i class="fas fa-external-link-square-alt ms-1"></i></a></li>
+</ol>
+<p>我們只提 bind mount 和 volume。</p>
+<h2 id="與-host-共享bind-mount">與 host 共享(bind mount)<a class="anchor ms-1" href="#與-host-共享bind-mount"><i class="fas fa-link"></i></a></h2>
+<p>這是比較常用的，例如， <code>nginx_1</code> 要在根目錄多出一個資料夾 <code>/mydata</code>。在 <strong>建立容器</strong> 時，用 <code>-v</code> (<code>--volume</code>)參數指定要掛入的 host 資料夾(或檔案)及掛入在容器中哪個目標(位置)。直接看例子：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">docker run --name nginx_1 -d -p 8080:80 -v /Users/eugenechen/mydata:/mydata nginx:1.15
+</span></span></code></pre></div><p>這裡 <code>/Users/eugenechen/mydata</code> 是主機來源(可能是資料夾/檔案)，<code>/mydata</code> 是容器內要掛入的目標。</p>
+<blockquote>
+<p>一般情形下，容器必需重新建立，雖然有別的方法，但很麻煩。</p>
+</blockquote>
+<blockquote>
+<p>若要更多 volume 就多寫幾個 <code>-v</code>，如： <code>-v /Users/eugenechen/mydata1:/mydata1 -v /Users/eugenechen/mydata2:/mydata2</code></p>
+</blockquote>
+<p>你可以放一些檔案在主機資料夾中，然後去看容器內的 <code>/mydata</code> 看有沒有檔案。</p>
+<h3 id="ternimal-進入容器-docker-exec">&ldquo;ternimal&rdquo; 進入容器： docker exec<a class="anchor ms-1" href="#ternimal-進入容器-docker-exec"><i class="fas fa-link"></i></a></h3>
+<p>進入容器我們需要用到 <code>docker exec</code> 指令，它是在容器中執行指令，例如</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">docker exec -it nginx_1 bash
+</span></span></code></pre></div><p>就是在 <code>nginx_1</code> 容器中執行 <code>bash</code> 指令。<code>-it</code> 分別是兩個參數 <code>--interactiv</code> 和 <code>--tty</code>，有興趣自己查。</p>
+<p>指令 <code>docker exec -it &lt;id or container_name&gt; bash</code> 用起來就像是在容器開一個 ternimal。</p>
+<h3 id="驗証主機資料夾中檔案出現在容器中">驗証主機資料夾中檔案，出現在容器中<a class="anchor ms-1" href="#驗証主機資料夾中檔案出現在容器中"><i class="fas fa-link"></i></a></h3>
+<p>因此，我們就可以查看 <code>/mydata</code> 資料夾
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-25 at 4.59.54 PM.png" src="/series/2019-ithome-ironman/day-26-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E7%9C%8B%E5%AE%8C%E5%B0%B1%E6%9C%83%E6%9E%B6-docker-%E5%8C%96%E7%9A%84%E6%9C%8D%E5%8B%99/resources/ECA423164F9547768407CBFBD7EE48E7.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+
+若要離開就打 <code>exit</code> 指令。</p>
+<blockquote>
+<p>你可以自行驗証容器移除後，檔案還在</p>
+</blockquote>
+<h2 id="掛載-volume-實體-volume">掛載 Volume 實體 (volume)<a class="anchor ms-1" href="#掛載-volume-實體-volume"><i class="fas fa-link"></i></a></h2>
+<p>前面是直接把 host 的來源(source)掛載到容器的目標(target)，另一個方法是建立一個 volume，再掛載到容器的目標。</p>
+<ol>
+<li>建立一個 volume
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">docker volume create mydata2
+</span></span></code></pre></div></li>
+<li>在 <strong>建立容器</strong> 時，一樣用 <code>-v</code>，只是來源(source)改成用 volume name
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">docker run --name nginx_1 -d -p 8080:80 -v /Users/eugenechen/mydata:/mydata -v mydata2:/mydata2 nginx:1.15
+</span></span></code></pre></div></li>
+</ol>
+<h3 id="驗証容器移除後檔案還在">驗証容器移除後，檔案還在<a class="anchor ms-1" href="#驗証容器移除後檔案還在"><i class="fas fa-link"></i></a></h3>
+<ol>
+<li>進入容器，建立 <code>hi_container.txt</code>，離開
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1"># in host</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">docker <span class="nb">exec</span> -it nginx_1 bash
+</span></span><span class="line"><span class="ln">3</span><span class="cl">
+</span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="c1"># in nginx_1</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="nb">cd</span> mydata2/
+</span></span><span class="line"><span class="ln">6</span><span class="cl">touch hi_container.txt
+</span></span><span class="line"><span class="ln">7</span><span class="cl"><span class="nb">exit</span>
+</span></span></code></pre></div><picture><img class="img-fluid" alt="Screen Shot 2018-10-25 at 5.18.26 PM.png" src="/series/2019-ithome-ironman/day-26-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E7%9C%8B%E5%AE%8C%E5%B0%B1%E6%9C%83%E6%9E%B6-docker-%E5%8C%96%E7%9A%84%E6%9C%8D%E5%8B%99/resources/BF1759EB8E71772A6E082E1818A0F8FE.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</li>
+<li>刪除容器，再重新建立
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">docker stop nginx_1
+</span></span><span class="line"><span class="ln">2</span><span class="cl">docker rm nginx_1
+</span></span><span class="line"><span class="ln">3</span><span class="cl">docker run --name nginx_1 -d -p 8080:80 -v /Users/eugenechen/mydata:/mydata -v mydata2:/mydata2 nginx:1.15
+</span></span></code></pre></div></li>
+<li>進入容器，會發現檔案還在
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1"># in host</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">docker <span class="nb">exec</span> -it nginx_1 bash
+</span></span><span class="line"><span class="ln">3</span><span class="cl">
+</span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="c1"># in nginx_1</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">ls /mydata2/
+</span></span></code></pre></div></li>
+</ol>
+<h2 id="volume-小總結">volume 小總結<a class="anchor ms-1" href="#volume-小總結"><i class="fas fa-link"></i></a></h2>
+<p><code>-v</code> 參數的格式是：<code>-v &lt;source&gt;:&lt;target&gt;</code>，source 可以來自 host 或 volume，不管來自哪都不會因為容器刪除而消失，並且
+來自 host ：容器與 host 就可以共享檔案/資料夾，
+來自 volume ：容器與 其它容器 就可以共享資料夾</p>
+<p>最後，重新整理常用容器管理表格，加入 <code>-v</code>：</p>
+<table>
+<thead>
+<tr>
+<th>用途</th>
+<th>指令</th>
+<th>常用可選參數</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>建立並執行容器</td>
+<td><code>docker run</code></td>
+<td><code>--name</code>, <code>-d</code>, <code>-rm</code>, <code>-p</code>, <code>-v</code></td>
+</tr>
+<tr>
+<td>查看容器</td>
+<td><code>docker ps</code></td>
+<td><code>--all</code></td>
+</tr>
+<tr>
+<td>執行容器</td>
+<td><code>docker start</code></td>
+<td></td>
+</tr>
+<tr>
+<td>停止容器</td>
+<td><code>docker stop</code></td>
+<td></td>
+</tr>
+<tr>
+<td>刪除容器</td>
+<td><code>docker rm</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="總結">總結<a class="anchor ms-1" href="#總結"><i class="fas fa-link"></i></a></h1>
+<p>常用指令如下：</p>
+<table>
+<thead>
+<tr>
+<th>用途</th>
+<th>指令</th>
+<th>常用可選參數</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>下載映像檔</td>
+<td><code>docker pull</code></td>
+<td></td>
+</tr>
+<tr>
+<td>刪除映像檔</td>
+<td><code>docker rmi</code></td>
+<td></td>
+</tr>
+<tr>
+<td>建立並執行容器</td>
+<td><code>docker run</code></td>
+<td><code>--name</code>, <code>-d</code>, <code>-rm</code>, <code>-p</code>, <code>-v</code></td>
+</tr>
+<tr>
+<td>查看容器</td>
+<td><code>docker ps</code></td>
+<td><code>--all</code></td>
+</tr>
+<tr>
+<td>執行容器</td>
+<td><code>docker start</code></td>
+<td></td>
+</tr>
+<tr>
+<td>停止容器</td>
+<td><code>docker stop</code></td>
+<td></td>
+</tr>
+<tr>
+<td>刪除容器</td>
+<td><code>docker rm</code></td>
+<td></td>
+</tr>
+<tr>
+<td>進入容器</td>
+<td><code>docker exec -it &lt;id or container_name&gt; bash</code></td>
+<td></td>
+</tr>
+<tr>
+<td>建立 volume</td>
+<td><code>docker volume create</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>今天介紹了 docker 的基本元件：image, container, volumn，以及常用的指令。到目前為止，你應該會在本機端架任何 dockerize (docker 化) 的服務。</p>
+<p>未來我們在來談 network，它可以只讓特定容器放在某網路中，不需要限定安裝在本機端。</p></div></div>
+  <div class="card-footer"><div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-prev">
+    <i class="fas fa-fw fa-chevron-circle-down post-prev-icon" data-fa-transform="rotate-90"></i>
+    <a href="/series/2019-ithome-ironman/day-25-%E4%BA%8C%E5%91%A8%E7%9B%AE-react-component-%E5%A5%97%E4%BB%B6-material-ui-google-material-design-%E7%9A%84%E5%AF%A6%E4%BD%9C%E5%A5%97%E4%BB%B6/">Day 25 - 二周目 - React Component 套件 Material-UI： Google Material Design 的實作套件
+</a>
+  </div><div class="post-nav post-next">
+    <a href="/series/2019-ithome-ironman/day-27-%E4%B8%89%E5%91%A8%E7%9B%AE-%E4%BA%94%E5%88%86%E9%90%98%E5%BB%BA%E7%AB%8B%E7%A7%81%E6%9C%89-npm-verdaccio/">Day 27 - 三周目 - 五分鐘建立私有 NPM: Verdaccio
+</a>
+    <i class="fas fa-fw fa-chevron-circle-down post-next-icon" data-fa-transform="rotate-270"></i>
+  </div></div></div>
+</article><div class="post-copyright mb-3 row card component" id="post-copyright">
+    <div class="card-header">
+        <h2 class="card-title fs-4 my-2 text-surface">版權</h2>
+    </div>
+    <div class="card-body"><a class="d-flex align-items-center flex-column" target="_blank" rel="license noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_TW">
+  <span><i class="fab fa-fw fa-2x fa-creative-commons"></i><i class="fab fa-fw fa-2x fa-creative-commons-by"></i><i class="fab fa-fw fa-2x fa-creative-commons-nc"></i><i class="fab fa-fw fa-2x fa-creative-commons-sa"></i></span>
+  CC BY-NC-SA 4.0 
+</a>
+
+
+    </div>
+</div><section class="related-posts row card component">
+    <div class="card-header">
+      <h2 class="card-title fs-4 my-2 text-surface">相關文章</h2>
+    </div>
+    <div class="card-body">
+      <ul class="post-list list-unstyled"><li>
+          <a href="/series/2019-ithome-ironman/day-25-%E4%BA%8C%E5%91%A8%E7%9B%AE-react-component-%E5%A5%97%E4%BB%B6-material-ui-google-material-design-%E7%9A%84%E5%AF%A6%E4%BD%9C%E5%A5%97%E4%BB%B6/">Day 25 - 二周目 - React Component 套件 Material-UI： Google Material Design 的實作套件
+</a>
+          <span class="float-end post-date">2018-10-25
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-24-%E4%BA%8C%E5%91%A8%E7%9B%AE-redux-%E5%A6%82%E4%BD%95%E7%99%BC%E5%87%BA%E9%9D%9E%E5%90%8C%E6%AD%A5-action%E5%BC%95%E5%85%A5%E9%9D%9E%E5%90%8C%E6%AD%A5-middleware/">Day 24 - 二周目 - Redux 如何發出非同步 Action：引入非同步 Middleware
+</a>
+          <span class="float-end post-date">2018-10-24
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-23-%E4%BA%8C%E5%91%A8%E7%9B%AE-redux-%E4%B8%B2%E6%8E%A5-react-%E8%88%87-redux-devtools/">Day 23 - 二周目 - Redux 串接 React 與 Redux DevTools
+</a>
+          <span class="float-end post-date">2018-10-23
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-22-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E8%A7%A3%E9%96%8B-stateprop-%E7%9A%84%E6%B7%B7%E4%BA%82flux-%E5%96%AE%E5%90%91%E8%B3%87%E6%96%99%E6%B5%81%E6%9A%A8-redux-%E9%AB%94%E9%A9%97/">Day 22 - 二周目 - 解開 State:prop 的混亂：Flux 單向資料流暨 Redux 體驗
+</a>
+          <span class="float-end post-date">2018-10-22
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-21-%E4%BA%8C%E5%91%A8%E7%9B%AE-react-%E5%BF%85%E5%82%99%E7%9F%A5%E8%AD%98%E5%92%8C%E6%95%88%E8%83%BD%E8%AD%B0%E9%A1%8C/">Day 21 - 二周目 - React 必備知識和效能議題
+</a>
+          <span class="float-end post-date">2018-10-21
+</span>
+        </li></ul>
+    </div>
+  </section><div class="card component row post-comments" id="post-comments">
+  <div class="card-header">
+    <h2 class="card-title my-2 fs-4 text-surface">評論</h2>
+  </div>
+  <div class="card-body"><script src="https://utteranc.es/client.js"
+  repo="eugenechen0514/eugenechen0514.github.io"
+  issue-term="pathname"
+  label="comment"
+  theme="github-light"
+  crossorigin="anonymous"
+  async>
+</script></div>
+</div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container d-flex flex-column">
+    
+    <div class="card row text-center profile component">
+  <div class="card-body">
+    <div class="col-12 d-flex align-items-center justify-content-center"><picture><img class="profile-avatar rounded-circle" alt="EugeneChen" src="/images/profile.webp" loading="lazy" data-viewer-invisible
+    
+     width="298" height="305"
+     />
+</picture>
+</div>
+    <div class="col-12 profile-meta"><div class="profile-name fw-fold fs-lg">EugeneChen</div><div class="profile-bio">軟體工程師，喜歡動手做些有的沒的專案，同時也喜愛數學、攝影、桌球，慢跑、游泳、作菜。</div><div class="profile-about"><i class="fas fa-fw fa-user"></i><a target="_blank" rel="noopener noreferrer" href="https://eugene-website.herokuapp.com">關於我</a></div><nav class="social-links nav justify-content-center"><a class="nav-link social-link" href="mailto:yujiechen0514@gmail.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i></a><a class="nav-link social-link" target="_blank" href="https://github.com/eugenechen0514" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-github"></i></a><a class="nav-link social-link" target="_blank" href="/index.xml" title="RSS" rel="noopener noreferrer">
+    <i class="fas fa-fw fa-2x fa-rss"></i></a></nav>
+</div>
+  </div>
+</div>
+<section class="taxonomies row card component">
+    <div class="card-body">
+        <ul class="nav nav-tabs" id="myTab" role="tablist"><li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="taxonomySeriesTab" data-bs-toggle="tab" data-bs-target="#taxonomySeries" 
+                        type="button" role="tab" aria-controls="專欄" aria-selected="true">
+                        專欄
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                    <button class="nav-link" id="taxonomyCategoriesTab" data-bs-toggle="tab" data-bs-target="#taxonomyCategories" 
+                        type="button" role="tab" aria-controls="分類" aria-selected="true">
+                        分類
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                    <button class="nav-link" id="taxonomyTagsTab" data-bs-toggle="tab" data-bs-target="#taxonomyTags" 
+                        type="button" role="tab" aria-controls="標籤" aria-selected="true">
+                        標籤
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                <button class="nav-link" id="taxonomyArchivesTab" data-bs-toggle="tab" data-bs-target="#taxonomyArchive" 
+                    type="button" role="tab" aria-controls="taxonomyArchives" aria-selected="true">
+                    歸檔
+                </button>
+            </li>
+        </ul>
+          
+        <div class="tab-content mt-3"><div class="tab-pane active" id="taxonomySeries" role="tabpanel" aria-labelledby="taxonomySeriesTab" tabindex="0"><a href="/series/2019-ithome-ironman/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="用js成為老闆心中的全端工程師 - 2019 iT邦幫忙鐵人賽">
+                        用js成為老闆心中的全端工程師 - 2019 iT邦幫忙鐵人賽<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a></div><div class="tab-pane" id="taxonomyCategories" role="tabpanel" aria-labelledby="taxonomyCategoriesTab" tabindex="0"><a href="/categories/%E9%9A%A8%E6%89%8B%E7%AD%86%E8%A8%98/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="隨手筆記">
+                        隨手筆記<span class="badge badge-sm text-secondary bg-white ms-1">2</span></a><a href="/categories/%E5%BF%83%E5%BE%97/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="心得">
+                        心得<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a></div><div class="tab-pane" id="taxonomyTags" role="tabpanel" aria-labelledby="taxonomyTagsTab" tabindex="0"><a href="/tags/2019-it-%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2019 iT 邦幫忙鐵人賽">
+                        2019 iT 邦幫忙鐵人賽<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a><a href="/tags/%E7%94%A8js%E6%88%90%E7%82%BA%E8%80%81%E9%97%86%E5%BF%83%E4%B8%AD%E7%9A%84%E5%85%A8%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%AB/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="用js成為老闆心中的全端工程師">
+                        用js成為老闆心中的全端工程師<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a><a href="/tags/alphacamp/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="AlphaCamp">
+                        AlphaCamp<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/kafka/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="Kafka">
+                        Kafka<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/mongodb/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="MongoDB">
+                        MongoDB<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/pandas/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="pandas">
+                        pandas<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/python/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="python">
+                        python<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/%E6%8E%A8%E8%96%A6%E7%B3%BB%E7%B5%B1/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="推薦系統">
+                        推薦系統<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a></div><div class="tab-pane" id="taxonomyArchive" role="tabpanel" aria-labelledby="taxonomyArchiveTab" tabindex="0"><a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2022">
+    2022 <span class="badge badge-sm text-secondary bg-white ms-1">1</span>
+    </a>
+<a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2021">
+    2021 <span class="badge badge-sm text-secondary bg-white ms-1">2</span>
+    </a>
+<a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2018">
+    2018 <span class="badge badge-sm text-secondary bg-white ms-1">30</span>
+    </a>
+
+</div>
+        </div>
+    </div>
+</section><div class="post-toc row mb-4 card component" id="postTOC">
+  <div class="card-header">
+    <h2 class="card-title fs-4 my-2 text-surface">目錄</h2>
+  </div>
+  <div class="card-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#容器container">容器(container)</a></li>
+    <li><a href="#映像檔image">映像檔(image)</a></li>
+    <li><a href="#所以最基本的-docker-有什麼單元">所以最基本的 Docker 有什麼單元?</a></li>
+    <li><a href="#下載映像檔image-nginx">下載映像檔(image): nginx</a>
+      <ul>
+        <li><a href="#常用映像檔管理">常用映像檔管理</a></li>
+      </ul>
+    </li>
+    <li><a href="#建立並執行容器-nginx_1">建立並執行容器: <code>nginx_1</code></a>
+      <ul>
+        <li><a href="#建立並執行容器指令-docker-run">建立並執行容器指令: <code>docker run</code></a></li>
+        <li><a href="#移除容器">移除容器</a></li>
+        <li><a href="#讓容器在背景執行">讓容器在背景執行</a></li>
+        <li><a href="#常用容器管理">常用容器管理</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#與-host-共享bind-mount">與 host 共享(bind mount)</a>
+      <ul>
+        <li><a href="#ternimal-進入容器-docker-exec">&ldquo;ternimal&rdquo; 進入容器： <code>docker exec</code></a></li>
+        <li><a href="#驗証主機資料夾中檔案出現在容器中">驗証主機資料夾中檔案，出現在容器中</a></li>
+      </ul>
+    </li>
+    <li><a href="#掛載-volume-實體-volume">掛載 Volume 實體 (volume)</a>
+      <ul>
+        <li><a href="#驗証容器移除後檔案還在">驗証容器移除後，檔案還在</a></li>
+      </ul>
+    </li>
+    <li><a href="#volume-小總結">volume 小總結</a></li>
+  </ul>
+</nav>
+  </div>
+</div><section class="recent-posts row card component">
+  <div class="card-header">
+    <h2 class="card-title my-2 fs-4 text-surface">最近文章</h2>
+  </div>
+  <div class="card-body">
+    <ul class="post-list list-unstyled ms-1"><li class="mb-2">
+        <a href="/posts/reviews/2022-02-06-alphacamp%E6%8E%A8%E8%96%A6%E7%B3%BB%E7%B5%B1%E4%B8%8A%E8%AA%B2%E5%BF%83%E5%BE%97/">AlphaCamp 推薦系統上課心得
+</a>
+      </li><li class="mb-2">
+        <a href="/posts/notes/2021-08-22-%E4%B8%80%E7%AA%BAkafka%E5%85%A7%E9%83%A8%E5%84%B2%E5%AD%98%E8%B3%87%E6%96%99/">一窺 Kafka 內部儲存資料
+</a>
+      </li><li class="mb-2">
+        <a href="/posts/notes/2021-08-01-mongodb-5-%E4%BE%86%E4%BA%86%E6%9C%89%E4%BB%80%E9%BA%BC%E5%80%BC%E5%BE%97%E6%B3%A8%E6%84%8F%E7%9A%84%E6%9B%B4%E6%96%B0/">MongoDb 5 來了，有什麼值得注意的更新呢?
+</a>
+      </li><li class="mb-2">
+        <a href="/series/2019-ithome-ironman/day-30-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-network-%E6%9A%A8%E5%AE%8C%E8%B3%BD%E5%9B%9E%E9%A1%A7/">Day 30- 三周目 - Docker Network 暨完賽回顧
+</a>
+      </li><li class="mb-2">
+        <a href="/series/2019-ithome-ironman/day-29-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-compose%E4%B8%80%E6%AC%A1%E7%AE%A1%E7%90%86%E5%A4%9A%E5%80%8B%E5%AE%B9%E5%99%A8/">Day 29- 三周目 - Docker Compose：一次管理多個容器
+</a>
+      </li></ul>
+  </div>
+</section>
+    
+  </div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><div class="offcanvas offcanvas-bottom h-auto" tabindex="-1" id="offcanvasActionsPanel"
+  aria-labelledby="offcanvasActionsPanelLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title fs-4" id="offcanvasActionsPanelLabel">
+      <i class="fas fa-fw fa-th-large me-1"></i>
+      Actions
+    </h5>
+    <button type="button" class="btn-close ms-auto" data-bs-dismiss="offcanvas" data-bs-target="offcanvasActionsPanel" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body mt-2"><div class="social-share mb-4 d-flex overflow-auto">
+      <a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Twitter Share Button"
+      target="_blank" href="https://twitter.com/intent/tweet?title=Day%2026%20-%20%e4%b8%89%e5%91%a8%e7%9b%ae%20-%20Docker%20%e5%9f%ba%e6%9c%ac%e4%bd%bf%e7%94%a8%ef%bc%9a%e7%9c%8b%e5%ae%8c%e5%b0%b1%e6%9c%83%e6%9e%b6%20docker%20%e5%8c%96%e7%9a%84%e6%9c%8d%e5%8b%99&url=%2fseries%2f2019-ithome-ironman%2fday-26-%25E4%25B8%2589%25E5%2591%25A8%25E7%259B%25AE-docker-%25E5%259F%25BA%25E6%259C%25AC%25E4%25BD%25BF%25E7%2594%25A8%25E7%259C%258B%25E5%25AE%258C%25E5%25B0%25B1%25E6%259C%2583%25E6%259E%25B6-docker-%25E5%258C%2596%25E7%259A%2584%25E6%259C%258D%25E5%258B%2599%2f">
+        <i class="fab fa-2x fa-fw fa-twitter mb-2"></i> Twitter
+      </a>
+      <a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Facebook Share Button"
+        target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=%2fseries%2f2019-ithome-ironman%2fday-26-%25E4%25B8%2589%25E5%2591%25A8%25E7%259B%25AE-docker-%25E5%259F%25BA%25E6%259C%25AC%25E4%25BD%25BF%25E7%2594%25A8%25E7%259C%258B%25E5%25AE%258C%25E5%25B0%25B1%25E6%259C%2583%25E6%259E%25B6-docker-%25E5%258C%2596%25E7%259A%2584%25E6%259C%258D%25E5%258B%2599%2f">
+        <i class="fab fa-2x fa-fw fa-facebook-f mb-2"></i> Facebook
+      </a>
+    </div>
+    <hr class="mb-4"><div class="actions d-flex overflow-auto align-items-center">
+      <a role="button" class="action action-go-back d-flex flex-column align-items-center me-3" href="javascript: window.history.back();">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-chevron-circle-down" data-fa-transform="rotate-90"></i></span> 返回
+      </a>
+      <a role="button" class="action action-reload-page d-flex flex-column align-items-center me-3">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-redo-alt"></i></span> 刷新
+      </a>
+      <a role="button" class="action action-copy-url d-flex flex-column align-items-center me-3">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-link"></i></span> 複製連結
+      </a>
+    </div>
+  </div>
+</div><nav class="social-links nav justify-content-center mb-2"><a class="nav-link social-link" href="mailto:yujiechen0514@gmail.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i></a><a class="nav-link social-link" target="_blank" href="https://github.com/eugenechen0514" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-github"></i></a><a class="nav-link social-link" target="_blank" href="https://linkedin.com/in/yuchieh-chen-37a48989" title="LinkedIn" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-linkedin-in"></i></a><a class="nav-link social-link" target="_blank" href="https://medium.com/@yujiechen0514" title="Medium" rel="noopener noreferrer">
+        <i class="fab fa-fw fa-2x fa-medium-m"></i></a><a class="nav-link social-link" target="_blank" href="/index.xml" title="RSS" rel="noopener noreferrer">
+    <i class="fas fa-fw fa-2x fa-rss"></i></a></nav>
+<div class="copyright mb-2">
+  Copyright © 2016-2022 EugeneChen. All Rights Reserved.
+</div>
+<div class="powered-by mb-2">
+  Powered by <a class="text-primary" href="https://gohugo.io" target="_blank" rel="noopener noreferrer">Hugo</a> and the <a class="text-primary" href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank" rel="noopener noreferrer">Bootstrap</a> theme.
+</div>
+<div class="sponsors">
+
+
+
+
+
+
+</div>
+</footer>
+<script src="/assets/main/bundle.min.2bc7d6952dbf38d6d2815939c58fc655e72d050b196d9fd99829d8fb23904646.js" integrity="sha256-K8fWlS2/ONbSgVk5xY/GVectBQsZbZ/ZmCnY&#43;yOQRkY=" crossorigin="anonymous" defer></script><script src="/assets/icons/bundle.min.a4bf8247f780c9bf61d579a8efe7129ec790bb98622bf4a29895eb21e689266c.js" integrity="sha256-pL&#43;CR/eAyb9h1Xmo7&#43;cSnseQu5hiK/SimJXrIeaJJmw=" crossorigin="anonymous" defer></script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('\/service-worker.min.js').then(function(reg) {
+      console.log('Successfully registered service worker', reg);
+    }).catch(function(err) {
+      console.warn('Error whilst registering service worker', err);
+    });
+  });
+}
+</script><script src="/assets/viewer/bundle.min.92d4a694e2e9a4c4d89b6998067e2f8e502dc7a951682bb5a160a3004b434908.js" integrity="sha256-ktSmlOLppMTYm2mYBn4vjlAtx6lRaCu1oWCjAEtDSQg=" crossorigin="anonymous" defer></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-ZWYL79X38Y', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+<script src="/assets/docsearch/bundle.min.c6965b5bee044b874617239932d6a7992b217f7949f895a7576980d110fb2ab1.js" integrity="sha256-xpZbW&#43;4ES4dGFyOZMtanmSshf3lJ&#43;JWnV2mA0RD7KrE=" crossorigin="anonymous" defer></script></body>
+</html>

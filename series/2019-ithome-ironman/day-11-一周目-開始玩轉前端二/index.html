@@ -1,0 +1,845 @@
+<!doctype html><html class="position-relative" itemscope itemtype="http://schema.org/WebPage" lang="zh-tw" data-theme="auto"
+  
+   data-palette="purple">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Day 11 - 一周目- 開始玩轉前端(二) - EugeneChen</title><link rel="apple-touch-icon" href="/images/icons/icon-180x180.png" sizes="180x180">
+<link rel="icon" href="/images/icons/icon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/images/icons/icon-16x16.png" sizes="16x16" type="image/png">
+<link rel="icon" href="/images/icons/favicon.ico">
+<link rel="manifest" href="/manifest.json">
+<meta name="keywords" content="" />
+<meta name="description" content="發出一個非同步 request 串接後端" /><meta name="robots" content="index, follow" /><meta itemprop="name" content="Day 11 - 一周目- 開始玩轉前端(二)">
+<meta itemprop="description" content="發出一個非同步 request 串接後端"><meta itemprop="datePublished" content="2018-10-11T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2018-10-11T00:00:00+00:00" />
+<meta itemprop="wordCount" content="3105">
+<meta itemprop="keywords" content="2019 iT 邦幫忙鐵人賽,用js成為老闆心中的全端工程師," /><meta property="og:title" content="Day 11 - 一周目- 開始玩轉前端(二)" />
+<meta property="og:description" content="發出一個非同步 request 串接後端" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/series/2019-ithome-ironman/day-11-%E4%B8%80%E5%91%A8%E7%9B%AE-%E9%96%8B%E5%A7%8B%E7%8E%A9%E8%BD%89%E5%89%8D%E7%AB%AF%E4%BA%8C/" /><meta property="article:section" content="series" />
+<meta property="article:published_time" content="2018-10-11T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-10-11T00:00:00+00:00" /><meta property="og:site_name" content="EugeneChen" />
+<meta property="og:see_also" content="/series/2019-ithome-ironman/day-30-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-network-%E6%9A%A8%E5%AE%8C%E8%B3%BD%E5%9B%9E%E9%A1%A7/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-29-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-compose%E4%B8%80%E6%AC%A1%E7%AE%A1%E7%90%86%E5%A4%9A%E5%80%8B%E5%AE%B9%E5%99%A8/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-28-%E4%B8%89%E5%91%A8%E7%9B%AE-%E8%A3%BD%E4%BD%9C%E8%87%AA%E5%B7%B1%E7%9A%84%E6%98%A0%E5%83%8F%E6%AA%94%E5%8C%85%E6%89%93%E5%89%8D%E5%BE%8C%E7%AB%AF%E6%98%A0%E5%83%8F%E6%AA%94/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-27-%E4%B8%89%E5%91%A8%E7%9B%AE-%E4%BA%94%E5%88%86%E9%90%98%E5%BB%BA%E7%AB%8B%E7%A7%81%E6%9C%89-npm-verdaccio/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-26-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E7%9C%8B%E5%AE%8C%E5%B0%B1%E6%9C%83%E6%9E%B6-docker-%E5%8C%96%E7%9A%84%E6%9C%8D%E5%8B%99/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-25-%E4%BA%8C%E5%91%A8%E7%9B%AE-react-component-%E5%A5%97%E4%BB%B6-material-ui-google-material-design-%E7%9A%84%E5%AF%A6%E4%BD%9C%E5%A5%97%E4%BB%B6/" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Day 11 - 一周目- 開始玩轉前端(二)"/>
+<meta name="twitter:description" content="發出一個非同步 request 串接後端"/>
+<meta property="og:image" content="/images/logo.png"/>
+  <meta name="twitter:image" content="/images/logo.png"/><link rel="stylesheet" href="/assets/main/bundle.min.925f59d4c744cc5e99dcc7d02a6f68dff5cceaea488c7667bd947bf7aa35b649.css" integrity="sha256-kl9Z1MdEzF6Z3MfQKm9o3/XM6upIjHZnvZR796o1tkk=" crossorigin="anonymous"><link rel="stylesheet" href="/assets/viewer/bundle.min.f05183267bb952fbc8c63a7178364de2951614ab71d544ec1068ad36c7447ccc.css" integrity="sha256-8FGDJnu5UvvIxjpxeDZN4pUWFKtx1UTsEGitNsdEfMw=" crossorigin="anonymous"><link rel="stylesheet" href="/assets/docsearch/bundle.min.c165d6a127fffa285e6b89ef65362fe921bc0c1fdaefa35f6af069b962bdb50e.css" integrity="sha256-wWXWoSf/&#43;ihea4nvZTYv6SG8DB/a76NfavBpuWK9tQ4=" crossorigin="anonymous"></head>
+  <body><script>const items=["theme","palette"];items.forEach(function(e){const t=localStorage.getItem("hbs:"+e);t&&document.body.parentElement.setAttribute("data-"+e,t)})</script><header><nav class="top-app-bar shadow bg-primary text-white navbar navbar-expand-lg fixed-top">
+  <div class="container"><a class="navbar-brand flex-grow-1 flex-lg-grow-0 text-lg-start ms-2 ms-lg-0 mx-auto me-lg-3" href="/"><picture><img class="logo" alt="Logo" src="/images/logo.webp" loading="lazy"
+    
+     width="136" height="69"
+     />
+</picture>
+EugeneChen
+    </a>
+    <button class="navbar-toggler order-5" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarMenus"
+      aria-controls="navbarMenus" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-ellipsis-h"></i>
+    </button>
+    <div class="offcanvas-lg offcanvas-end flex-grow-1 bg-primary text-white" tabindex="-1" id="navbarMenus" aria-labelledby="navbarMenusLabel">
+      <div class="offcanvas-header px-4 pb-0">
+        <h5 class="offcanvas-title" id="navbarMenusLabel">EugeneChen</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" data-bs-target="#navbarMenus" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body p-4 pt-0 p-lg-0">
+        <hr class="d-lg-none">
+        <ul class="navbar-nav flex-row flex-wrap align-items-center me-auto"><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/posts/">
+              <i class="fas fa-book fa-fw"></i>文章
+            </a>
+          </li><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/series/">
+              <i class="fas fa-bars fa-fw"></i>專欄
+            </a>
+          </li><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/posts/notes/">
+              <i class="fas fa-sticky-note fa-fw"></i>隨手筆記
+            </a>
+          </li></ul>
+        <hr class="d-lg-none">
+        <form class="search-bar mx-auto my-1" action="/search" novalidate>
+  <div class="input-group input-group-sm align-items-center">
+    <span class="btn btn-search disabled position-absolute left-0 border-0">
+      <i class="fas fa-fw fa-search fa-lg"></i>
+    </span>
+    <input class="py-2 form-control rounded search-input" name="q" type="search" aria-label="Search" required>
+  </div>
+</form>
+<hr class="d-lg-none">
+        <ul class="navbar-nav flex-row flex-wrap align-items-center ms-md-auto"><li class="nav-item dropdown py-1 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-globe"></i>
+        <span class="d-lg-none">語言</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown"><li>
+        <a class="dropdown-item" href="/en/">
+            English
+        </a>
+        </li><li>
+        <a class="dropdown-item active" href="/">
+            繁體中文
+        </a>
+        </li></ul>
+</li>
+<li class="nav-item py-1 col-12 col-lg-auto">
+  <div class="vr d-none d-lg-flex h-100 mx-lg-2 text-white"></div>
+  <hr class="d-lg-none my-2">
+</li><li class="nav-item dropdown py-2 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="fontSizeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-font"></i>
+        <span class="d-lg-none">字體大小</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="fontSizeDropdown"><li>
+            <button class="font-size-item dropdown-item" data-size="xs">
+                特小號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="sm">
+                小號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item active" data-size="md">
+                中等
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="lg">
+                大號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="xl">
+                特大號
+            </button>
+        </li></ul>
+</li><li class="nav-item dropdown py-1 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="paletteDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-palette"></i>
+        <span class="d-lg-none">配色</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end px-2" aria-labelledby="paletteDropdown">
+        <div class="row"><li class="col-3 my-1">
+                <a role="button" id="palette-blue" aria-label="藍色"
+                    class="btn btn-sm w-100 palette text-bg-blue" data-palette="blue">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-blue-gray" aria-label="藍灰色"
+                    class="btn btn-sm w-100 palette text-bg-blue-gray" data-palette="blue-gray">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-brown" aria-label="棕色"
+                    class="btn btn-sm w-100 palette text-bg-brown" data-palette="brown">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-cyan" aria-label="青色"
+                    class="btn btn-sm w-100 palette text-bg-cyan" data-palette="cyan">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-green" aria-label="綠色"
+                    class="btn btn-sm w-100 palette text-bg-green" data-palette="green">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-indigo" aria-label="靛青色"
+                    class="btn btn-sm w-100 palette text-bg-indigo" data-palette="indigo">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-orange" aria-label="橙色"
+                    class="btn btn-sm w-100 palette text-bg-orange" data-palette="orange">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-pink" aria-label="粉色"
+                    class="btn btn-sm w-100 palette text-bg-pink" data-palette="pink">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-purple" aria-label="紫色"
+                    class="btn btn-sm w-100 palette text-bg-purple" data-palette="purple">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-red" aria-label="紅色"
+                    class="btn btn-sm w-100 palette text-bg-red" data-palette="red">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-teal" aria-label="藍綠色"
+                    class="btn btn-sm w-100 palette text-bg-teal" data-palette="teal">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-yellow" aria-label="黃色"
+                    class="btn btn-sm w-100 palette text-bg-yellow" data-palette="yellow">
+                </a>
+            </li></div>
+    </ul>
+</li>
+<li class="nav-item dropdown py-2 py-lg-1 col-6 col-lg-auto"><a class="nav-link px-0 px-lg-1" href="#" id="modeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="mode-icon fas fa-fw fa-adjust" id="modeIcon"></i>
+        <span class="d-lg-none">模式</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="modeDropdown"><li class="mode-item" data-color-mode="light" data-icon="sun">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-sun"></i> Light
+            </button>
+        </li><li class="mode-item" data-color-mode="dark" data-icon="moon">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-moon"></i> Dark
+            </button>
+        </li><li class="mode-item active" data-color-mode="auto" data-icon="adjust">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-adjust"></i> Auto
+            </button>
+        </li></ul>
+</li>
+</ul>
+      </div>
+    </div>
+  </div>
+</nav>
+</header>
+<main class="container">
+      <div class="row content"><noscript>
+    <div class="alert alert-danger" role="alert">你的瀏覽器不支持 JavaScript。</div>
+</noscript>
+
+<div class="col-lg-8">
+  <div class="container"><nav class="row card component" aria-label="breadcrumb">
+  <div class="card-body pb-0">
+    <ol class="breadcrumb"><li class="breadcrumb-item text-surface"><a href="/">主頁</a></li><li class="breadcrumb-item text-surface"><a href="/series/">Series</a></li><li class="breadcrumb-item active">Day 11 - 一周目- 開始玩轉前端(二)</li></ol>
+  </div>
+</nav><div class="post-panel-wrapper position-sticky">
+  <div class="d-flex flex-column component rounded post-panel position-absolute border">
+    
+    <a class="action action-panel-toggler" role="button" title="Panel toggler">
+      <i class="fas fa-fw fa-chevron-circle-down"></i>
+    </a>
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button" title="Sidebar toggler">
+  <i class="fas fa-fw fa-expand-alt" data-fa-transform="rotate-45"></i>
+</a>
+
+    
+
+    
+    <a class="action" href="#post-copyright" role="button" aria-label="Copyright" title="Copyright">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    <a class="action" href="#post-comments" role="button" aria-label="Comments" title="Comments">
+  <i class="fas fa-fw fa-comments"></i>
+</a>
+    <a class="action" href="#postTOC" aria-controls="Table of contents" role="button" title="Table of contents">
+  <i class="fas fa-fw fa-list-alt"></i>
+</a>
+    
+  </div>
+</div>
+<article class="row card component mb-4 post">
+  <div class="card-header ">
+    <h1 class="card-title post-title my-2">Day 11 - 一周目- 開始玩轉前端(二)
+</h1>
+  </div>
+  <div class="card-body"><div class="post-meta mb-3">
+  <span class="post-date me-1 mb-1" title="創建於 2018-10-11 08:00:00 &#43;0800 CST。">
+    2018-10-11
+  </span><span class="post-reading-time me-1 mb-1">
+    7 分鐘閱讀
+  </span><a href="/series/2019-ithome-ironman/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">用js成為老闆心中的全端工程師 - 2019 IT邦幫忙鐵人賽</a><a href="/tags/2019-it-%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">2019 IT 邦幫忙鐵人賽</a><a href="/tags/%E7%94%A8js%E6%88%90%E7%82%BA%E8%80%81%E9%97%86%E5%BF%83%E4%B8%AD%E7%9A%84%E5%85%A8%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%AB/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">用js成為老闆心中的全端工程師</a></div>
+<div class="post-content mb-3"><p>發出一個非同步 request 串接後端</p>
+<h1 id="回憶">回憶<a class="anchor ms-1" href="#回憶"><i class="fas fa-link"></i></a></h1>
+<p>昨天介紹了 React 和完成用 <code>create-react-app</code> 建立了第一個 React app</p>
+<h1 id="目標">目標<a class="anchor ms-1" href="#目標"><i class="fas fa-link"></i></a></h1>
+<ol>
+<li>發出一個非同步 request</li>
+<li>串接後端</li>
+</ol>
+<p>在開始前，我們先來談談「非同步」</p>
+<h1 id="非同步函數是什麼">非同步函數是什麼？<a class="anchor ms-1" href="#非同步函數是什麼"><i class="fas fa-link"></i></a></h1>
+<h2 id="來看看一個同步的例子">來看看一個同步的例子：<a class="anchor ms-1" href="#來看看一個同步的例子"><i class="fas fa-link"></i></a></h2>
+<ol>
+<li>打開 <code>hello-react</code>，在 <code>public</code> 資料夾建立一個檔案 <code>ayncRequest.html</code>：內容如下
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c">&lt;!-- ayncRequest.html --&gt;</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>before script<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">  <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;hi&#39;</span><span class="p">);</span> <span class="c1">// 在 Console 印出 &#34;hi&#34;
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="c1"></span>  <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>after script<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</span></span></code></pre></div></li>
+<li>執行 <code>npm run start</code></li>
+<li>開啟Chrome 再開 devTools，並選擇 Console 頁籤，打開 <code>http://localhost:3000/ayncRequest.html</code> 剛剛的頁面
+會看到以下的結果
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-10 at 6.34.44 PM.png" src="/series/2019-ithome-ironman/day-11-%E4%B8%80%E5%91%A8%E7%9B%AE-%E9%96%8B%E5%A7%8B%E7%8E%A9%E8%BD%89%E5%89%8D%E7%AB%AF%E4%BA%8C/resources/0443C66379AC666921939B23F742EEEC.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+
+<code>console.log()</code> 會印出訊息在 Console 中</li>
+</ol>
+<p>瀏覽器頁面渲染到一半，一看到 <code>&lt;script/&gt;</code> 就會立刻執行裡面的 javascript，也就是說 <code>console.log()</code> 立刻被執行</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">對於頁面渲染，console.log() 是同步地被執行。
+</span></span></code></pre></div><blockquote>
+<p>試試看：你可以用 debug 模式証實它真的有停在那裡。若不會操作，可以看 <a href="https://ithelp.ithome.com.tw/articles/10200734" target="_blank" rel="noopener noreferrer">Day 10- 一周目- 開始玩轉前端(一)<i class="fas fa-external-link-square-alt ms-1"></i></a>
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-10 at 6.34.58 PM.png" src="/series/2019-ithome-ironman/day-11-%E4%B8%80%E5%91%A8%E7%9B%AE-%E9%96%8B%E5%A7%8B%E7%8E%A9%E8%BD%89%E5%89%8D%E7%AB%AF%E4%BA%8C/resources/D4540A7A2637C4BA91039D050A31CC5C.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-10 at 6.35.05 PM.png" src="/series/2019-ithome-ironman/day-11-%E4%B8%80%E5%91%A8%E7%9B%AE-%E9%96%8B%E5%A7%8B%E7%8E%A9%E8%BD%89%E5%89%8D%E7%AB%AF%E4%BA%8C/resources/24D8053E74BC5A3BE0FE1C0542DA020E.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+</blockquote>
+<h2 id="一個非同步的例子">一個非同步的例子：<a class="anchor ms-1" href="#一個非同步的例子"><i class="fas fa-link"></i></a></h2>
+<p>修改 <code>ayncRequest.html</code> 加入 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Window/setTimeout" target="_blank" rel="noopener noreferrer"><code>setTimeout()</code><i class="fas fa-external-link-square-alt ms-1"></i></a></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c">&lt;!-- ayncRequest.html --&gt;</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>before script<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">  <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;hi&#39;</span><span class="p">);</span> <span class="c1">// 在 Console 印出 &#34;hi&#34;
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="c1"></span>    <span class="nx">setTimeout</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;time up&#39;</span><span class="p">);</span> <span class="c1">// 兩秒後印出 &#34;time up&#34;
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="c1"></span>    <span class="p">},</span> <span class="mi">2000</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">  <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>after script<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</span></span></code></pre></div><p>再次刷新頁面
+<picture><img class="img-fluid" alt="Screen Recording 2018-10-10 at 6.42.30 PM.gif" src="/series/2019-ithome-ironman/day-11-%E4%B8%80%E5%91%A8%E7%9B%AE-%E9%96%8B%E5%A7%8B%E7%8E%A9%E8%BD%89%E5%89%8D%E7%AB%AF%E4%BA%8C/resources/52CE2E11F6A57EDCB3996C88956CD7BF.gif" loading="lazy"
+    
+    
+     />
+</picture>
+
+
+我們發現瀏覽器頁面渲染完後，等二秒後才會執行 <code>console.log('time up')</code>。</p>
+<p>瀏覽器在執行渲染時， 下面的箭頭函</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;time up&#39;</span><span class="p">);</span> <span class="c1">// 兩秒後印出 &#34;time up&#34;
+</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><p>被 <code>setTimeout()</code> 存在某個地方後，頁面渲染結束後(看到 before script / after script)，等個兩秒，箭頭函數才被執行。此時的箭頭函數叫 <strong>callback function</strong>。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">對於頁面渲染，console.log() 是非同步地被執行。因為箭頭函數的執行不是透過「頁面渲染」執行的。
+</span></span></code></pre></div><p>下面的專案很有趣 <a href="http://latentflip.com/loupe/" target="_blank" rel="noopener noreferrer">loupe by Philip Roberts<i class="fas fa-external-link-square-alt ms-1"></i></a>，可以看到瀏覽器非同步執行過程。</p>
+<h2 id="所以結論是">所以…結論是？<a class="anchor ms-1" href="#所以結論是"><i class="fas fa-link"></i></a></h2>
+<p>很有趣的是，我找不到有人給出非同步函數正式定義，因為非同步函數無法單獨定義，它是由行為所導致結果，如：「頁面渲染」因為 <code>setTimeout()</code>導致「頁面渲染」是非同步的執行(見：<a href="https://stackoverflow.com/questions/12835900/node-js-asynchronous-function-definition" target="_blank" rel="noopener noreferrer">Node.js Asynchronous Function <em>Definition</em> Ask Question<i class="fas fa-external-link-square-alt ms-1"></i></a>)。</p>
+<p>本節最後，我說說我對非同步函數的看法是：</p>
+<blockquote>
+<p>當一函數無法立刻得到執行函數的目地，就是非同步函數。一般利用 callback function 回傳結果。</p>
+</blockquote>
+<p>所以未來看到一個函數參數有定義 <em><strong>callback function</strong></em> 大部分都是非同步函數。</p>
+<p>以後在二周目我們將會看到如何做出非同步執行的函數：</p>
+<ol>
+<li>利用 <code>setTimeout()</code>…系列</li>
+<li>Promise</li>
+<li>async/await</li>
+</ol>
+<h1 id="串接後端">串接後端<a class="anchor ms-1" href="#串接後端"><i class="fas fa-link"></i></a></h1>
+<p>上章提出了「非同步」的概念，現在來使用非同步函數，來發出非同步 request 的與伺服溝通。</p>
+<h2 id="準備環境">準備環境<a class="anchor ms-1" href="#準備環境"><i class="fas fa-link"></i></a></h2>
+<ol>
+<li>打開並執行 <code>hello-react</code>前端開發網頁伺服器</li>
+<li>打開 <a href="https://ithelp.ithome.com.tw/articles/10200622" target="_blank" rel="noopener noreferrer">Day 9 - 一周目- 開始玩轉後端(二)<i class="fas fa-external-link-square-alt ms-1"></i></a> 建的 <code>hello-express</code>，它有 <code>POST /api/echo</code> API</li>
+<li>因為前端占用 <em><strong>3000</strong></em> prot，後端要更改 port，修改 <code>package.json</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="ln">1</span><span class="cl"><span class="s2">&#34;scripts&#34;</span><span class="err">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">  <span class="nt">&#34;start&#34;</span><span class="p">:</span> <span class="s2">&#34;PORT=3001 node ./bin/www&#34;</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="p">}</span><span class="err">,</span>
+</span></span></code></pre></div><code>PORT</code>是環境變數，port 換成 <em><strong>3001</strong></em></li>
+<li>處理 <a href="https://en.wikipedia.org/wiki/Cross-origin_resource_sharing" target="_blank" rel="noopener noreferrer">Cross-origin resource sharing (CORS)<i class="fas fa-external-link-square-alt ms-1"></i></a>問題。因為我們把前後端分開，在前端網頁會打非同步api(request)到不同主機的位置，<strong>瀏覽器</strong> 基於安全性會拒絕 request，且會出現下圖：
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-10 at 9.10.20 PM.png" src="/series/2019-ithome-ironman/day-11-%E4%B8%80%E5%91%A8%E7%9B%AE-%E9%96%8B%E5%A7%8B%E7%8E%A9%E8%BD%89%E5%89%8D%E7%AB%AF%E4%BA%8C/resources/784ADDF2F25E4447A44EF7FA8F48522A.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+
+<ol>
+<li>後端安裝套件 <code>npm install cors --save</code></li>
+<li>後端修改 <code>./app.js</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1">// 加在前面
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="c1"></span><span class="kd">var</span> <span class="nx">cors</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cors&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">
+</span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="c1">// 加在　var app = express(); 之後
+</span></span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="c1"></span><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">cors</span><span class="p">());</span> <span class="c1">// 加入一個 middleware
+</span></span></span></code></pre></div></li>
+</ol>
+此 middleware 加入後，express 會在 response header 回應加入一些訊息，讓瀏覽器辯識前端網站是否可以打到後端伺服器。為了方便，我們先不做任何設定，如此一來，後端會 <strong>無條件地允許</strong> 任何來源的前端網站發出 request(正常發佈時不應該讓任何人都可以打，未來會給出解決方法)。</li>
+<li>執行 <code>npm run start</code></li>
+</ol>
+<p>前端主機是 <code>http://localhost:3000</code>
+後端主機是 <code>http://localhost:3001</code></p>
+<blockquote>
+<p>你可以用瀏覽器試試是否有正常運作或用 Postman</p>
+</blockquote>
+<h2 id="發出一個非同步-request">發出一個非同步 request<a class="anchor ms-1" href="#發出一個非同步-request"><i class="fas fa-link"></i></a></h2>
+<p>主要有兩個方法</p>
+<ol>
+<li><code>XMLHttpRequest</code> 物件</li>
+<li><code>fetch()</code> 函數</li>
+</ol>
+<h3 id="xmlhttprequest">XMLHttpRequest<a class="anchor ms-1" href="#xmlhttprequest"><i class="fas fa-link"></i></a></h3>
+<p><picture><img class="img-fluid" alt="Screen Shot 2018-10-10 at 4.15.13 PM.png" src="/series/2019-ithome-ironman/day-11-%E4%B8%80%E5%91%A8%E7%9B%AE-%E9%96%8B%E5%A7%8B%E7%8E%A9%E8%BD%89%E5%89%8D%E7%AB%AF%E4%BA%8C/resources/CACB08631602DBA76B0D7A5A22867B00.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+
+<a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest" target="_blank" rel="noopener noreferrer">XMLHttpRequest<i class="fas fa-external-link-square-alt ms-1"></i></a> 是比較是很早期就出現的東西，用起來有點麻煩。使用前要建立 XMLHttpRequest 物件，再設定一些 callback，才送出 request。</p>
+<ol>
+<li>開啟前端 <code>./src/App.js</code>，加入 <code>componentDidMount()</code>成員函數
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kr">class</span> <span class="nx">App</span> <span class="kr">extends</span> <span class="nx">Component</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">  <span class="nx">componentDidMount</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">    <span class="c1">// 送到後端的資料
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">      <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Billy&#39;</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">    <span class="c1">// 用 XMLHttpRequest 發起一個非同步的 request
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">xhr</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">    <span class="nx">xhr</span><span class="p">.</span><span class="nx">onreadystatechange</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="nx">xhr</span><span class="p">.</span><span class="nx">readyState</span> <span class="o">===</span> <span class="mi">4</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// readyState == 4 為 request 完成
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="c1"></span>        <span class="kr">const</span> <span class="nx">contentType</span> <span class="o">=</span> <span class="nx">xhr</span><span class="p">.</span><span class="nx">getResponseHeader</span><span class="p">(</span><span class="s1">&#39;content-type&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">xhr</span><span class="p">.</span><span class="nx">status</span> <span class="o">===</span> <span class="mi">200</span> <span class="o">&amp;&amp;</span> <span class="nx">contentType</span> <span class="o">&amp;&amp;</span> <span class="nx">contentType</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;application/json&#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>　<span class="c1">// 依回應的資料格式處理，我們只處理 200 &amp;&amp; application/json
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="c1"></span>          <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">            <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">xhr</span><span class="p">.</span><span class="nx">responseText</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">          <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="ln">20</span><span class="cl">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">21</span><span class="cl">          <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;無法得到資料&#39;</span><span class="p">),</span> <span class="nx">xhr</span><span class="p">.</span><span class="nx">responseText</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">22</span><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="ln">23</span><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="ln">24</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln">25</span><span class="cl">    <span class="nx">xhr</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">&#34;POST&#34;</span><span class="p">,</span> <span class="s2">&#34;http://localhost:3001/api/echo&#34;</span><span class="p">);</span> <span class="c1">// 開啟連線
+</span></span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="c1"></span>    <span class="nx">xhr</span><span class="p">.</span><span class="nx">setRequestHeader</span><span class="p">(</span><span class="s2">&#34;Content-Type&#34;</span><span class="p">,</span> <span class="s2">&#34;application/json;charset=UTF-8&#34;</span><span class="p">);</span> <span class="c1">// 設定 header
+</span></span></span><span class="line"><span class="ln">27</span><span class="cl"><span class="c1"></span>    <span class="nx">xhr</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">));</span> <span class="c1">// 以文字字串送出JSON資料
+</span></span></span><span class="line"><span class="ln">28</span><span class="cl"><span class="c1"></span>  <span class="p">}</span>
+</span></span><span class="line"><span class="ln">29</span><span class="cl">
+</span></span><span class="line"><span class="ln">30</span><span class="cl">  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">31</span><span class="cl">    <span class="p">...</span>
+</span></span><span class="line"><span class="ln">32</span><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="ln">33</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div></li>
+<li>得到結果
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-11 at 8.04.36 PM.png" src="/series/2019-ithome-ironman/day-11-%E4%B8%80%E5%91%A8%E7%9B%AE-%E9%96%8B%E5%A7%8B%E7%8E%A9%E8%BD%89%E5%89%8D%E7%AB%AF%E4%BA%8C/resources/5838D1A2AF574AAEA63719E1973F46D4.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</li>
+</ol>
+<p>這裡 <code>componentDidMount()</code> 是當 component 的渲染結果(html)插入 DOM tree 中就會呼叫。</p>
+<p>使用 <code>XMLHttpRequest</code> 物件，以文字字串送出(<code>send()</code>) JSON 資料。因為有設定 <code>Content-Type: application/json;charset=UTF-8</code>，所以後端可以解讀。</p>
+<p>每次 request 狀態改變，<code>onreadystatechange</code> 就會被呼叫，當 <code>readyState</code> 等於 <code>4</code> 就是 request 完成(不論成功還是失敗)。更多狀態見：<a href="http://www.w3school.com.cn/ajax/ajax_xmlhttprequest_onreadystatechange.asp" target="_blank" rel="noopener noreferrer">AJAX - onreadystatechange 事件<i class="fas fa-external-link-square-alt ms-1"></i></a></p>
+<h3 id="fetch">fetch()<a class="anchor ms-1" href="#fetch"><i class="fas fa-link"></i></a></h3>
+<p><picture><img class="img-fluid" alt="Screen Shot 2018-10-10 at 4.15.21 PM.png" src="/series/2019-ithome-ironman/day-11-%E4%B8%80%E5%91%A8%E7%9B%AE-%E9%96%8B%E5%A7%8B%E7%8E%A9%E8%BD%89%E5%89%8D%E7%AB%AF%E4%BA%8C/resources/D9A3B20D47B439BA08AE8B3CA2CA25A1.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+
+<a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API" target="_blank" rel="noopener noreferrer">fetch()<i class="fas fa-external-link-square-alt ms-1"></i></a> 是比較新的函數，支援度也不錯，更重要的是，它可以當函數直接用，回傳 <code>Promise</code> 物件。 <code>Promise</code> 可以說是 javascript 最重要的物件，它包裝非同步操作，只要用 <code>then(resolveCallback).catch(rejectCallback)</code>，就可以接收非同步的結果。我們在二周目會再次見到它。</p>
+<p>把上 使用 <code>XMLHttpRequest</code> 物件的　<code>componentDidMount()</code>，全部註解掉，貼上下面程式，也會得到一樣的結果</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="nx">componentDidMount</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">    <span class="c1">// 送到後端的資料
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">      <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Billy&#39;</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">    <span class="c1">// 用 fetch() 發起一個非同步的 request
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="c1"></span>    <span class="nx">fetch</span><span class="p">(</span><span class="s2">&#34;http://localhost:3001/api/echo&#34;</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">      <span class="nx">method</span><span class="o">:</span> <span class="s2">&#34;POST&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">      <span class="nx">headers</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">        <span class="s2">&#34;Content-Type&#34;</span><span class="o">:</span> <span class="s2">&#34;application/json; charset=utf-8&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">      <span class="nx">body</span><span class="o">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">),</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">      <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="p">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">())</span> <span class="c1">// 取出 JSON 資料，並還原成 Object。response.json()　一樣回傳 Promise 物件
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="c1"></span>      <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">data</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">      <span class="p">})</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl">      <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">e</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">20</span><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">21</span><span class="cl">      <span class="p">});</span>
+</span></span><span class="line"><span class="ln">22</span><span class="cl">  <span class="p">}</span>
+</span></span></code></pre></div><p><code>fetch()</code> 是不是用起來比較自然一點了，可讀性增加了。<code>fetch().then(resolveCallback1).then(resolveCallback2).catch(rejectCallback)</code> 是一種<a href="https://en.wikipedia.org/wiki/Method_chaining" target="_blank" rel="noopener noreferrer">鏈式語法<i class="fas fa-external-link-square-alt ms-1"></i></a>，就是一直串下去要做的事。</p>
+<p>流程如下：(你先不要看解釋，看程式就大概可以猜到過程了)</p>
+<ol>
+<li><code>fetch()</code> 一但成功取得資料，假設叫 <code>request</code>，就會把<code>request</code>往下一個 <code>then()</code>裡面的 callback 傳，就如同執行 <code>resolveCallback1(request)</code>。</li>
+<li><code>resolveCallback1(request)</code> 回傳一個由<code>response.json()</code> 產生的 Promise 物件，也會繼續如同之前一樣。 <code>response.json()</code> 成功時取得資料，假設叫 <code>data</code>，就會往下一個 <code>then()</code>裡面的 callback 傳，就如同執行 <code>resolveCallback2(data)</code>。</li>
+<li>最後 <code>catch(rejectCallback)</code>中的 <code>rejectCallback</code>什麼時後被叫呢？就是 <code>fetch()</code> 、 <code>resolveCallback1()</code> 或 <code>resolveCallback2</code> 有任何失敗或產生例外。</li>
+</ol>
+<p><code>then(resolveCallback).catch(rejectCallback)</code>用起來有點像 <code>try...catch</code>，但強多了，配合 <code>async/await</code> 這語法糖衣，又可以拆掉鍊式語法得到像同步的程式碼。我只寫出結果，看看它利害的地方，以後我們再談它們</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="nx">componentDidMount</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">    <span class="c1">// 送到後端的資料
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">      <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Billy&#39;</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">    <span class="kr">const</span> <span class="nx">workerPromise</span> <span class="o">=</span> <span class="p">(</span><span class="kr">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">      <span class="c1">// 用 fetch() 發起一個非同步的 request，等待回傳結果
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="c1"></span>      <span class="kr">const</span> <span class="nx">response</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="s2">&#34;http://localhost:3001/api/echo&#34;</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">        <span class="nx">method</span><span class="o">:</span> <span class="s2">&#34;POST&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">        <span class="nx">headers</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">          <span class="s2">&#34;Content-Type&#34;</span><span class="o">:</span> <span class="s2">&#34;application/json; charset=utf-8&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">        <span class="nx">body</span><span class="o">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">),</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">      <span class="p">})</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl">
+</span></span><span class="line"><span class="ln">17</span><span class="cl">      <span class="c1">// 等待 response.json() 回傳的 JSON 物件
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="c1"></span>      <span class="kr">const</span> <span class="nx">resultData</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl">      <span class="k">return</span> <span class="nx">resultData</span><span class="p">;</span>
+</span></span><span class="line"><span class="ln">20</span><span class="cl">    <span class="p">})();</span>
+</span></span><span class="line"><span class="ln">21</span><span class="cl">
+</span></span><span class="line"><span class="ln">22</span><span class="cl">    <span class="nx">workerPromise</span>
+</span></span><span class="line"><span class="ln">23</span><span class="cl">      <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">data</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">24</span><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">25</span><span class="cl">      <span class="p">})</span>
+</span></span><span class="line"><span class="ln">26</span><span class="cl">      <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">e</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">27</span><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">28</span><span class="cl">      <span class="p">});</span>
+</span></span><span class="line"><span class="ln">29</span><span class="cl">  <span class="p">}</span>
+</span></span></code></pre></div><h2 id="把結果顯示在網頁上">把結果顯示在網頁上<a class="anchor ms-1" href="#把結果顯示在網頁上"><i class="fas fa-link"></i></a></h2>
+<p>接下來，後端的結果顯示在網頁上。</p>
+<ol>
+<li>加入 App　的成員變數 <code>state</code>，用來記錄 App component 的內部狀態
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div></li>
+<li>在 <code>console.log(data)</code> 後面加入
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">  <span class="nx">name</span><span class="o">:</span> <span class="nx">data</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="p">});</span>
+</span></span></code></pre></div><code>setState()</code> 會更新的 state 內的值，並引起 App component 重新渲染 <code>render()</code>。</li>
+<li>使用內部狀態 <code>state</code>，修改 <code>render()</code>，
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">    <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">      <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">&#34;App&#34;</span> <span class="o">&gt;</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">        <span class="nx">Hello</span> <span class="nx">React</span><span class="o">:</span> <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">name</span><span class="p">}</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">      <span class="o">&lt;</span><span class="err">/div &gt;</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl">    <span class="p">);</span>
+</span></span><span class="line"><span class="ln">7</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div></li>
+</ol>
+<p>完整的 App component 如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kr">class</span> <span class="nx">App</span> <span class="kr">extends</span> <span class="nx">Component</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">  <span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">  <span class="nx">componentDidMount</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">    <span class="c1">// 送到後端的資料
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">      <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Billy&#39;</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">
+</span></span><span class="line"><span class="ln">12</span><span class="cl">    <span class="c1">// 用 fetch() 發起一個非同步的 request
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="c1"></span>    <span class="nx">fetch</span><span class="p">(</span><span class="s2">&#34;http://localhost:3001/api/echo&#34;</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">      <span class="nx">method</span><span class="o">:</span> <span class="s2">&#34;POST&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">      <span class="nx">headers</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl">        <span class="s2">&#34;Content-Type&#34;</span><span class="o">:</span> <span class="s2">&#34;application/json; charset=utf-8&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">      <span class="nx">body</span><span class="o">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">),</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="ln">20</span><span class="cl">      <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="p">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">())</span> <span class="c1">// 取出 JSON 資料，並還原成 Object。response.json()　一樣回傳 Promise 物件
+</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="c1"></span>      <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">data</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">22</span><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">23</span><span class="cl">
+</span></span><span class="line"><span class="ln">24</span><span class="cl">        <span class="c1">// 更新的 state 內的值，並再一次引起渲染 render()
+</span></span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="c1"></span>        <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span>
+</span></span><span class="line"><span class="ln">26</span><span class="cl">          <span class="nx">name</span><span class="o">:</span> <span class="nx">data</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">27</span><span class="cl">        <span class="p">});</span>
+</span></span><span class="line"><span class="ln">28</span><span class="cl">      <span class="p">})</span>
+</span></span><span class="line"><span class="ln">29</span><span class="cl">      <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">e</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">30</span><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
+</span></span><span class="line"><span class="ln">31</span><span class="cl">      <span class="p">});</span>
+</span></span><span class="line"><span class="ln">32</span><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="ln">33</span><span class="cl">
+</span></span><span class="line"><span class="ln">34</span><span class="cl">  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">35</span><span class="cl">    <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="ln">36</span><span class="cl">      <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">className</span><span class="o">=</span><span class="s2">&#34;App&#34;</span> <span class="o">&gt;</span>
+</span></span><span class="line"><span class="ln">37</span><span class="cl">        <span class="nx">Hello</span> <span class="nx">React</span><span class="o">:</span> <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">name</span><span class="p">}</span>
+</span></span><span class="line"><span class="ln">38</span><span class="cl">      <span class="o">&lt;</span><span class="err">/div &gt;</span>
+</span></span><span class="line"><span class="ln">39</span><span class="cl">    <span class="p">);</span>
+</span></span><span class="line"><span class="ln">40</span><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="ln">41</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>得到結果</p>
+<p><picture><img class="img-fluid" alt="Screen Shot 2018-10-11 at 8.51.21 PM.png" src="/series/2019-ithome-ironman/day-11-%E4%B8%80%E5%91%A8%E7%9B%AE-%E9%96%8B%E5%A7%8B%E7%8E%A9%E8%BD%89%E5%89%8D%E7%AB%AF%E4%BA%8C/resources/48D98F9B7AB51A2F8284AF15B00E316F.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<h1 id="總結">總結<a class="anchor ms-1" href="#總結"><i class="fas fa-link"></i></a></h1>
+<p>今天引進了非同步的概念，並利用 <code>XMLHttpRequest</code> 物件 和 <code>fetch()</code> 函數引發一個 非同步的 request，得到結果後重新渲染畫面。</p></div></div>
+  <div class="card-footer"><div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-prev">
+    <i class="fas fa-fw fa-chevron-circle-down post-prev-icon" data-fa-transform="rotate-90"></i>
+    <a href="/series/2019-ithome-ironman/day-10-%E4%B8%80%E5%91%A8%E7%9B%AE-%E9%96%8B%E5%A7%8B%E7%8E%A9%E8%BD%89%E5%89%8D%E7%AB%AF%E4%B8%80/">Day 10- 一周目- 開始玩轉前端(一)
+</a>
+  </div><div class="post-nav post-next">
+    <a href="/series/2019-ithome-ironman/day-12-%E4%BA%8C%E5%91%A8%E7%9B%AE-%E6%BA%96%E5%82%99%E8%B5%B7%E7%A8%8B%E6%B7%B1%E5%85%A5%E5%BE%8C%E7%AB%AF/">Day 12 - 二周目 - 準備起程深入後端
+</a>
+    <i class="fas fa-fw fa-chevron-circle-down post-next-icon" data-fa-transform="rotate-270"></i>
+  </div></div></div>
+</article><div class="post-copyright mb-3 row card component" id="post-copyright">
+    <div class="card-header">
+        <h2 class="card-title fs-4 my-2 text-surface">版權</h2>
+    </div>
+    <div class="card-body"><a class="d-flex align-items-center flex-column" target="_blank" rel="license noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_TW">
+  <span><i class="fab fa-fw fa-2x fa-creative-commons"></i><i class="fab fa-fw fa-2x fa-creative-commons-by"></i><i class="fab fa-fw fa-2x fa-creative-commons-nc"></i><i class="fab fa-fw fa-2x fa-creative-commons-sa"></i></span>
+  CC BY-NC-SA 4.0 
+</a>
+
+
+    </div>
+</div><section class="related-posts row card component">
+    <div class="card-header">
+      <h2 class="card-title fs-4 my-2 text-surface">相關文章</h2>
+    </div>
+    <div class="card-body">
+      <ul class="post-list list-unstyled"><li>
+          <a href="/series/2019-ithome-ironman/day-10-%E4%B8%80%E5%91%A8%E7%9B%AE-%E9%96%8B%E5%A7%8B%E7%8E%A9%E8%BD%89%E5%89%8D%E7%AB%AF%E4%B8%80/">Day 10- 一周目- 開始玩轉前端(一)
+</a>
+          <span class="float-end post-date">2018-10-10
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-9-%E4%B8%80%E5%91%A8%E7%9B%AE-%E9%96%8B%E5%A7%8B%E7%8E%A9%E8%BD%89%E5%BE%8C%E7%AB%AF%E4%BA%8C/">Day 9 - 一周目- 開始玩轉後端(二)
+</a>
+          <span class="float-end post-date">2018-10-09
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-8-%E4%B8%80%E5%91%A8%E7%9B%AE-%E9%96%8B%E5%A7%8B%E7%8E%A9%E8%BD%89%E5%BE%8C%E7%AB%AF%E4%B8%80/">Day 8 - 一周目- 開始玩轉後端(一)
+</a>
+          <span class="float-end post-date">2018-10-08
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-7-%E4%B8%80%E5%91%A8%E7%9B%AE-es6-%E8%AE%93%E4%BA%BA%E6%AC%B2%E7%BD%B7%E4%B8%8D%E8%83%BD%E7%9A%84%E8%AA%9E%E6%B3%95/">Day 7 - 一周目- ES6 讓人欲罷不能的語法
+</a>
+          <span class="float-end post-date">2018-10-07
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-6-%E4%B8%80%E5%91%A8%E7%9B%AE-%E7%A8%8B%E5%BC%8F%E7%A2%BC%E5%93%81%E8%B3%AA%E5%B7%A5%E5%85%B7eslint%E7%85%A7%E9%A1%A7%E7%A8%8B%E5%BC%8F%E7%A2%BC%E9%A2%A8%E6%A0%BC/">Day 6 - 一周目- 程式碼品質工具ESLint，照顧程式碼風格
+</a>
+          <span class="float-end post-date">2018-10-06
+</span>
+        </li></ul>
+    </div>
+  </section><div class="card component row post-comments" id="post-comments">
+  <div class="card-header">
+    <h2 class="card-title my-2 fs-4 text-surface">評論</h2>
+  </div>
+  <div class="card-body"><script src="https://utteranc.es/client.js"
+  repo="eugenechen0514/eugenechen0514.github.io"
+  issue-term="pathname"
+  label="comment"
+  theme="github-light"
+  crossorigin="anonymous"
+  async>
+</script></div>
+</div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container d-flex flex-column">
+    
+    <div class="card row text-center profile component">
+  <div class="card-body">
+    <div class="col-12 d-flex align-items-center justify-content-center"><picture><img class="profile-avatar rounded-circle" alt="EugeneChen" src="/images/profile.webp" loading="lazy" data-viewer-invisible
+    
+     width="298" height="305"
+     />
+</picture>
+</div>
+    <div class="col-12 profile-meta"><div class="profile-name fw-fold fs-lg">EugeneChen</div><div class="profile-bio">軟體工程師，喜歡動手做些有的沒的專案，同時也喜愛數學、攝影、桌球，慢跑、游泳、作菜。</div><div class="profile-about"><i class="fas fa-fw fa-user"></i><a target="_blank" rel="noopener noreferrer" href="https://eugene-website.herokuapp.com">關於我</a></div><nav class="social-links nav justify-content-center"><a class="nav-link social-link" href="mailto:yujiechen0514@gmail.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i></a><a class="nav-link social-link" target="_blank" href="https://github.com/eugenechen0514" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-github"></i></a><a class="nav-link social-link" target="_blank" href="/index.xml" title="RSS" rel="noopener noreferrer">
+    <i class="fas fa-fw fa-2x fa-rss"></i></a></nav>
+</div>
+  </div>
+</div>
+<section class="taxonomies row card component">
+    <div class="card-body">
+        <ul class="nav nav-tabs" id="myTab" role="tablist"><li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="taxonomySeriesTab" data-bs-toggle="tab" data-bs-target="#taxonomySeries" 
+                        type="button" role="tab" aria-controls="專欄" aria-selected="true">
+                        專欄
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                    <button class="nav-link" id="taxonomyCategoriesTab" data-bs-toggle="tab" data-bs-target="#taxonomyCategories" 
+                        type="button" role="tab" aria-controls="分類" aria-selected="true">
+                        分類
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                    <button class="nav-link" id="taxonomyTagsTab" data-bs-toggle="tab" data-bs-target="#taxonomyTags" 
+                        type="button" role="tab" aria-controls="標籤" aria-selected="true">
+                        標籤
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                <button class="nav-link" id="taxonomyArchivesTab" data-bs-toggle="tab" data-bs-target="#taxonomyArchive" 
+                    type="button" role="tab" aria-controls="taxonomyArchives" aria-selected="true">
+                    歸檔
+                </button>
+            </li>
+        </ul>
+          
+        <div class="tab-content mt-3"><div class="tab-pane active" id="taxonomySeries" role="tabpanel" aria-labelledby="taxonomySeriesTab" tabindex="0"><a href="/series/2019-ithome-ironman/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="用js成為老闆心中的全端工程師 - 2019 iT邦幫忙鐵人賽">
+                        用js成為老闆心中的全端工程師 - 2019 iT邦幫忙鐵人賽<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a></div><div class="tab-pane" id="taxonomyCategories" role="tabpanel" aria-labelledby="taxonomyCategoriesTab" tabindex="0"><a href="/categories/%E9%9A%A8%E6%89%8B%E7%AD%86%E8%A8%98/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="隨手筆記">
+                        隨手筆記<span class="badge badge-sm text-secondary bg-white ms-1">2</span></a><a href="/categories/%E5%BF%83%E5%BE%97/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="心得">
+                        心得<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a></div><div class="tab-pane" id="taxonomyTags" role="tabpanel" aria-labelledby="taxonomyTagsTab" tabindex="0"><a href="/tags/2019-it-%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2019 iT 邦幫忙鐵人賽">
+                        2019 iT 邦幫忙鐵人賽<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a><a href="/tags/%E7%94%A8js%E6%88%90%E7%82%BA%E8%80%81%E9%97%86%E5%BF%83%E4%B8%AD%E7%9A%84%E5%85%A8%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%AB/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="用js成為老闆心中的全端工程師">
+                        用js成為老闆心中的全端工程師<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a><a href="/tags/alphacamp/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="AlphaCamp">
+                        AlphaCamp<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/kafka/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="Kafka">
+                        Kafka<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/mongodb/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="MongoDB">
+                        MongoDB<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/pandas/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="pandas">
+                        pandas<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/python/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="python">
+                        python<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/%E6%8E%A8%E8%96%A6%E7%B3%BB%E7%B5%B1/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="推薦系統">
+                        推薦系統<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a></div><div class="tab-pane" id="taxonomyArchive" role="tabpanel" aria-labelledby="taxonomyArchiveTab" tabindex="0"><a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2022">
+    2022 <span class="badge badge-sm text-secondary bg-white ms-1">1</span>
+    </a>
+<a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2021">
+    2021 <span class="badge badge-sm text-secondary bg-white ms-1">2</span>
+    </a>
+<a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2018">
+    2018 <span class="badge badge-sm text-secondary bg-white ms-1">30</span>
+    </a>
+
+</div>
+        </div>
+    </div>
+</section><div class="post-toc row mb-4 card component" id="postTOC">
+  <div class="card-header">
+    <h2 class="card-title fs-4 my-2 text-surface">目錄</h2>
+  </div>
+  <div class="card-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#來看看一個同步的例子">來看看一個同步的例子：</a></li>
+    <li><a href="#一個非同步的例子">一個非同步的例子：</a></li>
+    <li><a href="#所以結論是">所以…結論是？</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#準備環境">準備環境</a></li>
+    <li><a href="#發出一個非同步-request">發出一個非同步 request</a>
+      <ul>
+        <li><a href="#xmlhttprequest">XMLHttpRequest</a></li>
+        <li><a href="#fetch">fetch()</a></li>
+      </ul>
+    </li>
+    <li><a href="#把結果顯示在網頁上">把結果顯示在網頁上</a></li>
+  </ul>
+</nav>
+  </div>
+</div><section class="recent-posts row card component">
+  <div class="card-header">
+    <h2 class="card-title my-2 fs-4 text-surface">最近文章</h2>
+  </div>
+  <div class="card-body">
+    <ul class="post-list list-unstyled ms-1"><li class="mb-2">
+        <a href="/posts/reviews/2022-02-06-alphacamp%E6%8E%A8%E8%96%A6%E7%B3%BB%E7%B5%B1%E4%B8%8A%E8%AA%B2%E5%BF%83%E5%BE%97/">AlphaCamp 推薦系統上課心得
+</a>
+      </li><li class="mb-2">
+        <a href="/posts/notes/2021-08-22-%E4%B8%80%E7%AA%BAkafka%E5%85%A7%E9%83%A8%E5%84%B2%E5%AD%98%E8%B3%87%E6%96%99/">一窺 Kafka 內部儲存資料
+</a>
+      </li><li class="mb-2">
+        <a href="/posts/notes/2021-08-01-mongodb-5-%E4%BE%86%E4%BA%86%E6%9C%89%E4%BB%80%E9%BA%BC%E5%80%BC%E5%BE%97%E6%B3%A8%E6%84%8F%E7%9A%84%E6%9B%B4%E6%96%B0/">MongoDb 5 來了，有什麼值得注意的更新呢?
+</a>
+      </li><li class="mb-2">
+        <a href="/series/2019-ithome-ironman/day-30-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-network-%E6%9A%A8%E5%AE%8C%E8%B3%BD%E5%9B%9E%E9%A1%A7/">Day 30- 三周目 - Docker Network 暨完賽回顧
+</a>
+      </li><li class="mb-2">
+        <a href="/series/2019-ithome-ironman/day-29-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-compose%E4%B8%80%E6%AC%A1%E7%AE%A1%E7%90%86%E5%A4%9A%E5%80%8B%E5%AE%B9%E5%99%A8/">Day 29- 三周目 - Docker Compose：一次管理多個容器
+</a>
+      </li></ul>
+  </div>
+</section>
+    
+  </div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><div class="offcanvas offcanvas-bottom h-auto" tabindex="-1" id="offcanvasActionsPanel"
+  aria-labelledby="offcanvasActionsPanelLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title fs-4" id="offcanvasActionsPanelLabel">
+      <i class="fas fa-fw fa-th-large me-1"></i>
+      Actions
+    </h5>
+    <button type="button" class="btn-close ms-auto" data-bs-dismiss="offcanvas" data-bs-target="offcanvasActionsPanel" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body mt-2"><div class="social-share mb-4 d-flex overflow-auto">
+      <a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Twitter Share Button"
+      target="_blank" href="https://twitter.com/intent/tweet?title=Day%2011%20-%20%e4%b8%80%e5%91%a8%e7%9b%ae-%20%e9%96%8b%e5%a7%8b%e7%8e%a9%e8%bd%89%e5%89%8d%e7%ab%af%28%e4%ba%8c%29&url=%2fseries%2f2019-ithome-ironman%2fday-11-%25E4%25B8%2580%25E5%2591%25A8%25E7%259B%25AE-%25E9%2596%258B%25E5%25A7%258B%25E7%258E%25A9%25E8%25BD%2589%25E5%2589%258D%25E7%25AB%25AF%25E4%25BA%258C%2f">
+        <i class="fab fa-2x fa-fw fa-twitter mb-2"></i> Twitter
+      </a>
+      <a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Facebook Share Button"
+        target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=%2fseries%2f2019-ithome-ironman%2fday-11-%25E4%25B8%2580%25E5%2591%25A8%25E7%259B%25AE-%25E9%2596%258B%25E5%25A7%258B%25E7%258E%25A9%25E8%25BD%2589%25E5%2589%258D%25E7%25AB%25AF%25E4%25BA%258C%2f">
+        <i class="fab fa-2x fa-fw fa-facebook-f mb-2"></i> Facebook
+      </a>
+    </div>
+    <hr class="mb-4"><div class="actions d-flex overflow-auto align-items-center">
+      <a role="button" class="action action-go-back d-flex flex-column align-items-center me-3" href="javascript: window.history.back();">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-chevron-circle-down" data-fa-transform="rotate-90"></i></span> 返回
+      </a>
+      <a role="button" class="action action-reload-page d-flex flex-column align-items-center me-3">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-redo-alt"></i></span> 刷新
+      </a>
+      <a role="button" class="action action-copy-url d-flex flex-column align-items-center me-3">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-link"></i></span> 複製連結
+      </a>
+    </div>
+  </div>
+</div><nav class="social-links nav justify-content-center mb-2"><a class="nav-link social-link" href="mailto:yujiechen0514@gmail.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i></a><a class="nav-link social-link" target="_blank" href="https://github.com/eugenechen0514" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-github"></i></a><a class="nav-link social-link" target="_blank" href="https://linkedin.com/in/yuchieh-chen-37a48989" title="LinkedIn" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-linkedin-in"></i></a><a class="nav-link social-link" target="_blank" href="https://medium.com/@yujiechen0514" title="Medium" rel="noopener noreferrer">
+        <i class="fab fa-fw fa-2x fa-medium-m"></i></a><a class="nav-link social-link" target="_blank" href="/index.xml" title="RSS" rel="noopener noreferrer">
+    <i class="fas fa-fw fa-2x fa-rss"></i></a></nav>
+<div class="copyright mb-2">
+  Copyright © 2016-2022 EugeneChen. All Rights Reserved.
+</div>
+<div class="powered-by mb-2">
+  Powered by <a class="text-primary" href="https://gohugo.io" target="_blank" rel="noopener noreferrer">Hugo</a> and the <a class="text-primary" href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank" rel="noopener noreferrer">Bootstrap</a> theme.
+</div>
+<div class="sponsors">
+
+
+
+
+
+
+</div>
+</footer>
+<script src="/assets/main/bundle.min.2bc7d6952dbf38d6d2815939c58fc655e72d050b196d9fd99829d8fb23904646.js" integrity="sha256-K8fWlS2/ONbSgVk5xY/GVectBQsZbZ/ZmCnY&#43;yOQRkY=" crossorigin="anonymous" defer></script><script src="/assets/icons/bundle.min.a4bf8247f780c9bf61d579a8efe7129ec790bb98622bf4a29895eb21e689266c.js" integrity="sha256-pL&#43;CR/eAyb9h1Xmo7&#43;cSnseQu5hiK/SimJXrIeaJJmw=" crossorigin="anonymous" defer></script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('\/service-worker.min.js').then(function(reg) {
+      console.log('Successfully registered service worker', reg);
+    }).catch(function(err) {
+      console.warn('Error whilst registering service worker', err);
+    });
+  });
+}
+</script><script src="/assets/viewer/bundle.min.92d4a694e2e9a4c4d89b6998067e2f8e502dc7a951682bb5a160a3004b434908.js" integrity="sha256-ktSmlOLppMTYm2mYBn4vjlAtx6lRaCu1oWCjAEtDSQg=" crossorigin="anonymous" defer></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-ZWYL79X38Y', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+<script src="/assets/docsearch/bundle.min.c6965b5bee044b874617239932d6a7992b217f7949f895a7576980d110fb2ab1.js" integrity="sha256-xpZbW&#43;4ES4dGFyOZMtanmSshf3lJ&#43;JWnV2mA0RD7KrE=" crossorigin="anonymous" defer></script></body>
+</html>

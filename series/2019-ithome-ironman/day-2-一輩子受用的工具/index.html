@@ -1,0 +1,721 @@
+<!doctype html><html class="position-relative" itemscope itemtype="http://schema.org/WebPage" lang="zh-tw" data-theme="auto"
+  
+   data-palette="purple">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Day 2 - 一輩子受用的工具 - EugeneChen</title><link rel="apple-touch-icon" href="/images/icons/icon-180x180.png" sizes="180x180">
+<link rel="icon" href="/images/icons/icon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/images/icons/icon-16x16.png" sizes="16x16" type="image/png">
+<link rel="icon" href="/images/icons/favicon.ico">
+<link rel="manifest" href="/manifest.json">
+<meta name="keywords" content="" />
+<meta name="description" content="介紹常用來打文件的 Markdown 語法和畫圖用的 draw.io" /><meta name="robots" content="index, follow" /><meta itemprop="name" content="Day 2 - 一輩子受用的工具">
+<meta itemprop="description" content="介紹常用來打文件的 Markdown 語法和畫圖用的 draw.io"><meta itemprop="datePublished" content="2018-10-02T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2018-10-02T00:00:00+00:00" />
+<meta itemprop="wordCount" content="2047">
+<meta itemprop="keywords" content="2019 iT 邦幫忙鐵人賽,用js成為老闆心中的全端工程師," /><meta property="og:title" content="Day 2 - 一輩子受用的工具" />
+<meta property="og:description" content="介紹常用來打文件的 Markdown 語法和畫圖用的 draw.io" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/series/2019-ithome-ironman/day-2-%E4%B8%80%E8%BC%A9%E5%AD%90%E5%8F%97%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7/" /><meta property="article:section" content="series" />
+<meta property="article:published_time" content="2018-10-02T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-10-02T00:00:00+00:00" /><meta property="og:site_name" content="EugeneChen" />
+<meta property="og:see_also" content="/series/2019-ithome-ironman/day-30-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-network-%E6%9A%A8%E5%AE%8C%E8%B3%BD%E5%9B%9E%E9%A1%A7/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-29-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-compose%E4%B8%80%E6%AC%A1%E7%AE%A1%E7%90%86%E5%A4%9A%E5%80%8B%E5%AE%B9%E5%99%A8/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-28-%E4%B8%89%E5%91%A8%E7%9B%AE-%E8%A3%BD%E4%BD%9C%E8%87%AA%E5%B7%B1%E7%9A%84%E6%98%A0%E5%83%8F%E6%AA%94%E5%8C%85%E6%89%93%E5%89%8D%E5%BE%8C%E7%AB%AF%E6%98%A0%E5%83%8F%E6%AA%94/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-27-%E4%B8%89%E5%91%A8%E7%9B%AE-%E4%BA%94%E5%88%86%E9%90%98%E5%BB%BA%E7%AB%8B%E7%A7%81%E6%9C%89-npm-verdaccio/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-26-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E7%9C%8B%E5%AE%8C%E5%B0%B1%E6%9C%83%E6%9E%B6-docker-%E5%8C%96%E7%9A%84%E6%9C%8D%E5%8B%99/" /><meta property="og:see_also" content="/series/2019-ithome-ironman/day-25-%E4%BA%8C%E5%91%A8%E7%9B%AE-react-component-%E5%A5%97%E4%BB%B6-material-ui-google-material-design-%E7%9A%84%E5%AF%A6%E4%BD%9C%E5%A5%97%E4%BB%B6/" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Day 2 - 一輩子受用的工具"/>
+<meta name="twitter:description" content="介紹常用來打文件的 Markdown 語法和畫圖用的 draw.io"/>
+<meta property="og:image" content="/images/logo.png"/>
+  <meta name="twitter:image" content="/images/logo.png"/><link rel="stylesheet" href="/assets/main/bundle.min.925f59d4c744cc5e99dcc7d02a6f68dff5cceaea488c7667bd947bf7aa35b649.css" integrity="sha256-kl9Z1MdEzF6Z3MfQKm9o3/XM6upIjHZnvZR796o1tkk=" crossorigin="anonymous"><link rel="stylesheet" href="/assets/viewer/bundle.min.f05183267bb952fbc8c63a7178364de2951614ab71d544ec1068ad36c7447ccc.css" integrity="sha256-8FGDJnu5UvvIxjpxeDZN4pUWFKtx1UTsEGitNsdEfMw=" crossorigin="anonymous"><link rel="stylesheet" href="/assets/docsearch/bundle.min.c165d6a127fffa285e6b89ef65362fe921bc0c1fdaefa35f6af069b962bdb50e.css" integrity="sha256-wWXWoSf/&#43;ihea4nvZTYv6SG8DB/a76NfavBpuWK9tQ4=" crossorigin="anonymous"></head>
+  <body><script>const items=["theme","palette"];items.forEach(function(e){const t=localStorage.getItem("hbs:"+e);t&&document.body.parentElement.setAttribute("data-"+e,t)})</script><header><nav class="top-app-bar shadow bg-primary text-white navbar navbar-expand-lg fixed-top">
+  <div class="container"><a class="navbar-brand flex-grow-1 flex-lg-grow-0 text-lg-start ms-2 ms-lg-0 mx-auto me-lg-3" href="/"><picture><img class="logo" alt="Logo" src="/images/logo.webp" loading="lazy"
+    
+     width="136" height="69"
+     />
+</picture>
+EugeneChen
+    </a>
+    <button class="navbar-toggler order-5" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarMenus"
+      aria-controls="navbarMenus" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-ellipsis-h"></i>
+    </button>
+    <div class="offcanvas-lg offcanvas-end flex-grow-1 bg-primary text-white" tabindex="-1" id="navbarMenus" aria-labelledby="navbarMenusLabel">
+      <div class="offcanvas-header px-4 pb-0">
+        <h5 class="offcanvas-title" id="navbarMenusLabel">EugeneChen</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" data-bs-target="#navbarMenus" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body p-4 pt-0 p-lg-0">
+        <hr class="d-lg-none">
+        <ul class="navbar-nav flex-row flex-wrap align-items-center me-auto"><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/posts/">
+              <i class="fas fa-book fa-fw"></i>文章
+            </a>
+          </li><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/series/">
+              <i class="fas fa-bars fa-fw"></i>專欄
+            </a>
+          </li><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/posts/notes/">
+              <i class="fas fa-sticky-note fa-fw"></i>隨手筆記
+            </a>
+          </li></ul>
+        <hr class="d-lg-none">
+        <form class="search-bar mx-auto my-1" action="/search" novalidate>
+  <div class="input-group input-group-sm align-items-center">
+    <span class="btn btn-search disabled position-absolute left-0 border-0">
+      <i class="fas fa-fw fa-search fa-lg"></i>
+    </span>
+    <input class="py-2 form-control rounded search-input" name="q" type="search" aria-label="Search" required>
+  </div>
+</form>
+<hr class="d-lg-none">
+        <ul class="navbar-nav flex-row flex-wrap align-items-center ms-md-auto"><li class="nav-item dropdown py-1 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-globe"></i>
+        <span class="d-lg-none">語言</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown"><li>
+        <a class="dropdown-item" href="/en/">
+            English
+        </a>
+        </li><li>
+        <a class="dropdown-item active" href="/">
+            繁體中文
+        </a>
+        </li></ul>
+</li>
+<li class="nav-item py-1 col-12 col-lg-auto">
+  <div class="vr d-none d-lg-flex h-100 mx-lg-2 text-white"></div>
+  <hr class="d-lg-none my-2">
+</li><li class="nav-item dropdown py-2 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="fontSizeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-font"></i>
+        <span class="d-lg-none">字體大小</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="fontSizeDropdown"><li>
+            <button class="font-size-item dropdown-item" data-size="xs">
+                特小號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="sm">
+                小號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item active" data-size="md">
+                中等
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="lg">
+                大號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="xl">
+                特大號
+            </button>
+        </li></ul>
+</li><li class="nav-item dropdown py-1 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="paletteDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-palette"></i>
+        <span class="d-lg-none">配色</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end px-2" aria-labelledby="paletteDropdown">
+        <div class="row"><li class="col-3 my-1">
+                <a role="button" id="palette-blue" aria-label="藍色"
+                    class="btn btn-sm w-100 palette text-bg-blue" data-palette="blue">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-blue-gray" aria-label="藍灰色"
+                    class="btn btn-sm w-100 palette text-bg-blue-gray" data-palette="blue-gray">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-brown" aria-label="棕色"
+                    class="btn btn-sm w-100 palette text-bg-brown" data-palette="brown">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-cyan" aria-label="青色"
+                    class="btn btn-sm w-100 palette text-bg-cyan" data-palette="cyan">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-green" aria-label="綠色"
+                    class="btn btn-sm w-100 palette text-bg-green" data-palette="green">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-indigo" aria-label="靛青色"
+                    class="btn btn-sm w-100 palette text-bg-indigo" data-palette="indigo">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-orange" aria-label="橙色"
+                    class="btn btn-sm w-100 palette text-bg-orange" data-palette="orange">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-pink" aria-label="粉色"
+                    class="btn btn-sm w-100 palette text-bg-pink" data-palette="pink">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-purple" aria-label="紫色"
+                    class="btn btn-sm w-100 palette text-bg-purple" data-palette="purple">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-red" aria-label="紅色"
+                    class="btn btn-sm w-100 palette text-bg-red" data-palette="red">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-teal" aria-label="藍綠色"
+                    class="btn btn-sm w-100 palette text-bg-teal" data-palette="teal">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-yellow" aria-label="黃色"
+                    class="btn btn-sm w-100 palette text-bg-yellow" data-palette="yellow">
+                </a>
+            </li></div>
+    </ul>
+</li>
+<li class="nav-item dropdown py-2 py-lg-1 col-6 col-lg-auto"><a class="nav-link px-0 px-lg-1" href="#" id="modeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="mode-icon fas fa-fw fa-adjust" id="modeIcon"></i>
+        <span class="d-lg-none">模式</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="modeDropdown"><li class="mode-item" data-color-mode="light" data-icon="sun">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-sun"></i> Light
+            </button>
+        </li><li class="mode-item" data-color-mode="dark" data-icon="moon">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-moon"></i> Dark
+            </button>
+        </li><li class="mode-item active" data-color-mode="auto" data-icon="adjust">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-adjust"></i> Auto
+            </button>
+        </li></ul>
+</li>
+</ul>
+      </div>
+    </div>
+  </div>
+</nav>
+</header>
+<main class="container">
+      <div class="row content"><noscript>
+    <div class="alert alert-danger" role="alert">你的瀏覽器不支持 JavaScript。</div>
+</noscript>
+
+<div class="col-lg-8">
+  <div class="container"><nav class="row card component" aria-label="breadcrumb">
+  <div class="card-body pb-0">
+    <ol class="breadcrumb"><li class="breadcrumb-item text-surface"><a href="/">主頁</a></li><li class="breadcrumb-item text-surface"><a href="/series/">Series</a></li><li class="breadcrumb-item active">Day 2 - 一輩子受用的工具</li></ol>
+  </div>
+</nav><div class="post-panel-wrapper position-sticky">
+  <div class="d-flex flex-column component rounded post-panel position-absolute border">
+    
+    <a class="action action-panel-toggler" role="button" title="Panel toggler">
+      <i class="fas fa-fw fa-chevron-circle-down"></i>
+    </a>
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button" title="Sidebar toggler">
+  <i class="fas fa-fw fa-expand-alt" data-fa-transform="rotate-45"></i>
+</a>
+
+    
+
+    
+    <a class="action" href="#post-copyright" role="button" aria-label="Copyright" title="Copyright">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    <a class="action" href="#post-comments" role="button" aria-label="Comments" title="Comments">
+  <i class="fas fa-fw fa-comments"></i>
+</a>
+    <a class="action" href="#postTOC" aria-controls="Table of contents" role="button" title="Table of contents">
+  <i class="fas fa-fw fa-list-alt"></i>
+</a>
+    
+  </div>
+</div>
+<article class="row card component mb-4 post">
+  <div class="card-header ">
+    <h1 class="card-title post-title my-2">Day 2 - 一輩子受用的工具
+</h1>
+  </div>
+  <div class="card-body"><div class="post-meta mb-3">
+  <span class="post-date me-1 mb-1" title="創建於 2018-10-02 08:00:00 &#43;0800 CST。">
+    2018-10-02
+  </span><span class="post-reading-time me-1 mb-1">
+    5 分鐘閱讀
+  </span><a href="/series/2019-ithome-ironman/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">用js成為老闆心中的全端工程師 - 2019 IT邦幫忙鐵人賽</a><a href="/tags/2019-it-%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">2019 IT 邦幫忙鐵人賽</a><a href="/tags/%E7%94%A8js%E6%88%90%E7%82%BA%E8%80%81%E9%97%86%E5%BF%83%E4%B8%AD%E7%9A%84%E5%85%A8%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%AB/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">用js成為老闆心中的全端工程師</a></div>
+<div class="post-content mb-3"><p>昨天我們示範了<code>touch</code>指令來建立空檔案，今天我們來看看有什麼常用的指令。此外，介紹常用來打文件的 Markdown 語法和畫圖用的 draw.io。</p>
+<h1 id="回憶">回憶<a class="anchor ms-1" href="#回憶"><i class="fas fa-link"></i></a></h1>
+<p>昨天我們示範了<code>touch</code>指令來建立空檔案，今天我們來看看有什麼常用的指令。此外，介紹常用來打文件的 Markdown 語法和畫圖用的 draw.io。</p>
+<h1 id="指令">指令<a class="anchor ms-1" href="#指令"><i class="fas fa-link"></i></a></h1>
+<h2 id="為什麼要學指令">為什麼要學指令？<a class="anchor ms-1" href="#為什麼要學指令"><i class="fas fa-link"></i></a></h2>
+<p>指令是很強大的，就只要一行指令，就可以執行常用的操作，像是建立資料夾、預先編輯程式碼、背景執行程式…等，甚至可以集合起來成一聯串的腳本，如：linux <code>.sh</code> 或 windows <code>.cmd</code>。未來我們會透過腳本，打造自己的發佈腳本、備份腳本、執行腳本。</p>
+<h2 id="指令怎麼執行-shell">指令怎麼執行？ Shell<a class="anchor ms-1" href="#指令怎麼執行-shell"><i class="fas fa-link"></i></a></h2>
+<p><a href="https://en.wikipedia.org/wiki/Shell_%28computing%29" target="_blank" rel="noopener noreferrer">shell<i class="fas fa-external-link-square-alt ms-1"></i></a> 是一個存取作業系統服務的使用者介面，如：windowns 有命令提示字元，linux有bash&hellip;等。我們說的 <em><strong>指令</strong></em> 通常是指 <em><strong>command-line interface</strong></em> (<em><strong>CLI</strong></em>)，指令文字會打在終端機中(terminal/命令提示字元)。</p>
+<h2 id="下面列出一定要認識的指令">下面列出一定要認識的指令<a class="anchor ms-1" href="#下面列出一定要認識的指令"><i class="fas fa-link"></i></a></h2>
+<ol>
+<li>cd - 移動當前資料夾</li>
+<li>mkdir - 建立資料夾</li>
+<li>cp - 拷貝檔案</li>
+<li>mv - 移動檔案</li>
+<li>rm - 刪除檔案</li>
+<li>pwd - 印出當前資料夾</li>
+<li>ls/ll(<em><strong>ls -l</strong></em>) - 印出當前資料夾的檔案/資料夾</li>
+<li>chmod - 改變檔案/資料夾權限，操作可以看<a href="http://linux.vbird.org/linux_basic/0210filepermission.php#filepermission_ch" target="_blank" rel="noopener noreferrer">鳥哥的 Linux 私房菜-如何改變檔案屬性與權限<i class="fas fa-external-link-square-alt ms-1"></i></a></li>
+<li>chown - 改變檔案/資料夾擁有者，操作可以看<a href="http://linux.vbird.org/linux_basic/0210filepermission.php#filepermission_ch" target="_blank" rel="noopener noreferrer">鳥哥的 Linux 私房菜-如何改變檔案屬性與權限<i class="fas fa-external-link-square-alt ms-1"></i></a></li>
+</ol>
+<h2 id="動手做">動手做<a class="anchor ms-1" href="#動手做"><i class="fas fa-link"></i></a></h2>
+<p>接下來你可以操作看看，過程只是玩玩看指令，沒有特別的目地。</p>
+<ol>
+<li>我們開啟一個VScode專案，並執行一個terminal</li>
+<li>輸入 <code>pwd</code> 可以知道當前資料夾是在哪，指令的預設目錄是這裡
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-02 at 7.16.33 PM.png" src="/series/2019-ithome-ironman/day-2-%E4%B8%80%E8%BC%A9%E5%AD%90%E5%8F%97%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7/resources/663BBF25EFB72D419E9BC9F56EE51456.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</li>
+<li><code>mkdir src</code> 就會建立src資料夾
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-02 at 7.19.03 PM.png" src="/series/2019-ithome-ironman/day-2-%E4%B8%80%E8%BC%A9%E5%AD%90%E5%8F%97%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7/resources/ECE4E0737AAC33CB0307D2DFC474122D.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</li>
+<li><code>touch README.md</code> 建立空的README.md
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-02 at 7.20.41 PM.png" src="/series/2019-ithome-ironman/day-2-%E4%B8%80%E8%BC%A9%E5%AD%90%E5%8F%97%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7/resources/D1D8BBE98AEF4375FAC4FA897E8A3BD6.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</li>
+<li><code>cp README.md src</code> 拷貝README.md到src資料夾
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-02 at 7.22.46 PM.png" src="/series/2019-ithome-ironman/day-2-%E4%B8%80%E8%BC%A9%E5%AD%90%E5%8F%97%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7/resources/952B083CD100289FC616FFAA0807ADAE.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</li>
+<li><code>cd src</code> 移動當前資料夾到src，你可以再輸入<code>pwd</code>看看當前資料夾是不是變了
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-02 at 7.26.05 PM.png" src="/series/2019-ithome-ironman/day-2-%E4%B8%80%E8%BC%A9%E5%AD%90%E5%8F%97%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7/resources/584320F5D84ABE513D180E1E53D12943.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</li>
+<li><code>rm README.md</code> 刪除README.md
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-02 at 7.27.06 PM.png" src="/series/2019-ithome-ironman/day-2-%E4%B8%80%E8%BC%A9%E5%AD%90%E5%8F%97%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7/resources/40965BA4EB29A4225C1E02F7EFC31722.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</li>
+<li><code>cd ..</code> 回到上一層資料夾。這裡的相對路徑中，<code>..</code> 指上一層資料夾，<code>.</code>指當前資料夾</li>
+<li><code>ls -l</code>
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-02 at 7.54.20 PM.png" src="/series/2019-ithome-ironman/day-2-%E4%B8%80%E8%BC%A9%E5%AD%90%E5%8F%97%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7/resources/82A930179714CB499F67475D3547DB9B.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</li>
+</ol>
+<h2 id="指令要背嗎">指令要背嗎？<a class="anchor ms-1" href="#指令要背嗎"><i class="fas fa-link"></i></a></h2>
+<p>不用刻意背，上網查或指令說明查詢，一般指令都可以查使用說明，常見</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1"># `rm` 是要查的指令
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="c1"></span><span class="n">rm</span><span class="w"> </span><span class="o">--</span><span class="n">help</span><span class="w">
+</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="w"></span><span class="n">rm</span><span class="w"> </span><span class="n">help</span><span class="w">
+</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="w"></span><span class="n">rm</span><span class="w"> </span><span class="o">-</span><span class="n">h</span><span class="w">
+</span></span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="w"></span><span class="n">man</span><span class="w"> </span><span class="n">rm</span><span class="w">
+</span></span></span></code></pre></div><p>上面都有可能可以查看用法，要看製作指令的人怎麼寫。</p>
+<h2 id="cmd-常見格式-command---full-name--brief-name">cmd 常見格式: <command> --<full name> -<brief name><a class="anchor ms-1" href="#cmd-常見格式-command---full-name--brief-name"><i class="fas fa-link"></i></a></h2>
+<p><code>--</code> 或 <code>-</code> 一般指指令選項(options), <code>--</code>常會搭配選項全名, <code>-</code>常會搭配參數簡稱，如下圖的 <code>--version</code> 和<code>-v</code>
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-02 at 7.42.33 PM.png" src="/series/2019-ithome-ironman/day-2-%E4%B8%80%E8%BC%A9%E5%AD%90%E5%8F%97%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7/resources/8C5CBB6F79F3598B7AFE342F530F5323.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<h2 id="指令小抄">指令小抄<a class="anchor ms-1" href="#指令小抄"><i class="fas fa-link"></i></a></h2>
+<p>下面我常用指令</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln"> 1</span><span class="cl"># 確保build資料夾存在
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">mkdir -p build
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl"># 拷貝resource資料夾(包含裡面的所有檔案/資料夾)
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">cp -R ./resource .src/ 
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl"># 刪除build資料夾(包含裡面的所檔案/資料夾)
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">rm -rf build
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">
+</span></span><span class="line"><span class="ln">10</span><span class="cl"># 重新命名並移動
+</span></span><span class="line"><span class="ln">11</span><span class="cl">mv ./README.md ./src/README.bak.md
+</span></span></code></pre></div><p><a href="https://devhints.io/bash" target="_blank" rel="noopener noreferrer">cheatsheet<i class="fas fa-external-link-square-alt ms-1"></i></a>這網站我很推薦，可以查常用的指令或程式碼的小抄，也可能拿來學一些沒用過的指令或程式碼。</p>
+<h1 id="markdown">Markdown<a class="anchor ms-1" href="#markdown"><i class="fas fa-link"></i></a></h1>
+<p>前面提到 cheatsheet，那是別人整理好的小抄，你也可以寫屬於自己小抄。不僅如此，Markdown也常被用來寫文章、文件、筆記。</p>
+<p>Markdown是用文字和格式來做排版，如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl"># 第一章
+</span></span><span class="line"><span class="ln">2</span><span class="cl">## 第一節
+</span></span><span class="line"><span class="ln">3</span><span class="cl">* item
+</span></span><span class="line"><span class="ln">4</span><span class="cl">* item
+</span></span></code></pre></div><p>透過Markdown reader 就會變成
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-02 at 9.42.52 PM.png" src="/series/2019-ithome-ironman/day-2-%E4%B8%80%E8%BC%A9%E5%AD%90%E5%8F%97%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7/resources/262125395E6DF8B13A34C9511B5080D9.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<h2 id="為什麼用markdown">為什麼用Markdown？<a class="anchor ms-1" href="#為什麼用markdown"><i class="fas fa-link"></i></a></h2>
+<ol>
+<li>文字排版，方便複製、貼上</li>
+<li>文字容易傳送、儲存，也可以像程式碼一樣放入版本管理(version control)工具Git/SVN</li>
+<li>文字資料只須少量的檔案大小</li>
+</ol>
+<h2 id="常用語法">常用語法<a class="anchor ms-1" href="#常用語法"><i class="fas fa-link"></i></a></h2>
+<p>我發現 <a href="https://ithelp.ithome.com.tw/markdown" target="_blank" rel="noopener noreferrer">iT幫邦-Markdown說明<i class="fas fa-external-link-square-alt ms-1"></i></a>整理的東西很常用，我只例出必學的。</p>
+<p>Markdown 文字：
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-02 at 10.01.30 PM.png" src="/series/2019-ithome-ironman/day-2-%E4%B8%80%E8%BC%A9%E5%AD%90%E5%8F%97%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7/resources/8FA9B16D41E3959F63C7AE9A52BE463C.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>檢視結果如下：
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-02 at 10.00.33 PM.png" src="/series/2019-ithome-ironman/day-2-%E4%B8%80%E8%BC%A9%E5%AD%90%E5%8F%97%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7/resources/55D65C81FB7C80660B52918D63024193.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<h2 id="markdown的限制">Markdown的限制<a class="anchor ms-1" href="#markdown的限制"><i class="fas fa-link"></i></a></h2>
+<ol>
+<li>Markdown 只是文字，不是即可見的，所以要搭配檢視軟體(reader)才能看</li>
+<li>不同的檢視軟體有自己檢視結果，所以會有些許的不同，像是風格、大小</li>
+<li>也因為受於檢視軟體的解讀差異，Markdown 格式語法風格會有差，像是不同縮排或語法中空白的數量，都可能在不同檢視軟體有不同結果或不能正常顯示</li>
+<li>格式語法風格不容易統一</li>
+<li>圖片/檔案資源一般不會放在文件內，要用外部資源，以圖片為例：<code>![圖片無法顯示時文字](URI資源)</code>。不過，還是可以用<a href="https://www.base64-image.de/" target="_blank" rel="noopener noreferrer">base64 image<i class="fas fa-external-link-square-alt ms-1"></i></a>文字，把圖片轉成文字再鑲入文件中，但你不會想這麼做的，下面就是一張圖片：<picture><img class="img-fluid" alt="Screen Shot 2018-10-03 at 9.04.20 AM.png" src="/series/2019-ithome-ironman/day-2-%E4%B8%80%E8%BC%A9%E5%AD%90%E5%8F%97%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7/resources/3C805EBD6971FD583158455B47EFD5F7.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+。此外，檢視軟體能不能解讀又是另一回事，我用的筆記軟體  <a href="https://itunes.apple.com/app/quiver-programmers-notebook/id866773894?ls=1&amp;mt=12" target="_blank" rel="noopener noreferrer">Quiver<i class="fas fa-external-link-square-alt ms-1"></i></a>和 VSCode - Markdown All in One 剛好都可以解讀。
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">![c word](data:image/png;base64,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)
+</span></span></code></pre></div></li>
+</ol>
+<h2 id="markdown-怎麼在vscode中檢視">Markdown 怎麼在VSCode中檢視?<a class="anchor ms-1" href="#markdown-怎麼在vscode中檢視"><i class="fas fa-link"></i></a></h2>
+<p>前面提到Markdown需要搭配檢視軟體，幸運地 VSCode 的擴展(Extension)有套件可以使用。</p>
+<ol>
+<li>開啟 VSCode 的 Extension的頁簽
+<picture><img class="img-fluid" alt="Screen Shot 2018-09-18 at 7.38.24 PM.png" src="/series/2019-ithome-ironman/day-2-%E4%B8%80%E8%BC%A9%E5%AD%90%E5%8F%97%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7/resources/433647A473DC15C4BF3A28D2B2CDA911.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</li>
+<li>搜尋 <code>markdown</code>，你會看到一堆可以選，基本上有<code>Preview</code>的都可以用
+<picture><img class="img-fluid" alt="Screen Shot 2018-09-18 at 7.38.40 PM.png" src="/series/2019-ithome-ironman/day-2-%E4%B8%80%E8%BC%A9%E5%AD%90%E5%8F%97%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7/resources/A401B37AC8DD889A088D54067C40199C.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</li>
+<li>我是選擇下載人數多的 <code>Markdown All in One</code>
+<picture><img class="img-fluid" alt="Screen Shot 2018-09-18 at 7.39.21 PM.png" src="/series/2019-ithome-ironman/day-2-%E4%B8%80%E8%BC%A9%E5%AD%90%E5%8F%97%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7/resources/2D30640CF28DE0A6F8F4F5741EE3D83B.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</li>
+<li>在Markdown文件中，開啟Priview
+<picture><img class="img-fluid" alt="D781E0D8C235C5E84A2BEA3DFA5DE460.png" src="/series/2019-ithome-ironman/day-2-%E4%B8%80%E8%BC%A9%E5%AD%90%E5%8F%97%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7/resources/79E26D03ED3EF11F2A7D1A5FBA8DB1B3.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+
+<picture><img class="img-fluid" alt="Screen Shot 2018-09-18 at 7.43.18 PM.png" src="/series/2019-ithome-ironman/day-2-%E4%B8%80%E8%BC%A9%E5%AD%90%E5%8F%97%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7/resources/1F3F6A33E7B9ABEB42949B6D4EFFE57C.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</li>
+</ol>
+<h1 id="drawio">draw.io<a class="anchor ms-1" href="#drawio"><i class="fas fa-link"></i></a></h1>
+<p><a href="https://www.draw.io" target="_blank" rel="noopener noreferrer">draw.io<i class="fas fa-external-link-square-alt ms-1"></i></a>我很推薦的工具之一，就是用來畫圖，可以釐清自己的想法或和別人溝通。
+你可以很容易的畫出<a href="https://msdn.microsoft.com/zh-tw/library/dd409360.aspx?f=255&amp;MSPPError=-2147217396" target="_blank" rel="noopener noreferrer">UML<i class="fas fa-external-link-square-alt ms-1"></i></a>、心智圖(Mind Map)、架構圖…等。例如下面的UML 活動圖：
+<picture><img class="img-fluid" alt="Screen Shot 2018-10-02 at 10.27.03 PM.png" src="/series/2019-ithome-ironman/day-2-%E4%B8%80%E8%BC%A9%E5%AD%90%E5%8F%97%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7/resources/9EE170E322824E279F17FC1AC90E53DF.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<h2 id="drawio-有什麼過人之處嗎">draw.io 有什麼過人之處嗎？<a class="anchor ms-1" href="#drawio-有什麼過人之處嗎"><i class="fas fa-link"></i></a></h2>
+<ol>
+<li>免費</li>
+<li>可以直接儲存在google drive, dropbox&hellip;等雲端空間，也可以本地儲存</li>
+<li>可以匯入匯出，轉存圖檔、PDF，也支援SVG</li>
+<li>支援鍵盤的複製貼上或拖拉，圖片也可以</li>
+<li>共同編輯</li>
+<li>可輸入中文、客製化風格</li>
+<li>元件可群組、快速排版、多選元件設定屬性</li>
+<li>多頁籤</li>
+<li>內件大量元件、也可以自製元件</li>
+</ol>
+<h1 id="總結">總結<a class="anchor ms-1" href="#總結"><i class="fas fa-link"></i></a></h1>
+<p>今天我們介紹常用指令和小抄<a href="https://devhints.io/bash" target="_blank" rel="noopener noreferrer">bash cheatsheet<i class="fas fa-external-link-square-alt ms-1"></i></a>，讀者可以透過Markdown寫自己的專屬小抄、文件。最後，用 draw.io 製圖為文件增加更多色彩。</p></div></div>
+  <div class="card-footer"><div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-prev">
+    <i class="fas fa-fw fa-chevron-circle-down post-prev-icon" data-fa-transform="rotate-90"></i>
+    <a href="/series/2019-ithome-ironman/day-1-%E5%89%8D%E8%A8%80%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83%E6%BA%96%E5%82%99/">Day 1 - 前言／開發環境準備
+</a>
+  </div><div class="post-nav post-next">
+    <a href="/series/2019-ithome-ironman/day-3-%E4%B8%80%E5%91%A8%E7%9B%AE-%E5%BB%BA%E7%AB%8B-%E7%AC%AC%E4%B8%80%E5%80%8Bnode.js-%E5%B0%88%E6%A1%88/">Day 3 - 一周目- 建立第一個Node.js 專案
+</a>
+    <i class="fas fa-fw fa-chevron-circle-down post-next-icon" data-fa-transform="rotate-270"></i>
+  </div></div></div>
+</article><div class="post-copyright mb-3 row card component" id="post-copyright">
+    <div class="card-header">
+        <h2 class="card-title fs-4 my-2 text-surface">版權</h2>
+    </div>
+    <div class="card-body"><a class="d-flex align-items-center flex-column" target="_blank" rel="license noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_TW">
+  <span><i class="fab fa-fw fa-2x fa-creative-commons"></i><i class="fab fa-fw fa-2x fa-creative-commons-by"></i><i class="fab fa-fw fa-2x fa-creative-commons-nc"></i><i class="fab fa-fw fa-2x fa-creative-commons-sa"></i></span>
+  CC BY-NC-SA 4.0 
+</a>
+
+
+    </div>
+</div><section class="related-posts row card component">
+    <div class="card-header">
+      <h2 class="card-title fs-4 my-2 text-surface">相關文章</h2>
+    </div>
+    <div class="card-body">
+      <ul class="post-list list-unstyled"><li>
+          <a href="/series/2019-ithome-ironman/day-1-%E5%89%8D%E8%A8%80%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83%E6%BA%96%E5%82%99/">Day 1 - 前言／開發環境準備
+</a>
+          <span class="float-end post-date">2018-10-01
+</span>
+        </li></ul>
+    </div>
+  </section><div class="card component row post-comments" id="post-comments">
+  <div class="card-header">
+    <h2 class="card-title my-2 fs-4 text-surface">評論</h2>
+  </div>
+  <div class="card-body"><script src="https://utteranc.es/client.js"
+  repo="eugenechen0514/eugenechen0514.github.io"
+  issue-term="pathname"
+  label="comment"
+  theme="github-light"
+  crossorigin="anonymous"
+  async>
+</script></div>
+</div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container d-flex flex-column">
+    
+    <div class="card row text-center profile component">
+  <div class="card-body">
+    <div class="col-12 d-flex align-items-center justify-content-center"><picture><img class="profile-avatar rounded-circle" alt="EugeneChen" src="/images/profile.webp" loading="lazy" data-viewer-invisible
+    
+     width="298" height="305"
+     />
+</picture>
+</div>
+    <div class="col-12 profile-meta"><div class="profile-name fw-fold fs-lg">EugeneChen</div><div class="profile-bio">軟體工程師，喜歡動手做些有的沒的專案，同時也喜愛數學、攝影、桌球，慢跑、游泳、作菜。</div><div class="profile-about"><i class="fas fa-fw fa-user"></i><a target="_blank" rel="noopener noreferrer" href="https://eugene-website.herokuapp.com">關於我</a></div><nav class="social-links nav justify-content-center"><a class="nav-link social-link" href="mailto:yujiechen0514@gmail.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i></a><a class="nav-link social-link" target="_blank" href="https://github.com/eugenechen0514" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-github"></i></a><a class="nav-link social-link" target="_blank" href="/index.xml" title="RSS" rel="noopener noreferrer">
+    <i class="fas fa-fw fa-2x fa-rss"></i></a></nav>
+</div>
+  </div>
+</div>
+<section class="taxonomies row card component">
+    <div class="card-body">
+        <ul class="nav nav-tabs" id="myTab" role="tablist"><li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="taxonomySeriesTab" data-bs-toggle="tab" data-bs-target="#taxonomySeries" 
+                        type="button" role="tab" aria-controls="專欄" aria-selected="true">
+                        專欄
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                    <button class="nav-link" id="taxonomyCategoriesTab" data-bs-toggle="tab" data-bs-target="#taxonomyCategories" 
+                        type="button" role="tab" aria-controls="分類" aria-selected="true">
+                        分類
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                    <button class="nav-link" id="taxonomyTagsTab" data-bs-toggle="tab" data-bs-target="#taxonomyTags" 
+                        type="button" role="tab" aria-controls="標籤" aria-selected="true">
+                        標籤
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                <button class="nav-link" id="taxonomyArchivesTab" data-bs-toggle="tab" data-bs-target="#taxonomyArchive" 
+                    type="button" role="tab" aria-controls="taxonomyArchives" aria-selected="true">
+                    歸檔
+                </button>
+            </li>
+        </ul>
+          
+        <div class="tab-content mt-3"><div class="tab-pane active" id="taxonomySeries" role="tabpanel" aria-labelledby="taxonomySeriesTab" tabindex="0"><a href="/series/2019-ithome-ironman/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="用js成為老闆心中的全端工程師 - 2019 iT邦幫忙鐵人賽">
+                        用js成為老闆心中的全端工程師 - 2019 iT邦幫忙鐵人賽<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a></div><div class="tab-pane" id="taxonomyCategories" role="tabpanel" aria-labelledby="taxonomyCategoriesTab" tabindex="0"><a href="/categories/%E9%9A%A8%E6%89%8B%E7%AD%86%E8%A8%98/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="隨手筆記">
+                        隨手筆記<span class="badge badge-sm text-secondary bg-white ms-1">2</span></a><a href="/categories/%E5%BF%83%E5%BE%97/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="心得">
+                        心得<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a></div><div class="tab-pane" id="taxonomyTags" role="tabpanel" aria-labelledby="taxonomyTagsTab" tabindex="0"><a href="/tags/2019-it-%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2019 iT 邦幫忙鐵人賽">
+                        2019 iT 邦幫忙鐵人賽<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a><a href="/tags/%E7%94%A8js%E6%88%90%E7%82%BA%E8%80%81%E9%97%86%E5%BF%83%E4%B8%AD%E7%9A%84%E5%85%A8%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%AB/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="用js成為老闆心中的全端工程師">
+                        用js成為老闆心中的全端工程師<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a><a href="/tags/alphacamp/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="AlphaCamp">
+                        AlphaCamp<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/kafka/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="Kafka">
+                        Kafka<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/mongodb/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="MongoDB">
+                        MongoDB<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/pandas/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="pandas">
+                        pandas<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/python/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="python">
+                        python<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/%E6%8E%A8%E8%96%A6%E7%B3%BB%E7%B5%B1/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="推薦系統">
+                        推薦系統<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a></div><div class="tab-pane" id="taxonomyArchive" role="tabpanel" aria-labelledby="taxonomyArchiveTab" tabindex="0"><a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2022">
+    2022 <span class="badge badge-sm text-secondary bg-white ms-1">1</span>
+    </a>
+<a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2021">
+    2021 <span class="badge badge-sm text-secondary bg-white ms-1">2</span>
+    </a>
+<a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2018">
+    2018 <span class="badge badge-sm text-secondary bg-white ms-1">30</span>
+    </a>
+
+</div>
+        </div>
+    </div>
+</section><div class="post-toc row mb-4 card component" id="postTOC">
+  <div class="card-header">
+    <h2 class="card-title fs-4 my-2 text-surface">目錄</h2>
+  </div>
+  <div class="card-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#為什麼要學指令">為什麼要學指令？</a></li>
+    <li><a href="#指令怎麼執行-shell">指令怎麼執行？ Shell</a></li>
+    <li><a href="#下面列出一定要認識的指令">下面列出一定要認識的指令</a></li>
+    <li><a href="#動手做">動手做</a></li>
+    <li><a href="#指令要背嗎">指令要背嗎？</a></li>
+    <li><a href="#cmd-常見格式-command---full-name--brief-name">cmd 常見格式: <code>&lt;command&gt; --&lt;full name&gt; -&lt;brief name&gt;</code></a></li>
+    <li><a href="#指令小抄">指令小抄</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#為什麼用markdown">為什麼用Markdown？</a></li>
+    <li><a href="#常用語法">常用語法</a></li>
+    <li><a href="#markdown的限制">Markdown的限制</a></li>
+    <li><a href="#markdown-怎麼在vscode中檢視">Markdown 怎麼在VSCode中檢視?</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#drawio-有什麼過人之處嗎">draw.io 有什麼過人之處嗎？</a></li>
+  </ul>
+</nav>
+  </div>
+</div><section class="recent-posts row card component">
+  <div class="card-header">
+    <h2 class="card-title my-2 fs-4 text-surface">最近文章</h2>
+  </div>
+  <div class="card-body">
+    <ul class="post-list list-unstyled ms-1"><li class="mb-2">
+        <a href="/posts/reviews/2022-02-06-alphacamp%E6%8E%A8%E8%96%A6%E7%B3%BB%E7%B5%B1%E4%B8%8A%E8%AA%B2%E5%BF%83%E5%BE%97/">AlphaCamp 推薦系統上課心得
+</a>
+      </li><li class="mb-2">
+        <a href="/posts/notes/2021-08-22-%E4%B8%80%E7%AA%BAkafka%E5%85%A7%E9%83%A8%E5%84%B2%E5%AD%98%E8%B3%87%E6%96%99/">一窺 Kafka 內部儲存資料
+</a>
+      </li><li class="mb-2">
+        <a href="/posts/notes/2021-08-01-mongodb-5-%E4%BE%86%E4%BA%86%E6%9C%89%E4%BB%80%E9%BA%BC%E5%80%BC%E5%BE%97%E6%B3%A8%E6%84%8F%E7%9A%84%E6%9B%B4%E6%96%B0/">MongoDb 5 來了，有什麼值得注意的更新呢?
+</a>
+      </li><li class="mb-2">
+        <a href="/series/2019-ithome-ironman/day-30-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-network-%E6%9A%A8%E5%AE%8C%E8%B3%BD%E5%9B%9E%E9%A1%A7/">Day 30- 三周目 - Docker Network 暨完賽回顧
+</a>
+      </li><li class="mb-2">
+        <a href="/series/2019-ithome-ironman/day-29-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-compose%E4%B8%80%E6%AC%A1%E7%AE%A1%E7%90%86%E5%A4%9A%E5%80%8B%E5%AE%B9%E5%99%A8/">Day 29- 三周目 - Docker Compose：一次管理多個容器
+</a>
+      </li></ul>
+  </div>
+</section>
+    
+  </div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><div class="offcanvas offcanvas-bottom h-auto" tabindex="-1" id="offcanvasActionsPanel"
+  aria-labelledby="offcanvasActionsPanelLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title fs-4" id="offcanvasActionsPanelLabel">
+      <i class="fas fa-fw fa-th-large me-1"></i>
+      Actions
+    </h5>
+    <button type="button" class="btn-close ms-auto" data-bs-dismiss="offcanvas" data-bs-target="offcanvasActionsPanel" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body mt-2"><div class="social-share mb-4 d-flex overflow-auto">
+      <a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Twitter Share Button"
+      target="_blank" href="https://twitter.com/intent/tweet?title=Day%202%20-%20%e4%b8%80%e8%bc%a9%e5%ad%90%e5%8f%97%e7%94%a8%e7%9a%84%e5%b7%a5%e5%85%b7&url=%2fseries%2f2019-ithome-ironman%2fday-2-%25E4%25B8%2580%25E8%25BC%25A9%25E5%25AD%2590%25E5%258F%2597%25E7%2594%25A8%25E7%259A%2584%25E5%25B7%25A5%25E5%2585%25B7%2f">
+        <i class="fab fa-2x fa-fw fa-twitter mb-2"></i> Twitter
+      </a>
+      <a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Facebook Share Button"
+        target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=%2fseries%2f2019-ithome-ironman%2fday-2-%25E4%25B8%2580%25E8%25BC%25A9%25E5%25AD%2590%25E5%258F%2597%25E7%2594%25A8%25E7%259A%2584%25E5%25B7%25A5%25E5%2585%25B7%2f">
+        <i class="fab fa-2x fa-fw fa-facebook-f mb-2"></i> Facebook
+      </a>
+    </div>
+    <hr class="mb-4"><div class="actions d-flex overflow-auto align-items-center">
+      <a role="button" class="action action-go-back d-flex flex-column align-items-center me-3" href="javascript: window.history.back();">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-chevron-circle-down" data-fa-transform="rotate-90"></i></span> 返回
+      </a>
+      <a role="button" class="action action-reload-page d-flex flex-column align-items-center me-3">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-redo-alt"></i></span> 刷新
+      </a>
+      <a role="button" class="action action-copy-url d-flex flex-column align-items-center me-3">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-link"></i></span> 複製連結
+      </a>
+    </div>
+  </div>
+</div><nav class="social-links nav justify-content-center mb-2"><a class="nav-link social-link" href="mailto:yujiechen0514@gmail.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i></a><a class="nav-link social-link" target="_blank" href="https://github.com/eugenechen0514" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-github"></i></a><a class="nav-link social-link" target="_blank" href="https://linkedin.com/in/yuchieh-chen-37a48989" title="LinkedIn" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-linkedin-in"></i></a><a class="nav-link social-link" target="_blank" href="https://medium.com/@yujiechen0514" title="Medium" rel="noopener noreferrer">
+        <i class="fab fa-fw fa-2x fa-medium-m"></i></a><a class="nav-link social-link" target="_blank" href="/index.xml" title="RSS" rel="noopener noreferrer">
+    <i class="fas fa-fw fa-2x fa-rss"></i></a></nav>
+<div class="copyright mb-2">
+  Copyright © 2016-2022 EugeneChen. All Rights Reserved.
+</div>
+<div class="powered-by mb-2">
+  Powered by <a class="text-primary" href="https://gohugo.io" target="_blank" rel="noopener noreferrer">Hugo</a> and the <a class="text-primary" href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank" rel="noopener noreferrer">Bootstrap</a> theme.
+</div>
+<div class="sponsors">
+
+
+
+
+
+
+</div>
+</footer>
+<script src="/assets/main/bundle.min.2bc7d6952dbf38d6d2815939c58fc655e72d050b196d9fd99829d8fb23904646.js" integrity="sha256-K8fWlS2/ONbSgVk5xY/GVectBQsZbZ/ZmCnY&#43;yOQRkY=" crossorigin="anonymous" defer></script><script src="/assets/icons/bundle.min.a4bf8247f780c9bf61d579a8efe7129ec790bb98622bf4a29895eb21e689266c.js" integrity="sha256-pL&#43;CR/eAyb9h1Xmo7&#43;cSnseQu5hiK/SimJXrIeaJJmw=" crossorigin="anonymous" defer></script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('\/service-worker.min.js').then(function(reg) {
+      console.log('Successfully registered service worker', reg);
+    }).catch(function(err) {
+      console.warn('Error whilst registering service worker', err);
+    });
+  });
+}
+</script><script src="/assets/viewer/bundle.min.92d4a694e2e9a4c4d89b6998067e2f8e502dc7a951682bb5a160a3004b434908.js" integrity="sha256-ktSmlOLppMTYm2mYBn4vjlAtx6lRaCu1oWCjAEtDSQg=" crossorigin="anonymous" defer></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-ZWYL79X38Y', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+<script src="/assets/docsearch/bundle.min.c6965b5bee044b874617239932d6a7992b217f7949f895a7576980d110fb2ab1.js" integrity="sha256-xpZbW&#43;4ES4dGFyOZMtanmSshf3lJ&#43;JWnV2mA0RD7KrE=" crossorigin="anonymous" defer></script></body>
+</html>

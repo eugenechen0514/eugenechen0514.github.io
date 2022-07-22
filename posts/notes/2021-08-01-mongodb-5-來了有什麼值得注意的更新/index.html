@@ -1,0 +1,575 @@
+<!doctype html><html class="position-relative" itemscope itemtype="http://schema.org/WebPage" lang="zh-tw" data-theme="auto"
+  
+   data-palette="purple">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MongoDb 5 來了，有什麼值得注意的更新呢? - EugeneChen</title><link rel="apple-touch-icon" href="/images/icons/icon-180x180.png" sizes="180x180">
+<link rel="icon" href="/images/icons/icon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/images/icons/icon-16x16.png" sizes="16x16" type="image/png">
+<link rel="icon" href="/images/icons/favicon.ico">
+<link rel="manifest" href="/manifest.json">
+<meta name="keywords" content="" />
+<meta name="description" content="MongoDb 5 來了，有什麼值得注意的更新" /><meta name="robots" content="index, follow" /><meta itemprop="name" content="MongoDb 5 來了，有什麼值得注意的更新呢?">
+<meta itemprop="description" content="MongoDb 5 來了，有什麼值得注意的更新"><meta itemprop="datePublished" content="2021-08-01T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2021-08-01T00:00:00+00:00" />
+<meta itemprop="wordCount" content="1423"><meta itemprop="image" content="/posts/notes/2021-08-01-mongodb-5-%E4%BE%86%E4%BA%86%E6%9C%89%E4%BB%80%E9%BA%BC%E5%80%BC%E5%BE%97%E6%B3%A8%E6%84%8F%E7%9A%84%E6%9B%B4%E6%96%B0/images/205E1EDC91FA1B5BAF557D3E052EC920.jpg">
+<meta itemprop="keywords" content="MongoDB," /><meta property="og:title" content="MongoDb 5 來了，有什麼值得注意的更新呢?" />
+<meta property="og:description" content="MongoDb 5 來了，有什麼值得注意的更新" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/posts/notes/2021-08-01-mongodb-5-%E4%BE%86%E4%BA%86%E6%9C%89%E4%BB%80%E9%BA%BC%E5%80%BC%E5%BE%97%E6%B3%A8%E6%84%8F%E7%9A%84%E6%9B%B4%E6%96%B0/" /><meta property="og:image" content="/posts/notes/2021-08-01-mongodb-5-%E4%BE%86%E4%BA%86%E6%9C%89%E4%BB%80%E9%BA%BC%E5%80%BC%E5%BE%97%E6%B3%A8%E6%84%8F%E7%9A%84%E6%9B%B4%E6%96%B0/images/205E1EDC91FA1B5BAF557D3E052EC920.jpg" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-08-01T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-08-01T00:00:00+00:00" /><meta property="og:site_name" content="EugeneChen" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="/posts/notes/2021-08-01-mongodb-5-%E4%BE%86%E4%BA%86%E6%9C%89%E4%BB%80%E9%BA%BC%E5%80%BC%E5%BE%97%E6%B3%A8%E6%84%8F%E7%9A%84%E6%9B%B4%E6%96%B0/images/205E1EDC91FA1B5BAF557D3E052EC920.jpg"/>
+
+<meta name="twitter:title" content="MongoDb 5 來了，有什麼值得注意的更新呢?"/>
+<meta name="twitter:description" content="MongoDb 5 來了，有什麼值得注意的更新"/>
+<link rel="stylesheet" href="/assets/main/bundle.min.925f59d4c744cc5e99dcc7d02a6f68dff5cceaea488c7667bd947bf7aa35b649.css" integrity="sha256-kl9Z1MdEzF6Z3MfQKm9o3/XM6upIjHZnvZR796o1tkk=" crossorigin="anonymous"><link rel="stylesheet" href="/assets/viewer/bundle.min.f05183267bb952fbc8c63a7178364de2951614ab71d544ec1068ad36c7447ccc.css" integrity="sha256-8FGDJnu5UvvIxjpxeDZN4pUWFKtx1UTsEGitNsdEfMw=" crossorigin="anonymous"><link rel="stylesheet" href="/assets/docsearch/bundle.min.c165d6a127fffa285e6b89ef65362fe921bc0c1fdaefa35f6af069b962bdb50e.css" integrity="sha256-wWXWoSf/&#43;ihea4nvZTYv6SG8DB/a76NfavBpuWK9tQ4=" crossorigin="anonymous"></head>
+  <body><script>const items=["theme","palette"];items.forEach(function(e){const t=localStorage.getItem("hbs:"+e);t&&document.body.parentElement.setAttribute("data-"+e,t)})</script><header><nav class="top-app-bar shadow bg-primary text-white navbar navbar-expand-lg fixed-top">
+  <div class="container"><a class="navbar-brand flex-grow-1 flex-lg-grow-0 text-lg-start ms-2 ms-lg-0 mx-auto me-lg-3" href="/"><picture><img class="logo" alt="Logo" src="/images/logo.webp" loading="lazy"
+    
+     width="136" height="69"
+     />
+</picture>
+EugeneChen
+    </a>
+    <button class="navbar-toggler order-5" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarMenus"
+      aria-controls="navbarMenus" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-ellipsis-h"></i>
+    </button>
+    <div class="offcanvas-lg offcanvas-end flex-grow-1 bg-primary text-white" tabindex="-1" id="navbarMenus" aria-labelledby="navbarMenusLabel">
+      <div class="offcanvas-header px-4 pb-0">
+        <h5 class="offcanvas-title" id="navbarMenusLabel">EugeneChen</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" data-bs-target="#navbarMenus" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body p-4 pt-0 p-lg-0">
+        <hr class="d-lg-none">
+        <ul class="navbar-nav flex-row flex-wrap align-items-center me-auto"><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/posts/">
+              <i class="fas fa-book fa-fw"></i>文章
+            </a>
+          </li><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/series/">
+              <i class="fas fa-bars fa-fw"></i>專欄
+            </a>
+          </li><li class="nav-item col-6 col-lg-auto">
+            <a class="nav-link py-2 px-0 px-lg-2" href="/posts/notes/">
+              <i class="fas fa-sticky-note fa-fw"></i>隨手筆記
+            </a>
+          </li></ul>
+        <hr class="d-lg-none">
+        <form class="search-bar mx-auto my-1" action="/search" novalidate>
+  <div class="input-group input-group-sm align-items-center">
+    <span class="btn btn-search disabled position-absolute left-0 border-0">
+      <i class="fas fa-fw fa-search fa-lg"></i>
+    </span>
+    <input class="py-2 form-control rounded search-input" name="q" type="search" aria-label="Search" required>
+  </div>
+</form>
+<hr class="d-lg-none">
+        <ul class="navbar-nav flex-row flex-wrap align-items-center ms-md-auto"><li class="nav-item dropdown py-1 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-globe"></i>
+        <span class="d-lg-none">語言</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown"><li>
+        <a class="dropdown-item" href="/en/">
+            English
+        </a>
+        </li><li>
+        <a class="dropdown-item active" href="/">
+            繁體中文
+        </a>
+        </li></ul>
+</li>
+<li class="nav-item py-1 col-12 col-lg-auto">
+  <div class="vr d-none d-lg-flex h-100 mx-lg-2 text-white"></div>
+  <hr class="d-lg-none my-2">
+</li><li class="nav-item dropdown py-2 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="fontSizeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-font"></i>
+        <span class="d-lg-none">字體大小</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="fontSizeDropdown"><li>
+            <button class="font-size-item dropdown-item" data-size="xs">
+                特小號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="sm">
+                小號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item active" data-size="md">
+                中等
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="lg">
+                大號
+            </button>
+        </li><li>
+            <button class="font-size-item dropdown-item" data-size="xl">
+                特大號
+            </button>
+        </li></ul>
+</li><li class="nav-item dropdown py-1 py-lg-1 col-6 col-lg-auto">
+    <a class="nav-link px-0 px-lg-1" href="#" id="paletteDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-fw fa-palette"></i>
+        <span class="d-lg-none">配色</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end px-2" aria-labelledby="paletteDropdown">
+        <div class="row"><li class="col-3 my-1">
+                <a role="button" id="palette-blue" aria-label="藍色"
+                    class="btn btn-sm w-100 palette text-bg-blue" data-palette="blue">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-blue-gray" aria-label="藍灰色"
+                    class="btn btn-sm w-100 palette text-bg-blue-gray" data-palette="blue-gray">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-brown" aria-label="棕色"
+                    class="btn btn-sm w-100 palette text-bg-brown" data-palette="brown">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-cyan" aria-label="青色"
+                    class="btn btn-sm w-100 palette text-bg-cyan" data-palette="cyan">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-green" aria-label="綠色"
+                    class="btn btn-sm w-100 palette text-bg-green" data-palette="green">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-indigo" aria-label="靛青色"
+                    class="btn btn-sm w-100 palette text-bg-indigo" data-palette="indigo">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-orange" aria-label="橙色"
+                    class="btn btn-sm w-100 palette text-bg-orange" data-palette="orange">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-pink" aria-label="粉色"
+                    class="btn btn-sm w-100 palette text-bg-pink" data-palette="pink">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-purple" aria-label="紫色"
+                    class="btn btn-sm w-100 palette text-bg-purple" data-palette="purple">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-red" aria-label="紅色"
+                    class="btn btn-sm w-100 palette text-bg-red" data-palette="red">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-teal" aria-label="藍綠色"
+                    class="btn btn-sm w-100 palette text-bg-teal" data-palette="teal">
+                </a>
+            </li><li class="col-3 my-1">
+                <a role="button" id="palette-yellow" aria-label="黃色"
+                    class="btn btn-sm w-100 palette text-bg-yellow" data-palette="yellow">
+                </a>
+            </li></div>
+    </ul>
+</li>
+<li class="nav-item dropdown py-2 py-lg-1 col-6 col-lg-auto"><a class="nav-link px-0 px-lg-1" href="#" id="modeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="mode-icon fas fa-fw fa-adjust" id="modeIcon"></i>
+        <span class="d-lg-none">模式</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="modeDropdown"><li class="mode-item" data-color-mode="light" data-icon="sun">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-sun"></i> Light
+            </button>
+        </li><li class="mode-item" data-color-mode="dark" data-icon="moon">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-moon"></i> Dark
+            </button>
+        </li><li class="mode-item active" data-color-mode="auto" data-icon="adjust">
+            <button class="dropdown-item">
+                <i class="mode-icon fas fa-fw fa-adjust"></i> Auto
+            </button>
+        </li></ul>
+</li>
+</ul>
+      </div>
+    </div>
+  </div>
+</nav>
+</header>
+<main class="container">
+      <div class="row content"><noscript>
+    <div class="alert alert-danger" role="alert">你的瀏覽器不支持 JavaScript。</div>
+</noscript>
+
+<div class="col-lg-8">
+  <div class="container"><nav class="row card component" aria-label="breadcrumb">
+  <div class="card-body pb-0">
+    <ol class="breadcrumb"><li class="breadcrumb-item text-surface"><a href="/">主頁</a></li><li class="breadcrumb-item text-surface"><a href="/posts/">文章</a></li><li class="breadcrumb-item text-surface"><a href="/posts/notes/">隨手筆記</a></li><li class="breadcrumb-item active">MongoDb 5 來了，有什麼值得注意的更新呢?</li></ol>
+  </div>
+</nav><div class="post-panel-wrapper position-sticky">
+  <div class="d-flex flex-column component rounded post-panel position-absolute border">
+    
+    <a class="action action-panel-toggler" role="button" title="Panel toggler">
+      <i class="fas fa-fw fa-chevron-circle-down"></i>
+    </a>
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button" title="Sidebar toggler">
+  <i class="fas fa-fw fa-expand-alt" data-fa-transform="rotate-45"></i>
+</a>
+
+    
+
+    
+    <a class="action" href="#post-copyright" role="button" aria-label="Copyright" title="Copyright">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    <a class="action" href="#post-comments" role="button" aria-label="Comments" title="Comments">
+  <i class="fas fa-fw fa-comments"></i>
+</a>
+    <a class="action" href="#postTOC" aria-controls="Table of contents" role="button" title="Table of contents">
+  <i class="fas fa-fw fa-list-alt"></i>
+</a>
+    
+  </div>
+</div>
+<article class="row card component mb-4 post">
+  <div class="card-header ">
+    <h1 class="card-title post-title my-2">MongoDb 5 來了，有什麼值得注意的更新呢?
+</h1>
+  </div>
+  <div class="card-body"><div class="post-meta mb-3">
+  <span class="post-date me-1 mb-1" title="創建於 2021-08-01 08:00:00 &#43;0800 CST。">
+    2021-08-01
+  </span><span class="post-reading-time me-1 mb-1">
+    3 分鐘閱讀
+  </span><a href="/categories/%E9%9A%A8%E6%89%8B%E7%AD%86%E8%A8%98/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">隨手筆記</a><a href="/tags/mongodb/" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy">MongoDB</a></div>
+<picture><img class="post-featured-img w-100 mb-3" alt="MongoDb 5 來了，有什麼值得注意的更新呢?" src="/posts/notes/2021-08-01-mongodb-5-%E4%BE%86%E4%BA%86%E6%9C%89%E4%BB%80%E9%BA%BC%E5%80%BC%E5%BE%97%E6%B3%A8%E6%84%8F%E7%9A%84%E6%9B%B4%E6%96%B0/images/205E1EDC91FA1B5BAF557D3E052EC920.jpg" loading="lazy"/>
+    </picture><div class="post-content mb-3"><p>MongoDB 於 7月13日釋出了 5.0 版，這次除了更新 <code>mongosh</code> shell，也針對 Time Series 資料的支援。</p>
+<blockquote>
+<p>完整的更新列表請參考 <a href="https://docs.mongodb.com/manual/release-notes/5.0/#shell-changes" target="_blank" rel="noopener noreferrer">Release Notes for MongoDB 5.0<i class="fas fa-external-link-square-alt ms-1"></i></a>。</p>
+</blockquote>
+<h2 id="mongosh-shell">mongosh shell<a class="anchor ms-1" href="#mongosh-shell"><i class="fas fa-link"></i></a></h2>
+<p><code>mongo</code> shell 在 5.0 版被棄用了，取而代之是 <code>mongosh</code> shell，它是一個 Node.js 14.x REPL 互動環境，你甚至可以 <code>require()</code> 其它 npm module，見：<a href="https://docs.mongodb.com/mongodb-shell/write-scripts/#use-require---to-include-external-files-and-modules" target="_blank" rel="noopener noreferrer">Write Scripts for mongosh<i class="fas fa-external-link-square-alt ms-1"></i></a>。另外，它還支援 GCP 和 Azure 的 <a href="https://docs.mongodb.com/manual/core/security-client-side-encryption-key-management/#std-label-field-level-encryption-kms" target="_blank" rel="noopener noreferrer">Key Management Service (KMS)<i class="fas fa-external-link-square-alt ms-1"></i></a>。</p>
+<p>雖然 <code>mongo</code> 被棄用，它的指令目前都可以運行在 <code>mongosh</code> 上，完整的指令見 <a href="https://docs.mongodb.com/mongodb-shell/reference/methods/" target="_blank" rel="noopener noreferrer">MongoDB Shell Methods<i class="fas fa-external-link-square-alt ms-1"></i></a>。</p>
+<p><code>mongosh</code> 的改變很大，其中是語法高亮(syntax highlighting)，它讓許多「查詢狀態」指令類的結果好讀了許多，如：<strong>db.collection.getShardDistribution()</strong></p>
+<p><picture><img class="img-fluid" alt="IMAGE" src="/posts/notes/2021-08-01-mongodb-5-%E4%BE%86%E4%BA%86%E6%9C%89%E4%BB%80%E9%BA%BC%E5%80%BC%E5%BE%97%E6%B3%A8%E6%84%8F%E7%9A%84%E6%9B%B4%E6%96%B0/images/337D3E30E6C441AF29F9115C0FA4D119.jpg" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<h2 id="時間序列資料集-time-series-collection">時間序列資料集 (Time Series Collection)<a class="anchor ms-1" href="#時間序列資料集-time-series-collection"><i class="fas fa-link"></i></a></h2>
+<p>5.0 版引進時間序列資料集(Time Series Collection)，它優化儲存空間和查詢效能。</p>
+<p>使用者要顯示地用 <a href="https://docs.mongodb.com/manual/reference/method/db.createCollection/#mongodb-method-db.createCollection" target="_blank" rel="noopener noreferrer">db.createCollection()<i class="fas fa-external-link-square-alt ms-1"></i></a> 建立資料集：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="nx">db</span><span class="p">.</span><span class="nx">createCollection</span><span class="p">(</span><span class="s2">&#34;weather&#34;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">timeseries</span><span class="o">:</span> <span class="p">{</span> <span class="nx">timeField</span><span class="o">:</span> <span class="s2">&#34;timestamp&#34;</span> <span class="p">}</span> <span class="p">}</span> <span class="p">)</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="nx">db</span><span class="p">.</span><span class="nx">createCollection</span><span class="p">(</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">    <span class="s2">&#34;weather24h&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">       <span class="nx">timeseries</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">          <span class="nx">timeField</span><span class="o">:</span> <span class="s2">&#34;timestamp&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">          <span class="nx">metaField</span><span class="o">:</span> <span class="s2">&#34;metadata&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">          <span class="nx">granularity</span><span class="o">:</span> <span class="s2">&#34;hours&#34;</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">       <span class="p">},</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">       <span class="nx">expireAfterSeconds</span><span class="o">:</span> <span class="mi">86400</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="p">)</span>
+</span></span></code></pre></div><p>MongoDB 雖然會在內部建立 <em>timeField</em> 指定欄位的 index，使用者還是可以對 <em>metaField</em> 和 <em>timeFiel</em> 指定欄位建立<em>次索引</em>(<em>二級索引</em>) <a href="https://docs.mongodb.com/manual/core/timeseries/timeseries-secondary-index/#std-label-timeseries-add-secondary-index" target="_blank" rel="noopener noreferrer">Secondary Index<i class="fas fa-external-link-square-alt ms-1"></i></a> 來改善查詢效能。</p>
+<blockquote>
+<p>注意：二級索引的設定有些限制， 目前只能設定在 <strong>metadata</strong>(如果有設定) 和 <strong>timestamp</strong> 指定的欄位中，如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="nx">db</span><span class="p">.</span><span class="nx">weather24h</span><span class="p">.</span><span class="nx">createIndex</span><span class="p">({</span> <span class="s2">&#34;metadata.sensorId&#34;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&#34;timestamp&#34;</span><span class="o">:</span> <span class="mi">1</span> <span class="p">})</span>
+</span></span></code></pre></div></blockquote>
+<blockquote>
+<p>注意：目前 Time Series 還不能在 sharding 環境中，據說會在接下來的版本持續釋出。</p>
+</blockquote>
+<h2 id="aggregation">Aggregation<a class="anchor ms-1" href="#aggregation"><i class="fas fa-link"></i></a></h2>
+<p>使用 MongoDB 一定要學習的就是 <em>Aggregation Pipeline</em>，它幫助我們以流水線的方式處理/分析整個資料集(collection)。</p>
+<h3 id="setwindowfields-stage">$setWindowFields stage<a class="anchor ms-1" href="#setwindowfields-stage"><i class="fas fa-link"></i></a></h3>
+<p>從 MongoDB 4.2 引入 <a href="https://docs.mongodb.com/manual/reference/operator/aggregation/merge/" target="_blank" rel="noopener noreferrer"><code>$merge</code><i class="fas fa-external-link-square-alt ms-1"></i></a> stage 讓我們可以把聚合結果寫回並合併到指定的資料集(collection)。這次引入新的  <a href="https://docs.mongodb.com/manual/reference/operator/aggregation/setWindowFields/#mongodb-pipeline-pipe.-setWindowFields" target="_blank" rel="noopener noreferrer"><code>$setWindowFields</code><i class="fas fa-external-link-square-alt ms-1"></i></a> stage，我們可以在一個排序的資料集中，以及自定義的 window，對每個 document 的 window 所涵蓋的資料聚合計算，並儲存於 document 的 field 上。</p>
+<p><picture><img class="img-fluid" alt="IMAGE" src="/posts/notes/2021-08-01-mongodb-5-%E4%BE%86%E4%BA%86%E6%9C%89%E4%BB%80%E9%BA%BC%E5%80%BC%E5%BE%97%E6%B3%A8%E6%84%8F%E7%9A%84%E6%9B%B4%E6%96%B0/images/205E1EDC91FA1B5BAF557D3E052EC920.jpg" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>以上圖為例，就是對每筆訂單計算前十個月的訂單紀錄 <strong>recentOrders</strong>，完整例子見：<a href="https://docs.mongodb.com/manual/reference/operator/aggregation/setWindowFields/#use-a-time-range-window-with-a-positive-upper-bound" target="_blank" rel="noopener noreferrer">Use a Time Range Window with a Positive Upper Bound<i class="fas fa-external-link-square-alt ms-1"></i></a>。</p>
+<blockquote>
+<p>股票技術分析中的「移動平均線(Moving Average)」也可以用這個來實現。</p>
+</blockquote>
+<h3 id="聚合算子aggregation-operators">聚合算子(Aggregation Operators)<a class="anchor ms-1" href="#聚合算子aggregation-operators"><i class="fas fa-link"></i></a></h3>
+<p>同時增加分析 Time Series 資料可能會用到的算子。</p>
+<ol>
+<li>
+<p>時間日期操作(Date operation)：<a href="https://docs.mongodb.com/manual/reference/operator/aggregation/dateAdd/#mongodb-expression-exp.-dateAdd" target="_blank" rel="noopener noreferrer"><code>$dateAdd</code><i class="fas fa-external-link-square-alt ms-1"></i></a>，<a href="https://docs.mongodb.com/manual/reference/operator/aggregation/dateDiff/#mongodb-expression-exp.-dateDiff" target="_blank" rel="noopener noreferrer"><code>$dateDiff</code><i class="fas fa-external-link-square-alt ms-1"></i></a>，<a href="https://docs.mongodb.com/manual/reference/operator/aggregation/dateSubtract/#mongodb-expression-exp.-dateSubtract" target="_blank" rel="noopener noreferrer"><code>$dateSubtract</code><i class="fas fa-external-link-square-alt ms-1"></i></a>，<a href="https://docs.mongodb.com/manual/reference/operator/aggregation/dateTrunc/#mongodb-expression-exp.-dateTrunc" target="_blank" rel="noopener noreferrer"><code>$dateTrunc</code><i class="fas fa-external-link-square-alt ms-1"></i></a></p>
+</li>
+<li>
+<p><code>$group</code> 的聚合累積算子(aggregation accumulator)中新增 <a href="https://docs.mongodb.com/manual/reference/operator/aggregation/count-accumulator/#mongodb-group-grp.-count" target="_blank" rel="noopener noreferrer"><code>$count</code><i class="fas fa-external-link-square-alt ms-1"></i></a>，來計算各分群的數量。另外，此算子也可以用在 <a href="https://docs.mongodb.com/manual/reference/operator/aggregation/setWindowFields/#mongodb-pipeline-pipe.-setWindowFields" target="_blank" rel="noopener noreferrer"><code>$setWindowFields</code><i class="fas fa-external-link-square-alt ms-1"></i></a> 中。</p>
+</li>
+<li>
+<p>針對含有錢字 (<strong>$</strong>) 或句號 (<strong>.</strong>) 欄位名(field)的設定和取出: <a href="https://docs.mongodb.com/manual/reference/operator/aggregation/getField/#mongodb-expression-exp.-getField" target="_blank" rel="noopener noreferrer"><code>$getField</code><i class="fas fa-external-link-square-alt ms-1"></i></a> / <a href="https://docs.mongodb.com/manual/reference/operator/aggregation/setField/#mongodb-expression-exp.-setField" target="_blank" rel="noopener noreferrer"><code>$setField</code><i class="fas fa-external-link-square-alt ms-1"></i></a></p>
+</li>
+<li>
+<p>機率抽樣指定比率的文件(document)量 <a href="https://docs.mongodb.com/manual/reference/operator/aggregation/sampleRate/#mongodb-expression-exp.-sampleRate" target="_blank" rel="noopener noreferrer"><code>$sampleRate</code><i class="fas fa-external-link-square-alt ms-1"></i></a>。(這在 4.4.2 版已釋出)</p>
+</li>
+</ol>
+<h3 id="dbcollectionaggregate-增加-let-option">db.collection.aggregate() 增加 let Option<a class="anchor ms-1" href="#dbcollectionaggregate-增加-let-option"><i class="fas fa-link"></i></a></h3>
+<p><a href="https://docs.mongodb.com/manual/reference/method/db.collection.aggregate/#mongodb-method-db.collection.aggregat" target="_blank" rel="noopener noreferrer">db.collection.aggregate(pipeline,options)<i class="fas fa-external-link-square-alt ms-1"></i></a> 可以用 <em>let</em> option 改善 pipeline 的可讀性。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="ln">1</span><span class="cl"><span class="nx">db</span><span class="p">.</span><span class="nx">cakeSales</span><span class="p">.</span><span class="nx">aggregate</span><span class="p">(</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">   <span class="p">[</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">      <span class="p">{</span> <span class="nx">$match</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">         <span class="nx">$expr</span><span class="o">:</span> <span class="p">{</span> <span class="nx">$gt</span><span class="o">:</span> <span class="p">[</span> <span class="s2">&#34;$salesTotal&#34;</span><span class="p">,</span> <span class="s2">&#34;$$targetTotal&#34;</span> <span class="p">]</span> <span class="p">}</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">      <span class="p">}</span> <span class="p">}</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl">   <span class="p">],</span>
+</span></span><span class="line"><span class="ln">7</span><span class="cl">   <span class="p">{</span><span class="kd">let</span><span class="o">:</span> <span class="p">{</span> <span class="nx">targetTotal</span><span class="o">:</span> <span class="mi">3000</span> <span class="p">}</span> <span class="p">}</span>
+</span></span><span class="line"><span class="ln">8</span><span class="cl"><span class="p">)</span>
+</span></span></code></pre></div><p><strong>let</strong> 定義 <em>targetTotal</em> 變數，然後在 pipeline 中用 <em>$$targetTotal</em> 引用變數。這表示我們可讓 pipeline 可以更乾淨一點，也可以拿來分離非 pipeline 的程式碼。</p>
+<p>接下來，在分片叢集架構上，也加入了維運用的 <a href="https://docs.mongodb.com/manual/reference/command/refineCollectionShardKey/" target="_blank" rel="noopener noreferrer"><code>refineCollectionShardKey</code><i class="fas fa-external-link-square-alt ms-1"></i></a> 和 <a href="https://docs.mongodb.com/manual/reference/command/reshardCollection/#mongodb-dbcommand-dbcmd.reshardCollection" target="_blank" rel="noopener noreferrer"><code>reshardCollection</code><i class="fas fa-external-link-square-alt ms-1"></i></a>。</p>
+<h2 id="shared-cluster">Shared Cluster<a class="anchor ms-1" href="#shared-cluster"><i class="fas fa-link"></i></a></h2>
+<p>雖然在 4.4 版加入了 <a href="https://docs.mongodb.com/manual/reference/command/refineCollectionShardKey/" target="_blank" rel="noopener noreferrer"><code>refineCollectionShardKey</code><i class="fas fa-external-link-square-alt ms-1"></i></a> 來處理 <a href="https://docs.mongodb.com/manual/core/sharding-data-partitioning/#std-label-jumbo-chunks" target="_blank" rel="noopener noreferrer">jumbo chunks<i class="fas fa-external-link-square-alt ms-1"></i></a> 的議題 - 可能由於基數(cardinality) 不足引起而無法切分(split)的巨大 chunk。但還是沒有搔到癢處，因為除非很有經驗或是很確定查詢資料的方式或資料結構，否則不太容易第一次取的 shard key 就會很準確。這次 5.0 版終於可以用 <a href="https://docs.mongodb.com/manual/reference/command/reshardCollection/#mongodb-dbcommand-dbcmd.reshardCollection" target="_blank" rel="noopener noreferrer"><code>reshardCollection</code><i class="fas fa-external-link-square-alt ms-1"></i></a> 來修改 shard key。</p>
+<p>不過別高興的太早，因為會把一個資料集分散在個各分片，通常那資料集就是很大的資料量，所以要把大量的資料重新分配，可想而知是很巨大的挑戰，使用前請詳讀 <a href="https://docs.mongodb.com/manual/core/sharding-reshard-a-collection/#reshard-a-collection" target="_blank" rel="noopener noreferrer">Reshard a Collection<i class="fas fa-external-link-square-alt ms-1"></i></a>。</p>
+<p>另外，<a href="https://docs.mongodb.com/manual/reference/command/renameCollection/#mongodb-dbcommand-dbcmd.renameCollection" target="_blank" rel="noopener noreferrer"><code>renameCollection</code><i class="fas fa-external-link-square-alt ms-1"></i></a> 在 5.0 版也可以用在 sharded collection 上了。</p></div></div>
+  <div class="card-footer"><div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-next">
+    <a href="/posts/notes/2021-08-22-%E4%B8%80%E7%AA%BAkafka%E5%85%A7%E9%83%A8%E5%84%B2%E5%AD%98%E8%B3%87%E6%96%99/">一窺 Kafka 內部儲存資料
+</a>
+    <i class="fas fa-fw fa-chevron-circle-down post-next-icon" data-fa-transform="rotate-270"></i>
+  </div></div></div>
+</article><div class="post-copyright mb-3 row card component" id="post-copyright">
+    <div class="card-header">
+        <h2 class="card-title fs-4 my-2 text-surface">版權</h2>
+    </div>
+    <div class="card-body"><a class="d-flex align-items-center flex-column" target="_blank" rel="license noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_TW">
+  <span><i class="fab fa-fw fa-2x fa-creative-commons"></i><i class="fab fa-fw fa-2x fa-creative-commons-by"></i><i class="fab fa-fw fa-2x fa-creative-commons-nc"></i><i class="fab fa-fw fa-2x fa-creative-commons-sa"></i></span>
+  CC BY-NC-SA 4.0 
+</a>
+
+
+    </div>
+</div><section class="related-posts row card component">
+    <div class="card-header">
+      <h2 class="card-title fs-4 my-2 text-surface">相關文章</h2>
+    </div>
+    <div class="card-body">
+      <ul class="post-list list-unstyled"><li>
+          <a href="/series/2019-ithome-ironman/day-30-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-network-%E6%9A%A8%E5%AE%8C%E8%B3%BD%E5%9B%9E%E9%A1%A7/">Day 30- 三周目 - Docker Network 暨完賽回顧
+</a>
+          <span class="float-end post-date">2018-10-30
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-29-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-compose%E4%B8%80%E6%AC%A1%E7%AE%A1%E7%90%86%E5%A4%9A%E5%80%8B%E5%AE%B9%E5%99%A8/">Day 29- 三周目 - Docker Compose：一次管理多個容器
+</a>
+          <span class="float-end post-date">2018-10-29
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-28-%E4%B8%89%E5%91%A8%E7%9B%AE-%E8%A3%BD%E4%BD%9C%E8%87%AA%E5%B7%B1%E7%9A%84%E6%98%A0%E5%83%8F%E6%AA%94%E5%8C%85%E6%89%93%E5%89%8D%E5%BE%8C%E7%AB%AF%E6%98%A0%E5%83%8F%E6%AA%94/">Day 28 - 三周目 - 製作自己的映像檔：包打前後端映像檔
+</a>
+          <span class="float-end post-date">2018-10-28
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-27-%E4%B8%89%E5%91%A8%E7%9B%AE-%E4%BA%94%E5%88%86%E9%90%98%E5%BB%BA%E7%AB%8B%E7%A7%81%E6%9C%89-npm-verdaccio/">Day 27 - 三周目 - 五分鐘建立私有 NPM: Verdaccio
+</a>
+          <span class="float-end post-date">2018-10-27
+</span>
+        </li><li>
+          <a href="/series/2019-ithome-ironman/day-26-%E4%B8%89%E5%91%A8%E7%9B%AE-docker-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E7%9C%8B%E5%AE%8C%E5%B0%B1%E6%9C%83%E6%9E%B6-docker-%E5%8C%96%E7%9A%84%E6%9C%8D%E5%8B%99/">Day 26 - 三周目 - Docker 基本使用：看完就會架 Docker 化的服務
+</a>
+          <span class="float-end post-date">2018-10-26
+</span>
+        </li></ul>
+    </div>
+  </section><div class="card component row post-comments" id="post-comments">
+  <div class="card-header">
+    <h2 class="card-title my-2 fs-4 text-surface">評論</h2>
+  </div>
+  <div class="card-body"><script src="https://utteranc.es/client.js"
+  repo="eugenechen0514/eugenechen0514.github.io"
+  issue-term="pathname"
+  label="comment"
+  theme="github-light"
+  crossorigin="anonymous"
+  async>
+</script></div>
+</div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container d-flex flex-column">
+    
+    <div class="card row text-center profile component">
+  <div class="card-body">
+    <div class="col-12 d-flex align-items-center justify-content-center"><picture><img class="profile-avatar rounded-circle" alt="EugeneChen" src="/images/profile.webp" loading="lazy" data-viewer-invisible
+    
+     width="298" height="305"
+     />
+</picture>
+</div>
+    <div class="col-12 profile-meta"><div class="profile-name fw-fold fs-lg">EugeneChen</div><div class="profile-bio">軟體工程師，喜歡動手做些有的沒的專案，同時也喜愛數學、攝影、桌球，慢跑、游泳、作菜。</div><div class="profile-about"><i class="fas fa-fw fa-user"></i><a target="_blank" rel="noopener noreferrer" href="https://eugene-website.herokuapp.com">關於我</a></div><nav class="social-links nav justify-content-center"><a class="nav-link social-link" href="mailto:yujiechen0514@gmail.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i></a><a class="nav-link social-link" target="_blank" href="https://github.com/eugenechen0514" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-github"></i></a><a class="nav-link social-link" target="_blank" href="/index.xml" title="RSS" rel="noopener noreferrer">
+    <i class="fas fa-fw fa-2x fa-rss"></i></a></nav>
+</div>
+  </div>
+</div>
+<section class="taxonomies row card component">
+    <div class="card-body">
+        <ul class="nav nav-tabs" id="myTab" role="tablist"><li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="taxonomySeriesTab" data-bs-toggle="tab" data-bs-target="#taxonomySeries" 
+                        type="button" role="tab" aria-controls="專欄" aria-selected="true">
+                        專欄
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                    <button class="nav-link" id="taxonomyCategoriesTab" data-bs-toggle="tab" data-bs-target="#taxonomyCategories" 
+                        type="button" role="tab" aria-controls="分類" aria-selected="true">
+                        分類
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                    <button class="nav-link" id="taxonomyTagsTab" data-bs-toggle="tab" data-bs-target="#taxonomyTags" 
+                        type="button" role="tab" aria-controls="標籤" aria-selected="true">
+                        標籤
+                    </button>
+                </li><li class="nav-item" role="presentation">
+                <button class="nav-link" id="taxonomyArchivesTab" data-bs-toggle="tab" data-bs-target="#taxonomyArchive" 
+                    type="button" role="tab" aria-controls="taxonomyArchives" aria-selected="true">
+                    歸檔
+                </button>
+            </li>
+        </ul>
+          
+        <div class="tab-content mt-3"><div class="tab-pane active" id="taxonomySeries" role="tabpanel" aria-labelledby="taxonomySeriesTab" tabindex="0"><a href="/series/2019-ithome-ironman/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="用js成為老闆心中的全端工程師 - 2019 iT邦幫忙鐵人賽">
+                        用js成為老闆心中的全端工程師 - 2019 iT邦幫忙鐵人賽<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a></div><div class="tab-pane" id="taxonomyCategories" role="tabpanel" aria-labelledby="taxonomyCategoriesTab" tabindex="0"><a href="/categories/%E9%9A%A8%E6%89%8B%E7%AD%86%E8%A8%98/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="隨手筆記">
+                        隨手筆記<span class="badge badge-sm text-secondary bg-white ms-1">2</span></a><a href="/categories/%E5%BF%83%E5%BE%97/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="心得">
+                        心得<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a></div><div class="tab-pane" id="taxonomyTags" role="tabpanel" aria-labelledby="taxonomyTagsTab" tabindex="0"><a href="/tags/2019-it-%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2019 iT 邦幫忙鐵人賽">
+                        2019 iT 邦幫忙鐵人賽<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a><a href="/tags/%E7%94%A8js%E6%88%90%E7%82%BA%E8%80%81%E9%97%86%E5%BF%83%E4%B8%AD%E7%9A%84%E5%85%A8%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%AB/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="用js成為老闆心中的全端工程師">
+                        用js成為老闆心中的全端工程師<span class="badge badge-sm text-secondary bg-white ms-1">30</span></a><a href="/tags/alphacamp/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="AlphaCamp">
+                        AlphaCamp<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/kafka/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="Kafka">
+                        Kafka<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/mongodb/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="MongoDB">
+                        MongoDB<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/pandas/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="pandas">
+                        pandas<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/python/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="python">
+                        python<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a><a href="/tags/%E6%8E%A8%E8%96%A6%E7%B3%BB%E7%B5%B1/" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="推薦系統">
+                        推薦系統<span class="badge badge-sm text-secondary bg-white ms-1">1</span></a></div><div class="tab-pane" id="taxonomyArchive" role="tabpanel" aria-labelledby="taxonomyArchiveTab" tabindex="0"><a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2022">
+    2022 <span class="badge badge-sm text-secondary bg-white ms-1">1</span>
+    </a>
+<a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2021">
+    2021 <span class="badge badge-sm text-secondary bg-white ms-1">2</span>
+    </a>
+<a href="" class="btn btn-sm btn-secondary post-taxonomy me-2 mb-2" title="2018">
+    2018 <span class="badge badge-sm text-secondary bg-white ms-1">30</span>
+    </a>
+
+</div>
+        </div>
+    </div>
+</section><div class="post-toc row mb-4 card component" id="postTOC">
+  <div class="card-header">
+    <h2 class="card-title fs-4 my-2 text-surface">目錄</h2>
+  </div>
+  <div class="card-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#mongosh-shell"><code>mongosh</code> shell</a></li>
+    <li><a href="#時間序列資料集-time-series-collection">時間序列資料集 (Time Series Collection)</a></li>
+    <li><a href="#aggregation">Aggregation</a>
+      <ul>
+        <li><a href="#setwindowfields-stage"><code>$setWindowFields</code> stage</a></li>
+        <li><a href="#聚合算子aggregation-operators">聚合算子(Aggregation Operators)</a></li>
+        <li><a href="#dbcollectionaggregate-增加-let-option">db.collection.aggregate() 增加 <strong>let</strong> Option</a></li>
+      </ul>
+    </li>
+    <li><a href="#shared-cluster">Shared Cluster</a></li>
+  </ul>
+</nav>
+  </div>
+</div><section class="recent-posts row card component">
+  <div class="card-header">
+    <h2 class="card-title my-2 fs-4 text-surface">最近文章</h2>
+  </div>
+  <div class="card-body">
+    <ul class="post-list list-unstyled ms-1"><li class="mb-2">
+        <a href="/posts/reviews/2022-02-06-alphacamp%E6%8E%A8%E8%96%A6%E7%B3%BB%E7%B5%B1%E4%B8%8A%E8%AA%B2%E5%BF%83%E5%BE%97/">AlphaCamp 推薦系統上課心得
+</a>
+      </li><li class="mb-2">
+        <a href="/posts/notes/2021-08-22-%E4%B8%80%E7%AA%BAkafka%E5%85%A7%E9%83%A8%E5%84%B2%E5%AD%98%E8%B3%87%E6%96%99/">一窺 Kafka 內部儲存資料
+</a>
+      </li><li class="mb-2">
+        <a href="/posts/notes/2021-08-01-mongodb-5-%E4%BE%86%E4%BA%86%E6%9C%89%E4%BB%80%E9%BA%BC%E5%80%BC%E5%BE%97%E6%B3%A8%E6%84%8F%E7%9A%84%E6%9B%B4%E6%96%B0/">MongoDb 5 來了，有什麼值得注意的更新呢?
+</a>
+      </li></ul>
+  </div>
+</section>
+    
+  </div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><div class="offcanvas offcanvas-bottom h-auto" tabindex="-1" id="offcanvasActionsPanel"
+  aria-labelledby="offcanvasActionsPanelLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title fs-4" id="offcanvasActionsPanelLabel">
+      <i class="fas fa-fw fa-th-large me-1"></i>
+      Actions
+    </h5>
+    <button type="button" class="btn-close ms-auto" data-bs-dismiss="offcanvas" data-bs-target="offcanvasActionsPanel" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body mt-2"><div class="social-share mb-4 d-flex overflow-auto">
+      <a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Twitter Share Button"
+      target="_blank" href="https://twitter.com/intent/tweet?title=MongoDb%205%20%e4%be%86%e4%ba%86%ef%bc%8c%e6%9c%89%e4%bb%80%e9%ba%bc%e5%80%bc%e5%be%97%e6%b3%a8%e6%84%8f%e7%9a%84%e6%9b%b4%e6%96%b0%e5%91%a2%3f&url=%2fposts%2fnotes%2f2021-08-01-mongodb-5-%25E4%25BE%2586%25E4%25BA%2586%25E6%259C%2589%25E4%25BB%2580%25E9%25BA%25BC%25E5%2580%25BC%25E5%25BE%2597%25E6%25B3%25A8%25E6%2584%258F%25E7%259A%2584%25E6%259B%25B4%25E6%2596%25B0%2f">
+        <i class="fab fa-2x fa-fw fa-twitter mb-2"></i> Twitter
+      </a>
+      <a class="btn-social-share d-flex flex-column align-items-center me-3" rel="noopener noreferrer" aria-label="Facebook Share Button"
+        target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=%2fposts%2fnotes%2f2021-08-01-mongodb-5-%25E4%25BE%2586%25E4%25BA%2586%25E6%259C%2589%25E4%25BB%2580%25E9%25BA%25BC%25E5%2580%25BC%25E5%25BE%2597%25E6%25B3%25A8%25E6%2584%258F%25E7%259A%2584%25E6%259B%25B4%25E6%2596%25B0%2f">
+        <i class="fab fa-2x fa-fw fa-facebook-f mb-2"></i> Facebook
+      </a>
+    </div>
+    <hr class="mb-4"><div class="actions d-flex overflow-auto align-items-center">
+      <a role="button" class="action action-go-back d-flex flex-column align-items-center me-3" href="javascript: window.history.back();">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-chevron-circle-down" data-fa-transform="rotate-90"></i></span> 返回
+      </a>
+      <a role="button" class="action action-reload-page d-flex flex-column align-items-center me-3">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-redo-alt"></i></span> 刷新
+      </a>
+      <a role="button" class="action action-copy-url d-flex flex-column align-items-center me-3">
+        <span class="action-icon mb-2"><i class="fas fa-2x fa-link"></i></span> 複製連結
+      </a>
+    </div>
+  </div>
+</div><nav class="social-links nav justify-content-center mb-2"><a class="nav-link social-link" href="mailto:yujiechen0514@gmail.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i></a><a class="nav-link social-link" target="_blank" href="https://github.com/eugenechen0514" title="GitHub" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-github"></i></a><a class="nav-link social-link" target="_blank" href="https://linkedin.com/in/yuchieh-chen-37a48989" title="LinkedIn" rel="noopener noreferrer">
+        <i class="fa-fw fa-2x fab fa-linkedin-in"></i></a><a class="nav-link social-link" target="_blank" href="https://medium.com/@yujiechen0514" title="Medium" rel="noopener noreferrer">
+        <i class="fab fa-fw fa-2x fa-medium-m"></i></a><a class="nav-link social-link" target="_blank" href="/index.xml" title="RSS" rel="noopener noreferrer">
+    <i class="fas fa-fw fa-2x fa-rss"></i></a></nav>
+<div class="copyright mb-2">
+  Copyright © 2016-2022 EugeneChen. All Rights Reserved.
+</div>
+<div class="powered-by mb-2">
+  Powered by <a class="text-primary" href="https://gohugo.io" target="_blank" rel="noopener noreferrer">Hugo</a> and the <a class="text-primary" href="https://github.com/razonyang/hugo-theme-bootstrap" target="_blank" rel="noopener noreferrer">Bootstrap</a> theme.
+</div>
+<div class="sponsors">
+
+
+
+
+
+
+</div>
+</footer>
+<script src="/assets/main/bundle.min.2bc7d6952dbf38d6d2815939c58fc655e72d050b196d9fd99829d8fb23904646.js" integrity="sha256-K8fWlS2/ONbSgVk5xY/GVectBQsZbZ/ZmCnY&#43;yOQRkY=" crossorigin="anonymous" defer></script><script src="/assets/icons/bundle.min.a4bf8247f780c9bf61d579a8efe7129ec790bb98622bf4a29895eb21e689266c.js" integrity="sha256-pL&#43;CR/eAyb9h1Xmo7&#43;cSnseQu5hiK/SimJXrIeaJJmw=" crossorigin="anonymous" defer></script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('\/service-worker.min.js').then(function(reg) {
+      console.log('Successfully registered service worker', reg);
+    }).catch(function(err) {
+      console.warn('Error whilst registering service worker', err);
+    });
+  });
+}
+</script><script src="/assets/viewer/bundle.min.92d4a694e2e9a4c4d89b6998067e2f8e502dc7a951682bb5a160a3004b434908.js" integrity="sha256-ktSmlOLppMTYm2mYBn4vjlAtx6lRaCu1oWCjAEtDSQg=" crossorigin="anonymous" defer></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-ZWYL79X38Y', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+<script src="/assets/docsearch/bundle.min.c6965b5bee044b874617239932d6a7992b217f7949f895a7576980d110fb2ab1.js" integrity="sha256-xpZbW&#43;4ES4dGFyOZMtanmSshf3lJ&#43;JWnV2mA0RD7KrE=" crossorigin="anonymous" defer></script></body>
+</html>
